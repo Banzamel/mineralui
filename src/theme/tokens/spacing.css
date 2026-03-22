@@ -1,0 +1,17 @@
+:root {
+    --mineral-spacing-base: 8px;
+    --mineral-spacing-xs: calc(var(--mineral-spacing-base) * 0.5);
+    --mineral-spacing-sm: var(--mineral-spacing-base);
+    --mineral-spacing-md: calc(var(--mineral-spacing-base) * 1.5);
+    --mineral-spacing-lg: calc(var(--mineral-spacing-base) * 2);
+    --mineral-spacing-xl: calc(var(--mineral-spacing-base) * 3);
+    --mineral-spacing-2xl: calc(var(--mineral-spacing-base) * 4);
+
+    --mineral-space-none: 0;
+    --mineral-space-xs: var(--mineral-spacing-xs);
+    --mineral-space-sm: var(--mineral-spacing-sm);
+    --mineral-space-md: var(--mineral-spacing-md);
+    --mineral-space-lg: var(--mineral-spacing-lg);
+    --mineral-space-xl: var(--mineral-spacing-xl);
+    --mineral-space-2xl: var(--mineral-spacing-2xl);
+}

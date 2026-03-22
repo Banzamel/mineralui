@@ -1,0 +1,39 @@
+.input-number .stepper {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-left: var(--mineral-spacing-xs);
+}
+
+.input-number .step-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-text-secondary);
+    font-size: 0.5rem;
+    padding: 0 2px;
+    line-height: 1;
+    border-radius: 2px;
+    transition:
+        color var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast);
+    user-select: none;
+}
+
+.input-number .step-btn svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+}
+
+.input-number .step-btn:hover {
+    color: var(--mineral-text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.input-number .step-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+}

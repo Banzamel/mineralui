@@ -1,0 +1,73 @@
+.navbar {
+    width: 100%;
+    background: rgba(var(--mineral-dark-rgb, 15, 23, 42), 0.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent;
+    box-shadow: var(--mineral-shell-shadow);
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.navbar.surface {
+    background: rgba(var(--mineral-dark-light-rgb, 30, 41, 59), 0.88);
+    border-radius: 0;
+}
+
+.navbar.subtle {
+    background: rgba(var(--mineral-surface-rgb, 21, 29, 46), 0.72);
+}
+
+.navbar.default {
+    background: transparent;
+}
+
+.navbar.bordered {
+    border-bottom-color: var(--mineral-border);
+}
+
+.navbar.sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--mineral-z-popover, 1000);
+}
+
+.navbar .container {
+    min-height: var(--mineral-navbar-height);
+}
+
+.navbar .inner {
+    display: flex;
+    gap: var(--mineral-spacing-md);
+    min-height: inherit;
+}
+
+.navbar .inner.start {
+    justify-content: flex-start;
+}
+
+.navbar .inner.center {
+    justify-content: center;
+}
+
+.navbar .inner.between {
+    justify-content: space-between;
+}
+
+.navbar .inner.end {
+    justify-content: flex-end;
+}
+
+.navbar .inner.start,
+.navbar .inner.center,
+.navbar .inner.end,
+.navbar .inner.between {
+    align-items: center;
+}
+
+.navbar .inner.stretch {
+    align-items: stretch;
+}
+
+.navbar .inner.wrap {
+    flex-wrap: wrap;
+}

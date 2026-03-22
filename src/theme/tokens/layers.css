@@ -1,0 +1,44 @@
+:root {
+    --mineral-z-popover: 1000;
+    --mineral-z-modal: 1100;
+    --mineral-z-toast: 1200;
+}
+
+.mineral-light {
+    --mineral-dark-rgb: 255, 255, 255;
+    --mineral-dark: rgba(255, 255, 255, 1);
+    --mineral-dark-light-rgb: 255, 255, 255;
+    --mineral-dark-light: rgba(255, 255, 255, 1);
+    --mineral-surface-rgb: 255, 255, 255;
+    --mineral-surface: rgba(255, 255, 255, 1);
+    --mineral-surface-contrast: rgba(226, 232, 240, 1);
+    --mineral-input-bg: rgba(255, 255, 255, 1);
+    --mineral-page-bg: rgba(243, 244, 246, 1);
+    --mineral-page-text: rgba(30, 41, 59, 1);
+
+    --mineral-text: rgba(30, 41, 59, 1);
+    --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-heading: rgba(31, 41, 55, 0.84);
+    --mineral-text-inverted: rgba(255, 255, 255, 1);
+
+    --mineral-fcolor-default: var(--mineral-text);
+    --mineral-fcolor-muted: var(--mineral-text-secondary);
+    --mineral-fcolor-heading: var(--mineral-text-heading);
+    --mineral-fcolor-inverted: var(--mineral-text-inverted);
+
+    --mineral-border: rgba(0, 0, 0, 0.12);
+    --mineral-border-hover: rgba(0, 0, 0, 0.2);
+
+    --mineral-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --mineral-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --mineral-shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.1);
+    --mineral-shadow-focus: 0 0 0 3px rgba(var(--mineral-primary-rgb), 0.3);
+    --mineral-popover-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --mineral-shell-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+    --mineral-popover-bg: rgba(255, 255, 255, 0.97);
+    --mineral-popover-border: rgba(0, 0, 0, 0.08);
+    --mineral-option-hover-bg: rgba(0, 0, 0, 0.04);
+    --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.1);
+    --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.18);
+}

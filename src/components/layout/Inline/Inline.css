@@ -1,0 +1,67 @@
+.inline {
+    display: flex;
+}
+
+.inline.wrap {
+    flex-wrap: wrap;
+}
+
+.inline.nowrap {
+    flex-wrap: nowrap;
+}
+
+.inline.xs {
+    gap: var(--mineral-spacing-xs);
+}
+
+.inline.sm {
+    gap: var(--mineral-spacing-sm);
+}
+
+.inline.md {
+    gap: var(--mineral-spacing-md);
+}
+
+.inline.lg {
+    gap: var(--mineral-spacing-lg);
+}
+
+.inline.xl {
+    gap: var(--mineral-spacing-xl);
+}
+
+.inline.gap-2xl {
+    gap: var(--mineral-spacing-2xl);
+}
+
+.inline.start {
+    align-items: flex-start;
+}
+
+.inline.center {
+    align-items: center;
+}
+
+.inline.end {
+    align-items: flex-end;
+}
+
+.inline.stretch {
+    align-items: stretch;
+}
+
+.inline.justify-start {
+    justify-content: flex-start;
+}
+
+.inline.justify-center {
+    justify-content: center;
+}
+
+.inline.justify-end {
+    justify-content: flex-end;
+}
+
+.inline.justify-between {
+    justify-content: space-between;
+}

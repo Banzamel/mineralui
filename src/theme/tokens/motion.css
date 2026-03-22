@@ -1,0 +1,5 @@
+:root {
+    --mineral-transition-fast: 150ms ease;
+    --mineral-transition-base: 300ms ease;
+    --mineral-transition-slow: 450ms ease;
+}

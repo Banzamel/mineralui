@@ -1,0 +1,25 @@
+.footer {
+    width: 100%;
+    color: var(--mineral-page-text);
+    border-radius: 0;
+}
+
+.footer.default {
+    background: transparent;
+}
+.footer.surface {
+    background: color-mix(in srgb, var(--mineral-page-bg) 62%, var(--mineral-surface) 38%);
+}
+.footer.subtle {
+    background: color-mix(in srgb, var(--mineral-page-bg) 94%, var(--mineral-surface) 6%);
+}
+.footer.bordered {
+    border-top: 1px solid var(--mineral-border);
+}
+.footer .inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 64px;
+}

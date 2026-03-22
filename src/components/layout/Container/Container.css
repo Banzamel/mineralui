@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.container.content {
+    max-width: var(--mineral-content-max-width);
+}
+
+.container.wide {
+    max-width: 1360px;
+}
+
+.container.full {
+    max-width: none;
+}
+
+.container.padded {
+    padding-left: var(--mineral-spacing-lg);
+    padding-right: var(--mineral-spacing-lg);
+}

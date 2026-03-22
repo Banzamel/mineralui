@@ -1,0 +1,8 @@
+:root {
+    --mineral-radius-base: 8px;
+    --mineral-radius-sm: calc(var(--mineral-radius-base) * 0.75);
+    --mineral-radius-md: var(--mineral-radius-base);
+    --mineral-radius-lg: calc(var(--mineral-radius-base) * 1.25);
+    --mineral-radius-xl: calc(var(--mineral-radius-base) * 2);
+    --mineral-radius-full: 9999px;
+}

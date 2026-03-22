@@ -1,0 +1,127 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--mineral-radius-lg);
+}
+
+.carousel-viewport {
+    overflow: hidden;
+    user-select: none;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-track.dragging {
+    transition: none;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+}
+
+/* Fade mode */
+.carousel--fade .carousel-track {
+    display: grid;
+    transition: none;
+}
+
+.carousel--fade .carousel-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.carousel--fade .carousel-slide--active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--mineral-radius-full);
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    transition:
+        background-color var(--mineral-transition-fast),
+        opacity var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast);
+    opacity: 0;
+}
+
+.carousel:hover .carousel-arrow {
+    opacity: 1;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-arrow:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.carousel-arrow-prev {
+    left: var(--mineral-spacing-sm);
+}
+
+.carousel-arrow-next {
+    right: var(--mineral-spacing-sm);
+}
+
+/* Dots */
+.carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mineral-spacing-xs);
+    padding: var(--mineral-spacing-md) 0;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: var(--mineral-radius-full);
+    background-color: rgba(var(--mineral-primary-rgb), 0.2);
+    cursor: pointer;
+    transition:
+        background-color var(--mineral-transition-fast),
+        width var(--mineral-transition-fast);
+}
+
+.carousel-dot:hover {
+    background-color: rgba(var(--mineral-primary-rgb), 0.45);
+}
+
+.carousel-dot.active {
+    width: 24px;
+    background-color: rgba(var(--mineral-primary-rgb), 1);
+}
+
+/* Touch: always show arrows on touch devices */
+@media (pointer: coarse) {
+    .carousel .carousel-arrow {
+        opacity: 0.8;
+    }
+}

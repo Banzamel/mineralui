@@ -1,0 +1,363 @@
+.date-picker {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    font-family: var(--mineral-font-family);
+    position: relative;
+}
+
+.date-picker.full-width {
+    width: 100%;
+}
+
+.date-picker .label {
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-text-secondary);
+    font-weight: 500;
+    transition: color var(--mineral-transition-fast);
+}
+
+.date-picker .label.focused {
+    color: var(--mineral-primary);
+}
+.date-picker .label.error {
+    color: var(--mineral-error);
+}
+.date-picker .label.required::after {
+    content: ' *';
+    color: var(--mineral-error);
+}
+
+.date-picker /* === Trigger === */
+.trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition:
+        border-color var(--mineral-transition-base),
+        box-shadow var(--mineral-transition-base);
+}
+
+.date-picker .trigger.outlined {
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md);
+    background: var(--mineral-input-bg);
+}
+.date-picker .trigger.outlined:hover:not(.disabled) {
+    border-color: var(--mineral-border-hover);
+}
+.date-picker .trigger.outlined.focused {
+    border-color: var(--mineral-border-focus);
+    box-shadow: var(--mineral-shadow-focus);
+}
+
+.date-picker .trigger.filled {
+    border: none;
+    border-bottom: 2px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md) var(--mineral-radius-md) 0 0;
+    background: var(--mineral-surface);
+}
+.date-picker .trigger.filled.focused {
+    border-bottom-color: var(--mineral-primary);
+}
+
+.date-picker .trigger.underlined {
+    border: none;
+    border-bottom: 1px solid var(--mineral-border);
+    border-radius: 0;
+    background: transparent;
+}
+.date-picker .trigger.underlined.focused {
+    border-bottom: 2px solid var(--mineral-primary);
+}
+
+.date-picker .trigger.sm {
+    height: 32px;
+    padding: 0 var(--mineral-spacing-sm);
+    font-size: var(--mineral-font-size-xs);
+}
+.date-picker .trigger.md {
+    height: 40px;
+    padding: 0 var(--mineral-spacing-md);
+    font-size: var(--mineral-font-size-sm);
+}
+.date-picker .trigger.lg {
+    height: 48px;
+    padding: 0 var(--mineral-spacing-lg);
+    font-size: var(--mineral-font-size-md);
+}
+
+.date-picker .trigger.error {
+    border-color: var(--mineral-error) !important;
+}
+.date-picker .trigger.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.date-picker .icon {
+    display: flex;
+    align-items: center;
+    color: var(--mineral-text-secondary);
+    margin-right: var(--mineral-spacing-sm);
+    flex-shrink: 0;
+}
+
+.date-picker .input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--mineral-text);
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+}
+
+.date-picker .input::placeholder {
+    color: var(--mineral-text-secondary);
+    opacity: 0.6;
+}
+.date-picker .input:disabled {
+    cursor: not-allowed;
+}
+
+.date-picker .clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    cursor: pointer;
+    color: var(--mineral-text-secondary);
+    background: none;
+    border: none;
+    border-radius: var(--mineral-radius-sm);
+    font-size: 0.75rem;
+    transition: color var(--mineral-transition-fast);
+}
+
+.date-picker .clear-btn svg,
+.date-picker .nav-btn,
+.date-picker-popover .nav-btn svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+.date-picker .clear-btn:hover {
+    color: var(--mineral-text);
+}
+
+.date-picker .calendar,
+.date-picker-popover .calendar {
+    padding: var(--mineral-spacing-sm);
+    width: 280px;
+}
+
+.date-picker-popover.popover {
+    background: var(--mineral-surface, var(--mineral-popover-bg));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    max-height: none;
+    overflow: visible;
+}
+
+.date-picker /* === Header === */
+.calendar-header,
+.date-picker-popover .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--mineral-spacing-sm);
+}
+
+.date-picker .nav-btn,
+.date-picker-popover .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-text-secondary);
+    border-radius: var(--mineral-radius-sm);
+    transition:
+        color var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast);
+}
+
+.date-picker .nav-btn,
+.date-picker-popover .nav-btn:hover {
+    color: var(--mineral-text);
+    background: var(--mineral-option-hover-bg);
+}
+
+.date-picker .header-title,
+.date-picker-popover .header-title {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-text);
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    font-family: inherit;
+    padding: 4px 8px;
+    border-radius: var(--mineral-radius-sm);
+    transition: background-color var(--mineral-transition-fast);
+}
+
+.date-picker .header-title,
+.date-picker-popover .header-title:hover {
+    background: var(--mineral-option-hover-bg);
+}
+
+.date-picker /* === Day names === */
+.day-names,
+.date-picker-popover .day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
+.date-picker .day,
+.date-picker-popover .day-name,
+.date-picker-popover .day-name {
+    text-align: center;
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.date-picker /* === Day grid === */
+.day-grid,
+.date-picker-popover .day-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.date-picker .day,
+.date-picker-popover .day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-text);
+    font-size: var(--mineral-font-size-xs);
+    font-family: inherit;
+    border-radius: var(--mineral-radius-sm);
+    transition:
+        background-color var(--mineral-transition-fast),
+        color var(--mineral-transition-fast);
+}
+
+.date-picker .day,
+.date-picker-popover .day:hover:not(.disabled):not(.selected) {
+    background: var(--mineral-option-hover-bg);
+}
+
+.date-picker .day,
+.date-picker-popover .day.other-month {
+    color: var(--mineral-text-secondary);
+    opacity: 0.4;
+}
+
+.date-picker .day,
+.date-picker-popover .day.today {
+    border: 1px solid var(--mineral-primary);
+}
+
+.date-picker .day,
+.date-picker-popover .day.selected {
+    background: var(--mineral-primary) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+.date-picker .day,
+.date-picker-popover .day.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.date-picker /* === Month grid === */
+.month-grid,
+.date-picker-popover .month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.date-picker .month-cell,
+.date-picker-popover .month-cell {
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-text);
+    font-size: var(--mineral-font-size-sm);
+    font-family: inherit;
+    border-radius: var(--mineral-radius-sm);
+    transition: background-color var(--mineral-transition-fast);
+}
+
+.date-picker .month-cell,
+.date-picker-popover .month-cell:hover {
+    background: var(--mineral-option-hover-bg);
+}
+.date-picker .month-cell,
+.date-picker-popover .month-cell.selected {
+    background: var(--mineral-option-selected-bg);
+    font-weight: 600;
+}
+
+.date-picker /* === Footer === */
+.footer,
+.date-picker-popover .footer {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--mineral-spacing-sm);
+    padding-top: var(--mineral-spacing-sm);
+    border-top: 1px solid var(--mineral-popover-border);
+}
+
+.date-picker .today-btn,
+.date-picker-popover .today-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mineral-primary);
+    font-size: var(--mineral-font-size-sm);
+    font-family: inherit;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: var(--mineral-radius-sm);
+    transition: background-color var(--mineral-transition-fast);
+}
+
+.date-picker .today-btn,
+.date-picker-popover .today-btn:hover {
+    background: var(--mineral-option-hover-bg);
+}
+
+.date-picker /* === Bottom row === */
+.bottom-row {
+    display: flex;
+    gap: var(--mineral-spacing-sm);
+}
+.date-picker .helper-text {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+}
+.date-picker .error-text {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-error);
+}

@@ -1,0 +1,74 @@
+.rating {
+    --color-rgb: var(--mineral-warning-rgb);
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.rating.primary {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
+.rating.neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+
+.rating.success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+
+.rating.error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+
+.rating.warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+
+.rating.info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+
+.rating.danger {
+    --color-rgb: var(--mineral-danger-rgb);
+}
+
+.rating.sm {
+    font-size: 1rem;
+}
+
+.rating.md {
+    font-size: 1.25rem;
+}
+
+.rating.lg {
+    font-size: 1.5rem;
+}
+
+.rating-star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: none;
+    color: rgba(var(--color-rgb), 0.25);
+    cursor: pointer;
+    font-size: inherit;
+    line-height: 1;
+    transition:
+        color var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast);
+}
+
+.rating-star:hover:not(:disabled) {
+    transform: scale(1.15);
+}
+
+.rating-star.filled {
+    color: rgba(var(--color-rgb), 1);
+}
+
+.rating.read-only .rating-star {
+    cursor: default;
+}

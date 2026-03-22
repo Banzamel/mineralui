@@ -1,0 +1,36 @@
+.section {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.section.sm {
+    padding: 20px 0;
+}
+
+.section.md {
+    padding: 32px 0;
+}
+
+.section.lg {
+    padding: 48px 0;
+}
+
+.section.xl {
+    padding: 72px 0;
+}
+
+.section.default {
+    background: transparent;
+}
+
+.section.subtle {
+    background: color-mix(in srgb, var(--mineral-page-bg) 82%, var(--mineral-surface) 18%);
+}
+
+.section.surface {
+    background: var(--mineral-dark-light);
+}
+
+.section.inverse {
+    background: color-mix(in srgb, var(--mineral-dark) 92%, black 8%);
+}

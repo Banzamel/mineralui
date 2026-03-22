@@ -1,0 +1,44 @@
+.stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.stack.xs {
+    gap: var(--mineral-spacing-xs);
+}
+
+.stack.sm {
+    gap: var(--mineral-spacing-sm);
+}
+
+.stack.md {
+    gap: var(--mineral-spacing-md);
+}
+
+.stack.lg {
+    gap: var(--mineral-spacing-lg);
+}
+
+.stack.xl {
+    gap: var(--mineral-spacing-xl);
+}
+
+.stack.gap-2xl {
+    gap: var(--mineral-spacing-2xl);
+}
+
+.stack.stretch {
+    align-items: stretch;
+}
+
+.stack.start {
+    align-items: flex-start;
+}
+
+.stack.center {
+    align-items: center;
+}
+
+.stack.end {
+    align-items: flex-end;
+}

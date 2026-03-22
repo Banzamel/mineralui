@@ -1,0 +1,103 @@
+:root {
+    /* Brand palette — override only *-rgb, rest is auto-generated */
+    --mineral-primary-rgb: 0, 165, 222;
+    --mineral-primary: rgba(var(--mineral-primary-rgb), 1);
+    --mineral-primary-dark: color-mix(in srgb, rgba(var(--mineral-primary-rgb), 1) 80%, black);
+    --mineral-primary-light: color-mix(in srgb, rgba(var(--mineral-primary-rgb), 1) 70%, white);
+    --mineral-primary-contrast: rgba(255, 255, 255, 1);
+
+    /* Neutral palette */
+    --mineral-neutral-rgb: 100, 116, 139;
+    --mineral-neutral: rgba(var(--mineral-neutral-rgb), 1);
+    --mineral-neutral-dark: color-mix(in srgb, rgba(var(--mineral-neutral-rgb), 1) 80%, black);
+    --mineral-neutral-soft: color-mix(in srgb, rgba(var(--mineral-neutral-rgb), 1) 65%, white);
+    --mineral-neutral-contrast: rgba(255, 255, 255, 1);
+
+    /* Status palette — override only *-rgb */
+    --mineral-success-rgb: 22, 163, 74;
+    --mineral-success: rgba(var(--mineral-success-rgb), 1);
+    --mineral-success-dark: color-mix(in srgb, rgba(var(--mineral-success-rgb), 1) 75%, black);
+    --mineral-success-contrast: rgba(255, 255, 255, 1);
+    --mineral-error-rgb: 220, 38, 38;
+    --mineral-error: rgba(var(--mineral-error-rgb), 1);
+    --mineral-error-dark: color-mix(in srgb, rgba(var(--mineral-error-rgb), 1) 75%, black);
+    --mineral-error-contrast: rgba(255, 255, 255, 1);
+    --mineral-warning-rgb: 234, 124, 0;
+    --mineral-warning: rgba(var(--mineral-warning-rgb), 1);
+    --mineral-warning-dark: color-mix(in srgb, rgba(var(--mineral-warning-rgb), 1) 75%, black);
+    --mineral-warning-contrast: rgba(15, 23, 42, 1);
+    --mineral-info-rgb: 59, 130, 246;
+    --mineral-info: rgba(var(--mineral-info-rgb), 1);
+    --mineral-info-dark: color-mix(in srgb, rgba(var(--mineral-info-rgb), 1) 80%, black);
+    --mineral-info-contrast: rgba(255, 255, 255, 1);
+
+    /* Danger alias */
+    --mineral-danger-rgb: var(--mineral-error-rgb);
+    --mineral-danger: var(--mineral-error);
+    --mineral-danger-dark: var(--mineral-error-dark);
+    --mineral-danger-contrast: var(--mineral-error-contrast);
+
+    /* Surface palette - dark mode */
+    --mineral-dark-rgb: 15, 23, 42;
+    --mineral-dark: rgba(var(--mineral-dark-rgb), 1);
+    --mineral-dark-light-rgb: 30, 41, 59;
+    --mineral-dark-light: rgba(var(--mineral-dark-light-rgb), 1);
+    --mineral-surface-rgb: 21, 29, 46;
+    --mineral-surface: rgba(var(--mineral-surface-rgb), 1);
+    --mineral-surface-contrast: rgba(10, 16, 30, 1);
+    --mineral-input-bg: rgba(37, 51, 71, 1);
+    --mineral-page-bg: var(--mineral-dark);
+    --mineral-page-text: var(--mineral-text);
+
+    /* Text palette */
+    --mineral-text: rgba(226, 232, 240, 1);
+    --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-heading: rgba(241, 245, 249, 0.96);
+    --mineral-text-inverted: rgba(15, 23, 42, 1);
+
+    /* Font colors */
+    --mineral-fcolor-default: var(--mineral-text);
+    --mineral-fcolor-muted: var(--mineral-text-secondary);
+    --mineral-fcolor-heading: var(--mineral-text-heading);
+    --mineral-fcolor-inverted: var(--mineral-text-inverted);
+    --mineral-fcolor-primary: var(--mineral-primary);
+    --mineral-fcolor-neutral: var(--mineral-neutral);
+    --mineral-fcolor-success: var(--mineral-success);
+    --mineral-fcolor-error: var(--mineral-error);
+    --mineral-fcolor-warning: var(--mineral-warning);
+    --mineral-fcolor-info: var(--mineral-info);
+    --mineral-fcolor-danger: var(--mineral-danger);
+
+    /* Borders and states */
+    --mineral-border: rgba(255, 255, 255, 0.15);
+    --mineral-border-hover: rgba(255, 255, 255, 0.25);
+    --mineral-border-focus: var(--mineral-primary);
+
+    /* Text rendering */
+    --mineral-text-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
+
+    /* Shell shadow (sidebar, navbar — visible in light mode) */
+    --mineral-shell-shadow: none;
+
+    /* Gleam — subtle color-tinted gradient overlay
+       --mineral-gleam-intensity: opacity of the tint (0.0–1.0)
+       --mineral-gleam uses primary color; components override with --color-rgb */
+    --mineral-gleam-intensity: 0.06;
+    --mineral-gleam: linear-gradient(
+        135deg,
+        rgba(var(--mineral-primary-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
+
+    /* Control hover shadow */
+    --mineral-control-shadow: 0 4px 14px rgba(var(--mineral-primary-rgb), 0.16),
+        0 2px 6px rgba(var(--mineral-primary-rgb), 0.08);
+
+    /* Popover and dropdown */
+    --mineral-popover-bg: rgba(30, 41, 59, 0.95);
+    --mineral-popover-border: rgba(255, 255, 255, 0.08);
+    --mineral-popover-backdrop-blur: 12px;
+    --mineral-option-hover-bg: rgba(255, 255, 255, 0.05);
+    --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.15);
+    --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.25);
+}

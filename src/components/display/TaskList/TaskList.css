@@ -1,0 +1,87 @@
+.task-list {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+}
+
+.task-list.primary {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
+.task-list.neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+
+.task-list.success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+
+.task-list.error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+
+.task-list.warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+
+.task-list.info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+
+.task-list.danger {
+    --color-rgb: var(--mineral-danger-rgb);
+}
+
+.task-list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    padding: var(--mineral-spacing-xs) var(--mineral-spacing-sm);
+    border-radius: var(--mineral-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--mineral-transition-fast);
+    font-size: var(--mineral-font-size-sm);
+}
+
+.task-list-item:hover {
+    background-color: rgba(var(--color-rgb), 0.06);
+}
+
+.task-list-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.task-list-checkbox {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(var(--color-rgb), 0.4);
+    border-radius: var(--mineral-radius-sm);
+    background: none;
+    cursor: inherit;
+    flex-shrink: 0;
+    transition:
+        background-color var(--mineral-transition-fast),
+        border-color var(--mineral-transition-fast);
+}
+
+.task-list-checkbox:checked {
+    background-color: rgba(var(--color-rgb), 1);
+    border-color: rgba(var(--color-rgb), 1);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.task-list-label {
+    flex: 1;
+    transition: opacity var(--mineral-transition-fast);
+}
+
+.task-list-label.done {
+    text-decoration: line-through;
+    opacity: 0.55;
+}

@@ -1,0 +1,7 @@
+.input-currency .symbol {
+    font-size: inherit;
+    color: var(--mineral-text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+    font-family: var(--mineral-font-family);
+}

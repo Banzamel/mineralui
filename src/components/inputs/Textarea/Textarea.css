@@ -1,0 +1,257 @@
+/* === Wrapper === */
+.textarea {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    font-family: var(--mineral-font-family);
+    position: relative;
+}
+
+.textarea.full-width {
+    width: 100%;
+}
+
+/* === Label === */
+.textarea .label {
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-text-secondary);
+    font-weight: 500;
+    transition: color var(--mineral-transition-fast);
+}
+
+.textarea .label.focused {
+    color: var(--mineral-primary);
+}
+
+.textarea .label.error {
+    color: var(--mineral-error);
+}
+
+.textarea .label.success {
+    color: var(--mineral-success);
+}
+
+.textarea .label.required::after {
+    content: ' *';
+    color: var(--mineral-error);
+}
+
+/* === Container === */
+.textarea .container {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: flex;
+    position: relative;
+    transition:
+        border-color var(--mineral-transition-base),
+        box-shadow var(--mineral-transition-base),
+        background-color var(--mineral-transition-base);
+}
+
+.textarea .container.color-neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+
+.textarea .container.color-success,
+.textarea .container.success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+
+.textarea .container.color-error,
+.textarea .container.error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+
+.textarea .container.color-warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+
+.textarea .container.color-info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+
+/* --- Variant: outlined --- */
+.textarea .container.outlined {
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md);
+    background: var(--mineral-input-bg);
+}
+
+.textarea .container.outlined:hover:not(.textarea .container.disabled) {
+    border-color: var(--mineral-border-hover);
+}
+
+.textarea .container.outlined.focused {
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.22);
+}
+
+/* --- Variant: filled --- */
+.textarea .container.filled {
+    border: none;
+    border-bottom: 2px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md) var(--mineral-radius-md) 0 0;
+    background: var(--mineral-surface);
+}
+
+.textarea .container.filled:hover:not(.textarea .container.disabled) {
+    background: color-mix(in oklch, var(--mineral-surface), white 3%);
+}
+
+.textarea .container.filled.focused {
+    border-bottom-color: rgba(var(--color-rgb), 1);
+}
+
+/* --- Variant: underlined --- */
+.textarea .container.underlined {
+    border: none;
+    border-bottom: 1px solid var(--mineral-border);
+    border-radius: 0;
+    background: transparent;
+}
+
+.textarea .container.underlined:hover:not(.textarea .container.disabled) {
+    border-bottom-color: var(--mineral-border-hover);
+}
+
+.textarea .container.underlined.focused {
+    border-bottom: 2px solid rgba(var(--color-rgb), 1);
+}
+
+/* --- Status --- */
+.textarea .container.error {
+    border-color: var(--mineral-error) !important;
+}
+
+.textarea .container.error.focused {
+    box-shadow: 0 0 0 3px rgba(var(--mineral-error-rgb), 0.22);
+}
+
+.textarea .container.success {
+    border-color: var(--mineral-success) !important;
+}
+
+.textarea .container.success.focused {
+    box-shadow: 0 0 0 3px rgba(var(--mineral-success-rgb), 0.22);
+}
+
+.textarea .container.color-neutral.focused {
+    border-color: var(--mineral-neutral);
+    box-shadow: 0 0 0 3px rgba(var(--mineral-neutral-rgb), 0.18);
+}
+
+.textarea .container.color-warning.focused {
+    border-color: var(--mineral-warning);
+    box-shadow: 0 0 0 3px rgba(var(--mineral-warning-rgb), 0.22);
+}
+
+.textarea .container.color-info.focused {
+    border-color: var(--mineral-info);
+    box-shadow: 0 0 0 3px rgba(var(--mineral-info-rgb), 0.22);
+}
+
+/* --- Sizes --- */
+.textarea .container.sm {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.textarea .container.sm .field {
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-sm);
+}
+
+.textarea .container.md {
+    font-size: var(--mineral-font-size-sm);
+}
+
+.textarea .container.md .field {
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);
+}
+
+.textarea .container.lg {
+    font-size: var(--mineral-font-size-md);
+}
+
+.textarea .container.lg .field {
+    padding: var(--mineral-spacing-md) var(--mineral-spacing-lg);
+}
+
+/* --- Disabled --- */
+.textarea .container.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* === Textarea element === */
+.textarea .field {
+    flex: 1;
+    width: 100%;
+    min-height: 60px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--mineral-text);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.textarea .field::placeholder {
+    color: var(--mineral-text-secondary);
+    opacity: 0.6;
+}
+
+.textarea .field:disabled {
+    cursor: not-allowed;
+    resize: none;
+}
+
+/* === Spinner === */
+.textarea .spinner {
+    position: absolute;
+    top: var(--mineral-spacing-sm);
+    right: var(--mineral-spacing-sm);
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(var(--color-rgb), 0.22);
+    border-top-color: rgba(var(--color-rgb), 1);
+    border-radius: 50%;
+    animation: textarea-spin 0.6s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes textarea-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* === Bottom row === */
+.textarea .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--mineral-spacing-sm);
+}
+
+.textarea .helper-text {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    margin-top: 2px;
+}
+
+.textarea .error-text {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-error);
+    margin-top: 2px;
+}
+
+.textarea .char-count {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    text-align: right;
+    margin-top: 2px;
+}
+
+.textarea .char-count.over {
+    color: var(--mineral-error);
+}

@@ -1,0 +1,13 @@
+:root {
+    --mineral-font-family-sans: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --mineral-font-family-heading: var(--mineral-font-family-sans);
+    --mineral-font-family-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+    --mineral-font-family: var(--mineral-font-family-sans);
+
+    --mineral-font-size-xs: 0.75rem;
+    --mineral-font-size-sm: 0.875rem;
+    --mineral-font-size-md: 1rem;
+    --mineral-font-size-lg: 1.125rem;
+    --mineral-font-size-xl: 1.25rem;
+    --mineral-font-size-2xl: 1.5rem;
+}

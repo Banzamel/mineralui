@@ -1,0 +1,59 @@
+.grid {
+    --grid-min-item-width: 240px;
+    display: grid;
+}
+
+.grid.xs {
+    gap: var(--mineral-spacing-xs);
+}
+
+.grid.sm {
+    gap: var(--mineral-spacing-sm);
+}
+
+.grid.md {
+    gap: var(--mineral-spacing-md);
+}
+
+.grid.lg {
+    gap: var(--mineral-spacing-lg);
+}
+
+.grid.xl {
+    gap: var(--mineral-spacing-xl);
+}
+
+.grid.gap-2xl {
+    gap: var(--mineral-spacing-2xl);
+}
+
+.grid.columns-1 {
+    grid-template-columns: 1fr;
+}
+
+.grid.columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid.columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid.columns-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+    .grid.columns-4,
+    .grid.columns-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .grid.columns-2,
+    .grid.columns-3,
+    .grid.columns-4 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

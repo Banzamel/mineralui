@@ -1,0 +1,33 @@
+.mineral-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.mineral-image.cover {
+    object-fit: cover;
+}
+
+.mineral-image.contain {
+    object-fit: contain;
+}
+
+.mineral-image.fill {
+    object-fit: fill;
+}
+
+.mineral-image.none {
+    object-fit: none;
+}
+
+.mineral-image.rounded {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.mineral-image.bordered {
+    border: 1px solid var(--mineral-border);
+}
+
+.mineral-image.shadow {
+    box-shadow: var(--mineral-shadow-md);
+}

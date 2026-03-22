@@ -1,0 +1,7 @@
+.mineral-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-lg);
+    padding: var(--mineral-spacing-lg);
+    margin: var(--mineral-spacing-md) 0;
+}

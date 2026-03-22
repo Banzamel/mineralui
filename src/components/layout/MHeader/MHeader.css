@@ -1,0 +1,29 @@
+.header {
+    position: relative;
+    width: 100%;
+    color: var(--mineral-page-text);
+    border-radius: 0;
+}
+
+.header.default {
+    background: transparent;
+}
+.header.surface {
+    background: color-mix(in srgb, var(--mineral-page-bg) 40%, transparent);
+}
+.header.subtle {
+    background: color-mix(in srgb, var(--mineral-page-bg) 60%, transparent);
+}
+.header.sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--mineral-z-popover);
+    backdrop-filter: blur(12px);
+}
+.header .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--mineral-spacing-lg);
+    min-height: var(--mineral-navbar-height);
+}

@@ -1,0 +1,193 @@
+.radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--mineral-font-family);
+}
+
+.radio.label-left {
+    flex-direction: row-reverse;
+}
+
+.radio.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.radio.sm .circle {
+    width: 16px;
+    height: 16px;
+}
+.radio.md .circle {
+    width: 20px;
+    height: 20px;
+}
+.radio.lg .circle {
+    width: 24px;
+    height: 24px;
+}
+
+.radio.sm .label-text {
+    font-size: var(--mineral-font-size-xs);
+}
+.radio.md .label-text {
+    font-size: var(--mineral-font-size-sm);
+}
+.radio.lg .label-text {
+    font-size: var(--mineral-font-size-md);
+}
+
+.radio.sm .dot {
+    width: 6px;
+    height: 6px;
+}
+.radio.md .dot {
+    width: 8px;
+    height: 8px;
+}
+.radio.lg .dot {
+    width: 10px;
+    height: 10px;
+}
+
+.radio .circle {
+    --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.18);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--mineral-border-hover);
+    border-radius: 50%;
+    background: var(--mineral-input-bg);
+    transition:
+        border-color var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast);
+    flex-shrink: 0;
+}
+
+.radio .circle.success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+.radio .circle.neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+.radio .circle.error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+.radio .circle.warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+.radio .circle.info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+.radio .circle.danger {
+    --color-rgb: var(--mineral-danger-rgb);
+}
+
+.radio .circle > :not(.click-effect-layer):not(.dot) {
+    position: relative;
+    z-index: 1;
+}
+
+.radio .circle:hover {
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 2px 8px rgba(var(--color-rgb), 0.18);
+}
+
+.radio .input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: inherit;
+}
+
+.radio .dot {
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    transform: scale(0);
+    transition:
+        opacity var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast);
+}
+
+.radio .input:checked ~ .dot {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.radio .circle.primary:has(.input:checked) {
+    background: var(--mineral-primary);
+    border-color: var(--mineral-primary);
+}
+.radio .circle.success:has(.input:checked) {
+    background: var(--mineral-success);
+    border-color: var(--mineral-success);
+}
+.radio .circle.neutral:has(.input:checked) {
+    background: var(--mineral-neutral);
+    border-color: var(--mineral-neutral);
+}
+.radio .circle.error:has(.input:checked) {
+    background: var(--mineral-error);
+    border-color: var(--mineral-error);
+}
+.radio .circle.warning:has(.input:checked) {
+    background: var(--mineral-warning);
+    border-color: var(--mineral-warning);
+}
+.radio .circle.info:has(.input:checked) {
+    background: var(--mineral-info);
+    border-color: var(--mineral-info);
+}
+.radio .circle.danger:has(.input:checked) {
+    background: var(--mineral-danger);
+    border-color: var(--mineral-danger);
+}
+
+.radio .circle:has(.input:focus-visible) {
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.22);
+}
+
+.radio .label-text {
+    color: var(--mineral-text);
+}
+
+.radio-group {
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.radio-group.vertical {
+    flex-direction: column;
+    gap: var(--mineral-spacing-sm);
+}
+
+.radio-group.horizontal {
+    flex-direction: row;
+    gap: var(--mineral-spacing-lg);
+}
+
+.radio-group .label {
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-text-secondary);
+    font-weight: 500;
+    margin-bottom: var(--mineral-spacing-sm);
+}
+
+.radio-group .label.error {
+    color: var(--mineral-error);
+}
+
+.radio-group .error-text {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-error);
+}
