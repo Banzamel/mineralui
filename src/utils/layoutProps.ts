@@ -50,7 +50,7 @@ export function getLayoutUtilityClassNames({
         spacing !== undefined && `spacing-${spacing}`,
         padding !== undefined && `padding-${padding}`,
         fsize !== undefined && 'has-fsize',
-        fcolor && `fcolor-${fcolor}`,
+        false,
         mt !== undefined && `mt-${mt}`,
         mb !== undefined && `mb-${mb}`,
         ml !== undefined && `ml-${ml}`,

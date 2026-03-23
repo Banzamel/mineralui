@@ -146,7 +146,22 @@
 }
 
 .button.link:hover:not(.disabled) {
-    color: rgba(var(--color-rgb), 0.82);
+    color: var(--mineral-text);
+    background: rgba(var(--color-rgb), 0.08);
+}
+
+.button.icon {
+    background: transparent;
+    border-color: transparent;
+    color: var(--mineral-text-secondary);
+    padding: 6px;
+    min-width: auto;
+    border-radius: var(--mineral-radius-sm);
+}
+
+.button.icon:hover:not(.disabled) {
+    background: rgba(var(--mineral-primary-rgb), 0.1);
+    color: var(--mineral-text);
 }
 
 .button:focus-visible {

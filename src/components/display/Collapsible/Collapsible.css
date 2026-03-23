@@ -13,11 +13,6 @@
     text-align: left;
 }
 
-.collapsible .content {
-    padding-top: var(--mineral-spacing-sm);
-    padding-left: var(--mineral-spacing-md);
-}
-
 .collapsible .content-wrap {
     display: grid;
     grid-template-rows: 0fr;
@@ -34,6 +29,8 @@
 
 .collapsible .content-wrap > .content {
     overflow: hidden;
+    padding-top: var(--mineral-spacing-sm);
+    padding-left: var(--mineral-spacing-md);
 }
 
 .collapsible .chevron {

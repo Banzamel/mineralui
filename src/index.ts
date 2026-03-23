@@ -232,6 +232,7 @@ export {
     Gallery,
     Carousel,
     TaskList,
+    CardPayment,
 } from './components/display'
 export {
     Card as MCard,
@@ -266,6 +267,7 @@ export {
     Gallery as MGallery,
     Carousel as MCarousel,
     TaskList as MTaskList,
+    CardPayment as MCardPayment,
 } from './components/display'
 export type {
     CardProps,
@@ -318,6 +320,8 @@ export type {
     CarouselTransition,
     TaskListProps,
     TaskItem,
+    CardPaymentProps,
+    CardPaymentBrand,
 } from './components/display'
 export type {
     CardProps as MCardProps,
@@ -366,6 +370,8 @@ export type {
     CarouselTransition as MCarouselTransition,
     TaskListProps as MTaskListProps,
     TaskItem as MTaskItem,
+    CardPaymentProps as MCardPaymentProps,
+    CardPaymentBrand as MCardPaymentBrand,
 } from './components/display'
 
 // Typography

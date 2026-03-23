@@ -8,7 +8,7 @@ import './Text.css'
 export function Text({
     as = 'p',
     tone = 'default',
-    size = 'md',
+    size,
     align = 'left',
     color,
     fcolor,
