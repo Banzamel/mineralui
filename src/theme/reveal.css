@@ -1,0 +1,12 @@
+.mineral-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.46s ease-out var(--mineral-reveal-delay, 0s),
+        transform 0.46s ease-out var(--mineral-reveal-delay, 0s);
+}
+
+.mineral-reveal.mineral-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}

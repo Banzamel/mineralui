@@ -3,6 +3,7 @@ import type {TextareaProps} from './Textarea.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useControllableString} from '../../../utils/useControllableString'
+import {useGhostText} from '../../../utils/useGhostText'
 import './Textarea.css'
 
 // Render the multiline text input with optional auto-resize behavior.
@@ -33,6 +34,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         success = false,
         maxLength,
         showCharCount = false,
+        ghostOptions,
+        ghostMinChars = 2,
+        onGhostAccept,
         loading = false,
         onChange,
         onFocus,
@@ -48,6 +52,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     const {currentValue, setCurrentValue} = useControllableString(value, defaultValue)
+    const ghost = useGhostText({
+        options: ghostOptions ?? [],
+        value: currentValue,
+        minChars: ghostMinChars,
+    })
     const hasError = error || !!errorText
     const resolvedRef = ref ?? textareaRef
 
@@ -92,8 +101,31 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setCurrentValue(e.target.value)
             onChange?.(e)
+            ghost.reset()
         },
-        [onChange, setCurrentValue]
+        [onChange, setCurrentValue, ghost.reset]
+    )
+
+    // Intercept keyboard events for ghost text acceptance.
+    const handleKeyDown = useCallback(
+        (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            if (ghostOptions && ghost.hint) {
+                const accepted = ghost.onKeyDown(e)
+                if (accepted) {
+                    const result = ghost.accept()
+                    setCurrentValue(result.value)
+                    onGhostAccept?.(result.value)
+                    const el = typeof resolvedRef === 'function' ? null : resolvedRef?.current
+                    if (el) {
+                        const nativeSet = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set
+                        nativeSet?.call(el, result.value)
+                        el.dispatchEvent(new Event('input', {bubbles: true}))
+                    }
+                    return
+                }
+            }
+        },
+        [ghostOptions, ghost, setCurrentValue, onGhostAccept, resolvedRef]
     )
 
     const containerClasses = cn(
@@ -133,25 +165,56 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
             )}
 
             <div className={containerClasses}>
-                <textarea
-                    ref={resolvedRef as React.Ref<HTMLTextAreaElement>}
-                    name={name}
-                    id={id}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    required={required}
-                    autoFocus={autoFocus}
-                    rows={autoResize ? (minRows ?? rows) : rows}
-                    maxLength={maxLength}
-                    value={currentValue}
-                    className={cn('field', textareaClassName)}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    aria-invalid={hasError || undefined}
-                    aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
-                />
+                {ghostOptions ? (
+                    <div className="ghost-text-field ghost-text-field-multi">
+                        <textarea
+                            ref={resolvedRef as React.Ref<HTMLTextAreaElement>}
+                            name={name}
+                            id={id}
+                            placeholder={placeholder}
+                            disabled={disabled}
+                            readOnly={readOnly}
+                            required={required}
+                            autoFocus={autoFocus}
+                            rows={autoResize ? (minRows ?? rows) : rows}
+                            maxLength={maxLength}
+                            value={currentValue}
+                            className={cn('field', textareaClassName)}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            onKeyDown={handleKeyDown}
+                            aria-invalid={hasError || undefined}
+                            aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
+                        />
+                        {focused && ghost.hint && (
+                            <span className="ghost-text-overlay" aria-hidden="true">
+                                <span className="ghost-text-typed">{currentValue}</span>
+                                <span className="ghost-text-hint">{ghost.hint}</span>
+                            </span>
+                        )}
+                    </div>
+                ) : (
+                    <textarea
+                        ref={resolvedRef as React.Ref<HTMLTextAreaElement>}
+                        name={name}
+                        id={id}
+                        placeholder={placeholder}
+                        disabled={disabled}
+                        readOnly={readOnly}
+                        required={required}
+                        autoFocus={autoFocus}
+                        rows={autoResize ? (minRows ?? rows) : rows}
+                        maxLength={maxLength}
+                        value={currentValue}
+                        className={cn('field', textareaClassName)}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        aria-invalid={hasError || undefined}
+                        aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
+                    />
+                )}
                 {loading && <span className="spinner" />}
             </div>
 

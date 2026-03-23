@@ -38,6 +38,9 @@ export interface InputProps {
     onBlur?: (e: FocusEvent<HTMLInputElement>) => void
     onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void
     onClear?: () => void
+    ghostOptions?: string[]
+    ghostMinChars?: number
+    onGhostAccept?: (value: string) => void
     loading?: boolean
     clickEffect?: MineralClickEffect
     rippleColor?: string

@@ -1,6 +1,7 @@
 import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
 import type {StackGap} from '../Stack/Stack.types'
 import type {LayoutUtilityProps} from '../../../utils/layoutProps'
+import type {RevealProp} from '../../../utils/useReveal'
 
 export type InlineAlign = 'start' | 'center' | 'end' | 'stretch'
 export type InlineJustify = 'start' | 'center' | 'end' | 'between'
@@ -11,6 +12,7 @@ export interface InlineProps extends HTMLAttributes<HTMLDivElement>, LayoutUtili
     align?: InlineAlign
     justify?: InlineJustify
     wrap?: InlineWrap
+    reveal?: RevealProp
     children?: ReactNode
     className?: string
     style?: CSSProperties

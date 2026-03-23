@@ -1,0 +1,45 @@
+/* Ghost text overlay for inline suggestions */
+.ghost-text-field {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.ghost-text-field .field {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+.ghost-text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.ghost-text-typed {
+    visibility: hidden;
+    white-space: pre;
+}
+
+.ghost-text-hint {
+    color: var(--mineral-text-secondary);
+    opacity: 0.5;
+}
+
+/* Textarea ghost — align to top */
+.ghost-text-field-multi .ghost-text-overlay {
+    align-items: flex-start;
+    padding: inherit;
+    white-space: pre-wrap;
+    word-break: break-word;
+}

@@ -71,3 +71,9 @@
 .navbar .inner.wrap {
     flex-wrap: wrap;
 }
+
+@media (max-width: 480px) {
+    .navbar .inner {
+        gap: var(--mineral-spacing-xs);
+    }
+}

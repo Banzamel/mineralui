@@ -72,6 +72,10 @@ export type {
     UseInteractionEffectOptions,
     UseInteractionEffectResult,
 } from './utils/useInteractionEffect'
+export {useReveal} from './utils/useReveal'
+export type {RevealProp} from './utils/useReveal'
+export {useGhostText} from './utils/useGhostText'
+export type {GhostTextOptions, GhostTextReturn} from './utils/useGhostText'
 
 // Primitives
 export {Portal} from './components/primitives/Portal'
@@ -233,6 +237,9 @@ export {
     Carousel,
     TaskList,
     CardPayment,
+    Tooltip,
+    ToastProvider,
+    useToast,
 } from './components/display'
 export {
     Card as MCard,
@@ -268,6 +275,9 @@ export {
     Carousel as MCarousel,
     TaskList as MTaskList,
     CardPayment as MCardPayment,
+    Tooltip as MTooltip,
+    ToastProvider as MToastProvider,
+    useToast as useMToast,
 } from './components/display'
 export type {
     CardProps,
@@ -322,6 +332,13 @@ export type {
     TaskItem,
     CardPaymentProps,
     CardPaymentBrand,
+    TooltipProps,
+    TooltipPlacement,
+    ToastProviderProps,
+    ToastOptions,
+    ToastEntry,
+    ToastPosition,
+    ToastContext,
 } from './components/display'
 export type {
     CardProps as MCardProps,
@@ -372,6 +389,13 @@ export type {
     TaskItem as MTaskItem,
     CardPaymentProps as MCardPaymentProps,
     CardPaymentBrand as MCardPaymentBrand,
+    TooltipProps as MTooltipProps,
+    TooltipPlacement as MTooltipPlacement,
+    ToastProviderProps as MToastProviderProps,
+    ToastOptions as MToastOptions,
+    ToastEntry as MToastEntry,
+    ToastPosition as MToastPosition,
+    ToastContext as MToastContext,
 } from './components/display'
 
 // Typography

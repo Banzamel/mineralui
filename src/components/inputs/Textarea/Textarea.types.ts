@@ -33,6 +33,10 @@ export interface TextareaProps {
     maxLength?: number
     showCharCount?: boolean
 
+    ghostOptions?: string[]
+    ghostMinChars?: number
+    onGhostAccept?: (value: string) => void
+
     loading?: boolean
 
     onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void

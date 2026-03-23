@@ -4,6 +4,7 @@ import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useControllableString} from '../../../utils/useControllableString'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
+import {useGhostText} from '../../../utils/useGhostText'
 import './Input.css'
 
 // Render the base text input used by all specialized input wrappers.
@@ -42,6 +43,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         onBlur,
         onKeyDown,
         onClear,
+        ghostOptions,
+        ghostMinChars = 2,
+        onGhostAccept,
         loading = false,
         clickEffect = 'ripple',
         rippleColor,
@@ -61,6 +65,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     })
 
     const {isControlled, currentValue, setCurrentValue} = useControllableString(value, defaultValue)
+    const ghost = useGhostText({
+        options: ghostOptions ?? [],
+        value: currentValue,
+        minChars: ghostMinChars,
+    })
     const hasError = error || !!errorText
     const hasContent = currentValue.length > 0
 
@@ -87,8 +96,33 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setCurrentValue(event.target.value)
             onChange?.(event)
+            ghost.reset()
         },
-        [onChange, setCurrentValue]
+        [onChange, setCurrentValue, ghost.reset]
+    )
+
+    // Intercept keyboard events for ghost text acceptance before delegating.
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (ghostOptions && ghost.hint) {
+                const accepted = ghost.onKeyDown(event)
+                if (accepted) {
+                    const result = ghost.accept()
+                    setCurrentValue(result.value)
+                    onGhostAccept?.(result.value)
+                    // Fire synthetic change so controlled parents stay in sync.
+                    const input = (ref as React.RefObject<HTMLInputElement>)?.current ?? inputRef.current
+                    if (input) {
+                        const nativeSet = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set
+                        nativeSet?.call(input, result.value)
+                        input.dispatchEvent(new Event('input', {bubbles: true}))
+                    }
+                    return
+                }
+            }
+            onKeyDown?.(event)
+        },
+        [ghostOptions, ghost, setCurrentValue, onGhostAccept, onKeyDown, ref]
     )
 
     // Reset the visible value while preserving focus for quick repeated input.
@@ -146,28 +180,61 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
                 {effectLayer}
                 {startIcon && <span className="start-icon">{startIcon}</span>}
 
-                <input
-                    ref={ref ?? inputRef}
-                    type={type}
-                    value={currentValue}
-                    name={name}
-                    id={id}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    required={required}
-                    autoFocus={autoFocus}
-                    autoComplete={autoComplete}
-                    inputMode={inputMode}
-                    maxLength={maxLength}
-                    className={cn('field', inputClassName)}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    onKeyDown={onKeyDown}
-                    aria-invalid={hasError || undefined}
-                    aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
-                />
+                {ghostOptions ? (
+                    <div className="ghost-text-field">
+                        <input
+                            ref={ref ?? inputRef}
+                            type={type}
+                            value={currentValue}
+                            name={name}
+                            id={id}
+                            placeholder={placeholder}
+                            disabled={disabled}
+                            readOnly={readOnly}
+                            required={required}
+                            autoFocus={autoFocus}
+                            autoComplete={autoComplete ?? 'off'}
+                            inputMode={inputMode}
+                            maxLength={maxLength}
+                            className={cn('field', inputClassName)}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            onKeyDown={handleKeyDown}
+                            aria-invalid={hasError || undefined}
+                            aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
+                        />
+                        {focused && ghost.hint && (
+                            <span className="ghost-text-overlay" aria-hidden="true">
+                                <span className="ghost-text-typed">{currentValue}</span>
+                                <span className="ghost-text-hint">{ghost.hint}</span>
+                            </span>
+                        )}
+                    </div>
+                ) : (
+                    <input
+                        ref={ref ?? inputRef}
+                        type={type}
+                        value={currentValue}
+                        name={name}
+                        id={id}
+                        placeholder={placeholder}
+                        disabled={disabled}
+                        readOnly={readOnly}
+                        required={required}
+                        autoFocus={autoFocus}
+                        autoComplete={autoComplete}
+                        inputMode={inputMode}
+                        maxLength={maxLength}
+                        className={cn('field', inputClassName)}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onKeyDown={onKeyDown}
+                        aria-invalid={hasError || undefined}
+                        aria-describedby={errorText ? `${id}-error` : helperText ? `${id}-helper` : undefined}
+                    />
+                )}
 
                 {loading && <span className="spinner" />}
 

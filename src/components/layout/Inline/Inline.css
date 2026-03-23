@@ -1,5 +1,6 @@
 .inline {
     display: flex;
+    min-width: 0;
 }
 
 .inline.wrap {

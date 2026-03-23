@@ -20,3 +20,10 @@
     padding-left: var(--mineral-spacing-lg);
     padding-right: var(--mineral-spacing-lg);
 }
+
+@media (max-width: 480px) {
+    .container.padded {
+        padding-left: var(--mineral-spacing-sm);
+        padding-right: var(--mineral-spacing-sm);
+    }
+}

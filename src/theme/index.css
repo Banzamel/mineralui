@@ -8,3 +8,5 @@
 @import './tokens/layers.css';
 @import './tokens/layout.css';
 @import './utilities.css';
+@import './reveal.css';
+@import './ghost-text.css';
