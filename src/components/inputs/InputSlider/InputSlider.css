@@ -1,0 +1,74 @@
+.input-slider {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+}
+
+.input-slider.full-width {
+    width: 100%;
+}
+
+.input-slider.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.input-slider-label {
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    color: var(--mineral-text);
+}
+
+.input-slider-row {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-md);
+}
+
+.input-slider-row .slider {
+    flex: 1;
+    min-width: 0;
+}
+
+.input-slider-field {
+    --color-rgb: var(--mineral-primary-rgb);
+    width: 72px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: var(--mineral-font-size-sm);
+    font-family: var(--mineral-font-family);
+    font-weight: 600;
+    color: var(--mineral-text);
+    background: rgba(var(--mineral-neutral-rgb), 0.06);
+    border: 1px solid rgba(var(--mineral-neutral-rgb), 0.2);
+    border-radius: var(--mineral-radius-md);
+    padding: var(--mineral-spacing-xs) var(--mineral-spacing-sm);
+    outline: none;
+    transition:
+        border-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast);
+}
+
+.input-slider-field:focus {
+    border-color: rgba(var(--color-rgb), 0.6);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.15);
+}
+
+.input-slider-field.primary { --color-rgb: var(--mineral-primary-rgb); }
+.input-slider-field.neutral { --color-rgb: var(--mineral-neutral-rgb); }
+.input-slider-field.success { --color-rgb: var(--mineral-success-rgb); }
+.input-slider-field.error   { --color-rgb: var(--mineral-error-rgb); }
+.input-slider-field.warning { --color-rgb: var(--mineral-warning-rgb); }
+.input-slider-field.info    { --color-rgb: var(--mineral-info-rgb); }
+
+.input-slider.sm .input-slider-field {
+    width: 60px;
+    font-size: var(--mineral-font-size-xs);
+    padding: 2px var(--mineral-spacing-xs);
+}
+
+.input-slider.lg .input-slider-field {
+    width: 84px;
+    font-size: var(--mineral-font-size-md);
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);
+}

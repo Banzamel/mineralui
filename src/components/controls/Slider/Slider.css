@@ -1,0 +1,94 @@
+.slider {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    width: 100%;
+}
+
+.slider.primary { --color-rgb: var(--mineral-primary-rgb); }
+.slider.neutral { --color-rgb: var(--mineral-neutral-rgb); }
+.slider.success { --color-rgb: var(--mineral-success-rgb); }
+.slider.error   { --color-rgb: var(--mineral-error-rgb); }
+.slider.warning { --color-rgb: var(--mineral-warning-rgb); }
+.slider.info    { --color-rgb: var(--mineral-info-rgb); }
+
+.slider--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.slider-label {
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    color: var(--mineral-text);
+}
+
+.slider-track-wrapper {
+    position: relative;
+    padding: 6px 0;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.slider-track {
+    position: relative;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(var(--mineral-neutral-rgb), 0.2);
+}
+
+.slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 2px;
+    background: rgba(var(--color-rgb), 1);
+    transition: width 0.05s ease-out;
+}
+
+.slider-thumb {
+    position: absolute;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(var(--color-rgb), 1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+    transition: box-shadow 0.15s;
+}
+
+.slider-thumb:hover,
+.slider-track-wrapper:active .slider-thumb {
+    box-shadow: 0 0 0 4px rgba(var(--color-rgb), 0.2), 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider-marks {
+    position: relative;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.slider-mark {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slider-mark-tick {
+    width: 2px;
+    height: 6px;
+    border-radius: 1px;
+    background: rgba(var(--mineral-neutral-rgb), 0.3);
+}
+
+.slider-mark-label {
+    margin-top: 2px;
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    white-space: nowrap;
+}

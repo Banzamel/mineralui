@@ -1,0 +1,20 @@
+.accordion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.accordion--bordered {
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-lg);
+    overflow: hidden;
+}
+
+.accordion--bordered .accordion-item + .accordion-item {
+    border-top: 1px solid var(--mineral-border);
+}
+
+.accordion-item--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

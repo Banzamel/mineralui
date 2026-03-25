@@ -1,0 +1,85 @@
+.input-otp {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+}
+
+.input-otp.primary { --color-rgb: var(--mineral-primary-rgb); }
+.input-otp.neutral { --color-rgb: var(--mineral-neutral-rgb); }
+.input-otp.success { --color-rgb: var(--mineral-success-rgb); }
+.input-otp.error   { --color-rgb: var(--mineral-error-rgb); }
+.input-otp.warning { --color-rgb: var(--mineral-warning-rgb); }
+.input-otp.info    { --color-rgb: var(--mineral-info-rgb); }
+
+.input-otp.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.input-otp-label {
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    color: var(--mineral-text);
+}
+
+.input-otp-slots {
+    display: flex;
+    gap: var(--mineral-spacing-sm);
+}
+
+.input-otp-slot {
+    width: 44px;
+    height: 52px;
+    text-align: center;
+    font-size: var(--mineral-font-size-lg);
+    font-weight: 600;
+    font-family: var(--mineral-font-family);
+    color: var(--mineral-text);
+    background: rgba(var(--mineral-neutral-rgb), 0.06);
+    border: 1px solid rgba(var(--mineral-neutral-rgb), 0.2);
+    border-radius: var(--mineral-radius-md);
+    outline: none;
+    caret-color: rgba(var(--color-rgb), 1);
+    transition:
+        border-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast);
+}
+
+.input-otp-slot:focus {
+    border-color: rgba(var(--color-rgb), 0.6);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.15);
+    background: rgba(var(--color-rgb), 0.04);
+}
+
+.input-otp-slot.filled {
+    border-color: rgba(var(--color-rgb), 0.4);
+    background: rgba(var(--color-rgb), 0.06);
+}
+
+.input-otp.sm .input-otp-slot {
+    width: 36px;
+    height: 42px;
+    font-size: var(--mineral-font-size-md);
+}
+
+.input-otp.lg .input-otp-slot {
+    width: 52px;
+    height: 62px;
+    font-size: var(--mineral-font-size-xl);
+}
+
+.input-otp.error .input-otp-slot {
+    border-color: rgba(var(--mineral-error-rgb), 0.5);
+}
+
+.input-otp.error .input-otp-slot:focus {
+    border-color: rgba(var(--mineral-error-rgb), 0.6);
+    box-shadow: 0 0 0 3px rgba(var(--mineral-error-rgb), 0.15);
+}
+
+.input-otp-error {
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-error);
+}
