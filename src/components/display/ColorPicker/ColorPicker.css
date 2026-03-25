@@ -11,15 +11,14 @@
     pointer-events: none;
 }
 
-.color-picker-label {
+.color-picker .label {
     font-family: var(--mineral-font-family);
     font-size: var(--mineral-font-size-sm);
     font-weight: 600;
     color: var(--mineral-text-heading);
 }
 
-/* Saturation / Value area */
-.color-picker-area {
+.color-picker .area {
     position: relative;
     width: 100%;
     height: 160px;
@@ -29,27 +28,27 @@
     overflow: hidden;
 }
 
-.color-picker.sm .color-picker-area {
+.color-picker.sm .area {
     height: 120px;
 }
 
-.color-picker.lg .color-picker-area {
+.color-picker.lg .area {
     height: 200px;
 }
 
-.color-picker-area-white {
+.color-picker .area .white {
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, #fff, transparent);
 }
 
-.color-picker-area-black {
+.color-picker .area .black {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, #000, transparent);
 }
 
-.color-picker-cursor {
+.color-picker .cursor {
     position: absolute;
     width: 14px;
     height: 14px;
@@ -60,8 +59,7 @@
     pointer-events: none;
 }
 
-/* Hue slider */
-.color-picker-hue {
+.color-picker .hue {
     position: relative;
     width: 100%;
     height: 14px;
@@ -80,7 +78,7 @@
     touch-action: none;
 }
 
-.color-picker-hue-thumb {
+.color-picker .hue-thumb {
     position: absolute;
     top: 50%;
     width: 18px;
@@ -93,14 +91,13 @@
     pointer-events: none;
 }
 
-/* Controls row */
-.color-picker-controls {
+.color-picker .controls {
     display: flex;
     align-items: center;
     gap: var(--mineral-spacing-sm);
 }
 
-.color-picker-preview {
+.color-picker .preview {
     width: 36px;
     height: 36px;
     border-radius: var(--mineral-radius-md);
@@ -108,7 +105,7 @@
     flex-shrink: 0;
 }
 
-.color-picker-input {
+.color-picker .input {
     flex: 1;
     padding: 8px 10px;
     border: 1px solid var(--mineral-border);
@@ -121,18 +118,17 @@
     transition: border-color 0.15s;
 }
 
-.color-picker-input:focus {
+.color-picker .input:focus {
     border-color: rgba(var(--mineral-primary-rgb), 0.6);
 }
 
-/* Swatches */
-.color-picker-swatches {
+.color-picker .swatches {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
 }
 
-.color-picker-swatch {
+.color-picker .swatch {
     width: 24px;
     height: 24px;
     border-radius: var(--mineral-radius-sm);
@@ -142,11 +138,11 @@
     transition: border-color 0.15s, transform 0.1s;
 }
 
-.color-picker-swatch:hover {
+.color-picker .swatch:hover {
     transform: scale(1.15);
 }
 
-.color-picker-swatch.active {
+.color-picker .swatch.active {
     border-color: var(--mineral-text);
     box-shadow: 0 0 0 1px var(--mineral-dark-light);
 }

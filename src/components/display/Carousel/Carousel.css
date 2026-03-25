@@ -1,13 +1,15 @@
 .carousel {
     position: relative;
     width: 100%;
-    overflow: hidden;
-    border-radius: var(--mineral-radius-lg);
+    padding: 0 calc(36px / 2 + var(--mineral-spacing-sm));
 }
 
 .carousel-viewport {
     overflow: hidden;
     user-select: none;
+    border-radius: var(--mineral-radius-lg);
+    border: 1px solid var(--mineral-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .carousel-track {
@@ -25,19 +27,19 @@
 }
 
 /* Fade mode */
-.carousel--fade .carousel-track {
+.carousel.fade .carousel-track {
     display: grid;
     transition: none;
 }
 
-.carousel--fade .carousel-slide {
+.carousel.fade .carousel-slide {
     grid-area: 1 / 1;
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
 }
 
-.carousel--fade .carousel-slide--active {
+.carousel.fade .carousel-slide.active {
     opacity: 1;
     pointer-events: auto;
 }
@@ -50,22 +52,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: none;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(var(--mineral-primary-rgb), 0.2);
     border-radius: var(--mineral-radius-full);
-    background-color: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(4px);
-    color: rgba(255, 255, 255, 1);
-    font-size: 1.5rem;
+    background-color: rgba(var(--mineral-primary-rgb), 0.12);
+    backdrop-filter: blur(8px);
+    color: rgba(var(--mineral-primary-rgb), 1);
+    font-size: 1.25rem;
     line-height: 1;
+    padding: 0;
     cursor: pointer;
     z-index: 2;
     transition:
         background-color var(--mineral-transition-fast),
         opacity var(--mineral-transition-fast),
         transform var(--mineral-transition-fast);
-    opacity: 0;
+    opacity: 0.7;
 }
 
 .carousel:hover .carousel-arrow {
@@ -73,7 +76,7 @@
 }
 
 .carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(var(--mineral-primary-rgb), 0.28);
 }
 
 .carousel-arrow:active {
@@ -81,11 +84,11 @@
 }
 
 .carousel-arrow-prev {
-    left: var(--mineral-spacing-sm);
+    left: 0;
 }
 
 .carousel-arrow-next {
-    right: var(--mineral-spacing-sm);
+    right: 0;
 }
 
 /* Dots */

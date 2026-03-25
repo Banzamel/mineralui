@@ -210,11 +210,11 @@ export function Autocomplete<T = string>({
                     ) : (
                         <span className="tags">
                             {selectedValues.map((v, i) => (
-                                <span key={getOptionValue(v)} className="tag">
+                                <span key={getOptionValue(v)} className="m-tag">
                                     {getOptionLabel(v)}
                                     <button
                                         type="button"
-                                        className="tag-remove"
+                                        className="m-tag-remove"
                                         onClick={(e) => {
                                             e.stopPropagation()
                                             handleRemoveTag(i)

@@ -48,24 +48,24 @@ export function Drawer({
     return (
         <Portal>
             <div
-                className={cn('drawer-backdrop', overlay && 'drawer-backdrop--overlay')}
+                className={cn('drawer-backdrop', overlay && 'overlay')}
                 onMouseDown={handleBackdropClick}
             >
                 <div
-                    className={cn('drawer', `drawer--${side}`, `drawer--${size}`, className)}
+                    className={cn('drawer', side, size, className)}
                     role="dialog"
                     aria-modal="true"
                     {...rest}
                 >
                     {title && (
-                        <div className="drawer-header">
-                            <div className="drawer-title">{title}</div>
-                            <button type="button" className="drawer-close" onClick={onClose} aria-label="Close">
+                        <div className="header">
+                            <div className="title">{title}</div>
+                            <button type="button" className="close" onClick={onClose} aria-label="Close">
                                 &#215;
                             </button>
                         </div>
                     )}
-                    <div className="drawer-body">{children}</div>
+                    <div className="body">{children}</div>
                 </div>
             </div>
         </Portal>

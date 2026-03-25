@@ -61,25 +61,25 @@ export function Slider({
     )
 
     return (
-        <div className={cn('slider', color, disabled && 'slider--disabled', className)} {...rest}>
-            {label && <div className="slider-label">{label}</div>}
-            <div className="slider-track-wrapper" ref={trackRef} onPointerDown={handlePointerDown}>
-                <div className="slider-track">
-                    <div className="slider-fill" style={{width: `${percent}%`}} />
-                    <div className="slider-thumb" style={{left: `${percent}%`}} />
+        <div className={cn('slider', color, disabled && 'disabled', className)} {...rest}>
+            {label && <div className="label">{label}</div>}
+            <div className="track-wrapper" ref={trackRef} onPointerDown={handlePointerDown}>
+                <div className="track">
+                    <div className="fill" style={{width: `${percent}%`}} />
+                    <div className="thumb" style={{left: `${percent}%`}} />
                 </div>
                 {marks && marks.length > 0 && (
-                    <div className="slider-marks">
+                    <div className="marks">
                         {marks.map((mark) => {
                             const markPercent = ((mark.value - min) / (max - min)) * 100
                             return (
                                 <div
                                     key={mark.value}
-                                    className="slider-mark"
+                                    className="mark"
                                     style={{left: `${markPercent}%`}}
                                 >
-                                    <div className="slider-mark-tick" />
-                                    {mark.label && <div className="slider-mark-label">{mark.label}</div>}
+                                    <div className="tick" />
+                                    {mark.label && <div className="label">{mark.label}</div>}
                                 </div>
                             )
                         })}

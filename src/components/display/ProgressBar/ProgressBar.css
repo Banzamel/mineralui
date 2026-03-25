@@ -79,7 +79,7 @@
         rgba(255, 255, 255, 0.15) 0%,
         transparent 60%
     );
-    transition: width var(--mineral-transition-base);
+    transition: width 800ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .progress-bar-fill.striped {

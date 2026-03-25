@@ -1,5 +1,6 @@
-import {useState, useCallback, useRef, forwardRef} from 'react'
-import type {InputFileProps} from './InputFile.types'
+import {useState, useCallback, useRef, useMemo, useEffect, forwardRef} from 'react'
+import type {InputFileProps, InputFileCropOptions} from './InputFile.types'
+import {CropEditor} from './CropEditor'
 import {cn} from '../../../utils/cn'
 import './InputFile.css'
 
@@ -7,6 +8,36 @@ function formatSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+function fileExtension(name: string): string {
+    const dot = name.lastIndexOf('.')
+    return dot >= 0 ? name.slice(dot + 1).toUpperCase() : ''
+}
+
+function isImage(file: File): boolean {
+    return file.type.startsWith('image/')
+}
+
+function FileTypeIcon({ext}: {ext: string}) {
+    const label = ext || 'FILE'
+    return (
+        <div className="type-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 48" fill="none">
+                <path
+                    d="M4 4C4 1.8 5.8 0 8 0H26L36 10V44C36 46.2 34.2 48 32 48H8C5.8 48 4 46.2 4 44V4Z"
+                    fill="currentColor"
+                    opacity="0.12"
+                />
+                <path
+                    d="M26 0L36 10H30C27.8 10 26 8.2 26 6V0Z"
+                    fill="currentColor"
+                    opacity="0.2"
+                />
+            </svg>
+            <span className="type-ext">{label}</span>
+        </div>
+    )
 }
 
 export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function InputFile(
@@ -28,6 +59,7 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
         placeholder = 'Drop files here or click to browse',
         dropText = 'Drop files here',
         fullWidth = false,
+        crop,
         className,
         ...rest
     },
@@ -36,8 +68,27 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
     const [dragging, setDragging] = useState(false)
     const [files, setFiles] = useState<File[]>([])
     const [fileError, setFileError] = useState('')
+    const [cropFile, setCropFile] = useState<File | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const dragCounter = useRef(0)
+
+    const cropOptions: InputFileCropOptions | null = crop
+        ? typeof crop === 'boolean'
+            ? {shape: 'square', outputSize: 256, quality: 0.92}
+            : {shape: crop.shape ?? 'square', outputSize: crop.outputSize ?? 256, quality: crop.quality ?? 0.92}
+        : null
+
+    const objectUrls = useMemo(() => {
+        return files.map((f) => (isImage(f) ? URL.createObjectURL(f) : null))
+    }, [files])
+
+    useEffect(() => {
+        return () => {
+            objectUrls.forEach((url) => {
+                if (url) URL.revokeObjectURL(url)
+            })
+        }
+    }, [objectUrls])
 
     const processFiles = useCallback(
         (incoming: FileList | File[]) => {
@@ -72,11 +123,30 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
             }
 
             setFileError('')
+
+            if (cropOptions && accepted.length === 1 && isImage(accepted[0])) {
+                setCropFile(accepted[0])
+                return
+            }
+
             setFiles(accepted)
             onChange?.(accepted)
         },
-        [accept, maxSize, maxFiles, onChange]
+        [accept, maxSize, maxFiles, onChange, cropOptions]
     )
+
+    const handleCropDone = useCallback(
+        (cropped: File) => {
+            setCropFile(null)
+            setFiles([cropped])
+            onChange?.([cropped])
+        },
+        [onChange]
+    )
+
+    const handleCropCancel = useCallback(() => {
+        setCropFile(null)
+    }, [])
 
     const handleDragEnter = useCallback(
         (e: React.DragEvent) => {
@@ -133,11 +203,13 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
 
     const removeFile = useCallback(
         (index: number) => {
+            const url = objectUrls[index]
+            if (url) URL.revokeObjectURL(url)
             const next = files.filter((_, i) => i !== index)
             setFiles(next)
             onChange?.(next)
         },
-        [files, onChange]
+        [files, objectUrls, onChange]
     )
 
     const displayError = errorText || fileError
@@ -149,10 +221,10 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
             className={cn('input-file', color, size, fullWidth && 'full-width', disabled && 'disabled', className)}
             {...rest}
         >
-            {label && <div className="input-file-label">{label}</div>}
+            {label && <div className="label">{label}</div>}
 
             <div
-                className={cn('input-file-dropzone', dragging && 'dragging', hasError && 'error')}
+                className={cn('dropzone', dragging && 'dragging', hasError && 'error')}
                 onClick={handleClick}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -175,13 +247,13 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
                     multiple={multiple}
                     onChange={handleChange}
                     tabIndex={-1}
-                    className="input-file-hidden"
+                    className="hidden-input"
                 />
 
-                <div className="input-file-content">
-                    {icon && <div className="input-file-icon">{icon}</div>}
+                <div className="content">
+                    {icon && <div className="icon">{icon}</div>}
                     {!icon && (
-                        <svg className="input-file-icon-default" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <svg className="icon-default" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <path
                                 d="M12 16V4M12 4L8 8M12 4L16 8M4 17V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V17"
                                 stroke="currentColor"
@@ -191,33 +263,55 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
                             />
                         </svg>
                     )}
-                    <div className="input-file-text">
+                    <div className="text">
                         {dragging ? dropText : placeholder}
                     </div>
                     {accept && (
-                        <div className="input-file-accept">{accept}</div>
+                        <div className="accept">{accept}</div>
                     )}
                 </div>
             </div>
 
-            {helperText && !hasError && (
-                <div className="input-file-helper">{helperText}</div>
-            )}
-            {hasError && displayError && (
-                <div className="input-file-error">{displayError}</div>
+            {cropFile && cropOptions && (
+                <CropEditor
+                    file={cropFile}
+                    shape={cropOptions.shape!}
+                    outputSize={cropOptions.outputSize!}
+                    quality={cropOptions.quality!}
+                    onCrop={handleCropDone}
+                    onCancel={handleCropCancel}
+                />
             )}
 
-            {preview && files.length > 0 && (
-                <div className="input-file-preview">
+            {helperText && !hasError && (
+                <div className="helper">{helperText}</div>
+            )}
+            {hasError && displayError && (
+                <div className="error-text">{displayError}</div>
+            )}
+
+            {preview && files.length > 0 && !cropFile && (
+                <div className="preview">
                     {files.map((file, i) => (
-                        <div key={`${file.name}-${i}`} className="input-file-item">
-                            <div className="input-file-item-info">
-                                <span className="input-file-item-name">{file.name}</span>
-                                <span className="input-file-item-size">{formatSize(file.size)}</span>
+                        <div key={`${file.name}-${i}`} className="item">
+                            <div className="thumb">
+                                {objectUrls[i] ? (
+                                    <img
+                                        src={objectUrls[i]!}
+                                        alt={file.name}
+                                        className="image"
+                                    />
+                                ) : (
+                                    <FileTypeIcon ext={fileExtension(file.name)} />
+                                )}
+                            </div>
+                            <div className="info">
+                                <span className="name">{file.name}</span>
+                                <span className="size">{formatSize(file.size)}</span>
                             </div>
                             <button
                                 type="button"
-                                className="input-file-item-remove"
+                                className="remove"
                                 onClick={(e) => {
                                     e.stopPropagation()
                                     removeFile(i)

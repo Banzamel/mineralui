@@ -135,7 +135,7 @@ export function Select({
             return (
                 <span className="tags">
                     {selectedOptions.map((o) => (
-                        <span key={o.value} className="tag">
+                        <span key={o.value} className="m-tag">
                             {o.label}
                         </span>
                     ))}

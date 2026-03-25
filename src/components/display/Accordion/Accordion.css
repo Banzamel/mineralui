@@ -4,17 +4,17 @@
     width: 100%;
 }
 
-.accordion--bordered {
+.accordion.bordered {
     border: 1px solid var(--mineral-border);
     border-radius: var(--mineral-radius-lg);
     overflow: hidden;
 }
 
-.accordion--bordered .accordion-item + .accordion-item {
+.accordion.bordered .accordion-item + .accordion-item {
     border-top: 1px solid var(--mineral-border);
 }
 
-.accordion-item--disabled {
+.accordion-item.disabled {
     opacity: 0.5;
     pointer-events: none;
 }

@@ -1,4 +1,4 @@
-.mineral-form {
+.form {
     display: flex;
     flex-direction: column;
     gap: var(--mineral-spacing-lg);

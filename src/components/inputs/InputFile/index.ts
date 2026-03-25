@@ -1,2 +1,2 @@
 export {InputFile} from './InputFile'
-export type {InputFileProps} from './InputFile.types'
+export type {InputFileProps, InputFileCropOptions, InputFileCropShape} from './InputFile.types'

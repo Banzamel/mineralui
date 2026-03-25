@@ -114,6 +114,10 @@ export {
     MSidebarFooter,
     MSidebarDivider,
     MSubNav,
+    MBreadcrumb,
+    MPagination,
+    AppShell,
+    Body,
 } from './components/layout'
 export {
     Container as MContainer,
@@ -122,6 +126,8 @@ export {
     Inline as MInline,
     Surface as MSurface,
     Divider as MDivider,
+    AppShell as MAppShell,
+    Body as MBody,
 } from './components/layout'
 export type {
     ContainerProps,
@@ -170,6 +176,11 @@ export type {
     MSidebarMode,
     MSubNavProps,
     MSubNavItem,
+    MBreadcrumbProps,
+    MBreadcrumbItem,
+    MPaginationProps,
+    AppShellProps,
+    BodyProps,
 } from './components/layout'
 export type {
     ContainerProps as MContainerProps,
@@ -178,6 +189,8 @@ export type {
     InlineProps as MInlineProps,
     SurfaceProps as MSurfaceProps,
     DividerProps as MDividerProps,
+    AppShellProps as MAppShellProps,
+    BodyProps as MBodyProps,
 } from './components/layout'
 
 // Controls
@@ -197,6 +210,10 @@ export {Toggle} from './components/controls/Toggle'
 export type {ToggleProps} from './components/controls/Toggle'
 export {Toggle as MToggle} from './components/controls/Toggle'
 export type {ToggleProps as MToggleProps} from './components/controls/Toggle'
+export {Slider} from './components/controls/Slider'
+export type {SliderProps, SliderMark} from './components/controls/Slider'
+export {Slider as MSlider} from './components/controls/Slider'
+export type {SliderProps as MSliderProps, SliderMark as MSliderMark} from './components/controls/Slider'
 
 // Display
 export {
@@ -206,14 +223,9 @@ export {
     CardFooter,
     Badge,
     Alert,
-    Table,
-    TableRoot,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableHeadCell,
-    TableCell,
     Collapsible,
+    Accordion,
+    AccordionItem,
     Spinner,
     Loader,
     Avatar,
@@ -240,6 +252,12 @@ export {
     Tooltip,
     ToastProvider,
     useToast,
+    Tag,
+    Drawer,
+    Popconfirm,
+    DataTable,
+    ColorPicker,
+    TreeView,
 } from './components/display'
 export {
     Card as MCard,
@@ -248,14 +266,9 @@ export {
     CardFooter as MCardFooter,
     Badge as MBadge,
     Alert as MAlert,
-    Table as MTable,
-    TableRoot as MTableRoot,
-    TableHead as MTableHead,
-    TableBody as MTableBody,
-    TableRow as MTableRow,
-    TableHeadCell as MTableHeadCell,
-    TableCell as MTableCell,
     Collapsible as MCollapsible,
+    Accordion as MAccordion,
+    AccordionItem as MAccordionItem,
     Spinner as MSpinner,
     Loader as MLoader,
     Avatar as MAvatar,
@@ -278,16 +291,20 @@ export {
     Tooltip as MTooltip,
     ToastProvider as MToastProvider,
     useToast as useMToast,
+    Tag as MTag,
+    Drawer as MDrawer,
+    Popconfirm as MPopconfirm,
+    DataTable as MDataTable,
+    ColorPicker as MColorPicker,
+    TreeView as MTreeView,
 } from './components/display'
 export type {
     CardProps,
     BadgeProps,
     AlertProps,
-    TableProps,
-    TableRootProps,
-    TableCellProps,
-    TableHeadCellProps,
     CollapsibleProps,
+    AccordionProps,
+    AccordionItemProps,
     SpinnerProps,
     LoaderProps,
     AvatarProps,
@@ -339,16 +356,28 @@ export type {
     ToastEntry,
     ToastPosition,
     ToastContext,
+    TagProps,
+    TagVariant,
+    DrawerProps,
+    DrawerSide,
+    DrawerSize,
+    PopconfirmProps,
+    DataTableProps,
+    DataTableColumn,
+    DataTableSort,
+    DataTableSortDir,
+    ColorPickerProps,
+    ColorPickerFormat,
+    TreeViewProps,
+    TreeNode,
 } from './components/display'
 export type {
     CardProps as MCardProps,
     BadgeProps as MBadgeProps,
     AlertProps as MAlertProps,
-    TableProps as MTableProps,
-    TableRootProps as MTableRootProps,
-    TableCellProps as MTableCellProps,
-    TableHeadCellProps as MTableHeadCellProps,
     CollapsibleProps as MCollapsibleProps,
+    AccordionProps as MAccordionProps,
+    AccordionItemProps as MAccordionItemProps,
     SpinnerProps as MSpinnerProps,
     LoaderProps as MLoaderProps,
     AvatarProps as MAvatarProps,
@@ -396,10 +425,24 @@ export type {
     ToastEntry as MToastEntry,
     ToastPosition as MToastPosition,
     ToastContext as MToastContext,
+    TagProps as MTagProps,
+    TagVariant as MTagVariant,
+    DrawerProps as MDrawerProps,
+    DrawerSide as MDrawerSide,
+    DrawerSize as MDrawerSize,
+    PopconfirmProps as MPopconfirmProps,
+    DataTableProps as MDataTableProps,
+    DataTableColumn as MDataTableColumn,
+    DataTableSort as MDataTableSort,
+    DataTableSortDir as MDataTableSortDir,
+    ColorPickerProps as MColorPickerProps,
+    ColorPickerFormat as MColorPickerFormat,
+    TreeViewProps as MTreeViewProps,
+    TreeNode as MTreeNode,
 } from './components/display'
 
 // Typography
-export {Heading, Text, SubText, Code, List, ListItem} from './components/typography'
+export {Heading, Text, SubText, Code, List, ListItem, Kbd} from './components/typography'
 export type {
     HeadingProps,
     HeadingLevel,
@@ -414,6 +457,7 @@ export type {
     ListProps,
     SubTextProps,
     SubTextSize,
+    KbdProps,
 } from './components/typography'
 export {
     Heading as MHeading,
@@ -423,6 +467,7 @@ export {
     Code as MCode,
     List as MList,
     ListItem as MListItem,
+    Kbd as MKbd,
 } from './components/typography'
 export type {
     HeadingProps as MHeadingProps,
@@ -432,6 +477,7 @@ export type {
     SubTextSize as MSubTextSize,
     CodeProps as MCodeProps,
     ListProps as MListProps,
+    KbdProps as MKbdProps,
 } from './components/typography'
 
 // Inputs
@@ -498,6 +544,22 @@ export {InputPostCode} from './components/inputs/InputPostCode'
 export type {InputPostCodeProps} from './components/inputs/InputPostCode'
 export {InputPostCode as MInputPostCode} from './components/inputs/InputPostCode'
 export type {InputPostCodeProps as MInputPostCodeProps} from './components/inputs/InputPostCode'
+export {InputOTP} from './components/inputs/InputOTP'
+export type {InputOTPProps} from './components/inputs/InputOTP'
+export {InputOTP as MInputOTP} from './components/inputs/InputOTP'
+export type {InputOTPProps as MInputOTPProps} from './components/inputs/InputOTP'
+export {InputSlider} from './components/inputs/InputSlider'
+export type {InputSliderProps} from './components/inputs/InputSlider'
+export {InputSlider as MInputSlider} from './components/inputs/InputSlider'
+export type {InputSliderProps as MInputSliderProps} from './components/inputs/InputSlider'
+export {InputFile} from './components/inputs/InputFile'
+export type {InputFileProps, InputFileCropOptions, InputFileCropShape} from './components/inputs/InputFile'
+export {InputFile as MInputFile} from './components/inputs/InputFile'
+export type {
+    InputFileProps as MInputFileProps,
+    InputFileCropOptions as MInputFileCropOptions,
+    InputFileCropShape as MInputFileCropShape,
+} from './components/inputs/InputFile'
 
 // Dropdowns
 export {Select} from './components/dropdowns/Select'

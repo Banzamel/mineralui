@@ -44,6 +44,7 @@ export interface MSidebarItemProps {
 export interface MSidebarGroupProps {
     label: string
     icon?: ReactNode
+    active?: boolean
     defaultOpen?: boolean
     collapsible?: boolean
     children: ReactNode

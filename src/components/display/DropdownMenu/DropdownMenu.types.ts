@@ -7,6 +7,7 @@ export interface MDropdownMenuProps {
     placement?: PopoverPlacement
     size?: MineralSize
     closeOnSelect?: boolean
+    openOn?: 'click' | 'hover'
     className?: string
     style?: CSSProperties
     children: ReactNode

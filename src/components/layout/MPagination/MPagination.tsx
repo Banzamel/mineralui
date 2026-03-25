@@ -60,18 +60,18 @@ export function MPagination({
             <nav aria-label="pagination" className={cn('pagination', className)} {...rest}>
                 <button
                     type="button"
-                    className="pagination-btn"
+                    className="btn"
                     disabled={currentPage <= 1}
                     onClick={() => onChange(currentPage - 1)}
                 >
                     &#8249;
                 </button>
-                <span className="pagination-info">
+                <span className="info">
                     {currentPage} / {totalPages}
                 </span>
                 <button
                     type="button"
-                    className="pagination-btn"
+                    className="btn"
                     disabled={currentPage >= totalPages}
                     onClick={() => onChange(currentPage + 1)}
                 >
@@ -85,7 +85,7 @@ export function MPagination({
         <nav aria-label="pagination" className={cn('pagination', className)} {...rest}>
             <button
                 type="button"
-                className="pagination-btn"
+                className="btn"
                 disabled={currentPage <= 1}
                 onClick={() => onChange(currentPage - 1)}
             >
@@ -93,12 +93,12 @@ export function MPagination({
             </button>
             {pages.map((p, i) =>
                 p === 'dots' ? (
-                    <span key={`dots-${i}`} className="pagination-dots">&#8230;</span>
+                    <span key={`dots-${i}`} className="dots">&#8230;</span>
                 ) : (
                     <button
                         key={p}
                         type="button"
-                        className={cn('pagination-btn', p === currentPage && 'pagination-btn--active')}
+                        className={cn('btn', p === currentPage && 'active')}
                         onClick={() => onChange(p)}
                     >
                         {p}
@@ -107,7 +107,7 @@ export function MPagination({
             )}
             <button
                 type="button"
-                className="pagination-btn"
+                className="btn"
                 disabled={currentPage >= totalPages}
                 onClick={() => onChange(currentPage + 1)}
             >

@@ -40,7 +40,7 @@ export function Image({
     return (
         <img
             className={cn(
-                'mineral-image',
+                'image',
                 fit,
                 rounded && 'rounded',
                 bordered && 'bordered',

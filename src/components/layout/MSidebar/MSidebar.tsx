@@ -7,6 +7,7 @@ import {
     useMemo,
 } from 'react'
 import {cn} from '../../../utils/cn'
+import {MDropdownMenu} from '../../display/DropdownMenu'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,
@@ -114,20 +115,20 @@ export function MSidebar({
     const isCollapsed = !mobile && resolvedMode === 'collapsed'
 
     const sidebarCls = cn(
-        'mineral-sidebar',
-        `mineral-sidebar--${tone}`,
-        `mineral-sidebar--${side}`,
-        isCollapsed && 'mineral-sidebar--collapsed',
-        bordered && 'mineral-sidebar--bordered',
-        mobile && 'mineral-sidebar--mobile',
-        mobile && mobileOpen && 'mineral-sidebar--mobile-open',
+        'sidebar',
+        tone,
+        side,
+        isCollapsed && 'collapsed',
+        bordered && 'bordered',
+        mobile && 'mobile',
+        mobile && mobileOpen && 'mobile-open',
         className
     )
 
     return (
         <SidebarCtx.Provider value={ctx}>
             {mobile && mobileOpen && (
-                <div className="mineral-sidebar-backdrop" onClick={closeMobile} />
+                <div className="sidebar-backdrop" onClick={closeMobile} />
             )}
 
             <aside className={sidebarCls} style={style}>
@@ -136,11 +137,11 @@ export function MSidebar({
 
             {mobile && !mobileOpen && (
                 <button
-                    className={cn('mineral-sidebar-hamburger', `mineral-sidebar-hamburger--${side}`)}
+                    className={cn('sidebar-hamburger', side)}
                     onClick={() => setMobileOpen(true)}
                     aria-label="Open menu"
                 >
-                    <span className="mineral-sidebar-hamburger-icon">☰</span>
+                    <span className="sidebar-hamburger-icon">☰</span>
                 </button>
             )}
         </SidebarCtx.Provider>
@@ -152,17 +153,17 @@ export function MSidebarHeader({className, children}: MSidebarHeaderProps) {
     const isCollapsed = !mobile && mode === 'collapsed'
 
     return (
-        <div className={cn('mineral-sidebar-header', className)}>
-            <div className="mineral-sidebar-header-content">
+        <div className={cn('sidebar-header', className)}>
+            <div className="sidebar-header-content">
                 {children}
             </div>
             {canToggle && (
                 <button
-                    className="mineral-sidebar-toggle"
+                    className="sidebar-toggle"
                     onClick={toggleMode}
                     aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 >
-                    <span className={cn('mineral-sidebar-chevron', isCollapsed && 'mineral-sidebar-chevron--flipped')}>
+                    <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>
                         ‹
                     </span>
                 </button>
@@ -172,7 +173,7 @@ export function MSidebarHeader({className, children}: MSidebarHeaderProps) {
 }
 
 export function MSidebarNav({className, children}: MSidebarNavProps) {
-    return <nav className={cn('mineral-sidebar-nav', className)}>{children}</nav>
+    return <nav className={cn('sidebar-nav', className)}>{children}</nav>
 }
 
 export function MSidebarItem({
@@ -197,10 +198,10 @@ export function MSidebarItem({
         : (href ? {href} : to ? {href: to} : {})
 
     const cls = cn(
-        'mineral-sidebar-item',
-        active && 'mineral-sidebar-item--active',
-        disabled && 'mineral-sidebar-item--disabled',
-        color && `mineral-sidebar-item--${color}`,
+        'sidebar-item',
+        active && 'active',
+        disabled && 'disabled',
+        color,
         className
     )
 
@@ -212,9 +213,9 @@ export function MSidebarItem({
             title={isCollapsed ? (typeof label === 'string' ? label : undefined) : undefined}
             {...linkProps}
         >
-            {icon && <span className="mineral-sidebar-item-icon">{icon}</span>}
-            {!isCollapsed && <span className="mineral-sidebar-item-label">{label}</span>}
-            {!isCollapsed && badge && <span className="mineral-sidebar-item-badge">{badge}</span>}
+            {icon && <span className="sidebar-item-icon">{icon}</span>}
+            {!isCollapsed && <span className="sidebar-item-label">{label}</span>}
+            {!isCollapsed && badge && <span className="sidebar-item-badge">{badge}</span>}
         </Tag>
     )
 }
@@ -222,47 +223,71 @@ export function MSidebarItem({
 export function MSidebarGroup({
     label,
     icon,
+    active = false,
     defaultOpen = true,
     collapsible = true,
     children,
     className,
 }: MSidebarGroupProps) {
-    const {mode, mobile} = useSidebar()
+    const sidebarCtx = useSidebar()
+    const {mode, mobile} = sidebarCtx
     const isCollapsed = !mobile && mode === 'collapsed'
     const [open, setOpen] = useState(defaultOpen)
+
+    const expandedCtx = useMemo<SidebarContextValue>(
+        () => ({...sidebarCtx, mode: 'expanded'}),
+        [sidebarCtx]
+    )
 
     const toggle = () => {
         if (collapsible) setOpen((o) => !o)
     }
 
     if (isCollapsed) {
-        return <div className={cn('mineral-sidebar-group', className)}>{children}</div>
+        const trigger = (
+            <span
+                className={cn('sidebar-group-icon collapsed', active && 'active')}
+                title={typeof label === 'string' ? label : undefined}
+            >
+                {icon}
+            </span>
+        )
+
+        return (
+            <div className={cn('sidebar-group', className)}>
+                <MDropdownMenu trigger={trigger} placement="right-start" closeOnSelect openOn="hover">
+                    <SidebarCtx.Provider value={expandedCtx}>
+                        {children}
+                    </SidebarCtx.Provider>
+                </MDropdownMenu>
+            </div>
+        )
     }
 
     return (
-        <div className={cn('mineral-sidebar-group', className)}>
+        <div className={cn('sidebar-group', className)}>
             <button
-                className="mineral-sidebar-group-header"
+                className={cn('sidebar-group-header', active && 'active')}
                 onClick={toggle}
                 aria-expanded={open}
             >
-                {icon && <span className="mineral-sidebar-group-icon">{icon}</span>}
-                <span className="mineral-sidebar-group-label">{label}</span>
+                {icon && <span className="sidebar-group-icon">{icon}</span>}
+                <span className="sidebar-group-label">{label}</span>
                 {collapsible && (
-                    <span className={cn('mineral-sidebar-group-arrow', open && 'mineral-sidebar-group-arrow--open')}>
+                    <span className={cn('sidebar-group-arrow', open && 'open')}>
                         ›
                     </span>
                 )}
             </button>
-            {open && <div className="mineral-sidebar-group-items">{children}</div>}
+            {open && <div className="sidebar-group-items">{children}</div>}
         </div>
     )
 }
 
 export function MSidebarFooter({className, children}: MSidebarFooterProps) {
-    return <div className={cn('mineral-sidebar-footer', className)}>{children}</div>
+    return <div className={cn('sidebar-footer', className)}>{children}</div>
 }
 
 export function MSidebarDivider({className, spacing = 'md'}: MSidebarDividerProps) {
-    return <hr className={cn('mineral-sidebar-divider', `mineral-sidebar-divider--${spacing}`, className)} />
+    return <hr className={cn('sidebar-divider', spacing, className)} />
 }

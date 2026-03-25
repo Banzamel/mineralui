@@ -27,7 +27,6 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
         size = 'md',
         disabled = false,
         label,
-        fullWidth = false,
         className,
         ...rest
     },
@@ -67,11 +66,11 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
     return (
         <div
             ref={ref}
-            className={cn('input-slider', size, fullWidth && 'full-width', disabled && 'disabled', className)}
+            className={cn('input-slider', size, disabled && 'disabled', className)}
             {...rest}
         >
-            {label && <div className="input-slider-label">{label}</div>}
-            <div className="input-slider-row">
+            {label && <div className="label">{label}</div>}
+            <div className="row">
                 <Slider
                     min={min}
                     max={max}
@@ -86,7 +85,7 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
                     <input
                         type="text"
                         inputMode="decimal"
-                        className={cn('input-slider-field', color)}
+                        className={cn('field', color)}
                         value={currentValue}
                         onChange={handleInputChange}
                         onBlur={handleBlur}

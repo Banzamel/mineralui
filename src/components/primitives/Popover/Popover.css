@@ -1,7 +1,12 @@
 /* === Popover dropdown === */
 .popover {
     z-index: var(--mineral-z-popover, 1000);
-    background: var(--mineral-popover-bg);
+    background-color: var(--mineral-popover-bg);
+    background-image: linear-gradient(
+        135deg,
+        rgba(var(--mineral-primary-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
     border: 1px solid var(--mineral-popover-border);
     border-radius: var(--mineral-radius-md);
     box-shadow: var(--mineral-popover-shadow);

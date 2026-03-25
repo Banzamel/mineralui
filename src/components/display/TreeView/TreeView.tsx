@@ -19,7 +19,7 @@ function TreeItem({
     const isSelected = selectedId === node.id
 
     return (
-        <li className="tree-item-wrapper" role="treeitem" aria-expanded={hasChildren ? isExpanded : undefined}>
+        <li role="treeitem" aria-expanded={hasChildren ? isExpanded : undefined}>
             <div
                 className={cn(
                     'tree-item',
@@ -34,18 +34,18 @@ function TreeItem({
                     if (selectable) onSelect?.(node.id, node)
                 }}
             >
-                <span className="tree-item-toggle">
+                <span className="toggle">
                     {hasChildren && expandable ? (
-                        <span className={cn('tree-item-arrow', isExpanded && 'expanded')}>▶</span>
+                        <span className={cn('arrow', isExpanded && 'expanded')}>▶</span>
                     ) : (
-                        <span className="tree-item-spacer" />
+                        <span className="spacer" />
                     )}
                 </span>
-                {node.icon && <span className="tree-item-icon">{node.icon}</span>}
-                <span className="tree-item-label">{node.label}</span>
+                {node.icon && <span className="icon">{node.icon}</span>}
+                <span className="label">{node.label}</span>
             </div>
             {hasChildren && isExpanded && (
-                <ul className="tree-list" role="group">
+                <ul className="list" role="group">
                     {node.children!.map((child) => (
                         <TreeItem
                             key={child.id}
@@ -101,7 +101,7 @@ export function TreeView({
 
     return (
         <div className={cn('tree-view', className)} {...rest}>
-            <ul className="tree-list" role="tree">
+            <ul className="list" role="tree">
                 {items.map((item) => (
                     <TreeItem
                         key={item.id}

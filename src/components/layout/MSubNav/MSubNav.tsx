@@ -12,7 +12,7 @@ export function MSubNav({
     ...rest
 }: MSubNavProps) {
     return (
-        <nav className={cn('mineral-subnav', className)} {...rest}>
+        <nav className={cn('subnav', className)} {...rest}>
             {items.map((item) => {
                 const Tag = component ?? (item.href ? 'a' : 'button')
                 const isActive = active === item.value
@@ -22,16 +22,16 @@ export function MSubNav({
                     <Tag
                         key={item.value}
                         className={cn(
-                            'mineral-subnav-item',
-                            isActive && 'mineral-subnav-item--active',
-                            item.disabled && 'mineral-subnav-item--disabled'
+                            'subnav-item',
+                            isActive && 'active',
+                            item.disabled && 'disabled'
                         )}
                         onClick={item.disabled ? undefined : () => onChange?.(item.value)}
                         aria-disabled={item.disabled || undefined}
                         {...linkProps}
                     >
-                        {item.icon && <span className="mineral-subnav-item-icon">{item.icon}</span>}
-                        <span className="mineral-subnav-item-label">{item.label}</span>
+                        {item.icon && <span className="subnav-item-icon">{item.icon}</span>}
+                        <span className="subnav-item-label">{item.label}</span>
                     </Tag>
                 )
             })}

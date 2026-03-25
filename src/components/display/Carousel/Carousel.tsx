@@ -88,7 +88,7 @@ export function Carousel({
         : undefined
 
     return (
-        <div className={cn('carousel', isFade && 'carousel--fade', className)} {...rest}>
+        <div className={cn('carousel', isFade && 'fade', className)} {...rest}>
             <div
                 className="carousel-viewport"
                 onPointerDown={onPointerDown}
@@ -107,8 +107,8 @@ export function Carousel({
                             key={i}
                             className={cn(
                                 'carousel-slide',
-                                isFade && i === active && 'carousel-slide--active',
-                                isFade && i !== active && 'carousel-slide--hidden'
+                                isFade && i === active && 'active',
+                                isFade && i !== active && 'hidden'
                             )}
                         >
                             {slide}
@@ -125,7 +125,9 @@ export function Carousel({
                         aria-label="Previous slide"
                         type="button"
                     >
-                        ‹
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                     </button>
                     <button
                         className="carousel-arrow carousel-arrow-next"
@@ -133,7 +135,9 @@ export function Carousel({
                         aria-label="Next slide"
                         type="button"
                     >
-                        ›
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                     </button>
                 </>
             )}

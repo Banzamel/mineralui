@@ -1,5 +1,7 @@
 import {useMemo, useState} from 'react'
 import type {DataTableProps, DataTableSort} from './DataTable.types'
+import {Checkbox} from '../../controls/Checkbox'
+import {MPagination} from '../../layout/MPagination'
 import {cn} from '../../../utils/cn'
 import './DataTable.css'
 
@@ -97,13 +99,19 @@ export function DataTable<T = any>({
         setSelected(selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key])
     }
 
+    function handleRowClick(key: string, e: React.MouseEvent) {
+        const target = e.target as HTMLElement
+        if (target.closest('button, a, [data-no-row-select]')) return
+        toggleRow(key)
+    }
+
     return (
         <div className={cn('data-table', className)} {...rest}>
             {filterable && (
-                <div className="data-table-toolbar">
+                <div className="toolbar">
                     <input
                         type="text"
-                        className="data-table-filter"
+                        className="filter"
                         placeholder={filterPlaceholder}
                         value={filter}
                         onChange={(e) => {
@@ -113,13 +121,18 @@ export function DataTable<T = any>({
                     />
                 </div>
             )}
-            <div className="data-table-scroll">
-                <table className={cn('data-table-root', striped && 'striped', compact && 'compact')}>
-                    <thead className={cn('data-table-head', stickyHeader && 'sticky')}>
+            <div className="scroll">
+                <table className={cn('root', striped && 'striped', compact && 'compact')}>
+                    <thead className={cn('head', stickyHeader && 'sticky')}>
                         <tr>
                             {selectable && (
-                                <th className="data-table-th data-table-check-col">
-                                    <input type="checkbox" checked={allSelected} onChange={toggleAll} />
+                                <th className="th check-col">
+                                    <Checkbox
+                                        checked={allSelected}
+                                        onChange={toggleAll}
+                                        size="sm"
+                                        clickEffect="none"
+                                    />
                                 </th>
                             )}
                             {columns.map((col) => {
@@ -129,7 +142,7 @@ export function DataTable<T = any>({
                                     <th
                                         key={col.key}
                                         className={cn(
-                                            'data-table-th',
+                                            'th',
                                             isSortable && 'sortable',
                                             isSorted && `sorted-${activeSort!.dir}`
                                         )}
@@ -139,10 +152,10 @@ export function DataTable<T = any>({
                                         }}
                                         onClick={isSortable ? () => handleSort(col.key) : undefined}
                                     >
-                                        <span className="data-table-th-content">
+                                        <span className="th-content">
                                             {col.label}
                                             {isSortable && (
-                                                <span className="data-table-sort-icon">
+                                                <span className="sort-icon">
                                                     {isSorted ? (activeSort!.dir === 'asc' ? '▲' : '▼') : '⇅'}
                                                 </span>
                                             )}
@@ -156,7 +169,7 @@ export function DataTable<T = any>({
                         {pageData.length === 0 && (
                             <tr>
                                 <td
-                                    className="data-table-empty"
+                                    className="empty"
                                     colSpan={columns.length + (selectable ? 1 : 0)}
                                 >
                                     {emptyText}
@@ -169,21 +182,23 @@ export function DataTable<T = any>({
                             return (
                                 <tr
                                     key={key}
-                                    className={cn('data-table-row', isSelected && 'selected')}
+                                    className={cn('row', isSelected && 'selected', selectable && 'selectable')}
+                                    onClick={selectable ? (e) => handleRowClick(key, e) : undefined}
                                 >
                                     {selectable && (
-                                        <td className="data-table-td data-table-check-col">
-                                            <input
-                                                type="checkbox"
+                                        <td className="td check-col">
+                                            <Checkbox
                                                 checked={isSelected}
-                                                onChange={() => toggleRow(key)}
+                                                onChange={() => {}}
+                                                size="sm"
+                                                clickEffect="none"
                                             />
                                         </td>
                                     )}
                                     {columns.map((col) => (
                                         <td
                                             key={col.key}
-                                            className="data-table-td"
+                                            className="td"
                                             style={{textAlign: col.align}}
                                         >
                                             {col.render
@@ -198,25 +213,12 @@ export function DataTable<T = any>({
                 </table>
             </div>
             {pagination && totalPages > 1 && (
-                <div className="data-table-pagination">
-                    <button
-                        className="data-table-page-btn"
-                        disabled={page === 0}
-                        onClick={() => setPage(page - 1)}
-                    >
-                        ‹
-                    </button>
-                    <span className="data-table-page-info">
-                        {page + 1} / {totalPages}
-                    </span>
-                    <button
-                        className="data-table-page-btn"
-                        disabled={page >= totalPages - 1}
-                        onClick={() => setPage(page + 1)}
-                    >
-                        ›
-                    </button>
-                </div>
+                <MPagination
+                    total={sorted.length}
+                    page={page + 1}
+                    pageSize={pageSize}
+                    onChange={(p) => setPage(p - 1)}
+                />
             )}
         </div>
     )

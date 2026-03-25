@@ -31,6 +31,10 @@
     width: 100%;
 }
 
+.select.full-width .trigger {
+    width: 100%;
+}
+
 .select .label {
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text-secondary);
@@ -54,6 +58,7 @@
 .select .trigger {
     display: flex;
     align-items: center;
+    min-width: 0;
     cursor: pointer;
     transition:
         border-color var(--mineral-transition-base),
@@ -162,7 +167,7 @@
     overflow: hidden;
 }
 
-.select .tag {
+.select .m-tag {
     display: inline-flex;
     align-items: center;
     padding: 1px 6px;

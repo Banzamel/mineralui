@@ -1,33 +1,33 @@
-.mineral-image {
+.image {
     display: block;
     max-width: 100%;
     height: auto;
 }
 
-.mineral-image.cover {
+.image.cover {
     object-fit: cover;
 }
 
-.mineral-image.contain {
+.image.contain {
     object-fit: contain;
 }
 
-.mineral-image.fill {
+.image.fill {
     object-fit: fill;
 }
 
-.mineral-image.none {
+.image.none {
     object-fit: none;
 }
 
-.mineral-image.rounded {
+.image.rounded {
     border-radius: var(--mineral-radius-lg);
 }
 
-.mineral-image.bordered {
+.image.bordered {
     border: 1px solid var(--mineral-border);
 }
 
-.mineral-image.shadow {
+.image.shadow {
     box-shadow: var(--mineral-shadow-md);
 }

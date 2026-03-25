@@ -12,7 +12,7 @@ export function Accordion({
     multiple = false,
     defaultOpen,
     onChange,
-    bordered = true,
+    bordered = false,
     className,
     children,
     ...rest
@@ -46,14 +46,14 @@ export function Accordion({
     )
 
     return (
-        <div className={cn('accordion', bordered && 'accordion--bordered', className)} {...rest}>
+        <div className={cn('accordion', bordered && 'bordered', className)} {...rest}>
             {items.map((child) => {
                 if (!isValidElement<AccordionItemProps>(child)) return null
                 const {id, title, children: content, disabled, fcolor} = child.props
                 const isOpen = openIds.includes(id)
 
                 return (
-                    <div key={id} className={cn('accordion-item', disabled && 'accordion-item--disabled')}>
+                    <div key={id} className={cn('accordion-item', disabled && 'disabled')}>
                         <Collapsible
                             title={title}
                             open={isOpen}

@@ -2,9 +2,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-}
-
-.input-slider.full-width {
     width: 100%;
 }
 
@@ -13,24 +10,24 @@
     pointer-events: none;
 }
 
-.input-slider-label {
+.input-slider .label {
     font-size: var(--mineral-font-size-sm);
     font-weight: 600;
     color: var(--mineral-text);
 }
 
-.input-slider-row {
+.input-slider .row {
     display: flex;
     align-items: center;
     gap: var(--mineral-spacing-md);
 }
 
-.input-slider-row .slider {
+.input-slider .row .slider {
     flex: 1;
     min-width: 0;
 }
 
-.input-slider-field {
+.input-slider .field {
     --color-rgb: var(--mineral-primary-rgb);
     width: 72px;
     flex-shrink: 0;
@@ -49,25 +46,25 @@
         box-shadow var(--mineral-transition-fast);
 }
 
-.input-slider-field:focus {
+.input-slider .field:focus {
     border-color: rgba(var(--color-rgb), 0.6);
     box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.15);
 }
 
-.input-slider-field.primary { --color-rgb: var(--mineral-primary-rgb); }
-.input-slider-field.neutral { --color-rgb: var(--mineral-neutral-rgb); }
-.input-slider-field.success { --color-rgb: var(--mineral-success-rgb); }
-.input-slider-field.error   { --color-rgb: var(--mineral-error-rgb); }
-.input-slider-field.warning { --color-rgb: var(--mineral-warning-rgb); }
-.input-slider-field.info    { --color-rgb: var(--mineral-info-rgb); }
+.input-slider .field.primary { --color-rgb: var(--mineral-primary-rgb); }
+.input-slider .field.neutral { --color-rgb: var(--mineral-neutral-rgb); }
+.input-slider .field.success { --color-rgb: var(--mineral-success-rgb); }
+.input-slider .field.error   { --color-rgb: var(--mineral-error-rgb); }
+.input-slider .field.warning { --color-rgb: var(--mineral-warning-rgb); }
+.input-slider .field.info    { --color-rgb: var(--mineral-info-rgb); }
 
-.input-slider.sm .input-slider-field {
+.input-slider.sm .field {
     width: 60px;
     font-size: var(--mineral-font-size-xs);
     padding: 2px var(--mineral-spacing-xs);
 }
 
-.input-slider.lg .input-slider-field {
+.input-slider.lg .field {
     width: 84px;
     font-size: var(--mineral-font-size-md);
     padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);

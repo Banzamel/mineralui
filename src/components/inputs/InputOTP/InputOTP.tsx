@@ -45,7 +45,6 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
         (index: number, char: string) => {
             if (!/^\d$/.test(char)) return
             const chars = currentValue.split('')
-            // Fill gaps with empty strings up to the target index
             while (chars.length <= index) chars.push('')
             chars[index] = char
             updateValue(chars.join(''))
@@ -96,8 +95,8 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
             className={cn('input-otp', color, size, error && 'error', disabled && 'disabled', className)}
             {...rest}
         >
-            {label && <div className="input-otp-label">{label}</div>}
-            <div className="input-otp-slots" onPaste={handlePaste}>
+            {label && <div className="label">{label}</div>}
+            <div className="slots" onPaste={handlePaste}>
                 {Array.from({length}, (_, i) => (
                     <input
                         key={i}
@@ -107,7 +106,7 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
                         maxLength={1}
                         value={currentValue[i] || ''}
                         disabled={disabled}
-                        className={cn('input-otp-slot', currentValue[i] && 'filled')}
+                        className={cn('slot', currentValue[i] && 'filled')}
                         aria-label={`Digit ${i + 1}`}
                         onChange={(e) => {
                             const char = e.target.value.slice(-1)
@@ -118,7 +117,7 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
                     />
                 ))}
             </div>
-            {error && errorText && <div className="input-otp-error">{errorText}</div>}
+            {error && errorText && <div className="error-text">{errorText}</div>}
         </div>
     )
 })

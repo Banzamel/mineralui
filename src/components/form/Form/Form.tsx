@@ -198,7 +198,7 @@ export function Form({
 
     return (
         <FormContext.Provider value={ctx}>
-            <form onSubmit={handleSubmit} noValidate={noValidate} className={`mineral-form${className ? ` ${className}` : ''}`} style={style}>
+            <form onSubmit={handleSubmit} noValidate={noValidate} className={`form${className ? ` ${className}` : ''}`} style={style}>
                 {typeof children === 'function' ? children(ctx) : children}
             </form>
         </FormContext.Provider>

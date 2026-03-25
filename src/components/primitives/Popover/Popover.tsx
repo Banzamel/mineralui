@@ -32,31 +32,60 @@ export function Popover({
         }
 
         const isTop = placement.startsWith('top')
+        const isRight = placement.startsWith('right')
+        const isLeft = placement.startsWith('left')
+        const isHorizontal = isRight || isLeft
         const isEnd = placement.endsWith('end')
 
-        // Check if we need to flip (not enough space below, flip to top, or vice versa)
-        const spaceBelow = viewport.height - anchor.bottom - offset
-        const spaceAbove = anchor.top - offset
-        const shouldFlip = isTop
-            ? spaceAbove < popover.height && spaceBelow > spaceAbove
-            : spaceBelow < popover.height && spaceAbove > spaceBelow
-
-        setFlipped(shouldFlip)
-
-        const showOnTop = isTop ? !shouldFlip : shouldFlip
-
         let top: number
-        if (showOnTop) {
-            top = anchor.top - popover.height - offset + window.scrollY
-        } else {
-            top = anchor.bottom + offset + window.scrollY
-        }
-
         let left: number
-        if (isEnd) {
-            left = anchor.right - popover.width + window.scrollX
+
+        if (isHorizontal) {
+            // Horizontal placement: position to the right or left of the anchor
+            const spaceRight = viewport.width - anchor.right - offset
+            const spaceLeft = anchor.left - offset
+            const shouldFlip = isRight
+                ? spaceRight < popover.width && spaceLeft > spaceRight
+                : spaceLeft < popover.width && spaceRight > spaceLeft
+
+            setFlipped(shouldFlip)
+
+            const showOnRight = isRight ? !shouldFlip : shouldFlip
+
+            if (showOnRight) {
+                left = anchor.right + offset + window.scrollX
+            } else {
+                left = anchor.left - popover.width - offset + window.scrollX
+            }
+
+            if (isEnd) {
+                top = anchor.bottom - popover.height + window.scrollY
+            } else {
+                top = anchor.top + window.scrollY
+            }
         } else {
-            left = anchor.left + window.scrollX
+            // Vertical placement: position above or below the anchor
+            const spaceBelow = viewport.height - anchor.bottom - offset
+            const spaceAbove = anchor.top - offset
+            const shouldFlip = isTop
+                ? spaceAbove < popover.height && spaceBelow > spaceAbove
+                : spaceBelow < popover.height && spaceAbove > spaceBelow
+
+            setFlipped(shouldFlip)
+
+            const showOnTop = isTop ? !shouldFlip : shouldFlip
+
+            if (showOnTop) {
+                top = anchor.top - popover.height - offset + window.scrollY
+            } else {
+                top = anchor.bottom + offset + window.scrollY
+            }
+
+            if (isEnd) {
+                left = anchor.right - popover.width + window.scrollX
+            } else {
+                left = anchor.left + window.scrollX
+            }
         }
 
         // Clamp to viewport

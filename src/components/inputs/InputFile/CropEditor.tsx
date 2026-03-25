@@ -149,7 +149,7 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
         <div className="crop-editor">
             <div
                 ref={containerRef}
-                className={`crop-viewport ${shape}`}
+                className={`viewport ${shape}`}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
@@ -159,7 +159,7 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                     <img
                         src={imgSrc}
                         alt=""
-                        className="crop-image"
+                        className="image"
                         draggable={false}
                         style={{
                             transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
@@ -167,18 +167,18 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                         }}
                     />
                 )}
-                <div className={`crop-overlay ${shape}`} />
+                <div className={`overlay ${shape}`} />
             </div>
 
-            <div className="crop-zoom">
-                <svg viewBox="0 0 16 16" className="crop-zoom-icon" aria-hidden="true">
+            <div className="zoom">
+                <svg viewBox="0 0 16 16" className="zoom-icon" aria-hidden="true">
                     <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
                     <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     <path d="M5 7H9M7 5V9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
                 <input
                     type="range"
-                    className="crop-zoom-slider"
+                    className="zoom-slider"
                     min="0.1"
                     max="5"
                     step="0.01"
@@ -187,11 +187,11 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                 />
             </div>
 
-            <div className="crop-actions">
-                <button type="button" className="crop-btn cancel" onClick={onCancel}>
+            <div className="actions">
+                <button type="button" className="btn cancel" onClick={onCancel}>
                     Cancel
                 </button>
-                <button type="button" className="crop-btn confirm" onClick={exportCrop}>
+                <button type="button" className="btn confirm" onClick={exportCrop}>
                     Crop
                 </button>
             </div>

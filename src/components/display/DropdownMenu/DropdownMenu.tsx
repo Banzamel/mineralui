@@ -54,12 +54,14 @@ export function MDropdownMenu({
     placement = 'bottom-start',
     size = 'md',
     closeOnSelect = true,
+    openOn = 'click',
     className,
     style,
     children,
 }: MDropdownMenuProps) {
     const [open, setOpen] = useState(false)
     const anchorRef = useRef<HTMLDivElement>(null)
+    const hoverTimeout = useRef<ReturnType<typeof setTimeout>>(null)
 
     const items = collectItems(children)
     const enabledCount = items.filter((i) => !getProps(i).disabled).length
@@ -127,11 +129,21 @@ export function MDropdownMenu({
         return child
     }
 
+    const hoverHandlers = openOn === 'hover' ? {
+        onMouseEnter: () => {
+            if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
+            setOpen(true)
+        },
+        onMouseLeave: () => {
+            hoverTimeout.current = setTimeout(() => setOpen(false), 150)
+        },
+    } : {}
+
     return (
-        <div className={cn('dropdown-menu-anchor', className)} style={style}>
+        <div className={cn('dropdown-menu-anchor', className)} style={style} {...hoverHandlers}>
             <div
                 ref={anchorRef}
-                onClick={handleTriggerClick}
+                onClick={openOn === 'click' ? handleTriggerClick : undefined}
                 onKeyDown={handleTriggerKeyDown}
                 role="button"
                 tabIndex={0}
@@ -144,9 +156,9 @@ export function MDropdownMenu({
                 anchorRef={anchorRef}
                 onClose={() => setOpen(false)}
                 placement={placement}
-                className={cn('dropdown-menu-popover', `dropdown-menu--${size}`)}
+                className={cn('dropdown-menu-popover', size)}
             >
-                <div className="dropdown-menu-list" role="menu">
+                <div className="dropdown-menu-list" role="menu" {...hoverHandlers}>
                     {Children.map(children, renderChild)}
                 </div>
             </Popover>
@@ -182,7 +194,7 @@ export function MDropdownItem({
         'dropdown-menu-item',
         isHighlighted && 'active',
         disabled && 'disabled',
-        color && `dropdown-menu-item--${color}`,
+        color,
         className
     )
 

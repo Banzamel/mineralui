@@ -164,11 +164,11 @@ export function ColorPicker({
 
     return (
         <div className={cn('color-picker', size, disabled && 'disabled', className)} {...rest}>
-            {label && <label className="color-picker-label">{label}</label>}
+            {label && <label className="label">{label}</label>}
 
             <div
                 ref={areaRef}
-                className="color-picker-area"
+                className="area"
                 style={{background: `hsl(${hsv[0]}, 100%, 50%)`}}
                 onPointerDown={(e) => {
                     if (disabled) return
@@ -176,10 +176,10 @@ export function ColorPicker({
                     handleAreaPointer(e)
                 }}
             >
-                <div className="color-picker-area-white" />
-                <div className="color-picker-area-black" />
+                <div className="white" />
+                <div className="black" />
                 <div
-                    className="color-picker-cursor"
+                    className="cursor"
                     style={{
                         left: `${hsv[1] * 100}%`,
                         top: `${(1 - hsv[2]) * 100}%`,
@@ -190,7 +190,7 @@ export function ColorPicker({
 
             <div
                 ref={hueRef}
-                className="color-picker-hue"
+                className="hue"
                 onPointerDown={(e) => {
                     if (disabled) return
                     dragging.current = 'hue'
@@ -198,16 +198,16 @@ export function ColorPicker({
                 }}
             >
                 <div
-                    className="color-picker-hue-thumb"
+                    className="hue-thumb"
                     style={{left: `${(hsv[0] / 360) * 100}%`}}
                 />
             </div>
 
-            <div className="color-picker-controls">
-                <div className="color-picker-preview" style={{background: currentHex}} />
+            <div className="controls">
+                <div className="preview" style={{background: currentHex}} />
                 <input
                     type="text"
-                    className="color-picker-input"
+                    className="input"
                     value={inputValue}
                     onChange={(e) => handleInputChange(e.target.value)}
                     disabled={disabled}
@@ -215,12 +215,12 @@ export function ColorPicker({
             </div>
 
             {swatches.length > 0 && (
-                <div className="color-picker-swatches">
+                <div className="swatches">
                     {swatches.map((swatch) => (
                         <button
                             key={swatch}
                             type="button"
-                            className={cn('color-picker-swatch', currentHex.toLowerCase() === swatch.toLowerCase() && 'active')}
+                            className={cn('swatch', currentHex.toLowerCase() === swatch.toLowerCase() && 'active')}
                             style={{background: swatch}}
                             onClick={() => {
                                 if (disabled) return

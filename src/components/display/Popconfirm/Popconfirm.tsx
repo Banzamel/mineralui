@@ -37,26 +37,26 @@ export function Popconfirm({
             placement={placement}
             className={cn('popconfirm', color, className)}
         >
-            <div className="popconfirm-body">
-                {icon && <div className="popconfirm-icon">{icon}</div>}
-                <div className="popconfirm-content">
-                    <div className="popconfirm-title">{title}</div>
+            <div className="body">
+                {icon && <div className="icon">{icon}</div>}
+                <div className="content">
+                    <div className="title">{title}</div>
                     {description && (
-                        <div className="popconfirm-description">{description}</div>
+                        <div className="description">{description}</div>
                     )}
                 </div>
             </div>
-            <div className="popconfirm-actions">
+            <div className="actions">
                 <button
                     type="button"
-                    className="popconfirm-btn cancel"
+                    className="btn cancel"
                     onClick={handleCancel}
                 >
                     {cancelText}
                 </button>
                 <button
                     type="button"
-                    className="popconfirm-btn confirm"
+                    className="btn confirm"
                     onClick={handleConfirm}
                 >
                     {confirmText}
