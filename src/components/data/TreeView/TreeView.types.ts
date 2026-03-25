@@ -18,6 +18,8 @@ export interface TreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onS
     selected?: string | null
     onSelect?: (id: string, node: TreeNode) => void
     indent?: number
+    showLines?: boolean
+    fileIcons?: boolean
 }
 
 export interface TreeItemProps {
@@ -30,4 +32,6 @@ export interface TreeItemProps {
     onToggle: (id: string) => void
     onSelect?: (id: string, node: TreeNode) => void
     indent: number
+    showLines?: boolean
+    fileIcons?: boolean
 }

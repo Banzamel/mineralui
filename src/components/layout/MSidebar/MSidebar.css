@@ -190,6 +190,23 @@
     margin-left: auto;
 }
 
+/* Top-level item (outside group) — matches group header style */
+.sidebar-nav > .sidebar-item {
+    font-size: var(--mineral-font-size-base);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 1;
+    color: var(--mineral-text-secondary);
+}
+
+.sidebar-nav > .sidebar-item:hover {
+    color: var(--mineral-text);
+}
+
+.sidebar-nav > .sidebar-item.active {
+    color: var(--mineral-primary);
+}
+
 /* Group */
 .sidebar-group {
     display: flex;

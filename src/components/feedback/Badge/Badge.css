@@ -71,3 +71,16 @@
     line-height: 1.5;
     font-size: var(--mineral-font-size-md);
 }
+
+.badge.pulsing {
+    animation: mineral-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mineral-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(var(--color-rgb), 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(var(--color-rgb), 0);
+    }
+}

@@ -72,7 +72,11 @@
     align-items: center;
     flex-shrink: 0;
     font-size: 16px;
-    opacity: 0.7;
+    opacity: 0.75;
+}
+
+.tree-item .icon svg {
+    display: block;
 }
 
 .tree-item .label {
@@ -80,4 +84,19 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* Indent guide lines */
+.tree-view.show-lines ul[role="group"] {
+    position: relative;
+}
+
+.tree-view.show-lines ul[role="group"]::before {
+    content: '';
+    position: absolute;
+    left: var(--line-left, 17px);
+    top: 0;
+    bottom: 8px;
+    border-left: 1px dashed var(--mineral-border);
+    pointer-events: none;
 }

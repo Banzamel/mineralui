@@ -5,5 +5,6 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
     color?: MineralColor
     size?: MineralSize
     fcolor?: MineralFontColor
+    pulsing?: boolean
     children?: ReactNode
 }

@@ -7,7 +7,7 @@ import {
     useMemo,
 } from 'react'
 import {cn} from '../../../utils/cn'
-import {MDropdownMenu} from '../../display/DropdownMenu'
+import {MDropdownMenu} from '../../overlays/DropdownMenu'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,

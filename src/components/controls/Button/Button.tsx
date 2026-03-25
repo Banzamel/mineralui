@@ -16,6 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         rounded = false,
         iconOnly = false,
         loading = false,
+        pulsing = false,
         startIcon,
         endIcon,
         clickEffect = 'ripple',
@@ -53,6 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
                 rounded && 'rounded',
                 iconOnly && 'icon-only',
                 loading && 'loading',
+                pulsing && 'pulsing',
                 isDisabled && 'disabled',
                 effectClassName,
                 className

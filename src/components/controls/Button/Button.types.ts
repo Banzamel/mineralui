@@ -16,6 +16,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
     startIcon?: ReactNode
     endIcon?: ReactNode
     clickEffect?: MineralClickEffect
+    pulsing?: boolean
     rippleColor?: string
     className?: string
     style?: CSSProperties
