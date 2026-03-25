@@ -3,7 +3,7 @@
 React component framework for dashboards, admin panels, documentation shells, settings screens and data-heavy internal products.
 
 - npm: `@banzamel/mineralui`
-- release version: `0.7.0`
+- release version: `0.8.0`
 - peer dependencies: `react >= 19`, `react-dom >= 19`
 - repository: `https://github.com/Banzamel/mineralui`
 - styles: auto-injected — CSS is bundled into JS and applied automatically on import
@@ -73,13 +73,13 @@ function AccountSettings() {
 - `MSubNav`
 - `MBreadcrumb` — path-based navigation with collapsible middle items
 - `MPagination` — numbered and simple page navigation
-- `MAppShell`, `MBody` — top-level app structure (sidebar + content)
+- `MAppShell`, `MBody` — top-level app structure; auto-detects `MSidebar` among direct children and wraps the rest in an internal content column
 
 ### Display
 - `MCard`, `MCardHeader`, `MCardBody`, `MCardFooter`, `MCardPayment`
 - `MBadge`, `MAlert`, `MBanner`
 - `MTag` — interactive tags with close buttons and outlined variant
-- `MTooltip` — hover/focus tooltip with 4 placements and delay
+- `MTooltip` — hover/focus tooltip with 4 placements, delay, and Portal-based rendering to escape overflow clipping
 - `MToastProvider`, `useToast` — toast notification system with auto-dismiss and animations
 - `MDataTable` — data-driven table with sorting, filtering, pagination and row selection
 - `MAccordion`, `MAccordionItem` — disclosure group with single or multiple open state
@@ -144,6 +144,8 @@ function AccountSettings() {
 ## Feature Highlights
 
 ### Layout-first API
+- `MAppShell` auto-detects `MSidebar` among its direct children — no separate prop needed. Place `MSidebar`, `MHeader`, `MBody` and other elements as siblings inside `MAppShell`.
+- `MBody` provides default padding for page content.
 - `MStack`, `MInline` and `MGrid` cover the majority of internal dashboard layouts without extra utility libraries.
 - `MGrid` supports equal columns by default and responsive span overrides with `sm`, `md`, `lg`, `xl`.
 - `MSidebar` provides collapsible, nested navigation with grouped items and dividers.
@@ -191,7 +193,7 @@ function AccountSettings() {
 - `MTaskList` for checklist-style task tracking.
 - `MDropdownMenu` for context menus and action lists.
 - `MBanner` for page-level messaging.
-- `MTooltip` for contextual hints on hover or focus.
+- `MTooltip` for contextual hints on hover or focus — renders through Portal so it is never clipped by parent overflow.
 - `MDrawer` — slide-out panel from any screen edge for secondary content and navigation.
 - `MPopconfirm` — confirmation popover for destructive actions.
 - `MAccordion` — disclosure group with single or multiple open panels.
@@ -232,6 +234,12 @@ MineralUI is driven by CSS variables and readable class names.
     --mineral-border: rgba(255, 255, 255, 0.15);
     --mineral-border-hover: rgba(255, 255, 255, 0.25);
     --mineral-border-focus: var(--mineral-primary);
+
+    /* Z-index layers */
+    --mineral-z-popover: 1000;
+    --mineral-z-modal: 1100;
+    --mineral-z-tooltip: 1150;
+    --mineral-z-toast: 1200;
 }
 ```
 

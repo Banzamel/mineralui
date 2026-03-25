@@ -1,7 +1,6 @@
 import type {HTMLAttributes, ReactNode} from 'react'
 
 export interface AppShellProps extends HTMLAttributes<HTMLDivElement> {
-    sidebar?: ReactNode
     children?: ReactNode
 }
 
