@@ -3,7 +3,15 @@ import './theme/index.css'
 
 // Theme
 export {MThemeProvider, MineralThemeProvider, useMTheme, useTheme} from './theme'
-export type {MineralTheme, MineralMode, MineralModePreference, MineralColor, MineralSize, MineralFontColor, MineralThemeScope} from './theme'
+export type {
+    MineralTheme,
+    MineralMode,
+    MineralModePreference,
+    MineralColor,
+    MineralSize,
+    MineralFontColor,
+    MineralThemeScope,
+} from './theme'
 
 // I18n
 export {MI18nProvider, useMI18n} from './i18n'
@@ -216,7 +224,16 @@ export {Slider as MSlider} from './components/controls/Slider'
 export type {SliderProps as MSliderProps, SliderMark as MSliderMark} from './components/controls/Slider'
 
 // Cards
-export {Card, CardHeader, CardBody, CardFooter, CardPayment, CardBusiness, CardService, CardGrid} from './components/cards'
+export {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    CardPayment,
+    CardBusiness,
+    CardService,
+    CardGrid,
+} from './components/cards'
 export {
     Card as MCard,
     CardHeader as MCardHeader,
@@ -263,7 +280,17 @@ export type {
 } from './components/cards'
 
 // Data
-export {DataTable, TreeView, TaskList, CalendarBoard, CalendarDayCell, CalendarEventList, CalendarEventItem, CalendarEventPopover, CalendarTimeline} from './components/data'
+export {
+    DataTable,
+    TreeView,
+    TaskList,
+    CalendarBoard,
+    CalendarDayCell,
+    CalendarEventList,
+    CalendarEventItem,
+    CalendarEventPopover,
+    CalendarTimeline,
+} from './components/data'
 export {
     DataTable as MDataTable,
     TreeView as MTreeView,
@@ -282,6 +309,8 @@ export type {
     DataTableSortDir,
     TreeViewProps,
     TreeNode,
+    TreeViewContextMenuItem,
+    TreeViewMoveEvent,
     TaskListProps,
     TaskItem,
     CalendarBoardProps,
@@ -308,6 +337,8 @@ export type {
     DataTableSortDir as MDataTableSortDir,
     TreeViewProps as MTreeViewProps,
     TreeNode as MTreeNode,
+    TreeViewContextMenuItem as MTreeViewContextMenuItem,
+    TreeViewMoveEvent as MTreeViewMoveEvent,
     TaskListProps as MTaskListProps,
     TaskItem as MTaskItem,
     CalendarBoardProps as MCalendarBoardProps,
@@ -372,13 +403,17 @@ export type {
 } from './components/feedback'
 
 // Overlays
-export {Modal, Drawer, Tooltip, Popconfirm, MDropdownMenu, MDropdownItem, MDropdownGroup, MDropdownDivider} from './components/overlays'
 export {
-    Modal as MModal,
-    Drawer as MDrawer,
-    Tooltip as MTooltip,
-    Popconfirm as MPopconfirm,
+    Modal,
+    Drawer,
+    Tooltip,
+    Popconfirm,
+    MDropdownMenu,
+    MDropdownItem,
+    MDropdownGroup,
+    MDropdownDivider,
 } from './components/overlays'
+export {Modal as MModal, Drawer as MDrawer, Tooltip as MTooltip, Popconfirm as MPopconfirm} from './components/overlays'
 export type {
     ModalProps,
     ModalSize,
@@ -406,12 +441,7 @@ export type {
 
 // Media
 export {Image, Gallery, Carousel, Avatar} from './components/media'
-export {
-    Image as MImage,
-    Gallery as MGallery,
-    Carousel as MCarousel,
-    Avatar as MAvatar,
-} from './components/media'
+export {Image as MImage, Gallery as MGallery, Carousel as MCarousel, Avatar as MAvatar} from './components/media'
 export type {
     ImageProps,
     ImageFit,
@@ -440,7 +470,16 @@ export type {
 } from './components/media'
 
 // Display
-export {Collapsible, Accordion, AccordionItem, ProgressBar, CountUp, Rating, ColorPicker} from './components/display'
+export {
+    Collapsible,
+    Accordion,
+    AccordionItem,
+    ProgressBar,
+    CountUp,
+    Rating,
+    ColorPicker,
+    QrCode,
+} from './components/display'
 export {
     Collapsible as MCollapsible,
     Accordion as MAccordion,
@@ -449,6 +488,7 @@ export {
     CountUp as MCountUp,
     Rating as MRating,
     ColorPicker as MColorPicker,
+    QrCode as MQrCode,
 } from './components/display'
 export type {
     CollapsibleProps,
@@ -459,6 +499,7 @@ export type {
     RatingProps,
     ColorPickerProps,
     ColorPickerFormat,
+    QrCodeProps,
 } from './components/display'
 export type {
     CollapsibleProps as MCollapsibleProps,
@@ -469,6 +510,7 @@ export type {
     RatingProps as MRatingProps,
     ColorPickerProps as MColorPickerProps,
     ColorPickerFormat as MColorPickerFormat,
+    QrCodeProps as MQrCodeProps,
 } from './components/display'
 
 // Typography

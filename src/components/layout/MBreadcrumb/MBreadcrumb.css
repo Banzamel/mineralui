@@ -2,7 +2,7 @@
     font-size: var(--mineral-font-size-sm);
 }
 
-.breadcrumb .list {
+.breadcrumb .trail {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
@@ -13,23 +13,23 @@
     gap: 0;
 }
 
-.breadcrumb .item {
+.breadcrumb .crumb {
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
     min-width: 0;
 }
 
-.breadcrumb .item.active {
+.breadcrumb .crumb.active {
     overflow: hidden;
 }
 
-.breadcrumb .item.active .current {
+.breadcrumb .crumb.active .current {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.breadcrumb .separator {
+.breadcrumb .sep {
     margin: 0 var(--mineral-spacing-xs);
     color: var(--mineral-text-secondary);
     user-select: none;
@@ -46,7 +46,7 @@
     text-decoration: underline;
 }
 
-.breadcrumb .link-btn {
+.breadcrumb .btn {
     background: none;
     border: none;
     padding: 0;
@@ -58,6 +58,6 @@
     color: var(--mineral-text-secondary);
 }
 
-.breadcrumb .ellipsis {
+.breadcrumb .dots {
     color: var(--mineral-text-secondary);
 }

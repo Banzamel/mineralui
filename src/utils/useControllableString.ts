@@ -2,6 +2,7 @@ import {useCallback, useState} from 'react'
 
 type ControllableStringLike = string | number | readonly string[] | null | undefined
 
+// Normalize mixed input values so text-like controls always work with strings.
 function normalizeStringValue(value: ControllableStringLike) {
     if (value === null || value === undefined) {
         return ''

@@ -1,0 +1,18 @@
+.qr-code {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--qr-size, 144px);
+    height: var(--qr-size, 144px);
+    padding: 0;
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md);
+    background: var(--mineral-surface);
+    overflow: hidden;
+}
+
+.qr-code svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

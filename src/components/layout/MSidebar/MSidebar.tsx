@@ -1,11 +1,4 @@
-import {
-    createContext,
-    useContext,
-    useState,
-    useEffect,
-    useCallback,
-    useMemo,
-} from 'react'
+import {createContext, useContext, useState, useEffect, useCallback, useMemo} from 'react'
 import {cn} from '../../../utils/cn'
 import {MDropdownMenu} from '../../overlays/DropdownMenu'
 import type {
@@ -38,14 +31,14 @@ const SidebarCtx = createContext<SidebarContextValue>({
     toggleMode: () => {},
 })
 
+// Read shared sidebar state inside slot components.
 function useSidebar() {
     return useContext(SidebarCtx)
 }
 
+// Track the responsive breakpoint once for the whole sidebar tree.
 function useIsMobile(breakpoint: number): boolean {
-    const [mobile, setMobile] = useState(() =>
-        typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
-    )
+    const [mobile, setMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < breakpoint : false))
     useEffect(() => {
         const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`)
         const handler = (e: MediaQueryListEvent) => setMobile(e.matches)
@@ -56,6 +49,7 @@ function useIsMobile(breakpoint: number): boolean {
     return mobile
 }
 
+// Render the sidebar shell and coordinate desktop and mobile behavior.
 export function MSidebar({
     mode: modeProp = 'auto',
     defaultMode = 'expanded',
@@ -77,7 +71,9 @@ export function MSidebar({
             try {
                 const v = localStorage.getItem(STORAGE_KEY)
                 if (v === 'expanded' || v === 'collapsed') return v
-            } catch { /* noop */ }
+            } catch {
+                /* noop */
+            }
         }
         return defaultMode
     })
@@ -85,17 +81,23 @@ export function MSidebar({
     const resolvedMode: MSidebarMode =
         modeProp === 'auto' ? internalMode : modeProp === 'collapsed' ? 'collapsed' : 'expanded'
 
+    // Toggle only the desktop width state. Mobile uses its own overlay flow.
     const toggleMode = useCallback(() => {
         const next: MSidebarMode = resolvedMode === 'expanded' ? 'collapsed' : 'expanded'
         setInternalMode(next)
         onModeChange?.(next)
         if (persist) {
-            try { localStorage.setItem(STORAGE_KEY, next) } catch { /* noop */ }
+            try {
+                localStorage.setItem(STORAGE_KEY, next)
+            } catch {
+                /* noop */
+            }
         }
     }, [resolvedMode, onModeChange, persist])
 
     const closeMobile = useCallback(() => setMobileOpen(false), [])
 
+    // Let Escape close the temporary mobile drawer.
     useEffect(() => {
         if (!mobileOpen) return
         const handler = (e: KeyboardEvent) => {
@@ -127,9 +129,7 @@ export function MSidebar({
 
     return (
         <SidebarCtx.Provider value={ctx}>
-            {mobile && mobileOpen && (
-                <div className="sidebar-backdrop" onClick={closeMobile} />
-            )}
+            {mobile && mobileOpen && <div className="sidebar-backdrop" onClick={closeMobile} />}
 
             <aside className={sidebarCls} style={style}>
                 {children}
@@ -148,34 +148,33 @@ export function MSidebar({
     )
 }
 
+// Render the top area with branding and an optional collapse toggle.
 export function MSidebarHeader({className, children}: MSidebarHeaderProps) {
     const {mode, mobile, canToggle, toggleMode} = useSidebar()
     const isCollapsed = !mobile && mode === 'collapsed'
 
     return (
         <div className={cn('sidebar-header', className)}>
-            <div className="sidebar-header-content">
-                {children}
-            </div>
+            <div className="sidebar-header-content">{children}</div>
             {canToggle && (
                 <button
                     className="sidebar-toggle"
                     onClick={toggleMode}
                     aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 >
-                    <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>
-                        ‹
-                    </span>
+                    <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>‹</span>
                 </button>
             )}
         </div>
     )
 }
 
+// Wrap sidebar links in a navigation landmark.
 export function MSidebarNav({className, children}: MSidebarNavProps) {
     return <nav className={cn('sidebar-nav', className)}>{children}</nav>
 }
 
+// Render one clickable sidebar row as a link, button or custom component.
 export function MSidebarItem({
     icon,
     label,
@@ -193,17 +192,9 @@ export function MSidebarItem({
     const isCollapsed = !mobile && mode === 'collapsed'
 
     const Tag = component ?? (href || to ? 'a' : 'button')
-    const linkProps = component
-        ? (to ? {to} : href ? {href} : {})
-        : (href ? {href} : to ? {href: to} : {})
+    const linkProps = component ? (to ? {to} : href ? {href} : {}) : href ? {href} : to ? {href: to} : {}
 
-    const cls = cn(
-        'sidebar-item',
-        active && 'active',
-        disabled && 'disabled',
-        color,
-        className
-    )
+    const cls = cn('sidebar-item', active && 'active', disabled && 'disabled', color, className)
 
     return (
         <Tag
@@ -220,6 +211,7 @@ export function MSidebarItem({
     )
 }
 
+// Group related sidebar items and swap to a dropdown when collapsed.
 export function MSidebarGroup({
     label,
     icon,
@@ -234,11 +226,9 @@ export function MSidebarGroup({
     const isCollapsed = !mobile && mode === 'collapsed'
     const [open, setOpen] = useState(defaultOpen)
 
-    const expandedCtx = useMemo<SidebarContextValue>(
-        () => ({...sidebarCtx, mode: 'expanded'}),
-        [sidebarCtx]
-    )
+    const expandedCtx = useMemo<SidebarContextValue>(() => ({...sidebarCtx, mode: 'expanded'}), [sidebarCtx])
 
+    // Keep expand/collapse local to this group.
     const toggle = () => {
         if (collapsible) setOpen((o) => !o)
     }
@@ -256,9 +246,7 @@ export function MSidebarGroup({
         return (
             <div className={cn('sidebar-group', className)}>
                 <MDropdownMenu trigger={trigger} placement="right-start" closeOnSelect openOn="hover">
-                    <SidebarCtx.Provider value={expandedCtx}>
-                        {children}
-                    </SidebarCtx.Provider>
+                    <SidebarCtx.Provider value={expandedCtx}>{children}</SidebarCtx.Provider>
                 </MDropdownMenu>
             </div>
         )
@@ -266,28 +254,22 @@ export function MSidebarGroup({
 
     return (
         <div className={cn('sidebar-group', className)}>
-            <button
-                className={cn('sidebar-group-header', active && 'active')}
-                onClick={toggle}
-                aria-expanded={open}
-            >
+            <button className={cn('sidebar-group-header', active && 'active')} onClick={toggle} aria-expanded={open}>
                 {icon && <span className="sidebar-group-icon">{icon}</span>}
                 <span className="sidebar-group-label">{label}</span>
-                {collapsible && (
-                    <span className={cn('sidebar-group-arrow', open && 'open')}>
-                        ›
-                    </span>
-                )}
+                {collapsible && <span className={cn('sidebar-group-arrow', open && 'open')}>›</span>}
             </button>
             {open && <div className="sidebar-group-items">{children}</div>}
         </div>
     )
 }
 
+// Render the bottom slot for version info or quick actions.
 export function MSidebarFooter({className, children}: MSidebarFooterProps) {
     return <div className={cn('sidebar-footer', className)}>{children}</div>
 }
 
+// Render a spacing-aware divider between sidebar regions.
 export function MSidebarDivider({className, spacing = 'md'}: MSidebarDividerProps) {
     return <hr className={cn('sidebar-divider', spacing, className)} />
 }

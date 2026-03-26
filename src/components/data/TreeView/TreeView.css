@@ -1,50 +1,72 @@
-.tree-view {
+.tree {
     width: 100%;
     font-family: var(--mineral-font-family);
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text);
 }
 
-.tree-view .list {
+.tree .list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.tree-view li {
+.tree li {
     list-style: none;
 }
 
-.tree-item {
+.tree .item {
     display: flex;
     align-items: center;
     gap: 4px;
     padding: 6px 8px;
     border-radius: var(--mineral-radius-sm);
     cursor: default;
-    transition: background 0.12s;
+    transition:
+        background 0.12s,
+        color 0.12s,
+        box-shadow 0.12s,
+        opacity 0.12s;
     user-select: none;
 }
 
-.tree-item.selectable {
+.tree .item.selectable {
     cursor: pointer;
 }
 
-.tree-item.selectable:hover {
+.tree .item.selectable:hover {
     background: rgba(var(--mineral-primary-rgb), 0.06);
 }
 
-.tree-item.selected {
+.tree .item.selected {
     background: rgba(var(--mineral-primary-rgb), 0.12);
     color: rgba(var(--mineral-primary-rgb), 1);
 }
 
-.tree-item.disabled {
+.tree .item.disabled {
     opacity: 0.4;
     pointer-events: none;
 }
 
-.tree-item .toggle {
+.tree .item.draggable {
+    cursor: grab;
+}
+
+.tree .item.dragging {
+    opacity: 0.55;
+    cursor: grabbing;
+}
+
+.tree .item.can-drop {
+    box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.12);
+}
+
+.tree .item.drop-target {
+    background: rgba(var(--mineral-primary-rgb), 0.1);
+    box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.35);
+}
+
+.tree .toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -53,45 +75,46 @@
     flex-shrink: 0;
 }
 
-.tree-item .arrow {
+.tree .arrow {
     font-size: 9px;
     transition: transform 0.15s;
     display: inline-block;
 }
 
-.tree-item .arrow.expanded {
+.tree .arrow.expanded {
     transform: rotate(90deg);
 }
 
-.tree-item .spacer {
+.tree .spacer {
     width: 18px;
 }
 
-.tree-item .icon {
+.tree .icon {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    font-size: 16px;
-    opacity: 0.75;
+    width: 18px;
+    height: 18px;
+    opacity: 0.9;
 }
 
-.tree-item .icon svg {
+.tree .icon svg {
     display: block;
 }
 
-.tree-item .label {
+.tree .label {
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Indent guide lines */
-.tree-view.show-lines ul[role="group"] {
+.tree.lines ul[role='group'] {
     position: relative;
 }
 
-.tree-view.show-lines ul[role="group"]::before {
+.tree.lines ul[role='group']::before {
     content: '';
     position: absolute;
     left: var(--line-left, 17px);
@@ -99,4 +122,73 @@
     bottom: 8px;
     border-left: 1px dashed var(--mineral-border);
     pointer-events: none;
+}
+
+.tree-menu {
+    position: fixed;
+    z-index: 1200;
+    min-width: 196px;
+    padding: var(--mineral-spacing-xs) 0;
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md);
+    background: var(--mineral-surface);
+    box-shadow: var(--mineral-shadow-lg);
+}
+
+.tree-menu .action {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    width: 100%;
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);
+    border: none;
+    background: none;
+    color: var(--mineral-text);
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition:
+        background var(--mineral-transition-fast),
+        color var(--mineral-transition-fast);
+}
+
+.tree-menu .action:hover {
+    background: var(--mineral-option-hover-bg);
+}
+
+.tree-menu .action.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.tree-menu .action.disabled:hover {
+    background: none;
+}
+
+.tree-menu .action.error {
+    color: var(--mineral-error);
+}
+
+.tree-menu .action.success {
+    color: var(--mineral-success);
+}
+
+.tree-menu .action.warning {
+    color: var(--mineral-warning);
+}
+
+.tree-menu .action.info {
+    color: var(--mineral-info);
+}
+
+.tree-menu .action.primary {
+    color: var(--mineral-primary);
+}
+
+.tree-menu .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
 }

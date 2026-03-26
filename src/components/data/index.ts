@@ -1,7 +1,7 @@
 export {DataTable} from './DataTable'
 export type {DataTableProps, DataTableColumn, DataTableSort, DataTableSortDir} from './DataTable'
 export {TreeView} from './TreeView'
-export type {TreeViewProps, TreeNode} from './TreeView'
+export type {TreeViewProps, TreeNode, TreeViewContextMenuItem, TreeViewMoveEvent} from './TreeView'
 export {TaskList} from './TaskList'
 export type {TaskListProps, TaskItem} from './TaskList'
 export {

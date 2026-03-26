@@ -1,2 +1,2 @@
 export {TreeView} from './TreeView'
-export type {TreeViewProps, TreeItemProps, TreeNode} from './TreeView.types'
+export type {TreeViewProps, TreeItemProps, TreeNode, TreeViewContextMenuItem, TreeViewMoveEvent} from './TreeView.types'

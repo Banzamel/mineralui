@@ -3,17 +3,21 @@ import type {MineralTheme, MineralMode, MineralModePreference} from './types'
 
 const STORAGE_KEY = 'mineralui-theme'
 
+// Resolve the final mode once 'system' is allowed.
 function resolveMode(pref: MineralModePreference): MineralMode {
     if (pref !== 'system') return pref
     if (typeof window === 'undefined') return 'dark'
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+// Read a persisted mode safely when storage is available.
 function readStored(): MineralModePreference | null {
     try {
         const v = localStorage.getItem(STORAGE_KEY)
         if (v === 'dark' || v === 'light' || v === 'system') return v
-    } catch { /* SSR / blocked storage */ }
+    } catch {
+        /* SSR / blocked storage */
+    }
     return null
 }
 
@@ -90,6 +94,7 @@ interface MineralThemeProviderProps {
     children: ReactNode
 }
 
+// Sync theme tokens and mode classes with either the body or a local wrapper.
 export function MineralThemeProvider({
     theme,
     mode: modeProp = 'dark',
@@ -110,12 +115,19 @@ export function MineralThemeProvider({
 
     const resolved = resolveMode(mode)
 
-    const setMode = useCallback((next: MineralModePreference) => {
-        setModeState(next)
-        if (persist) {
-            try { localStorage.setItem(STORAGE_KEY, next) } catch { /* noop */ }
-        }
-    }, [persist])
+    const setMode = useCallback(
+        (next: MineralModePreference) => {
+            setModeState(next)
+            if (persist) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, next)
+                } catch {
+                    /* noop */
+                }
+            }
+        },
+        [persist]
+    )
 
     const toggleMode = useCallback(() => {
         setMode(resolved === 'dark' ? 'light' : 'dark')
@@ -161,13 +173,16 @@ export function MineralThemeProvider({
         }
     }, [resolved, safeTheme, scope])
 
-    const ctx = useMemo<ThemeContextValue>(() => ({
-        theme: safeTheme,
-        mode,
-        resolvedMode: resolved,
-        setMode,
-        toggleMode,
-    }), [safeTheme, mode, resolved, setMode, toggleMode])
+    const ctx = useMemo<ThemeContextValue>(
+        () => ({
+            theme: safeTheme,
+            mode,
+            resolvedMode: resolved,
+            setMode,
+            toggleMode,
+        }),
+        [safeTheme, mode, resolved, setMode, toggleMode]
+    )
 
     return (
         <ThemeContext.Provider value={ctx}>

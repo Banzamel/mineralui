@@ -1,6 +1,7 @@
 import {useMemo, useState} from 'react'
 import type {DataTableProps, DataTableSort} from './DataTable.types'
 import {Checkbox} from '../../controls/Checkbox'
+import {InputSearch} from '../../inputs/InputSearch'
 import {MPagination} from '../../layout/MPagination'
 import {cn} from '../../../utils/cn'
 import './DataTable.css'
@@ -28,7 +29,7 @@ export function DataTable<T = any>({
     selectedKeys: controlledSelected,
     onSelectionChange,
     emptyText = 'No data',
-    filterPlaceholder = 'Filter…',
+    filterPlaceholder = 'Search...',
     className,
     ...rest
 }: DataTableProps<T>) {
@@ -43,40 +44,51 @@ export function DataTable<T = any>({
 
     function handleSort(key: string) {
         let next: DataTableSort | null
+
         if (activeSort?.key === key) {
             next = activeSort.dir === 'asc' ? {key, dir: 'desc'} : null
         } else {
             next = {key, dir: 'asc'}
         }
+
         if (onSortChange) onSortChange(next)
         else setInternalSort(next)
+
         setPage(0)
     }
 
     const filtered = useMemo(() => {
         if (!filterable || !filter.trim()) return data
-        const lc = filter.toLowerCase()
+
+        const query = filter.toLowerCase()
+
         return data.filter((row) =>
             columns.some((col) => {
                 if (col.filterable === false) return false
-                const val = (row as any)[col.key]
-                return val != null && String(val).toLowerCase().includes(lc)
+
+                const value = (row as any)[col.key]
+                return value != null && String(value).toLowerCase().includes(query)
             })
         )
     }, [data, filter, filterable, columns])
 
     const sorted = useMemo(() => {
         if (!activeSort) return filtered
-        const col = columns.find((c) => c.key === activeSort.key)
+
+        const col = columns.find((item) => item.key === activeSort.key)
         if (!col?.sortable && !sortable) return filtered
+
         const dir = activeSort.dir === 'asc' ? 1 : -1
+
         return [...filtered].sort((a, b) => {
             const va = (a as any)[activeSort.key]
             const vb = (b as any)[activeSort.key]
+
             if (va == null && vb == null) return 0
             if (va == null) return 1
             if (vb == null) return -1
             if (typeof va === 'number' && typeof vb === 'number') return (va - vb) * dir
+
             return String(va).localeCompare(String(vb)) * dir
         })
     }, [filtered, activeSort, columns, sortable])
@@ -84,23 +96,23 @@ export function DataTable<T = any>({
     const totalPages = pagination ? Math.max(1, Math.ceil(sorted.length / pageSize)) : 1
     const pageData = pagination ? sorted.slice(page * pageSize, (page + 1) * pageSize) : sorted
 
-    const allKeys = pageData.map((row, i) => getRowKey(row, page * pageSize + i, rowKey))
-    const allSelected = allKeys.length > 0 && allKeys.every((k) => selected.includes(k))
+    const allKeys = pageData.map((row, index) => getRowKey(row, page * pageSize + index, rowKey))
+    const allSelected = allKeys.length > 0 && allKeys.every((key) => selected.includes(key))
 
     function toggleAll() {
         if (allSelected) {
-            setSelected(selected.filter((k) => !allKeys.includes(k)))
+            setSelected(selected.filter((key) => !allKeys.includes(key)))
         } else {
             setSelected([...new Set([...selected, ...allKeys])])
         }
     }
 
     function toggleRow(key: string) {
-        setSelected(selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key])
+        setSelected(selected.includes(key) ? selected.filter((item) => item !== key) : [...selected, key])
     }
 
-    function handleRowClick(key: string, e: React.MouseEvent) {
-        const target = e.target as HTMLElement
+    function handleRowClick(key: string, event: React.MouseEvent) {
+        const target = event.target as HTMLElement
         if (target.closest('button, a, [data-no-row-select]')) return
         toggleRow(key)
     }
@@ -109,13 +121,18 @@ export function DataTable<T = any>({
         <div className={cn('data-table', className)} {...rest}>
             {filterable && (
                 <div className="toolbar">
-                    <input
-                        type="text"
-                        className="filter"
+                    <InputSearch
+                        className="filter-search"
+                        size="sm"
+                        fullWidth
                         placeholder={filterPlaceholder}
                         value={filter}
-                        onChange={(e) => {
-                            setFilter(e.target.value)
+                        onChange={(event) => {
+                            setFilter(event.target.value)
+                            setPage(0)
+                        }}
+                        onClear={() => {
+                            setFilter('')
                             setPage(0)
                         }}
                     />
@@ -127,17 +144,13 @@ export function DataTable<T = any>({
                         <tr>
                             {selectable && (
                                 <th className="th check-col">
-                                    <Checkbox
-                                        checked={allSelected}
-                                        onChange={toggleAll}
-                                        size="sm"
-                                        clickEffect="none"
-                                    />
+                                    <Checkbox checked={allSelected} onChange={toggleAll} size="sm" clickEffect="none" />
                                 </th>
                             )}
                             {columns.map((col) => {
                                 const isSortable = col.sortable ?? sortable
                                 const isSorted = activeSort?.key === col.key
+
                                 return (
                                     <th
                                         key={col.key}
@@ -168,22 +181,20 @@ export function DataTable<T = any>({
                     <tbody>
                         {pageData.length === 0 && (
                             <tr>
-                                <td
-                                    className="empty"
-                                    colSpan={columns.length + (selectable ? 1 : 0)}
-                                >
+                                <td className="empty" colSpan={columns.length + (selectable ? 1 : 0)}>
                                     {emptyText}
                                 </td>
                             </tr>
                         )}
-                        {pageData.map((row, i) => {
-                            const key = getRowKey(row, page * pageSize + i, rowKey)
+                        {pageData.map((row, index) => {
+                            const key = getRowKey(row, page * pageSize + index, rowKey)
                             const isSelected = selected.includes(key)
+
                             return (
                                 <tr
                                     key={key}
                                     className={cn('row', isSelected && 'selected', selectable && 'selectable')}
-                                    onClick={selectable ? (e) => handleRowClick(key, e) : undefined}
+                                    onClick={selectable ? (event) => handleRowClick(key, event) : undefined}
                                 >
                                     {selectable && (
                                         <td className="td check-col">
@@ -196,13 +207,9 @@ export function DataTable<T = any>({
                                         </td>
                                     )}
                                     {columns.map((col) => (
-                                        <td
-                                            key={col.key}
-                                            className="td"
-                                            style={{textAlign: col.align}}
-                                        >
+                                        <td key={col.key} className="td" style={{textAlign: col.align}}>
                                             {col.render
-                                                ? col.render((row as any)[col.key], row, page * pageSize + i)
+                                                ? col.render((row as any)[col.key], row, page * pageSize + index)
                                                 : (row as any)[col.key]}
                                         </td>
                                     ))}
@@ -217,7 +224,7 @@ export function DataTable<T = any>({
                     total={sorted.length}
                     page={page + 1}
                     pageSize={pageSize}
-                    onChange={(p) => setPage(p - 1)}
+                    onChange={(nextPage) => setPage(nextPage - 1)}
                 />
             )}
         </div>

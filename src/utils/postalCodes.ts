@@ -15,10 +15,12 @@ export interface PostCodeRule {
 
 const OK_RESULT: ValidationResult = {valid: true}
 
+// Reuse one sanitizer for countries that mix letters and digits.
 function keepLettersAndDigits(value: string): string {
     return value.toUpperCase().replace(/[^A-Z0-9]/g, '')
 }
 
+// Apply the common Polish XX-XXX postcode shape.
 function formatPlPostCode(value: string): string {
     const digits = value.replace(/\D/g, '').slice(0, 5)
 
@@ -29,6 +31,7 @@ function formatPlPostCode(value: string): string {
     return `${digits.slice(0, 2)}-${digits.slice(2)}`
 }
 
+// Support ZIP and ZIP+4 with the same formatter.
 function formatUsPostCode(value: string): string {
     const digits = value.replace(/\D/g, '').slice(0, 9)
 
@@ -39,10 +42,12 @@ function formatUsPostCode(value: string): string {
     return `${digits.slice(0, 5)}-${digits.slice(5)}`
 }
 
+// Clamp countries that only need a fixed number of digits.
 function formatFixedDigits(value: string, maxLength: number): string {
     return value.replace(/\D/g, '').slice(0, maxLength)
 }
 
+// Insert the standard center space used by Canadian post codes.
 function formatCaPostCode(value: string): string {
     const clean = keepLettersAndDigits(value).slice(0, 6)
     const chars = clean.split('')
@@ -58,6 +63,7 @@ function formatCaPostCode(value: string): string {
         .join('')
 }
 
+// Split the outward and inward parts of a UK postcode.
 function formatGbPostCode(value: string): string {
     const clean = keepLettersAndDigits(value).slice(0, 7)
 
@@ -68,6 +74,7 @@ function formatGbPostCode(value: string): string {
     return `${clean.slice(0, clean.length - 3)} ${clean.slice(-3)}`
 }
 
+// Split Dutch codes into four digits and two letters.
 function formatNlPostCode(value: string): string {
     const clean = keepLettersAndDigits(value).slice(0, 6)
 

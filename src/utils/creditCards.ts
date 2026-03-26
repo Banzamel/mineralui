@@ -13,6 +13,7 @@ export interface CreditCardBrandDetails {
 
 const OK_RESULT: ValidationResult = {valid: true}
 
+// Card brand rules also drive formatting and visible brand badges.
 const creditCardBrands: CreditCardBrandDetails[] = [
     {
         brand: 'visa',
@@ -56,6 +57,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
     },
 ]
 
+// Fall back to a generic brand so formatting still works for unknown prefixes.
 function fallbackBrand(digits: string): CreditCardBrandDetails {
     return {
         brand: 'unknown',
@@ -102,6 +104,7 @@ export function formatCardNumber(value: string): string {
     return parts.join(' ')
 }
 
+// Run the Luhn checksum used by most card numbers.
 function passesLuhn(value: string): boolean {
     let sum = 0
     let shouldDouble = false

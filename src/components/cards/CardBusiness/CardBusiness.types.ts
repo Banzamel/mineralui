@@ -33,5 +33,6 @@ export interface CardBusinessProps extends Omit<HTMLAttributes<HTMLDivElement>, 
     online?: boolean
     lastActive?: string
     qrCode?: string
+    qrValue?: string
     color?: MineralColor
 }
