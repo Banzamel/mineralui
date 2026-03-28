@@ -10,3 +10,67 @@
 @import './utilities.css';
 @import './reveal.css';
 @import './ghost-text.css';
+
+/* Preserve MineralUI input styling when the browser autofills saved values. */
+.input .field:autofill,
+.input .field:-webkit-autofill,
+.input .field:autofill:hover,
+.input .field:-webkit-autofill:hover,
+.input .field:autofill:focus,
+.input .field:-webkit-autofill:focus,
+.textarea .field:autofill,
+.textarea .field:-webkit-autofill,
+.textarea .field:autofill:hover,
+.textarea .field:-webkit-autofill:hover,
+.textarea .field:autofill:focus,
+.textarea .field:-webkit-autofill:focus,
+.input-group .field:autofill,
+.input-group .field:-webkit-autofill,
+.input-group .field:autofill:hover,
+.input-group .field:-webkit-autofill:hover,
+.input-group .field:autofill:focus,
+.input-group .field:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--mineral-text);
+    caret-color: var(--mineral-text);
+    transition:
+        background-color 9999s ease-out 0s,
+        color 9999s ease-out 0s;
+}
+
+.input .container.outlined .field:autofill,
+.input .container.outlined .field:-webkit-autofill,
+.input .container.outlined .field:autofill:hover,
+.input .container.outlined .field:-webkit-autofill:hover,
+.input .container.outlined .field:autofill:focus,
+.input .container.outlined .field:-webkit-autofill:focus,
+.textarea .container.outlined .field:autofill,
+.textarea .container.outlined .field:-webkit-autofill,
+.textarea .container.outlined .field:autofill:hover,
+.textarea .container.outlined .field:-webkit-autofill:hover,
+.textarea .container.outlined .field:autofill:focus,
+.textarea .container.outlined .field:-webkit-autofill:focus,
+.input-group .field:autofill,
+.input-group .field:-webkit-autofill,
+.input-group .field:autofill:hover,
+.input-group .field:-webkit-autofill:hover,
+.input-group .field:autofill:focus,
+.input-group .field:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--mineral-input-bg) inset;
+    box-shadow: 0 0 0 1000px var(--mineral-input-bg) inset;
+}
+
+.input .container.filled .field:autofill,
+.input .container.filled .field:-webkit-autofill,
+.input .container.filled .field:autofill:hover,
+.input .container.filled .field:-webkit-autofill:hover,
+.input .container.filled .field:autofill:focus,
+.input .container.filled .field:-webkit-autofill:focus,
+.textarea .container.filled .field:autofill,
+.textarea .container.filled .field:-webkit-autofill,
+.textarea .container.filled .field:autofill:hover,
+.textarea .container.filled .field:-webkit-autofill:hover,
+.textarea .container.filled .field:autofill:focus,
+.textarea .container.filled .field:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--mineral-surface) inset;
+    box-shadow: 0 0 0 1000px var(--mineral-surface) inset;
+}
