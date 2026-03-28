@@ -134,12 +134,12 @@ export function CardGrid<T extends Record<string, unknown>>({
     const activeSort = sortKeys.find((item) => item.key === sortKey)
 
     return (
-        <div className={cn('card grid', className)} style={style} {...rest}>
+        <div className={cn('card-grid', className)} style={style} {...rest}>
             {(searchable || filterable || sortable) && (
-                <div className="card grid toolbar">
+                <div className="card-grid-toolbar">
                     {searchable && (
                         <InputSearch
-                            className="card grid search"
+                            className="card-grid-search"
                             size="sm"
                             fullWidth
                             placeholder={searchPlaceholder}
@@ -149,28 +149,28 @@ export function CardGrid<T extends Record<string, unknown>>({
                         />
                     )}
 
-                    <div className="card grid actions">
+                    <div className="card-grid-actions">
                         {filterable && filterKeys.length > 0 && (
-                            <div className="card grid dropdown wrap" ref={filterRef}>
+                            <div className="card-grid-dropdown-wrap" ref={filterRef}>
                                 <button
                                     type="button"
-                                    className="card grid toolbar button"
+                                    className="card-grid-toolbar-button"
                                     aria-expanded={filterOpen}
                                     onClick={() => {
                                         setFilterOpen(!filterOpen)
                                         setSortOpen(false)
                                     }}
                                 >
-                                    <FilterIcon className="card grid button icon" />
+                                    <FilterIcon className="card-grid-button-icon" />
                                     Filter
                                 </button>
                                 {filterOpen && (
-                                    <div className="card grid dropdown">
+                                    <div className="card-grid-dropdown">
                                         {filterKeys.map((filterKey) => (
-                                            <div key={filterKey.key} className="card grid filter group">
-                                                <span className="card grid filter label">{filterKey.label}</span>
+                                            <div key={filterKey.key} className="card-grid-filter-group">
+                                                <span className="card-grid-filter-label">{filterKey.label}</span>
                                                 {(filterOptions[filterKey.key] ?? []).map((option) => (
-                                                    <div key={option} className="card grid filter option">
+                                                    <div key={option} className="card-grid-filter-option">
                                                         <Checkbox
                                                             size="sm"
                                                             clickEffect="none"
@@ -188,10 +188,10 @@ export function CardGrid<T extends Record<string, unknown>>({
                         )}
 
                         {sortable && sortKeys.length > 0 && (
-                            <div className="card grid dropdown wrap" ref={sortRef}>
+                            <div className="card-grid-dropdown-wrap" ref={sortRef}>
                                 <button
                                     type="button"
-                                    className="card grid toolbar button"
+                                    className="card-grid-toolbar-button"
                                     aria-expanded={sortOpen}
                                     onClick={() => {
                                         setSortOpen(!sortOpen)
@@ -200,22 +200,22 @@ export function CardGrid<T extends Record<string, unknown>>({
                                 >
                                     {sortKey ? (
                                         sortDir === 'asc' ? (
-                                            <ArrowUpIcon className="card grid button icon" />
+                                            <ArrowUpIcon className="card-grid-button-icon" />
                                         ) : (
-                                            <ArrowDownIcon className="card grid button icon" />
+                                            <ArrowDownIcon className="card-grid-button-icon" />
                                         )
                                     ) : (
-                                        <SortIcon className="card grid button icon" />
+                                        <SortIcon className="card-grid-button-icon" />
                                     )}
                                     {activeSort ? `Sort: ${activeSort.label}` : 'Sort'}
                                 </button>
                                 {sortOpen && (
-                                    <div className="card grid dropdown">
+                                    <div className="card-grid-dropdown">
                                         {sortKeys.map((sortItem) => (
                                             <button
                                                 key={sortItem.key}
                                                 type="button"
-                                                className={cn('card grid sort item', sortKey === sortItem.key && 'active')}
+                                                className={cn('card-grid-sort-item', sortKey === sortItem.key && 'active')}
                                                 onClick={() => {
                                                     if (sortKey === sortItem.key) {
                                                         setSortDir(sortDir === 'asc' ? 'desc' : 'asc')
@@ -229,11 +229,11 @@ export function CardGrid<T extends Record<string, unknown>>({
                                             >
                                                 {sortItem.label}
                                                 {sortKey === sortItem.key && (
-                                                    <span className="card grid sort dir">
+                                                    <span className="card-grid-sort-dir">
                                                         {sortDir === 'asc' ? (
-                                                            <ArrowUpIcon className="card grid sort icon" />
+                                                            <ArrowUpIcon className="card-grid-sort-icon" />
                                                         ) : (
-                                                            <ArrowDownIcon className="card grid sort icon" />
+                                                            <ArrowDownIcon className="card-grid-sort-icon" />
                                                         )}
                                                     </span>
                                                 )}
@@ -249,7 +249,7 @@ export function CardGrid<T extends Record<string, unknown>>({
 
             {processed.length > 0 ? (
                 <div
-                    className="card grid items"
+                    className="card-grid-items"
                     style={{
                         gridTemplateColumns: `repeat(${columns}, 1fr)`,
                     }}
@@ -257,7 +257,7 @@ export function CardGrid<T extends Record<string, unknown>>({
                     {processed.map((item, index) => renderCard(item, index))}
                 </div>
             ) : (
-                <div className="card grid empty">{emptyMessage}</div>
+                <div className="card-grid-empty">{emptyMessage}</div>
             )}
         </div>
     )
