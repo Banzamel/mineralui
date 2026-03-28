@@ -53,9 +53,8 @@ export function useGhostText<T = string>({
 
     const current = filtered.length > 0 ? filtered[hintIndex % filtered.length] : null
     const fullLabel = current ? getLabel(current) : ''
-    const hint = fullLabel && fullLabel.toLowerCase().startsWith(value.toLowerCase())
-        ? fullLabel.slice(value.length)
-        : ''
+    const hint =
+        fullLabel && fullLabel.toLowerCase().startsWith(value.toLowerCase()) ? fullLabel.slice(value.length) : ''
 
     const accept = useCallback(() => {
         if (!hint || !current) return {value, option: null}

@@ -4,9 +4,8 @@ import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils
 import {useReveal} from '../../../utils/useReveal'
 import './Stack.css'
 
-// Stack children vertically with shared gap and utility props.
+// Stack children vertically with shared layout utility props.
 export function Stack({
-    gap = 'md',
     align = 'stretch',
     reveal,
     spacing,
@@ -33,14 +32,12 @@ export function Stack({
 }: StackProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
     const revealRef = useReveal<HTMLDivElement>(reveal)
-    const gapClassName = gap === '2xl' ? 'gap-2xl' : gap
 
     return (
         <div
             ref={reveal !== undefined && reveal !== false ? revealRef : undefined}
             className={cn(
                 'stack',
-                gapClassName,
                 align !== 'stretch' && align,
                 reveal !== undefined && reveal !== false && 'mineral-reveal',
                 ...getLayoutUtilityClassNames({

@@ -84,7 +84,7 @@ export const InputCurrency = forwardRef<HTMLInputElement, InputCurrencyProps>(fu
         [currentValue, min, max, precision, decimalSeparator, thousandSeparator, value, onValueChange, onBlur]
     )
 
-    const symbolEl = symbol ? <span className="symbol">{symbol}</span> : undefined
+    const symbolEl = symbol ? <span className="currency symbol">{symbol}</span> : undefined
 
     return (
         <Input
@@ -98,7 +98,7 @@ export const InputCurrency = forwardRef<HTMLInputElement, InputCurrencyProps>(fu
             placeholder={placeholder}
             startIcon={currencyPosition === 'start' ? symbolEl : startIcon}
             endIcon={currencyPosition === 'end' ? symbolEl : endIcon}
-            className={cn('input-currency', className)}
+            className={cn('currency input', className)}
         />
     )
 })

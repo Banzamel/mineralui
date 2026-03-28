@@ -1,7 +1,9 @@
 import {useState, useMemo, useRef, useEffect} from 'react'
 import type {CardGridProps} from './CardGrid.types'
 import {cn} from '../../../utils/cn'
-import {InputSearch} from '../../inputs/InputSearch'
+import {Checkbox} from '../../controls'
+import {InputSearch} from '../../inputs'
+import {ArrowDownIcon, ArrowUpIcon, FilterIcon, SortIcon} from '../../../icons'
 import './CardGrid.css'
 
 function getNestedValue(obj: unknown, key: string): unknown {
@@ -28,7 +30,6 @@ export function CardGrid<T extends Record<string, unknown>>({
     sortKeys = [],
     defaultSort,
     columns = 3,
-    gap,
     emptyMessage = 'No results found.',
     className,
     style,
@@ -133,12 +134,12 @@ export function CardGrid<T extends Record<string, unknown>>({
     const activeSort = sortKeys.find((item) => item.key === sortKey)
 
     return (
-        <div className={cn('card-grid', className)} style={style} {...rest}>
+        <div className={cn('card grid', className)} style={style} {...rest}>
             {(searchable || filterable || sortable) && (
-                <div className="cg-toolbar">
+                <div className="card grid toolbar">
                     {searchable && (
                         <InputSearch
-                            className="cg-search"
+                            className="card grid search"
                             size="sm"
                             fullWidth
                             placeholder={searchPlaceholder}
@@ -148,34 +149,36 @@ export function CardGrid<T extends Record<string, unknown>>({
                         />
                     )}
 
-                    <div className="cg-toolbar-actions">
+                    <div className="card grid actions">
                         {filterable && filterKeys.length > 0 && (
-                            <div className="cg-dropdown-wrap" ref={filterRef}>
+                            <div className="card grid dropdown wrap" ref={filterRef}>
                                 <button
                                     type="button"
-                                    className="cg-toolbar-btn"
+                                    className="card grid toolbar button"
                                     aria-expanded={filterOpen}
                                     onClick={() => {
                                         setFilterOpen(!filterOpen)
                                         setSortOpen(false)
                                     }}
                                 >
+                                    <FilterIcon className="card grid button icon" />
                                     Filter
                                 </button>
                                 {filterOpen && (
-                                    <div className="cg-dropdown">
+                                    <div className="card grid dropdown">
                                         {filterKeys.map((filterKey) => (
-                                            <div key={filterKey.key} className="cg-filter-group">
-                                                <span className="cg-filter-label">{filterKey.label}</span>
+                                            <div key={filterKey.key} className="card grid filter group">
+                                                <span className="card grid filter label">{filterKey.label}</span>
                                                 {(filterOptions[filterKey.key] ?? []).map((option) => (
-                                                    <label key={option} className="cg-filter-option">
-                                                        <input
-                                                            type="checkbox"
+                                                    <div key={option} className="card grid filter option">
+                                                        <Checkbox
+                                                            size="sm"
+                                                            clickEffect="none"
                                                             checked={filters[filterKey.key]?.has(option) ?? false}
                                                             onChange={() => toggleFilter(filterKey.key, option)}
+                                                            label={option}
                                                         />
-                                                        {option}
-                                                    </label>
+                                                    </div>
                                                 ))}
                                             </div>
                                         ))}
@@ -185,25 +188,34 @@ export function CardGrid<T extends Record<string, unknown>>({
                         )}
 
                         {sortable && sortKeys.length > 0 && (
-                            <div className="cg-dropdown-wrap" ref={sortRef}>
+                            <div className="card grid dropdown wrap" ref={sortRef}>
                                 <button
                                     type="button"
-                                    className="cg-toolbar-btn"
+                                    className="card grid toolbar button"
                                     aria-expanded={sortOpen}
                                     onClick={() => {
                                         setSortOpen(!sortOpen)
                                         setFilterOpen(false)
                                     }}
                                 >
+                                    {sortKey ? (
+                                        sortDir === 'asc' ? (
+                                            <ArrowUpIcon className="card grid button icon" />
+                                        ) : (
+                                            <ArrowDownIcon className="card grid button icon" />
+                                        )
+                                    ) : (
+                                        <SortIcon className="card grid button icon" />
+                                    )}
                                     {activeSort ? `Sort: ${activeSort.label}` : 'Sort'}
                                 </button>
                                 {sortOpen && (
-                                    <div className="cg-dropdown">
+                                    <div className="card grid dropdown">
                                         {sortKeys.map((sortItem) => (
                                             <button
                                                 key={sortItem.key}
                                                 type="button"
-                                                className={cn('cg-sort-item', sortKey === sortItem.key && 'active')}
+                                                className={cn('card grid sort item', sortKey === sortItem.key && 'active')}
                                                 onClick={() => {
                                                     if (sortKey === sortItem.key) {
                                                         setSortDir(sortDir === 'asc' ? 'desc' : 'asc')
@@ -217,8 +229,12 @@ export function CardGrid<T extends Record<string, unknown>>({
                                             >
                                                 {sortItem.label}
                                                 {sortKey === sortItem.key && (
-                                                    <span className="cg-sort-dir">
-                                                        {sortDir === 'asc' ? 'Up' : 'Down'}
+                                                    <span className="card grid sort dir">
+                                                        {sortDir === 'asc' ? (
+                                                            <ArrowUpIcon className="card grid sort icon" />
+                                                        ) : (
+                                                            <ArrowDownIcon className="card grid sort icon" />
+                                                        )}
                                                     </span>
                                                 )}
                                             </button>
@@ -233,16 +249,15 @@ export function CardGrid<T extends Record<string, unknown>>({
 
             {processed.length > 0 ? (
                 <div
-                    className="cg-grid"
+                    className="card grid items"
                     style={{
                         gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                        ...(gap ? {gap} : {}),
                     }}
                 >
                     {processed.map((item, index) => renderCard(item, index))}
                 </div>
             ) : (
-                <div className="cg-empty">{emptyMessage}</div>
+                <div className="card grid empty">{emptyMessage}</div>
             )}
         </div>
     )

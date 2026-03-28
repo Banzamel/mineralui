@@ -7,13 +7,13 @@ export type {MFooterProps} from './MFooter'
 export {MNavbar} from './MNavbar'
 export type {MNavbarProps, MNavbarTone, MNavbarJustify, MNavbarAlign} from './MNavbar'
 export {MNavs} from './MNavs'
-export type {MNavsProps, MNavsItem, MNavsOrientation, MNavsGap} from './MNavs'
+export type {MNavsProps, MNavsItem, MNavsOrientation} from './MNavs'
 export {MTabs} from './MTabs'
 export type {MTabsProps, MTabsItem, MTabsVariant, MTabsSize} from './MTabs'
 export {Section} from './Section'
 export type {SectionProps, SectionSpacing, SectionTone} from './Section'
 export {Stack} from './Stack'
-export type {StackProps, StackGap, StackAlign} from './Stack'
+export type {StackProps, StackAlign} from './Stack'
 export {Inline} from './Inline'
 export type {InlineProps, InlineAlign, InlineJustify, InlineWrap} from './Inline'
 export {Grid} from './Grid'
@@ -27,6 +27,7 @@ export type {DividerProps} from './Divider'
 export {
     MSidebar,
     MSidebarHeader,
+    MSidebarBody,
     MSidebarNav,
     MSidebarItem,
     MSidebarGroup,
@@ -36,6 +37,7 @@ export {
 export type {
     MSidebarProps,
     MSidebarHeaderProps,
+    MSidebarBodyProps,
     MSidebarNavProps,
     MSidebarItemProps,
     MSidebarGroupProps,

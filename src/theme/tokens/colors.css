@@ -52,6 +52,7 @@
     /* Text palette */
     --mineral-text: rgba(226, 232, 240, 1);
     --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-muted: var(--mineral-text-secondary);
     --mineral-text-heading: rgba(241, 245, 249, 0.96);
     --mineral-text-inverted: rgba(15, 23, 42, 1);
 
@@ -90,8 +91,8 @@
     );
 
     /* Control hover shadow */
-    --mineral-control-shadow: 0 4px 14px rgba(var(--mineral-primary-rgb), 0.16),
-        0 2px 6px rgba(var(--mineral-primary-rgb), 0.08);
+    --mineral-control-shadow:
+        0 4px 14px rgba(var(--mineral-primary-rgb), 0.16), 0 2px 6px rgba(var(--mineral-primary-rgb), 0.08);
 
     /* Popover and dropdown */
     --mineral-popover-bg: rgba(30, 41, 59, 0.95);

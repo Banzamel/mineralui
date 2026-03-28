@@ -4,6 +4,7 @@ import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useControllableString} from '../../../utils/useControllableString'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
+import {Checkbox} from '../../controls'
 import './InputGroup.css'
 
 // Detect structured addon configs while leaving raw React nodes untouched.
@@ -39,13 +40,15 @@ function renderSlot(slot: InputGroupSlot, position: 'prepend' | 'append', index:
 
     if (addon.type === 'checkbox') {
         return (
-            <label key={`${position}-${index}`} className={cn('addon', position, 'checkbox')}>
-                <input
-                    type="checkbox"
+            <div key={`${position}-${index}`} className={cn('addon', position, 'checkbox')}>
+                <Checkbox
+                    size="sm"
+                    clickEffect="none"
                     checked={addon.checked}
                     onChange={(e) => addon.onCheckedChange?.(e.target.checked)}
+                    className="addon-checkbox"
                 />
-            </label>
+            </div>
         )
     }
 

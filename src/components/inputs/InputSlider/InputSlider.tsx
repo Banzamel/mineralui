@@ -1,6 +1,6 @@
 import {useState, useCallback, forwardRef} from 'react'
 import type {InputSliderProps} from './InputSlider.types'
-import {Slider} from '../../controls/Slider'
+import {Slider} from '../../controls'
 import {cn} from '../../../utils/cn'
 import './InputSlider.css'
 
@@ -44,10 +44,7 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
         [min, max, precision, value, onChange]
     )
 
-    const handleSliderChange = useCallback(
-        (val: number) => update(val),
-        [update]
-    )
+    const handleSliderChange = useCallback((val: number) => update(val), [update])
 
     const handleInputChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,13 +61,9 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
     }, [currentValue, update])
 
     return (
-        <div
-            ref={ref}
-            className={cn('input-slider', size, disabled && 'disabled', className)}
-            {...rest}
-        >
-            {label && <div className="label">{label}</div>}
-            <div className="row">
+        <div ref={ref} className={cn('slider input', size, disabled && 'disabled', className)} {...rest}>
+            {label && <div className="slider label">{label}</div>}
+            <div className="slider row">
                 <Slider
                     min={min}
                     max={max}
@@ -85,7 +78,7 @@ export const InputSlider = forwardRef<HTMLDivElement, InputSliderProps>(function
                     <input
                         type="text"
                         inputMode="decimal"
-                        className={cn('field', color)}
+                        className={cn('slider field', color)}
                         value={currentValue}
                         onChange={handleInputChange}
                         onBlur={handleBlur}

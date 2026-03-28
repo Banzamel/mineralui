@@ -1,32 +1,22 @@
 import type {MNavsProps} from './MNavs.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
-import {MLink} from '../../typography/Link'
+import {MLink} from '../../typography'
 import './MNavs.css'
 
 // Render a lightweight navigation list from data or custom children.
 export function MNavs({
     items,
     orientation = 'horizontal',
-    gap = 'md',
     fcolor,
     wrap = false,
     className,
     children,
     ...rest
 }: MNavsProps) {
-    const gapClassName = gap === '2xl' ? 'gap-2xl' : gap
-
     return (
         <div
-            className={cn(
-                'navs',
-                orientation,
-                gapClassName,
-                ...getAppearanceClassNames({fcolor}),
-                wrap && 'wrap',
-                className
-            )}
+            className={cn('navs', orientation, ...getAppearanceClassNames({fcolor}), wrap && 'wrap', className)}
             {...rest}
         >
             {items

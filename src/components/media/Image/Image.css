@@ -1,3 +1,27 @@
+.image-wrap {
+    display: block;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.image-wrap > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
+}
+
+.image-wrap.rounded {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.image-wrap.bordered {
+    border: 1px solid var(--mineral-border);
+}
+
+.image-wrap.shadow {
+    box-shadow: var(--mineral-shadow-md);
+}
+
 .image {
     display: block;
     max-width: 100%;

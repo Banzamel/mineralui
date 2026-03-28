@@ -2,7 +2,7 @@ import type {CardProps, CardSectionProps} from './Card.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
-import {Surface} from '../../layout/Surface'
+import {Surface} from '../../layout'
 import './Card.css'
 
 // Compose elevated content blocks that can optionally behave like an interactive surface.
@@ -15,6 +15,13 @@ export function Card({
     fcolor,
     clickEffect,
     rippleColor,
+    spacing,
+    mt,
+    mb,
+    ml,
+    mr,
+    mx,
+    my,
     className,
     children,
     onPointerDown,
@@ -30,6 +37,13 @@ export function Card({
         <Surface
             tone={tone}
             padded={padded}
+            spacing={spacing}
+            mt={mt}
+            mb={mb}
+            ml={ml}
+            mr={mr}
+            mx={mx}
+            my={my}
             className={cn(
                 'card',
                 !stretch && 'no-stretch',

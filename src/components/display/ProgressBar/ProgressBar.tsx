@@ -57,7 +57,7 @@ export function ProgressBar({
 
     return (
         <div
-            className={cn('progress-bar', color, size, className)}
+            className={cn('progress bar', color, size, className)}
             role="progressbar"
             aria-valuenow={value}
             aria-valuemin={0}
@@ -66,18 +66,14 @@ export function ProgressBar({
             {...rest}
         >
             {(label || showValue) && (
-                <div className="progress-bar-header">
-                    {label && <span className="progress-bar-label">{label}</span>}
-                    {showValue && <span className="progress-bar-value">{Math.round(displayPercent)}%</span>}
+                <div className="progress bar header">
+                    {label && <span className="progress bar label">{label}</span>}
+                    {showValue && <span className="progress bar value">{Math.round(displayPercent)}%</span>}
                 </div>
             )}
-            <div className="progress-bar-track">
+            <div className="progress bar track">
                 <div
-                    className={cn(
-                        'progress-bar-fill',
-                        animated && 'animated',
-                        striped && 'striped'
-                    )}
+                    className={cn('progress bar fill', animated && 'animated', striped && 'striped')}
                     style={{width: `${barPercent}%`}}
                 />
             </div>

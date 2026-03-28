@@ -78,8 +78,16 @@ function normalizeToHex(value: string): string {
 }
 
 const DEFAULT_SWATCHES = [
-    '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4',
-    '#3b82f6', '#8b5cf6', '#ec4899', '#000000', '#ffffff',
+    '#ef4444',
+    '#f97316',
+    '#eab308',
+    '#22c55e',
+    '#06b6d4',
+    '#3b82f6',
+    '#8b5cf6',
+    '#ec4899',
+    '#000000',
+    '#ffffff',
 ]
 
 export function ColorPicker({
@@ -197,10 +205,7 @@ export function ColorPicker({
                     handleHuePointer(e)
                 }}
             >
-                <div
-                    className="hue-thumb"
-                    style={{left: `${(hsv[0] / 360) * 100}%`}}
-                />
+                <div className="hue-thumb" style={{left: `${(hsv[0] / 360) * 100}%`}} />
             </div>
 
             <div className="controls">

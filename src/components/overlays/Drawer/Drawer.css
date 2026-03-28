@@ -15,6 +15,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    min-height: 0;
     background: var(--mineral-surface);
     box-shadow: var(--mineral-shell-shadow);
 }
@@ -82,15 +83,18 @@
     height: 100%;
 }
 
-.drawer .header {
+.drawer .drawer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: var(--mineral-spacing-md) var(--mineral-spacing-lg);
-    border-bottom: 1px solid var(--mineral-border);
+    gap: var(--mineral-spacing-md);
+    flex-shrink: 0;
 }
 
-.drawer .title {
+.drawer .drawer-title {
+    flex: 1;
+    min-width: 0;
     font-size: var(--mineral-font-size-lg);
     font-weight: 700;
     color: var(--mineral-text-heading);
@@ -108,7 +112,9 @@
     color: var(--mineral-text-secondary);
     font-size: 1.25rem;
     cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
+    transition:
+        background-color 0.15s,
+        color 0.15s;
 }
 
 .drawer .close:hover {
@@ -116,25 +122,51 @@
     color: var(--mineral-text);
 }
 
-.drawer .body {
+.drawer .drawer-body {
     flex: 1;
+    min-height: 0;
     overflow: auto;
-    padding: var(--mineral-spacing-lg);
+    padding: var(--mineral-spacing-md);
+}
+
+.drawer .drawer-footer {
+    flex-shrink: 0;
+    padding: var(--mineral-spacing-md) var(--mineral-spacing-lg);
+}
+
+.drawer .drawer-header.bordered {
+    border-bottom: 1px solid var(--mineral-border);
+}
+
+.drawer .drawer-footer.bordered {
+    border-top: 1px solid var(--mineral-border);
 }
 
 @keyframes drawer-slide-right {
-    from { transform: translateX(100%); }
-    to   { transform: translateX(0); }
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes drawer-slide-left {
-    from { transform: translateX(-100%); }
-    to   { transform: translateX(0); }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes drawer-slide-bottom {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 640px) {

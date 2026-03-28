@@ -4,6 +4,7 @@ import {Input} from '../Input'
 import {validateNIP, validatePESEL, validateREGON} from '../../../utils/validators'
 import {formatNIP, stripNonDigits} from '../../../utils/formatters'
 import type {ValidationResult} from '../../../utils/validators'
+import {CheckIcon, IdCardIcon} from '../../../icons'
 
 const VALIDATORS: Record<TaxIdType, (v: string) => ValidationResult> = {
     NIP: validateNIP,
@@ -85,19 +86,11 @@ export const InputTaxId = forwardRef<HTMLInputElement, InputTaxIdProps>(function
     const isSuccess =
         !isError && (success !== undefined ? success : touched && validation.valid && currentValue.length > 0)
 
-    const idIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="1" y="3" width="14" height="10" rx="2" />
-            <line x1="4" y1="7" x2="8" y2="7" />
-            <line x1="4" y1="10" x2="12" y2="10" />
-        </svg>
-    )
-
     const validIcon =
         showValidIcon && isSuccess ? (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--mineral-success)" strokeWidth="2">
-                <path d="M3 8L6.5 11.5L13 4.5" />
-            </svg>
+            <span style={{display: 'inline-flex', color: 'var(--mineral-success)'}}>
+                <CheckIcon />
+            </span>
         ) : undefined
 
     return (
@@ -113,7 +106,7 @@ export const InputTaxId = forwardRef<HTMLInputElement, InputTaxIdProps>(function
             errorText={resolvedErrorText}
             success={isSuccess}
             placeholder={placeholder ?? PLACEHOLDERS[taxIdType]}
-            startIcon={idIcon}
+            startIcon={<IdCardIcon />}
             endIcon={validIcon}
             maxLength={MAX_LENGTHS[taxIdType]}
         />

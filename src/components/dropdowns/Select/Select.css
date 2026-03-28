@@ -3,7 +3,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     position: relative;
 }
 
@@ -58,7 +58,7 @@
 .select .trigger {
     display: flex;
     align-items: center;
-    min-width: 0;
+    min-width: 220px;
     cursor: pointer;
     transition:
         border-color var(--mineral-transition-base),
@@ -186,8 +186,7 @@
 }
 
 .select .arrow svg,
-.select .clear-btn svg,
-.select-popover .checkbox svg {
+.select .clear-btn svg {
     width: 14px;
     height: 14px;
     display: block;
@@ -236,10 +235,16 @@
     }
 }
 
+.select-popover {
+    overflow: hidden;
+    max-height: none;
+}
+
 .select-popover .dropdown {
     overflow: auto;
     background: var(--mineral-popover-bg);
     border-radius: inherit;
+    overscroll-behavior: contain;
 }
 
 .select-popover .search-box {
@@ -306,7 +311,8 @@
     cursor: not-allowed;
 }
 
-.select-popover .checkbox {
+.select-popover .check {
+    --color-rgb: var(--mineral-primary-rgb);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -314,16 +320,23 @@
     height: 16px;
     border: 2px solid rgba(var(--color-rgb), 0.38);
     border-radius: 3px;
-    color: white;
+    background: transparent;
     flex-shrink: 0;
     transition:
         background-color var(--mineral-transition-fast),
-        border-color var(--mineral-transition-fast);
+        border-color var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast);
 }
 
-.select-popover .checkbox.checked {
+.select-popover .check:hover {
+    border-color: rgba(var(--color-rgb), 1);
+}
+
+.select-popover .check.checked {
     background: rgba(var(--color-rgb), 1);
     border-color: rgba(var(--color-rgb), 1);
+    animation: checkbox-flash 320ms ease;
+    transform: scale(1.02);
 }
 
 .select-popover .group-header {
@@ -356,3 +369,16 @@
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-error);
 }
+
+@keyframes checkbox-flash {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--color-rgb), 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(var(--color-rgb), 0.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--color-rgb), 0);
+    }
+}
+

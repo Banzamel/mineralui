@@ -27,10 +27,7 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(function AppSh
     )
 })
 
-export const Body = forwardRef<HTMLDivElement, BodyProps>(function Body(
-    {className, children, ...rest},
-    ref
-) {
+export const Body = forwardRef<HTMLDivElement, BodyProps>(function Body({className, children, ...rest}, ref) {
     return (
         <div ref={ref} className={cn('app-body', className)} {...rest}>
             {children}

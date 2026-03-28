@@ -1,36 +1,36 @@
-.time-picker {
+.time.picker {
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     position: relative;
 }
 
-.time-picker.full-width {
+.time.picker.full-width {
     width: 100%;
 }
 
-.time-picker .label {
+.time.label {
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text-secondary);
     font-weight: 500;
     transition: color var(--mineral-transition-fast);
 }
 
-.time-picker .label.focused {
+.time.label.focused {
     color: var(--mineral-primary);
 }
 
-.time-picker .label.error {
+.time.label.error {
     color: var(--mineral-error);
 }
 
-.time-picker .label.required::after {
+.time.label.required::after {
     content: ' *';
     color: var(--mineral-error);
 }
 
-.time-picker .trigger {
+.time.trigger {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -39,71 +39,71 @@
         box-shadow var(--mineral-transition-base);
 }
 
-.time-picker .trigger.outlined {
+.time.trigger.outlined {
     border: 1px solid var(--mineral-border);
     border-radius: var(--mineral-radius-md);
     background: var(--mineral-input-bg);
 }
 
-.time-picker .trigger.outlined:hover:not(.disabled) {
+.time.trigger.outlined:hover:not(.disabled) {
     border-color: var(--mineral-border-hover);
 }
 
-.time-picker .trigger.outlined.focused {
+.time.trigger.outlined.focused {
     border-color: var(--mineral-border-focus);
     box-shadow: var(--mineral-shadow-focus);
 }
 
-.time-picker .trigger.filled {
+.time.trigger.filled {
     border: none;
     border-bottom: 2px solid var(--mineral-border);
     border-radius: var(--mineral-radius-md) var(--mineral-radius-md) 0 0;
     background: var(--mineral-surface);
 }
 
-.time-picker .trigger.filled.focused {
+.time.trigger.filled.focused {
     border-bottom-color: var(--mineral-primary);
 }
 
-.time-picker .trigger.underlined {
+.time.trigger.underlined {
     border: none;
     border-bottom: 1px solid var(--mineral-border);
     border-radius: 0;
     background: transparent;
 }
 
-.time-picker .trigger.underlined.focused {
+.time.trigger.underlined.focused {
     border-bottom: 2px solid var(--mineral-primary);
 }
 
-.time-picker .trigger.sm {
+.time.trigger.sm {
     height: 32px;
     padding: 0 var(--mineral-spacing-sm);
     font-size: var(--mineral-font-size-xs);
 }
 
-.time-picker .trigger.md {
+.time.trigger.md {
     height: 40px;
     padding: 0 var(--mineral-spacing-md);
     font-size: var(--mineral-font-size-sm);
 }
 
-.time-picker .trigger.lg {
+.time.trigger.lg {
     height: 48px;
     padding: 0 var(--mineral-spacing-lg);
     font-size: var(--mineral-font-size-md);
 }
 
-.time-picker .trigger.error {
+.time.trigger.error {
     border-color: var(--mineral-error) !important;
 }
 
-.time-picker .trigger.disabled {
+.time.trigger.disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.time-picker .icon {
+.time.icon {
     display: flex;
     align-items: center;
     color: var(--mineral-text-secondary);
@@ -111,7 +111,7 @@
     flex-shrink: 0;
 }
 
-.time-picker .input {
+.time.input {
     flex: 1;
     background: transparent;
     border: none;
@@ -121,12 +121,12 @@
     font-size: inherit;
 }
 
-.time-picker .input::placeholder {
+.time.input::placeholder {
     color: var(--mineral-text-secondary);
     opacity: 0.6;
 }
 
-.time-picker .clear-btn {
+.time.clear {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,17 +140,17 @@
     transition: color var(--mineral-transition-fast);
 }
 
-.time-picker .clear-btn svg {
+.time.clear svg {
     width: 14px;
     height: 14px;
     display: block;
 }
 
-.time-picker .clear-btn:hover {
+.time.clear:hover {
     color: var(--mineral-text);
 }
 
-.time-picker-popover.popover {
+.time.picker.popover.popover {
     background: var(--mineral-surface, var(--mineral-popover-bg));
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -158,19 +158,19 @@
     overflow: visible;
 }
 
-.time-picker-popover .columns {
+.time.picker.popover .time.columns {
     display: flex;
     padding: var(--mineral-spacing-sm);
     gap: 2px;
 }
 
-.time-picker-popover .column {
+.time.picker.popover .time.column {
     display: flex;
     flex-direction: column;
     width: 56px;
 }
 
-.time-picker-popover .column-label {
+.time.picker.popover .time.column.label {
     text-align: center;
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-text-secondary);
@@ -180,14 +180,14 @@
     margin-bottom: 4px;
 }
 
-.time-picker-popover .column-list {
+.time.picker.popover .time.column.list {
     overflow-y: auto;
     max-height: 200px;
     scrollbar-width: thin;
     scrollbar-color: var(--mineral-border-hover) transparent;
 }
 
-.time-picker-popover .column-item {
+.time.picker.popover .time.column.item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -205,32 +205,33 @@
         color var(--mineral-transition-fast);
 }
 
-.time-picker-popover .column-item:hover:not(.disabled) {
+.time.picker.popover .time.column.item:hover:not(.disabled) {
     background: var(--mineral-option-hover-bg);
 }
 
-.time-picker-popover .column-item.selected {
+.time.picker.popover .time.column.item.selected {
     background: var(--mineral-primary);
     color: white;
     font-weight: 600;
 }
 
-.time-picker-popover .column-item.disabled {
+.time.picker.popover .time.column.item.disabled {
     opacity: 0.35;
     cursor: not-allowed;
 }
 
-.time-picker .bottom-row {
+.time.bottom {
     display: flex;
     gap: var(--mineral-spacing-sm);
 }
 
-.time-picker .helper-text {
+.time.helper {
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-text-secondary);
 }
 
-.time-picker .error-text {
+.time.error {
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-error);
 }
+

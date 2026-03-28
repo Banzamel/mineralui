@@ -1,14 +1,10 @@
 import {useRef, useState, useCallback, useLayoutEffect} from 'react'
 import type {TooltipProps} from './Tooltip.types'
 import {cn} from '../../../utils/cn'
-import {Portal} from '../../primitives/Portal'
+import {Portal} from '../../primitives'
 import './Tooltip.css'
 
-function computePosition(
-    trigger: DOMRect,
-    bubble: DOMRect,
-    placement: string
-): {top: number; left: number} {
+function computePosition(trigger: DOMRect, bubble: DOMRect, placement: string): {top: number; left: number} {
     const gap = 6
     switch (placement) {
         case 'bottom':
@@ -22,14 +18,7 @@ function computePosition(
     }
 }
 
-export function Tooltip({
-    content,
-    placement = 'top',
-    delay = 0,
-    className,
-    children,
-    ...rest
-}: TooltipProps) {
+export function Tooltip({content, placement = 'top', delay = 0, className, children, ...rest}: TooltipProps) {
     const [visible, setVisible] = useState(false)
     const [pos, setPos] = useState<{top: number; left: number} | null>(null)
     const wrapperRef = useRef<HTMLDivElement>(null)
@@ -63,7 +52,7 @@ export function Tooltip({
     return (
         <div
             ref={wrapperRef}
-            className={cn('tooltip-wrapper', className)}
+            className={cn('tooltip wrapper', className)}
             onMouseEnter={show}
             onMouseLeave={hide}
             onFocus={show}
@@ -75,7 +64,7 @@ export function Tooltip({
                 <Portal>
                     <div
                         ref={bubbleRef}
-                        className={cn('tooltip-bubble', placement)}
+                        className={cn('tooltip bubble', placement)}
                         role="tooltip"
                         style={pos ? {top: pos.top, left: pos.left} : {visibility: 'hidden'}}
                     >

@@ -2,6 +2,25 @@ import {useState, useCallback, useRef, useMemo, useEffect, forwardRef} from 'rea
 import type {InputFileProps, InputFileCropOptions} from './InputFile.types'
 import {CropEditor} from './CropEditor'
 import {cn} from '../../../utils/cn'
+import {
+    CloseIcon,
+    FileArchiveIcon,
+    FileCodeIcon,
+    FileDocsIcon,
+    FileExeIcon,
+    FileIcon,
+    FileImageIcon,
+    FileJsonIcon,
+    FileMdIcon,
+    FileMp3Icon,
+    FileMp4Icon,
+    FileOdtIcon,
+    FilePdfIcon,
+    FileTextIcon,
+    FileXlsIcon,
+    FileZipIcon,
+    UploadIcon,
+} from '../../../icons'
 import './InputFile.css'
 
 function formatSize(bytes: number): string {
@@ -20,24 +39,30 @@ function isImage(file: File): boolean {
 }
 
 function FileTypeIcon({ext}: {ext: string}) {
-    const label = ext || 'FILE'
-    return (
-        <div className="type-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 48" fill="none">
-                <path
-                    d="M4 4C4 1.8 5.8 0 8 0H26L36 10V44C36 46.2 34.2 48 32 48H8C5.8 48 4 46.2 4 44V4Z"
-                    fill="currentColor"
-                    opacity="0.12"
-                />
-                <path
-                    d="M26 0L36 10H30C27.8 10 26 8.2 26 6V0Z"
-                    fill="currentColor"
-                    opacity="0.2"
-                />
-            </svg>
-            <span className="type-ext">{label}</span>
-        </div>
-    )
+    const name = ext.toLowerCase()
+
+    if (name === 'pdf') return <FilePdfIcon className="file type icon" aria-hidden="true" />
+    if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(name)) {
+        return <FileImageIcon className="file type icon" aria-hidden="true" />
+    }
+    if (['json'].includes(name)) return <FileJsonIcon className="file type icon" aria-hidden="true" />
+    if (['js', 'jsx', 'ts', 'tsx', 'html', 'css', 'php', 'xml'].includes(name)) {
+        return <FileCodeIcon className="file type icon" aria-hidden="true" />
+    }
+    if (['txt'].includes(name)) return <FileTextIcon className="file type icon" aria-hidden="true" />
+    if (['md'].includes(name)) return <FileMdIcon className="file type icon" aria-hidden="true" />
+    if (['docs', 'doc', 'docx'].includes(name)) return <FileDocsIcon className="file type icon" aria-hidden="true" />
+    if (['odt'].includes(name)) return <FileOdtIcon className="file type icon" aria-hidden="true" />
+    if (['csv', 'xls', 'xlsx'].includes(name)) return <FileXlsIcon className="file type icon" aria-hidden="true" />
+    if (['zip'].includes(name)) return <FileZipIcon className="file type icon" aria-hidden="true" />
+    if (['rar', '7z', 'tar', 'gz'].includes(name)) return <FileArchiveIcon className="file type icon" aria-hidden="true" />
+    if (['mp3', 'wav', 'ogg'].includes(name)) return <FileMp3Icon className="file type icon" aria-hidden="true" />
+    if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(name)) {
+        return <FileMp4Icon className="file type icon" aria-hidden="true" />
+    }
+    if (['exe', 'msi', 'bat'].includes(name)) return <FileExeIcon className="file type icon" aria-hidden="true" />
+
+    return <FileIcon className="file type icon" aria-hidden="true" />
 }
 
 export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function InputFile(
@@ -101,10 +126,7 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
                     const ext = '.' + f.name.split('.').pop()?.toLowerCase()
                     const mime = f.type.toLowerCase()
                     return patterns.some(
-                        (p) =>
-                            p === ext ||
-                            p === mime ||
-                            (p.endsWith('/*') && mime.startsWith(p.slice(0, -1)))
+                        (p) => p === ext || p === mime || (p.endsWith('/*') && mime.startsWith(p.slice(0, -1)))
                     )
                 })
             }
@@ -218,13 +240,13 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
     return (
         <div
             ref={ref}
-            className={cn('input-file', color, size, fullWidth && 'full-width', disabled && 'disabled', className)}
+            className={cn('file input', color, size, fullWidth && 'full-width', disabled && 'disabled', className)}
             {...rest}
         >
-            {label && <div className="label">{label}</div>}
+            {label && <div className="file label">{label}</div>}
 
             <div
-                className={cn('dropzone', dragging && 'dragging', hasError && 'error')}
+                className={cn('file dropzone', dragging && 'dragging', hasError && 'error')}
                 onClick={handleClick}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -247,28 +269,14 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
                     multiple={multiple}
                     onChange={handleChange}
                     tabIndex={-1}
-                    className="hidden-input"
+                    className="file hidden"
                 />
 
-                <div className="content">
-                    {icon && <div className="icon">{icon}</div>}
-                    {!icon && (
-                        <svg className="icon-default" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path
-                                d="M12 16V4M12 4L8 8M12 4L16 8M4 17V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V17"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                    )}
-                    <div className="text">
-                        {dragging ? dropText : placeholder}
-                    </div>
-                    {accept && (
-                        <div className="accept">{accept}</div>
-                    )}
+                <div className="file content">
+                    {icon && <div className="file icon">{icon}</div>}
+                    {!icon && <UploadIcon className="file icon default" aria-hidden="true" />}
+                    <div className="file text">{dragging ? dropText : placeholder}</div>
+                    {accept && <div className="file accept">{accept}</div>}
                 </div>
             </div>
 
@@ -283,49 +291,34 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
                 />
             )}
 
-            {helperText && !hasError && (
-                <div className="helper">{helperText}</div>
-            )}
-            {hasError && displayError && (
-                <div className="error-text">{displayError}</div>
-            )}
+            {helperText && !hasError && <div className="file helper">{helperText}</div>}
+            {hasError && displayError && <div className="file error">{displayError}</div>}
 
             {preview && files.length > 0 && !cropFile && (
-                <div className="preview">
+                <div className="file preview">
                     {files.map((file, i) => (
-                        <div key={`${file.name}-${i}`} className="item">
-                            <div className="thumb">
+                        <div key={`${file.name}-${i}`} className="file item">
+                            <div className="file thumb">
                                 {objectUrls[i] ? (
-                                    <img
-                                        src={objectUrls[i]!}
-                                        alt={file.name}
-                                        className="image"
-                                    />
+                                    <img src={objectUrls[i]!} alt={file.name} className="file image" />
                                 ) : (
                                     <FileTypeIcon ext={fileExtension(file.name)} />
                                 )}
                             </div>
-                            <div className="info">
-                                <span className="name">{file.name}</span>
-                                <span className="size">{formatSize(file.size)}</span>
+                            <div className="file info">
+                                <span className="file name">{file.name}</span>
+                                <span className="file size">{formatSize(file.size)}</span>
                             </div>
                             <button
                                 type="button"
-                                className="remove"
+                                className="file remove"
                                 onClick={(e) => {
                                     e.stopPropagation()
                                     removeFile(i)
                                 }}
                                 aria-label={`Remove ${file.name}`}
                             >
-                                <svg viewBox="0 0 16 16" aria-hidden="true">
-                                    <path
-                                        d="M4 4L12 12M12 4L4 12"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
+                                <CloseIcon aria-hidden="true" />
                             </button>
                         </div>
                     ))}

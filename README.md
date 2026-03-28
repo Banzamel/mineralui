@@ -3,7 +3,7 @@
 React component framework for dashboards, admin panels, documentation shells, settings screens and data-heavy internal products.
 
 - npm: `@banzamel/mineralui`
-- release version: `0.9.0`
+- release version: `0.10.0`
 - peer dependencies: `react >= 19`, `react-dom >= 19`
 - repository: `https://github.com/Banzamel/mineralui`
 - styles: auto-injected — CSS is bundled into JS and applied automatically on import
@@ -149,6 +149,12 @@ function AccountSettings() {
 - validators: `validateEmail`, `validatePhone`, `validateIBAN`, `validateNIP`, `validatePESEL`, `validateREGON`
 - formatters: `formatIBAN`, `formatPhone`, `formatNIP`, `formatCurrency`, `parseCurrencyToNumber`
 - date helpers: `formatDate`, `parseDate`, `formatTime`, `parseTime`
+
+### Icons
+- `MIcon` — base icon component with size, color and className support
+- 130+ built-in SVG glyphs: arrows, chevrons, actions, devices, files, flags, brands and more
+- All icons are tree-shakeable individual exports
+- Used internally by `MRating`, `MSidebar`, `MTreeView` and other components
 
 ### Hooks and utilities
 - `useReveal` — viewport reveal animation with IntersectionObserver

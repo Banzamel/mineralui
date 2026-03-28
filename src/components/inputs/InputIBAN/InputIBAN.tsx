@@ -4,6 +4,7 @@ import {Input} from '../Input'
 import {validateIBAN} from '../../../utils/validators'
 import {formatIBAN, unformatIBAN} from '../../../utils/formatters'
 import type {ValidationResult} from '../../../utils/validators'
+import {BankIcon, CheckIcon} from '../../../icons'
 
 // Extend the base input with IBAN formatting and checksum validation.
 export const InputIBAN = forwardRef<HTMLInputElement, InputIBANProps>(function InputIBAN(
@@ -66,20 +67,11 @@ export const InputIBAN = forwardRef<HTMLInputElement, InputIBANProps>(function I
     const isSuccess =
         !isError && (success !== undefined ? success : touched && validation.valid && currentValue.length > 0)
 
-    const bankIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M1 14h14" />
-            <path d="M2 6h12" />
-            <path d="M8 2L1 6h14L8 2z" />
-            <path d="M3 6v8M6 6v8M10 6v8M13 6v8" />
-        </svg>
-    )
-
     const validIcon =
         showValidIcon && isSuccess ? (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--mineral-success)" strokeWidth="2">
-                <path d="M3 8L6.5 11.5L13 4.5" />
-            </svg>
+            <span style={{display: 'inline-flex', color: 'var(--mineral-success)'}}>
+                <CheckIcon />
+            </span>
         ) : undefined
 
     return (
@@ -94,7 +86,7 @@ export const InputIBAN = forwardRef<HTMLInputElement, InputIBANProps>(function I
             errorText={resolvedErrorText}
             success={isSuccess}
             placeholder={placeholder}
-            startIcon={bankIcon}
+            startIcon={<BankIcon />}
             endIcon={validIcon}
             maxLength={34 + 8}
         />

@@ -1,8 +1,9 @@
 import {useMemo, useState} from 'react'
 import type {DataTableProps, DataTableSort} from './DataTable.types'
-import {Checkbox} from '../../controls/Checkbox'
-import {InputSearch} from '../../inputs/InputSearch'
-import {MPagination} from '../../layout/MPagination'
+import {Checkbox} from '../../controls'
+import {InputSearch} from '../../inputs'
+import {MPagination} from '../../layout'
+import {ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon} from '../../../icons'
 import {cn} from '../../../utils/cn'
 import './DataTable.css'
 
@@ -169,7 +170,15 @@ export function DataTable<T = any>({
                                             {col.label}
                                             {isSortable && (
                                                 <span className="sort-icon">
-                                                    {isSorted ? (activeSort!.dir === 'asc' ? '▲' : '▼') : '⇅'}
+                                                    {isSorted ? (
+                                                        activeSort!.dir === 'asc' ? (
+                                                            <ArrowUpIcon aria-hidden="true" />
+                                                        ) : (
+                                                            <ArrowDownIcon aria-hidden="true" />
+                                                        )
+                                                    ) : (
+                                                        <ArrowUpDownIcon aria-hidden="true" />
+                                                    )}
                                                 </span>
                                             )}
                                         </span>

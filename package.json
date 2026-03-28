@@ -1,11 +1,66 @@
 {
     "name": "@banzamel/mineralui",
-    "version": "0.9.0",
+    "version": "0.10.0",
     "description": "Modern React UI component framework with mineral dark aesthetic",
     "type": "module",
     "main": "dist/index.cjs",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "layout": [
+                "dist/layout.d.ts"
+            ],
+            "controls": [
+                "dist/controls.d.ts"
+            ],
+            "icons": [
+                "dist/icons.d.ts"
+            ],
+            "cards": [
+                "dist/cards.d.ts"
+            ],
+            "data": [
+                "dist/data.d.ts"
+            ],
+            "display": [
+                "dist/display.d.ts"
+            ],
+            "dropdowns": [
+                "dist/dropdowns.d.ts"
+            ],
+            "feedback": [
+                "dist/feedback.d.ts"
+            ],
+            "form": [
+                "dist/form.d.ts"
+            ],
+            "inputs": [
+                "dist/inputs.d.ts"
+            ],
+            "media": [
+                "dist/media.d.ts"
+            ],
+            "overlays": [
+                "dist/overlays.d.ts"
+            ],
+            "primitives": [
+                "dist/primitives.d.ts"
+            ],
+            "typography": [
+                "dist/typography.d.ts"
+            ],
+            "theme": [
+                "dist/theme.d.ts"
+            ],
+            "i18n": [
+                "dist/i18n.d.ts"
+            ],
+            "utils": [
+                "dist/utils.d.ts"
+            ]
+        }
+    },
     "exports": {
         ".": {
             "import": {
@@ -15,6 +70,176 @@
             "require": {
                 "types": "./dist/index.d.ts",
                 "default": "./dist/index.cjs"
+            }
+        },
+        "./layout": {
+            "import": {
+                "types": "./dist/layout.d.ts",
+                "default": "./dist/layout.js"
+            },
+            "require": {
+                "types": "./dist/layout.d.ts",
+                "default": "./dist/layout.cjs"
+            }
+        },
+        "./controls": {
+            "import": {
+                "types": "./dist/controls.d.ts",
+                "default": "./dist/controls.js"
+            },
+            "require": {
+                "types": "./dist/controls.d.ts",
+                "default": "./dist/controls.cjs"
+            }
+        },
+        "./icons": {
+            "import": {
+                "types": "./dist/icons.d.ts",
+                "default": "./dist/icons.js"
+            },
+            "require": {
+                "types": "./dist/icons.d.ts",
+                "default": "./dist/icons.cjs"
+            }
+        },
+        "./cards": {
+            "import": {
+                "types": "./dist/cards.d.ts",
+                "default": "./dist/cards.js"
+            },
+            "require": {
+                "types": "./dist/cards.d.ts",
+                "default": "./dist/cards.cjs"
+            }
+        },
+        "./data": {
+            "import": {
+                "types": "./dist/data.d.ts",
+                "default": "./dist/data.js"
+            },
+            "require": {
+                "types": "./dist/data.d.ts",
+                "default": "./dist/data.cjs"
+            }
+        },
+        "./display": {
+            "import": {
+                "types": "./dist/display.d.ts",
+                "default": "./dist/display.js"
+            },
+            "require": {
+                "types": "./dist/display.d.ts",
+                "default": "./dist/display.cjs"
+            }
+        },
+        "./dropdowns": {
+            "import": {
+                "types": "./dist/dropdowns.d.ts",
+                "default": "./dist/dropdowns.js"
+            },
+            "require": {
+                "types": "./dist/dropdowns.d.ts",
+                "default": "./dist/dropdowns.cjs"
+            }
+        },
+        "./feedback": {
+            "import": {
+                "types": "./dist/feedback.d.ts",
+                "default": "./dist/feedback.js"
+            },
+            "require": {
+                "types": "./dist/feedback.d.ts",
+                "default": "./dist/feedback.cjs"
+            }
+        },
+        "./form": {
+            "import": {
+                "types": "./dist/form.d.ts",
+                "default": "./dist/form.js"
+            },
+            "require": {
+                "types": "./dist/form.d.ts",
+                "default": "./dist/form.cjs"
+            }
+        },
+        "./inputs": {
+            "import": {
+                "types": "./dist/inputs.d.ts",
+                "default": "./dist/inputs.js"
+            },
+            "require": {
+                "types": "./dist/inputs.d.ts",
+                "default": "./dist/inputs.cjs"
+            }
+        },
+        "./media": {
+            "import": {
+                "types": "./dist/media.d.ts",
+                "default": "./dist/media.js"
+            },
+            "require": {
+                "types": "./dist/media.d.ts",
+                "default": "./dist/media.cjs"
+            }
+        },
+        "./overlays": {
+            "import": {
+                "types": "./dist/overlays.d.ts",
+                "default": "./dist/overlays.js"
+            },
+            "require": {
+                "types": "./dist/overlays.d.ts",
+                "default": "./dist/overlays.cjs"
+            }
+        },
+        "./primitives": {
+            "import": {
+                "types": "./dist/primitives.d.ts",
+                "default": "./dist/primitives.js"
+            },
+            "require": {
+                "types": "./dist/primitives.d.ts",
+                "default": "./dist/primitives.cjs"
+            }
+        },
+        "./typography": {
+            "import": {
+                "types": "./dist/typography.d.ts",
+                "default": "./dist/typography.js"
+            },
+            "require": {
+                "types": "./dist/typography.d.ts",
+                "default": "./dist/typography.cjs"
+            }
+        },
+        "./theme": {
+            "import": {
+                "types": "./dist/theme.d.ts",
+                "default": "./dist/theme.js"
+            },
+            "require": {
+                "types": "./dist/theme.d.ts",
+                "default": "./dist/theme.cjs"
+            }
+        },
+        "./i18n": {
+            "import": {
+                "types": "./dist/i18n.d.ts",
+                "default": "./dist/i18n.js"
+            },
+            "require": {
+                "types": "./dist/i18n.d.ts",
+                "default": "./dist/i18n.cjs"
+            }
+        },
+        "./utils": {
+            "import": {
+                "types": "./dist/utils.d.ts",
+                "default": "./dist/utils.js"
+            },
+            "require": {
+                "types": "./dist/utils.d.ts",
+                "default": "./dist/utils.cjs"
             }
         },
         "./styles.css": "./dist/styles.css"

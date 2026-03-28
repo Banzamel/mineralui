@@ -1,5 +1,4 @@
 import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
-import type {StackGap} from '../Stack/Stack.types'
 import type {LayoutUtilityProps} from '../../../utils/layoutProps'
 
 export type MGridType = 'row' | 'col'
@@ -8,7 +7,6 @@ export type MGridColumns = (typeof mGridColumnValues)[number]
 
 export interface MGridProps extends HTMLAttributes<HTMLDivElement>, LayoutUtilityProps {
     type?: MGridType
-    gap?: StackGap
     span?: MGridColumns
     sm?: MGridColumns
     md?: MGridColumns
@@ -19,8 +17,7 @@ export interface MGridProps extends HTMLAttributes<HTMLDivElement>, LayoutUtilit
     style?: CSSProperties
 }
 
-export interface MGridItemProps
-    extends Omit<MGridProps, 'type' | 'gap'>, Pick<MGridProps, 'span' | 'sm' | 'md' | 'lg' | 'xl'> {
+export interface MGridItemProps extends Omit<MGridProps, 'type'>, Pick<MGridProps, 'span' | 'sm' | 'md' | 'lg' | 'xl'> {
     children?: ReactNode
     className?: string
     style?: CSSProperties

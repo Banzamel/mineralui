@@ -1,66 +1,72 @@
 import {useEffect, useRef, useState} from 'react'
-import type {CSSProperties, DragEvent, MouseEvent} from 'react'
+import type {CSSProperties, DragEvent, MouseEvent, ReactNode} from 'react'
 import type {TreeViewProps, TreeItemProps, TreeNode, TreeViewContextMenuItem, TreeViewMoveEvent} from './TreeView.types'
 import {cn} from '../../../utils/cn'
-import {Portal} from '../../primitives/Portal'
+import {Portal} from '../../primitives'
+import {
+    ChevronRightIcon,
+    FileCodeIcon,
+    FileCsvIcon,
+    FileCssIcon,
+    FileExeIcon,
+    FileGifIcon,
+    FileHtmlIcon,
+    FileIcon,
+    FileImageIcon,
+    FileJpgIcon,
+    FileJsIcon,
+    FileJsonIcon,
+    FileMdIcon,
+    FileMp3Icon,
+    FileMp4Icon,
+    FileOdtIcon,
+    FilePdfIcon,
+    FilePhpIcon,
+    FilePngIcon,
+    FilePptIcon,
+    FileRarIcon,
+    FileSvgIcon,
+    FileTextIcon,
+    FileTsIcon,
+    FileTsxIcon,
+    FileTxtIcon,
+    FileWebpIcon,
+    FileXlsIcon,
+    FileXmlIcon,
+    FileZipIcon,
+    FolderIcon,
+    FolderOpenIcon,
+} from '../../../icons'
 import './TreeView.css'
-
-type FileTypeMeta = {
-    label: string
-    color: string
-    background: string
-}
-
-// Keep file badges simple but still readable for common extensions.
-const folderClosed = (
-    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16" aria-hidden="true">
-        <path d="M1.5 3A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H7.71L6.85 3.36A1.5 1.5 0 0 0 5.79 3H1.5z" />
-    </svg>
-)
-
-const folderOpen = (
-    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16" aria-hidden="true">
-        <path d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.67a2 2 0 0 1 1.41.59l.83.82H14.5a2 2 0 0 1 2 2v1.1a.5.5 0 0 1 0 .1V12a2 2 0 0 1-2 2H1.5a2 2 0 0 1-2-2V4.5a.5.5 0 0 1 0-.13V4a.5.5 0 0 1 .04-.13zM2.5 2a1 1 0 0 0-1 1v.5h4.38l-.73-.73A1 1 0 0 0 4.44 2.5H2.5zM1.5 5v7a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V5.5h-13V5z" />
-    </svg>
-)
-
-const genericFileIcon = (
-    <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-        <path
-            d="M5 1.75h6.1l3.9 3.9v11.1a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 16.75v-13A2 2 0 0 1 5 1.75z"
-            fill="var(--mineral-surface)"
-            stroke="var(--mineral-border-strong, var(--mineral-border))"
-            strokeWidth="1"
-        />
-        <path
-            d="M11 1.75v3a1 1 0 0 0 1 1h3"
-            fill="none"
-            stroke="var(--mineral-border-strong, var(--mineral-border))"
-            strokeWidth="1"
-        />
-    </svg>
-)
-
-const fileTypeMap: Record<string, FileTypeMeta> = {
-    pdf: {label: 'PDF', color: '#c62828', background: '#fde8e8'},
-    ts: {label: 'TS', color: '#3178c6', background: '#e8f1fb'},
-    tsx: {label: 'TSX', color: '#3178c6', background: '#e8f1fb'},
-    js: {label: 'JS', color: '#7a5f00', background: '#fff7c2'},
-    jsx: {label: 'JSX', color: '#7a5f00', background: '#fff7c2'},
-    css: {label: 'CSS', color: '#264de4', background: '#e6edff'},
-    scss: {label: 'CSS', color: '#bf4b8a', background: '#fdebf4'},
-    html: {label: 'HTML', color: '#e34c26', background: '#fff0ea'},
-    json: {label: 'JSON', color: '#6b7a1b', background: '#f3f8d8'},
-    md: {label: 'MD', color: '#0f7490', background: '#e6f7fb'},
-    txt: {label: 'TXT', color: '#475569', background: '#eef2f7'},
-    csv: {label: 'CSV', color: '#0f766e', background: '#e5fbf6'},
-    zip: {label: 'ZIP', color: '#7c3aed', background: '#f0e8ff'},
-    svg: {label: 'SVG', color: '#c97a00', background: '#fff3d8'},
-    png: {label: 'IMG', color: '#7c3aed', background: '#f2eaff'},
-    jpg: {label: 'IMG', color: '#7c3aed', background: '#f2eaff'},
-    jpeg: {label: 'IMG', color: '#7c3aed', background: '#f2eaff'},
-    gif: {label: 'IMG', color: '#7c3aed', background: '#f2eaff'},
-    webp: {label: 'IMG', color: '#7c3aed', background: '#f2eaff'},
+const fileTypeMap: Record<string, ReactNode> = {
+    pdf: <FilePdfIcon />,
+    ts: <FileTsIcon />,
+    tsx: <FileTsxIcon />,
+    js: <FileJsIcon />,
+    jsx: <FileCodeIcon />,
+    css: <FileCssIcon />,
+    scss: <FileCssIcon />,
+    html: <FileHtmlIcon />,
+    json: <FileJsonIcon />,
+    md: <FileMdIcon />,
+    txt: <FileTxtIcon />,
+    csv: <FileCsvIcon />,
+    zip: <FileZipIcon />,
+    rar: <FileRarIcon />,
+    svg: <FileSvgIcon />,
+    png: <FilePngIcon />,
+    jpg: <FileJpgIcon />,
+    jpeg: <FileImageIcon />,
+    gif: <FileGifIcon />,
+    webp: <FileWebpIcon />,
+    php: <FilePhpIcon />,
+    xml: <FileXmlIcon />,
+    xls: <FileXlsIcon />,
+    ppt: <FilePptIcon />,
+    odt: <FileOdtIcon />,
+    exe: <FileExeIcon />,
+    mp3: <FileMp3Icon />,
+    mp4: <FileMp4Icon />,
 }
 
 // Read the file extension once so icon logic stays predictable.
@@ -75,56 +81,12 @@ function isFolderNode(node: TreeNode) {
     return node.kind === 'folder' || Boolean(node.children?.length)
 }
 
-// Map the extension to a small label and color pair.
-function getFileTypeMeta(label: string): FileTypeMeta | null {
+// Resolve the proper file icon by extension.
+function getFileIcon(label: string): ReactNode {
     const ext = getFileExtension(label)
-    if (!ext) return null
+    if (!ext) return <FileIcon />
 
-    return (
-        fileTypeMap[ext] ?? {
-            label: ext.slice(0, 3).toUpperCase(),
-            color: '#475569',
-            background: '#eef2f7',
-        }
-    )
-}
-
-// Draw a tiny file badge when the node does not provide a custom icon.
-function renderFileIcon(label: string) {
-    const meta = getFileTypeMeta(label)
-
-    if (!meta) {
-        return genericFileIcon
-    }
-
-    return (
-        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-            <path
-                d="M5 1.75h6.1l3.9 3.9v11.1a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 16.75v-13A2 2 0 0 1 5 1.75z"
-                fill="var(--mineral-surface)"
-                stroke="var(--mineral-border-strong, var(--mineral-border))"
-                strokeWidth="1"
-            />
-            <path
-                d="M11 1.75v3a1 1 0 0 0 1 1h3"
-                fill="none"
-                stroke="var(--mineral-border-strong, var(--mineral-border))"
-                strokeWidth="1"
-            />
-            <rect x="4.5" y="10.25" width="11" height="5.25" rx="1.6" fill={meta.background} />
-            <text
-                x="10"
-                y="14"
-                textAnchor="middle"
-                fontSize="4"
-                fontWeight="700"
-                fontFamily="var(--mineral-font-family-sans, sans-serif)"
-                fill={meta.color}
-            >
-                {meta.label}
-            </text>
-        </svg>
-    )
+    return fileTypeMap[ext] ?? <FileTextIcon />
 }
 
 // Prefer custom icons first, then fall back to folder or file visuals.
@@ -132,9 +94,9 @@ function getDefaultIcon(node: TreeNode, isExpanded: boolean, fileIcons: boolean)
     if (node.icon) return node.icon
     if (!fileIcons) return null
 
-    if (isFolderNode(node)) return isExpanded ? folderOpen : folderClosed
+    if (isFolderNode(node)) return isExpanded ? <FolderOpenIcon /> : <FolderIcon />
 
-    return renderFileIcon(node.label)
+    return getFileIcon(node.label)
 }
 
 // Cache nodes and descendants so drag-drop validation stays fast.
@@ -235,7 +197,9 @@ function TreeItem({
             >
                 <span className="toggle">
                     {hasChildren && expandable ? (
-                        <span className={cn('arrow', isExpanded && 'expanded')}>{'>'}</span>
+                        <span className={cn('arrow', isExpanded && 'expanded')}>
+                            <ChevronRightIcon />
+                        </span>
                     ) : (
                         <span className="spacer" />
                     )}
@@ -462,7 +426,7 @@ export function TreeView({
             </ul>
             {menu && (
                 <Portal>
-                    <div ref={menuRef} className="tree-menu" style={{top: menu.y, left: menu.x}} role="menu">
+                    <div ref={menuRef} className="tree menu" style={{top: menu.y, left: menu.x}} role="menu">
                         {menu.items.map((item) => (
                             <button
                                 key={item.id}

@@ -11,11 +11,6 @@ export type {
     CardBusinessContact,
 } from './CardBusiness'
 export {CardService} from './CardService'
-export type {
-    CardServiceProps,
-    CardServiceVariant,
-    CardServicePerson,
-    CardServiceMenuItem,
-} from './CardService'
+export type {CardServiceProps, CardServiceVariant, CardServicePerson, CardServiceMenuItem} from './CardService'
 export {CardGrid} from './CardGrid'
 export type {CardGridProps, CardGridFilterKey, CardGridSortKey} from './CardGrid'

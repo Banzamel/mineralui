@@ -18,6 +18,12 @@ export interface MSidebarProps {
 }
 
 export interface MSidebarHeaderProps {
+    bordered?: boolean
+    className?: string
+    children: ReactNode
+}
+
+export interface MSidebarBodyProps {
     className?: string
     children: ReactNode
 }
@@ -52,6 +58,7 @@ export interface MSidebarGroupProps {
 }
 
 export interface MSidebarFooterProps {
+    bordered?: boolean
     className?: string
     children: ReactNode
 }

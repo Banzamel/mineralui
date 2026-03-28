@@ -32,10 +32,13 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
         [value, onChange]
     )
 
-    const focusSlot = useCallback((index: number) => {
-        const clamped = Math.max(0, Math.min(index, length - 1))
-        inputsRef.current[clamped]?.focus()
-    }, [length])
+    const focusSlot = useCallback(
+        (index: number) => {
+            const clamped = Math.max(0, Math.min(index, length - 1))
+            inputsRef.current[clamped]?.focus()
+        },
+        [length]
+    )
 
     useEffect(() => {
         if (autoFocus) focusSlot(0)
@@ -92,21 +95,23 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
     return (
         <div
             ref={ref}
-            className={cn('input-otp', color, size, error && 'error', disabled && 'disabled', className)}
+            className={cn('otp input', color, size, error && 'error', disabled && 'disabled', className)}
             {...rest}
         >
-            {label && <div className="label">{label}</div>}
-            <div className="slots" onPaste={handlePaste}>
+            {label && <div className="otp label">{label}</div>}
+            <div className="otp slots" onPaste={handlePaste}>
                 {Array.from({length}, (_, i) => (
                     <input
                         key={i}
-                        ref={(el) => { inputsRef.current[i] = el }}
+                        ref={(el) => {
+                            inputsRef.current[i] = el
+                        }}
                         type="text"
                         inputMode="numeric"
                         maxLength={1}
                         value={currentValue[i] || ''}
                         disabled={disabled}
-                        className={cn('slot', currentValue[i] && 'filled')}
+                        className={cn('otp slot', currentValue[i] && 'filled')}
                         aria-label={`Digit ${i + 1}`}
                         onChange={(e) => {
                             const char = e.target.value.slice(-1)
@@ -117,7 +122,7 @@ export const InputOTP = forwardRef<HTMLDivElement, InputOTPProps>(function Input
                     />
                 ))}
             </div>
-            {error && errorText && <div className="error-text">{errorText}</div>}
+            {error && errorText && <div className="otp error">{errorText}</div>}
         </div>
     )
 })

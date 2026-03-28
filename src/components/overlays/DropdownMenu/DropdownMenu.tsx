@@ -1,12 +1,5 @@
-import {
-    useState,
-    useRef,
-    useCallback,
-    Children,
-    isValidElement,
-    cloneElement,
-} from 'react'
-import {Popover} from '../../primitives/Popover'
+import {useState, useRef, useCallback, Children, isValidElement, cloneElement} from 'react'
+import {Popover} from '../../primitives'
 import {useKeyboardNav} from '../../../utils/useKeyboardNav'
 import {cn} from '../../../utils/cn'
 import type {
@@ -129,25 +122,28 @@ export function MDropdownMenu({
         return child
     }
 
-    const hoverHandlers = openOn === 'hover' ? {
-        onMouseEnter: () => {
-            if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
-            setOpen(true)
-        },
-        onMouseLeave: () => {
-            hoverTimeout.current = setTimeout(() => setOpen(false), 150)
-        },
-    } : {}
+    const hoverHandlers =
+        openOn === 'hover'
+            ? {
+                  onMouseEnter: () => {
+                      if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
+                      setOpen(true)
+                  },
+                  onMouseLeave: () => {
+                      hoverTimeout.current = setTimeout(() => setOpen(false), 150)
+                  },
+              }
+            : {}
 
     return (
-        <div className={cn('dropdown-menu-anchor', className)} style={style} {...hoverHandlers}>
+        <div className={cn('dropdown menu anchor', className)} style={style} {...hoverHandlers}>
             <div
                 ref={anchorRef}
                 onClick={openOn === 'click' ? handleTriggerClick : undefined}
                 onKeyDown={handleTriggerKeyDown}
                 role="button"
                 tabIndex={0}
-                className="dropdown-menu-trigger"
+                className="dropdown menu trigger"
             >
                 {trigger}
             </div>
@@ -156,9 +152,9 @@ export function MDropdownMenu({
                 anchorRef={anchorRef}
                 onClose={() => setOpen(false)}
                 placement={placement}
-                className={cn('dropdown-menu-popover', size)}
+                className={cn('dropdown menu popover', size)}
             >
-                <div className="dropdown-menu-list" role="menu" {...hoverHandlers}>
+                <div className="dropdown menu list" role="menu" {...hoverHandlers}>
                     {Children.map(children, renderChild)}
                 </div>
             </Popover>
@@ -185,18 +181,12 @@ export function MDropdownItem({
 
     const content = (
         <>
-            {icon && <span className="dropdown-menu-item-icon">{icon}</span>}
-            <span className="dropdown-menu-item-label">{label}</span>
+            {icon && <span className="dropdown menu icon">{icon}</span>}
+            <span className="dropdown menu label">{label}</span>
         </>
     )
 
-    const cls = cn(
-        'dropdown-menu-item',
-        isHighlighted && 'active',
-        disabled && 'disabled',
-        color,
-        className
-    )
+    const cls = cn('dropdown menu item', isHighlighted && 'active', disabled && 'disabled', color, className)
 
     const handleClick = (e: React.MouseEvent) => {
         if (disabled) {
@@ -227,8 +217,8 @@ export function MDropdownItem({
 
 export function MDropdownGroup({label, children}: MDropdownGroupProps) {
     return (
-        <div className="dropdown-menu-group" role="group">
-            <div className="dropdown-menu-group-label">{label}</div>
+        <div className="dropdown menu group" role="group">
+            <div className="dropdown menu group-label">{label}</div>
             {children}
         </div>
     )
@@ -236,5 +226,5 @@ export function MDropdownGroup({label, children}: MDropdownGroupProps) {
 ;(MDropdownGroup as any).__dropdownGroup = true
 
 export function MDropdownDivider({className}: MDropdownDividerProps) {
-    return <div className={cn('dropdown-menu-divider', className)} role="separator" />
+    return <div className={cn('dropdown menu divider', className)} role="separator" />
 }

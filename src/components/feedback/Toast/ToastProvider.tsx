@@ -1,5 +1,5 @@
 import {useCallback, useMemo, useRef, useState} from 'react'
-import {Portal} from '../../primitives/Portal'
+import {Portal} from '../../primitives'
 import {ToastContextProvider, useToast} from './ToastContext'
 import {ToastItem} from './ToastItem'
 import type {ToastEntry, ToastOptions, ToastProviderProps} from './Toast.types'
@@ -35,7 +35,7 @@ export function ToastProvider({position = 'top-right', duration = 4000, children
         <ToastContextProvider value={ctx}>
             {children}
             <Portal>
-                <div className={cn('toast-container', position)}>
+                <div className={cn('toast container', position)}>
                     {toasts.map((entry) => (
                         <ToastItem key={entry.id} entry={entry} onDismiss={dismiss} />
                     ))}

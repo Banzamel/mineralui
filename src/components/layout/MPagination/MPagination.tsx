@@ -10,7 +10,7 @@ function range(start: number, end: number): number[] {
 }
 
 function buildPages(totalPages: number, page: number, siblings: number, boundaries: number): (number | 'dots')[] {
-    if (totalPages <= (boundaries * 2) + (siblings * 2) + 3) {
+    if (totalPages <= boundaries * 2 + siblings * 2 + 3) {
         return range(1, totalPages)
     }
 
@@ -24,12 +24,12 @@ function buildPages(totalPages: number, page: number, siblings: number, boundari
     const rightEdge = range(totalPages - boundaries + 1, totalPages)
 
     if (!showLeftDots && showRightDots) {
-        const leftCount = (siblings * 2) + boundaries + 2
+        const leftCount = siblings * 2 + boundaries + 2
         return [...range(1, leftCount), 'dots', ...rightEdge]
     }
 
     if (showLeftDots && !showRightDots) {
-        const rightCount = (siblings * 2) + boundaries + 2
+        const rightCount = siblings * 2 + boundaries + 2
         return [...leftEdge, 'dots', ...range(totalPages - rightCount + 1, totalPages)]
     }
 
@@ -83,17 +83,14 @@ export function MPagination({
 
     return (
         <nav aria-label="pagination" className={cn('pagination', className)} {...rest}>
-            <button
-                type="button"
-                className="btn"
-                disabled={currentPage <= 1}
-                onClick={() => onChange(currentPage - 1)}
-            >
+            <button type="button" className="btn" disabled={currentPage <= 1} onClick={() => onChange(currentPage - 1)}>
                 &#8249;
             </button>
             {pages.map((p, i) =>
                 p === 'dots' ? (
-                    <span key={`dots-${i}`} className="dots">&#8230;</span>
+                    <span key={`dots-${i}`} className="dots">
+                        &#8230;
+                    </span>
                 ) : (
                     <button
                         key={p}

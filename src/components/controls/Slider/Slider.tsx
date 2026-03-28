@@ -73,11 +73,7 @@ export function Slider({
                         {marks.map((mark) => {
                             const markPercent = ((mark.value - min) / (max - min)) * 100
                             return (
-                                <div
-                                    key={mark.value}
-                                    className="mark"
-                                    style={{left: `${markPercent}%`}}
-                                >
+                                <div key={mark.value} className="mark" style={{left: `${markPercent}%`}}>
                                     <div className="tick" />
                                     {mark.label && <div className="label">{mark.label}</div>}
                                 </div>

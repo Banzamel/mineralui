@@ -15,16 +15,13 @@ export function Tag({
     ...rest
 }: TagProps) {
     return (
-        <span
-            className={cn('m-tag', color, variant, ...getAppearanceClassNames({fcolor}), className)}
-            {...rest}
-        >
-            {icon && <span className="m-tag-icon">{icon}</span>}
-            <span className="m-tag-label">{label}</span>
+        <span className={cn('m-tag', color, variant, ...getAppearanceClassNames({fcolor}), className)} {...rest}>
+            {icon && <span className="m-tag icon">{icon}</span>}
+            <span className="m-tag label">{label}</span>
             {closable && (
                 <button
                     type="button"
-                    className="m-tag-close"
+                    className="m-tag close"
                     onClick={(e) => {
                         e.stopPropagation()
                         onClose?.()

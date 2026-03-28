@@ -1,7 +1,8 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import {Popover} from '../../primitives/Popover'
+import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
+import {CalendarIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon} from '../../../icons'
 import {
     addMonths,
     daysInMonth,
@@ -83,47 +84,6 @@ function getDefaultPresets(): DateRangePreset[] {
         {label: '1 year', value: {start: monthsAgo(12), end: today}},
     ]
 }
-
-const CalendarIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="1" y="3" width="14" height="12" rx="2" />
-        <line x1="1" y1="7" x2="15" y2="7" />
-        <line x1="5" y1="1" x2="5" y2="4" />
-        <line x1="11" y1="1" x2="11" y2="4" />
-    </svg>
-)
-
-const ChevronLeftIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path
-            d="M9.5 3.5L5 8L9.5 12.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        />
-    </svg>
-)
-
-const ChevronRightIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path
-            d="M6.5 3.5L11 8L6.5 12.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        />
-    </svg>
-)
-
-const ClearIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M4 4L12 12M12 4L4 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-)
 
 function buildCalendarDays(viewDate: Date, firstDayOfWeek: 0 | 1) {
     const year = viewDate.getFullYear()
@@ -570,7 +530,7 @@ export function DateRangePicker({
                         tabIndex={-1}
                         aria-label="Clear date range"
                     >
-                        <ClearIcon />
+                        <CloseIcon />
                     </button>
                 )}
             </div>

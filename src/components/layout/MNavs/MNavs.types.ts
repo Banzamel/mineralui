@@ -1,9 +1,8 @@
 import type {ElementType, HTMLAttributes, ReactNode} from 'react'
-import type {MLinkProps} from '../../typography/Link/Link.types'
+import type {MLinkProps} from '../../typography'
 import type {MineralFontColor} from '../../../theme'
 
 export type MNavsOrientation = 'horizontal' | 'vertical'
-export type MNavsGap = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 export interface MNavsItem extends Pick<MLinkProps, 'href' | 'to' | 'target' | 'rel' | 'title'> {
     key?: string
@@ -17,7 +16,6 @@ export interface MNavsItem extends Pick<MLinkProps, 'href' | 'to' | 'target' | '
 export interface MNavsProps extends HTMLAttributes<HTMLElement> {
     items?: MNavsItem[]
     orientation?: MNavsOrientation
-    gap?: MNavsGap
     fcolor?: MineralFontColor
     wrap?: boolean
     children?: ReactNode

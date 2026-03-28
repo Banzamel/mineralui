@@ -11,7 +11,7 @@
         var(--mineral-surface);
     border: 1px solid var(--mineral-border);
     color: var(--mineral-text);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     overflow: hidden;
 }
 
@@ -228,7 +228,20 @@ a.cb-detail-value:hover {
         color var(--mineral-transition-fast);
 }
 
+.cb-social svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.cb-social-text {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+}
+
 .cb-social:hover {
     background: rgba(var(--color-rgb), 0.18);
     color: rgba(var(--color-rgb), 1);
 }
+

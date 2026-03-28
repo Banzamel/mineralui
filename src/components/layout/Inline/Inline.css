@@ -1,6 +1,7 @@
 .inline {
     display: flex;
     min-width: 0;
+    gap: var(--mineral-spacing-md);
 }
 
 .inline.wrap {
@@ -9,30 +10,6 @@
 
 .inline.nowrap {
     flex-wrap: nowrap;
-}
-
-.inline.xs {
-    gap: var(--mineral-spacing-xs);
-}
-
-.inline.sm {
-    gap: var(--mineral-spacing-sm);
-}
-
-.inline.md {
-    gap: var(--mineral-spacing-md);
-}
-
-.inline.lg {
-    gap: var(--mineral-spacing-lg);
-}
-
-.inline.xl {
-    gap: var(--mineral-spacing-xl);
-}
-
-.inline.gap-2xl {
-    gap: var(--mineral-spacing-2xl);
 }
 
 .inline.start {

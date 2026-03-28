@@ -2,6 +2,7 @@ import {useState, useCallback, useRef, useEffect, forwardRef} from 'react'
 import type {InputNumberProps} from './InputNumber.types'
 import {Input} from '../Input'
 import {cn} from '../../../utils/cn'
+import {ChevronDownIcon, ChevronUpIcon} from '../../../icons'
 import './InputNumber.css'
 
 // Keep numeric values inside optional min and max bounds.
@@ -124,46 +125,28 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(functi
 
     const stepper =
         showStepper && !disabled ? (
-            <div className="stepper">
+            <div className="number stepper">
                 <button
                     type="button"
-                    className="step-btn"
+                    className="number step button"
                     onMouseDown={() => startHold(1)}
                     onMouseUp={stopHold}
                     onMouseLeave={stopHold}
                     tabIndex={-1}
                     aria-label="Increment"
                 >
-                    <svg viewBox="0 0 16 16" aria-hidden="true">
-                        <path
-                            d="M4 10L8 6L12 10"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
+                    <ChevronUpIcon />
                 </button>
                 <button
                     type="button"
-                    className="step-btn"
+                    className="number step button"
                     onMouseDown={() => startHold(-1)}
                     onMouseUp={stopHold}
                     onMouseLeave={stopHold}
                     tabIndex={-1}
                     aria-label="Decrement"
                 >
-                    <svg viewBox="0 0 16 16" aria-hidden="true">
-                        <path
-                            d="M4 6L8 10L12 6"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
+                    <ChevronDownIcon />
                 </button>
             </div>
         ) : undefined
@@ -180,7 +163,7 @@ export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(functi
             onKeyDown={handleKeyDown}
             endIcon={stepper}
             disabled={disabled}
-            className={cn('input-number', className)}
+            className={cn('number input', className)}
         />
     )
 })

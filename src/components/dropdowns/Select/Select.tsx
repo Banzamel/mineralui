@@ -1,9 +1,10 @@
 import {useState, useRef, useCallback, useMemo} from 'react'
 import type {SelectProps, SelectOption} from './Select.types'
-import {Popover} from '../../primitives/Popover'
+import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useKeyboardNav} from '../../../utils/useKeyboardNav'
+import {ChevronDownIcon, CloseIcon} from '../../../icons'
 import './Select.css'
 
 // Render a selectable list with optional search, grouping and multi-select tags.
@@ -192,29 +193,12 @@ export function Select({
                         tabIndex={-1}
                         aria-label="Clear selection"
                     >
-                        <svg viewBox="0 0 16 16" aria-hidden="true">
-                            <path
-                                d="M4 4L12 12M12 4L4 12"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                            />
-                        </svg>
+                        <CloseIcon />
                     </button>
                 )}
 
                 <span className={cn('arrow', open && 'open')} aria-hidden="true">
-                    <svg viewBox="0 0 16 16">
-                        <path
-                            d="M4 6L8 10L12 6"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
+                    <ChevronDownIcon />
                 </span>
             </div>
 
@@ -283,20 +267,7 @@ export function Select({
                                                 aria-disabled={opt.disabled}
                                             >
                                                 {multiple && (
-                                                    <span className={cn('checkbox', isSelected && 'checked')}>
-                                                        {isSelected && (
-                                                            <svg viewBox="0 0 16 16" aria-hidden="true">
-                                                                <path
-                                                                    d="M3.5 8L6.5 11L12.5 5"
-                                                                    fill="none"
-                                                                    stroke="currentColor"
-                                                                    strokeWidth="2"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                />
-                                                            </svg>
-                                                        )}
-                                                    </span>
+                                                    <span className={cn('check', isSelected && 'checked')} aria-hidden="true" />
                                                 )}
                                                 {renderOption ? renderOption(opt, isActive, isSelected) : opt.label}
                                             </div>

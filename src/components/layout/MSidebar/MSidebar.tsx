@@ -1,9 +1,11 @@
 import {createContext, useContext, useState, useEffect, useCallback, useMemo} from 'react'
 import {cn} from '../../../utils/cn'
-import {MDropdownMenu} from '../../overlays/DropdownMenu'
+import {ChevronRightIcon, MenuIcon} from '../../../icons'
+import {MDropdownMenu} from '../../overlays'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,
+    MSidebarBodyProps,
     MSidebarNavProps,
     MSidebarItemProps,
     MSidebarGroupProps,
@@ -39,13 +41,16 @@ function useSidebar() {
 // Track the responsive breakpoint once for the whole sidebar tree.
 function useIsMobile(breakpoint: number): boolean {
     const [mobile, setMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < breakpoint : false))
+
     useEffect(() => {
         const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`)
         const handler = (e: MediaQueryListEvent) => setMobile(e.matches)
+
         setMobile(mq.matches)
         mq.addEventListener('change', handler)
         return () => mq.removeEventListener('change', handler)
     }, [breakpoint])
+
     return mobile
 }
 
@@ -75,6 +80,7 @@ export function MSidebar({
                 /* noop */
             }
         }
+
         return defaultMode
     })
 
@@ -84,8 +90,10 @@ export function MSidebar({
     // Toggle only the desktop width state. Mobile uses its own overlay flow.
     const toggleMode = useCallback(() => {
         const next: MSidebarMode = resolvedMode === 'expanded' ? 'collapsed' : 'expanded'
+
         setInternalMode(next)
         onModeChange?.(next)
+
         if (persist) {
             try {
                 localStorage.setItem(STORAGE_KEY, next)
@@ -100,9 +108,11 @@ export function MSidebar({
     // Let Escape close the temporary mobile drawer.
     useEffect(() => {
         if (!mobileOpen) return
+
         const handler = (e: KeyboardEvent) => {
             if (e.key === 'Escape') setMobileOpen(false)
         }
+
         document.addEventListener('keydown', handler)
         return () => document.removeEventListener('keydown', handler)
     }, [mobileOpen])
@@ -141,7 +151,9 @@ export function MSidebar({
                     onClick={() => setMobileOpen(true)}
                     aria-label="Open menu"
                 >
-                    <span className="sidebar-hamburger-icon">☰</span>
+                    <span className="sidebar-hamburger-icon" aria-hidden="true">
+                        <MenuIcon />
+                    </span>
                 </button>
             )}
         </SidebarCtx.Provider>
@@ -149,12 +161,12 @@ export function MSidebar({
 }
 
 // Render the top area with branding and an optional collapse toggle.
-export function MSidebarHeader({className, children}: MSidebarHeaderProps) {
+export function MSidebarHeader({bordered = false, className, children}: MSidebarHeaderProps) {
     const {mode, mobile, canToggle, toggleMode} = useSidebar()
     const isCollapsed = !mobile && mode === 'collapsed'
 
     return (
-        <div className={cn('sidebar-header', className)}>
+        <div className={cn('sidebar-header', bordered && 'bordered', className)}>
             <div className="sidebar-header-content">{children}</div>
             {canToggle && (
                 <button
@@ -162,11 +174,18 @@ export function MSidebarHeader({className, children}: MSidebarHeaderProps) {
                     onClick={toggleMode}
                     aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                 >
-                    <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>‹</span>
+                    <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>
+                        <ChevronRightIcon />
+                    </span>
                 </button>
             )}
         </div>
     )
+}
+
+// Wrap the scrollable middle area between header and footer.
+export function MSidebarBody({className, children}: MSidebarBodyProps) {
+    return <div className={cn('sidebar-body', className)}>{children}</div>
 }
 
 // Wrap sidebar links in a navigation landmark.
@@ -193,7 +212,6 @@ export function MSidebarItem({
 
     const Tag = component ?? (href || to ? 'a' : 'button')
     const linkProps = component ? (to ? {to} : href ? {href} : {}) : href ? {href} : to ? {href: to} : {}
-
     const cls = cn('sidebar-item', active && 'active', disabled && 'disabled', color, className)
 
     return (
@@ -257,7 +275,11 @@ export function MSidebarGroup({
             <button className={cn('sidebar-group-header', active && 'active')} onClick={toggle} aria-expanded={open}>
                 {icon && <span className="sidebar-group-icon">{icon}</span>}
                 <span className="sidebar-group-label">{label}</span>
-                {collapsible && <span className={cn('sidebar-group-arrow', open && 'open')}>›</span>}
+                {collapsible && (
+                    <span className={cn('sidebar-group-arrow', open && 'open')}>
+                        <ChevronRightIcon />
+                    </span>
+                )}
             </button>
             {open && <div className="sidebar-group-items">{children}</div>}
         </div>
@@ -265,8 +287,8 @@ export function MSidebarGroup({
 }
 
 // Render the bottom slot for version info or quick actions.
-export function MSidebarFooter({className, children}: MSidebarFooterProps) {
-    return <div className={cn('sidebar-footer', className)}>{children}</div>
+export function MSidebarFooter({bordered = false, className, children}: MSidebarFooterProps) {
+    return <div className={cn('sidebar-footer', bordered && 'bordered', className)}>{children}</div>
 }
 
 // Render a spacing-aware divider between sidebar regions.

@@ -3,6 +3,7 @@ import type {InputEmailProps} from './InputEmail.types'
 import {Input} from '../Input'
 import {validateEmail} from '../../../utils/validators'
 import type {ValidationResult} from '../../../utils/validators'
+import {CheckIcon, MailIcon} from '../../../icons'
 
 // Extend the base input with email validation and optional success feedback.
 export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(function InputEmail(
@@ -71,18 +72,11 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(function
     const isSuccess =
         !isError && success !== undefined ? success : touched && validation.valid && currentValue.length > 0
 
-    const emailIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="1" y="3" width="14" height="10" rx="2" />
-            <path d="M1 5L8 9L15 5" />
-        </svg>
-    )
-
     const validIcon =
         showValidIcon && isSuccess ? (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--mineral-success)" strokeWidth="2">
-                <path d="M3 8L6.5 11.5L13 4.5" />
-            </svg>
+            <span style={{display: 'inline-flex', color: 'var(--mineral-success)'}}>
+                <CheckIcon />
+            </span>
         ) : undefined
 
     return (
@@ -97,7 +91,7 @@ export const InputEmail = forwardRef<HTMLInputElement, InputEmailProps>(function
             errorText={resolvedErrorText}
             success={isSuccess}
             placeholder={placeholder}
-            startIcon={emailIcon}
+            startIcon={<MailIcon />}
             endIcon={validIcon}
         />
     )

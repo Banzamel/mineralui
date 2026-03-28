@@ -4,9 +4,8 @@ import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils
 import {useReveal} from '../../../utils/useReveal'
 import './Inline.css'
 
-// Arrange children horizontally with configurable alignment and wrapping.
+// Arrange children horizontally with shared alignment and wrapping helpers.
 export function Inline({
-    gap = 'md',
     align = 'center',
     justify = 'start',
     wrap = 'wrap',
@@ -35,14 +34,12 @@ export function Inline({
 }: InlineProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
     const revealRef = useReveal<HTMLDivElement>(reveal)
-    const gapClassName = gap === '2xl' ? 'gap-2xl' : gap
 
     return (
         <div
             ref={reveal !== undefined && reveal !== false ? revealRef : undefined}
             className={cn(
                 'inline',
-                gapClassName,
                 align,
                 `justify-${justify}`,
                 wrap,

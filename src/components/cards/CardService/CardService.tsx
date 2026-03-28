@@ -1,20 +1,16 @@
 import {useState, useRef, useEffect} from 'react'
 import type {CardServiceProps} from './CardService.types'
 import {cn} from '../../../utils/cn'
+import {
+    ClockIcon,
+    EllipsisVerticalIcon,
+    HeartFillIcon,
+    HeartIcon,
+    MinusIcon,
+    PlusIcon,
+} from '../../../icons'
+import {Rating} from '../../display'
 import './CardService.css'
-
-function StarIcon({filled}: {filled: boolean}) {
-    return (
-        <svg viewBox="0 0 16 16" width="14" height="14" className={cn('cs-star', filled && 'filled')}>
-            <path
-                d="M8 1.3l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4L2.2 5.5l4-.6L8 1.3z"
-                fill={filled ? 'currentColor' : 'none'}
-                stroke="currentColor"
-                strokeWidth="1"
-            />
-        </svg>
-    )
-}
 
 function AvatarStack({people, max = 4}: {people: CardServiceProps['participants']; max?: number}) {
     if (!people || people.length === 0) return null
@@ -25,11 +21,7 @@ function AvatarStack({people, max = 4}: {people: CardServiceProps['participants'
         <div className="cs-avatars">
             {visible.map((p, i) => (
                 <span key={i} className="cs-avatar-sm" title={p.name}>
-                    {p.avatar ? (
-                        <img src={p.avatar} alt={p.name} />
-                    ) : (
-                        <span>{p.name[0]?.toUpperCase()}</span>
-                    )}
+                    {p.avatar ? <img src={p.avatar} alt={p.name} /> : <span>{p.name[0]?.toUpperCase()}</span>}
                 </span>
             ))}
             {overflow > 0 && <span className="cs-avatar-sm cs-overflow">+{overflow}</span>}
@@ -88,14 +80,16 @@ export function CardService({
     }
 
     const availLabel =
-        available === true ? 'Available' :
-        available === false ? 'Unavailable' :
-        typeof available === 'number' ? `${available} spots` :
-        null
+        available === true
+            ? 'Available'
+            : available === false
+              ? 'Unavailable'
+              : typeof available === 'number'
+                ? `${available} spots`
+                : null
 
     return (
         <div className={cn('card-service', variant, color, className)} {...rest}>
-            {/* Image / Gallery */}
             {images.length > 0 && (
                 <div className="cs-gallery">
                     <img src={images[galleryIdx]} alt={title} className="cs-image" />
@@ -118,14 +112,18 @@ export function CardService({
                             onClick={onFavorite}
                             aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
                         >
-                            {favorite ? '♥' : '♡'}
+                            {favorite ? <HeartFillIcon /> : <HeartIcon />}
                         </button>
                     )}
 
                     {menuItems && menuItems.length > 0 && (
                         <div className="cs-menu-wrap" ref={menuRef}>
-                            <button className="cs-menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="More options">
-                                ⋮
+                            <button
+                                className="cs-menu-btn"
+                                onClick={() => setMenuOpen(!menuOpen)}
+                                aria-label="More options"
+                            >
+                                <EllipsisVerticalIcon />
                             </button>
                             {menuOpen && (
                                 <div className="cs-menu">
@@ -133,7 +131,10 @@ export function CardService({
                                         <button
                                             key={i}
                                             className={cn('cs-menu-item', item.danger && 'danger')}
-                                            onClick={() => { item.onClick?.(); setMenuOpen(false) }}
+                                            onClick={() => {
+                                                item.onClick?.()
+                                                setMenuOpen(false)
+                                            }}
                                         >
                                             {item.icon && <span className="cs-menu-icon">{item.icon}</span>}
                                             {item.label}
@@ -146,7 +147,6 @@ export function CardService({
                 </div>
             )}
 
-            {/* Body */}
             <div className="cs-body">
                 <div className="cs-top">
                     {icon && <span className="cs-icon">{icon}</span>}
@@ -155,20 +155,14 @@ export function CardService({
 
                 {description && <p className="cs-desc">{description}</p>}
 
-                {/* Rating */}
                 {rating !== undefined && (
                     <div className="cs-rating">
-                        {[1, 2, 3, 4, 5].map((n) => (
-                            <StarIcon key={n} filled={n <= Math.round(rating)} />
-                        ))}
+                        <Rating value={Math.round(rating)} size="sm" color="warning" readOnly className="cs-stars" />
                         <span className="cs-rating-value">{rating.toFixed(1)}</span>
-                        {reviewCount !== undefined && (
-                            <span className="cs-review-count">({reviewCount})</span>
-                        )}
+                        {reviewCount !== undefined && <span className="cs-review-count">({reviewCount})</span>}
                     </div>
                 )}
 
-                {/* Leader / Participants */}
                 {leader && (
                     <div className="cs-leader">
                         <span className="cs-avatar-sm" title={leader.name}>
@@ -193,40 +187,41 @@ export function CardService({
                     </div>
                 )}
 
-                {/* Meta: duration, availability */}
                 <div className="cs-meta">
-                    {duration && <span className="cs-tag">⏱ {duration}</span>}
-                    {availLabel && (
-                        <span className={cn('cs-tag', available === false && 'unavailable')}>
-                            {availLabel}
+                    {duration && (
+                        <span className="cs-tag">
+                            <ClockIcon />
+                            {duration}
                         </span>
+                    )}
+                    {availLabel && (
+                        <span className={cn('cs-tag', available === false && 'unavailable')}>{availLabel}</span>
                     )}
                 </div>
             </div>
 
-            {/* Footer: price + actions */}
             <div className="cs-footer">
                 {price !== undefined && (
                     <span className="cs-price">
-                        {typeof price === 'number' ? price.toFixed(2) : price}
-                        {' '}<span className="cs-currency">{currency}</span>
+                        {typeof price === 'number' ? price.toFixed(2) : price}{' '}
+                        <span className="cs-currency">{currency}</span>
                     </span>
                 )}
 
                 <div className="cs-actions">
                     {variant === 'product' && onAddToCart && (
                         <div className="cs-qty">
-                            <button className="cs-qty-btn" onClick={() => changeQty(qty - 1)} aria-label="Decrease">−</button>
+                            <button className="cs-qty-btn" onClick={() => changeQty(qty - 1)} aria-label="Decrease">
+                                <MinusIcon />
+                            </button>
                             <span className="cs-qty-value">{qty}</span>
-                            <button className="cs-qty-btn" onClick={() => changeQty(qty + 1)} aria-label="Increase">+</button>
+                            <button className="cs-qty-btn" onClick={() => changeQty(qty + 1)} aria-label="Increase">
+                                <PlusIcon />
+                            </button>
                         </div>
                     )}
                     {onAddToCart && (
-                        <button
-                            className="cs-cart-btn"
-                            onClick={() => onAddToCart(qty)}
-                            disabled={available === false}
-                        >
+                        <button className="cs-cart-btn" onClick={() => onAddToCart(qty)} disabled={available === false}>
                             Add to cart
                         </button>
                     )}

@@ -1,9 +1,10 @@
 import {useState} from 'react'
-import {Button} from '../../controls/Button'
-import {Stack} from '../../layout/Stack'
+import {Button} from '../../controls'
+import {Stack} from '../../layout'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import type {CollapsibleProps} from './Collapsible.types'
+import {ChevronDownIcon} from '../../../icons'
 import './Collapsible.css'
 
 // Toggle a section of content with a built-in trigger and disclosure state.
@@ -32,16 +33,7 @@ export function Collapsible({
 
     const chevronIcon = (
         <span className={cn('chevron', open && 'open')} aria-hidden="true">
-            <svg viewBox="0 0 16 16">
-                <path
-                    d="M4 6L8 10L12 6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
+            <ChevronDownIcon />
         </span>
     )
 

@@ -37,9 +37,7 @@ export function CardPayment({
             )}
 
             <div className="cp-row">
-                <span className={cn('cp-brand', !brandIcon && detected)}>
-                    {brandIcon ?? brandLabel}
-                </span>
+                <span className={cn('cp-brand', !brandIcon && detected)}>{brandIcon ?? brandLabel}</span>
                 <span className="cp-number">{masked}</span>
             </div>
 

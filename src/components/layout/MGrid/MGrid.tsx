@@ -7,7 +7,6 @@ import './MGrid.css'
 // Render either a responsive row or a responsive column using one shared grid API.
 export function MGrid({
     type = 'row',
-    gap = 'lg',
     span,
     sm,
     md,
@@ -37,7 +36,6 @@ export function MGrid({
 }: MGridProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
     const baseSpan = span ?? xl ?? lg
-    const gapClassName = gap === '2xl' ? 'gap-2xl' : gap
 
     if (type === 'col') {
         return (
@@ -95,7 +93,6 @@ export function MGrid({
             className={cn(
                 'grid',
                 'row',
-                gapClassName,
                 hasDesktopSizing ? 'tracked' : `auto-cols-${autoColumns}`,
                 ...getLayoutUtilityClassNames({
                     spacing,

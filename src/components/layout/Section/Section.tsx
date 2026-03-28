@@ -22,13 +22,7 @@ export function Section({
     return (
         <Component
             ref={hasReveal ? (revealRef as React.RefObject<never>) : undefined}
-            className={cn(
-                'section',
-                spacing,
-                tone,
-                hasReveal && 'mineral-reveal',
-                className
-            )}
+            className={cn('section', spacing, tone, hasReveal && 'mineral-reveal', className)}
             style={style}
             {...rest}
         >

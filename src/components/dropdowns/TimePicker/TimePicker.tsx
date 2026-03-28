@@ -1,8 +1,9 @@
 import {useState, useRef, useCallback, useMemo, useEffect} from 'react'
 import type {TimePickerProps} from './TimePicker.types'
-import {Popover} from '../../primitives/Popover'
+import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
+import {ClockIcon, CloseIcon} from '../../../icons'
 import {formatTime, parseTime} from '../../../utils/dateUtils'
 import './TimePicker.css'
 
@@ -26,12 +27,6 @@ function isTimeInRange(
     if (max && compareTimeParts(value, max) > 0) return false
     return true
 }
-
-const ClearIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M4 4L12 12M12 4L4 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-)
 
 // Render a time input backed by scrollable hour, minute and second columns.
 export function TimePicker({
@@ -148,23 +143,15 @@ export function TimePicker({
         [onChange, value]
     )
 
-    const clockIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="8" cy="8" r="7" />
-            <line x1="8" y1="4" x2="8" y2="8" />
-            <line x1="8" y1="8" x2="11" y2="10" />
-        </svg>
-    )
-
     return (
         <div
-            className={cn('time-picker', ...getAppearanceClassNames({fcolor}), fullWidth && 'full-width', className)}
+            className={cn('time picker', ...getAppearanceClassNames({fcolor}), fullWidth && 'full-width', className)}
             style={style}
         >
             {label && (
                 <label
                     htmlFor={id}
-                    className={cn('label', open && 'focused', hasError && 'error', required && 'required')}
+                    className={cn('time label', open && 'focused', hasError && 'error', required && 'required')}
                 >
                     {label}
                 </label>
@@ -172,13 +159,15 @@ export function TimePicker({
 
             <div
                 ref={triggerRef}
-                className={cn('trigger', variant, size, open && 'focused', hasError && 'error', disabled && 'disabled')}
+                className={cn('time trigger', variant, size, open && 'focused', hasError && 'error', disabled && 'disabled')}
                 onClick={() => !disabled && !readOnly && setOpen(true)}
             >
-                <span className="icon">{clockIcon}</span>
+                <span className="time icon">
+                    <ClockIcon />
+                </span>
                 <input
                     type="text"
-                    className="input"
+                    className="time input"
                     value={currentValue}
                     onChange={handleInputChange}
                     onBlur={handleInputBlur}
@@ -191,20 +180,26 @@ export function TimePicker({
                 {clearable && currentValue && !disabled && (
                     <button
                         type="button"
-                        className="clear-btn"
+                        className="time clear"
                         onClick={handleClear}
                         tabIndex={-1}
                         aria-label="Clear time"
                     >
-                        <ClearIcon />
+                        <CloseIcon />
                     </button>
                 )}
             </div>
 
             {name && <input type="hidden" name={name} value={currentValue} />}
 
-            <Popover className="time-picker-popover" open={open} anchorRef={triggerRef} onClose={() => setOpen(false)} placement="bottom-start">
-                <div className="columns">
+            <Popover
+                className="time picker popover"
+                open={open}
+                anchorRef={triggerRef}
+                onClose={() => setOpen(false)}
+                placement="bottom-start"
+            >
+                <div className="time columns">
                     <TimeColumn
                         items={hours}
                         selected={parsed?.hours}
@@ -242,13 +237,13 @@ export function TimePicker({
             </Popover>
 
             {(errorText || helperText) && (
-                <div className="bottom-row">
+                <div className="time bottom">
                     {errorText ? (
-                        <span className="error-text" role="alert">
+                        <span className="time error" role="alert">
                             {errorText}
                         </span>
                     ) : (
-                        <span className="helper-text">{helperText}</span>
+                        <span className="time helper">{helperText}</span>
                     )}
                 </div>
             )}
@@ -284,9 +279,9 @@ function TimeColumn({
     const pad = (value: number) => value.toString().padStart(2, '0')
 
     return (
-        <div className="column">
-            <div className="column-label">{label}</div>
-            <div ref={listRef} className="column-list">
+        <div className="time column">
+            <div className="time column label">{label}</div>
+            <div ref={listRef} className="time column list">
                 {items.map((item) => {
                     const disabled = isDisabled?.(item) ?? false
                     return (
@@ -294,7 +289,7 @@ function TimeColumn({
                             key={item}
                             type="button"
                             data-value={item}
-                            className={cn('column-item', item === selected && 'selected', disabled && 'disabled')}
+                            className={cn('time column item', item === selected && 'selected', disabled && 'disabled')}
                             onClick={() => onSelect(item)}
                             disabled={disabled}
                         >

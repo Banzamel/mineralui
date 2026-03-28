@@ -1,6 +1,6 @@
 .tree {
     width: 100%;
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text);
 }
@@ -124,7 +124,7 @@
     pointer-events: none;
 }
 
-.tree-menu {
+.tree.menu {
     position: fixed;
     z-index: 1200;
     min-width: 196px;
@@ -135,7 +135,7 @@
     box-shadow: var(--mineral-shadow-lg);
 }
 
-.tree-menu .action {
+.tree.menu .action {
     display: flex;
     align-items: center;
     gap: var(--mineral-spacing-sm);
@@ -152,43 +152,44 @@
         color var(--mineral-transition-fast);
 }
 
-.tree-menu .action:hover {
+.tree.menu .action:hover {
     background: var(--mineral-option-hover-bg);
 }
 
-.tree-menu .action.disabled {
+.tree.menu .action.disabled {
     opacity: 0.45;
     cursor: not-allowed;
 }
 
-.tree-menu .action.disabled:hover {
+.tree.menu .action.disabled:hover {
     background: none;
 }
 
-.tree-menu .action.error {
+.tree.menu .action.error {
     color: var(--mineral-error);
 }
 
-.tree-menu .action.success {
+.tree.menu .action.success {
     color: var(--mineral-success);
 }
 
-.tree-menu .action.warning {
+.tree.menu .action.warning {
     color: var(--mineral-warning);
 }
 
-.tree-menu .action.info {
+.tree.menu .action.info {
     color: var(--mineral-info);
 }
 
-.tree-menu .action.primary {
+.tree.menu .action.primary {
     color: var(--mineral-primary);
 }
 
-.tree-menu .icon {
+.tree.menu .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 1rem;
 }
+

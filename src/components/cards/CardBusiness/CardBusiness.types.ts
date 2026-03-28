@@ -31,7 +31,7 @@ export interface CardBusinessProps extends Omit<HTMLAttributes<HTMLDivElement>, 
     contact?: CardBusinessContact
     socials?: CardBusinessSocial[]
     online?: boolean
-    lastActive?: string
+    lastActive?: ReactNode
     qrCode?: string
     qrValue?: string
     color?: MineralColor

@@ -1,6 +1,7 @@
 export {
     MSidebar,
     MSidebarHeader,
+    MSidebarBody,
     MSidebarNav,
     MSidebarItem,
     MSidebarGroup,
@@ -10,6 +11,7 @@ export {
 export type {
     MSidebarProps,
     MSidebarHeaderProps,
+    MSidebarBodyProps,
     MSidebarNavProps,
     MSidebarItemProps,
     MSidebarGroupProps,

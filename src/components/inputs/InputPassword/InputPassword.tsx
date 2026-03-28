@@ -54,7 +54,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(fu
     const toggleIcon = showToggle ? (
         <button
             type="button"
-            className="toggle-btn"
+            className="password toggle"
             onClick={() => setVisible((v) => !v)}
             tabIndex={-1}
             aria-label={visible ? 'Hide password' : 'Show password'}
@@ -64,7 +64,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(fu
     ) : undefined
 
     return (
-        <div className={cn('input-password', className)}>
+        <div className={cn('password input', className)}>
             <Input
                 {...rest}
                 ref={ref}
@@ -74,20 +74,22 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(fu
                 endIcon={toggleIcon}
             />
             {showStrength && currentValue.length > 0 && (
-                <div className="strength-row">
-                    <div className="strength-bar">
+                <div className="password strength row">
+                    <div className="password strength bar">
                         {[0, 1, 2, 3].map((i) => (
                             <div
                                 key={i}
                                 className={cn(
-                                    'strength-segment',
+                                    'password strength segment',
                                     i < ['weak', 'fair', 'good', 'strong'].indexOf(strength) + 1 &&
                                         `strength-${strength}`
                                 )}
                             />
                         ))}
                     </div>
-                    <span className={cn('strength-label', `strength-${strength}`)}>{STRENGTH_LABELS[strength]}</span>
+                    <span className={cn('password strength label', `strength-${strength}`)}>
+                        {STRENGTH_LABELS[strength]}
+                    </span>
                 </div>
             )}
         </div>

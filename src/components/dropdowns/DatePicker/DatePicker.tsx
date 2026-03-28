@@ -1,8 +1,14 @@
 import {useState, useRef, useCallback, useMemo, useEffect} from 'react'
 import type {DatePickerProps} from './DatePicker.types'
-import {Popover} from '../../primitives/Popover'
+import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
+import {
+    CalendarIcon as CalendarGlyphIcon,
+    ChevronLeftIcon as ChevronLeftGlyphIcon,
+    ChevronRightIcon as ChevronRightGlyphIcon,
+    CloseIcon as CloseGlyphIcon,
+} from '../../../icons'
 import {
     formatDate,
     parseDate,
@@ -24,38 +30,6 @@ function toDate(val: Date | string | undefined): Date | null {
     const date = new Date(val)
     return isNaN(date.getTime()) ? null : date
 }
-
-const ChevronLeftIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path
-            d="M9.5 3.5L5 8L9.5 12.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        />
-    </svg>
-)
-
-const ChevronRightIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path
-            d="M6.5 3.5L11 8L6.5 12.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        />
-    </svg>
-)
-
-const ClearIcon = () => (
-    <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M4 4L12 12M12 4L4 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-)
 
 // Render a date input with calendar navigation, parsing and optional inline mode.
 export function DatePicker({
@@ -221,7 +195,7 @@ export function DatePicker({
                     onClick={() => setViewDate(addMonths(viewDate, -1))}
                     aria-label="Previous month"
                 >
-                    <ChevronLeftIcon />
+                    <ChevronLeftGlyphIcon />
                 </button>
                 <button
                     type="button"
@@ -236,7 +210,7 @@ export function DatePicker({
                     onClick={() => setViewDate(addMonths(viewDate, 1))}
                     aria-label="Next month"
                 >
-                    <ChevronRightIcon />
+                    <ChevronRightGlyphIcon />
                 </button>
             </div>
 
@@ -305,15 +279,6 @@ export function DatePicker({
         </div>
     )
 
-    const calendarIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="1" y="3" width="14" height="12" rx="2" />
-            <line x1="1" y1="7" x2="15" y2="7" />
-            <line x1="5" y1="1" x2="5" y2="4" />
-            <line x1="11" y1="1" x2="11" y2="4" />
-        </svg>
-    )
-
     if (inline) {
         return (
             <div
@@ -350,7 +315,9 @@ export function DatePicker({
                 className={cn('trigger', variant, size, open && 'focused', hasError && 'error', disabled && 'disabled')}
                 onClick={() => !disabled && !readOnly && setOpen(true)}
             >
-                <span className="icon">{calendarIcon}</span>
+                <span className="icon">
+                    <CalendarGlyphIcon />
+                </span>
                 <input
                     type="text"
                     className="input"
@@ -371,7 +338,7 @@ export function DatePicker({
                         tabIndex={-1}
                         aria-label="Clear date"
                     >
-                        <ClearIcon />
+                        <CloseGlyphIcon />
                     </button>
                 )}
             </div>

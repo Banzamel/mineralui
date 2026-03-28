@@ -74,15 +74,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
                         className="input"
                         aria-invalid={hasError || undefined}
                     />
-                    <svg className="checkmark" viewBox="0 0 16 16" fill="none">
-                        <path
-                            className="check-path"
-                            d="M3.5 8L6.5 11L12.5 5"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
                     <span className="indeterminate-mark" />
                 </span>
                 {label && <span className="label-text">{label}</span>}

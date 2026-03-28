@@ -1,5 +1,6 @@
 import {useState, useRef, useCallback, useEffect} from 'react'
 import type {InputFileCropShape} from './InputFile.types'
+import {ZoomInIcon} from '../../../icons'
 import './CropEditor.css'
 
 interface CropEditorProps {
@@ -124,13 +125,7 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
             ctx.clip()
         }
 
-        ctx.drawImage(
-            img,
-            offset.x * ratio,
-            offset.y * ratio,
-            img.width * scale * ratio,
-            img.height * scale * ratio
-        )
+        ctx.drawImage(img, offset.x * ratio, offset.y * ratio, img.width * scale * ratio, img.height * scale * ratio)
 
         canvas.toBlob(
             (blob) => {
@@ -146,10 +141,10 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
     }, [file, offset, scale, outputSize, quality, shape, onCrop])
 
     return (
-        <div className="crop-editor">
+        <div className="crop editor">
             <div
                 ref={containerRef}
-                className={`viewport ${shape}`}
+                className={`crop viewport ${shape}`}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
@@ -159,7 +154,7 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                     <img
                         src={imgSrc}
                         alt=""
-                        className="image"
+                        className="crop image"
                         draggable={false}
                         style={{
                             transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
@@ -167,18 +162,14 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                         }}
                     />
                 )}
-                <div className={`overlay ${shape}`} />
+                <div className={`crop overlay ${shape}`} />
             </div>
 
-            <div className="zoom">
-                <svg viewBox="0 0 16 16" className="zoom-icon" aria-hidden="true">
-                    <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                    <path d="M11 11L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M5 7H9M7 5V9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                </svg>
+            <div className="crop zoom">
+                <ZoomInIcon className="crop zoom icon" aria-hidden="true" />
                 <input
                     type="range"
-                    className="zoom-slider"
+                    className="crop zoom slider"
                     min="0.1"
                     max="5"
                     step="0.01"
@@ -187,11 +178,11 @@ export function CropEditor({file, shape, outputSize, quality, onCrop, onCancel}:
                 />
             </div>
 
-            <div className="actions">
-                <button type="button" className="btn cancel" onClick={onCancel}>
+            <div className="crop actions">
+                <button type="button" className="crop button cancel" onClick={onCancel}>
                     Cancel
                 </button>
-                <button type="button" className="btn confirm" onClick={exportCrop}>
+                <button type="button" className="crop button confirm" onClick={exportCrop}>
                     Crop
                 </button>
             </div>

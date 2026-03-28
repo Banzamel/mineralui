@@ -1,7 +1,7 @@
 import type {CSSProperties} from 'react'
 import {Spinner} from '../Spinner'
-import {Stack} from '../../layout/Stack'
-import {Text} from '../../typography/Text'
+import {Stack} from '../../layout'
+import {Text} from '../../typography'
 import {cn} from '../../../utils/cn'
 import type {LoaderProps} from './Loader.types'
 import './Loader.css'
@@ -24,7 +24,7 @@ export function Loader({
 
     return (
         <div className={cn('loader', center && 'center', className)} style={inlineStyle} {...rest}>
-            <Stack gap={'sm'} align={'center'}>
+            <Stack align={'center'}>
                 <Spinner size={size} color={color} label={label} />
                 <Text tone={'muted'} align={'center'}>
                     {label}

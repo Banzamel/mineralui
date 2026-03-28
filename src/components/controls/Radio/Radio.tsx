@@ -85,7 +85,6 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
                     }}
                     className="input"
                 />
-                <span className="dot" />
             </span>
             {label && <span className="label-text">{label}</span>}
         </label>

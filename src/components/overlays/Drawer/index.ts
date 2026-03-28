@@ -1,2 +1,2 @@
-export {Drawer} from './Drawer'
-export type {DrawerProps, DrawerSide, DrawerSize} from './Drawer.types'
+export {Drawer, DrawerHeader, DrawerBody, DrawerFooter} from './Drawer'
+export type {DrawerProps, DrawerSide, DrawerSize, DrawerSectionProps} from './Drawer.types'

@@ -5,6 +5,7 @@ import {cn} from '../../../utils/cn'
 import {validatePhone} from '../../../utils/validators'
 import {formatPhone, stripNonDigits} from '../../../utils/formatters'
 import type {ValidationResult} from '../../../utils/validators'
+import {PhoneIcon} from '../../../icons'
 import './InputPhone.css'
 
 // Extend the base input with country-aware phone formatting and validation.
@@ -74,15 +75,8 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(function
     }
 
     const prefix = showCountryCode ? (
-        <span className="prefix">{COUNTRY_PREFIXES[countryCode.toUpperCase()] ?? `+${countryCode}`}</span>
+        <span className="phone prefix">{COUNTRY_PREFIXES[countryCode.toUpperCase()] ?? `+${countryCode}`}</span>
     ) : undefined
-
-    const phoneIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M3 1.5h10a1 1 0 011 1v11a1 1 0 01-1 1H3a1 1 0 01-1-1v-11a1 1 0 011-1z" />
-            <line x1="5" y1="12" x2="11" y2="12" />
-        </svg>
-    )
 
     const isError = error || (touched && !validation.valid)
     const resolvedErrorText = errorText || (touched && !validation.valid ? validation.error : undefined)
@@ -98,8 +92,8 @@ export const InputPhone = forwardRef<HTMLInputElement, InputPhoneProps>(function
             error={isError}
             errorText={resolvedErrorText}
             placeholder={placeholder}
-            startIcon={showCountryCode ? prefix : phoneIcon}
-            className={cn('input-phone', className)}
+            startIcon={showCountryCode ? prefix : <PhoneIcon />}
+            className={cn('phone input', className)}
         />
     )
 })

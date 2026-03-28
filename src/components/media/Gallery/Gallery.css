@@ -1,6 +1,7 @@
 .gallery {
     display: grid;
     width: 100%;
+    gap: var(--mineral-spacing-sm);
 }
 
 .gallery.columns-2 {
@@ -23,22 +24,15 @@
     grid-template-columns: repeat(6, 1fr);
 }
 
-.gallery.gap-sm {
-    gap: var(--mineral-spacing-xs);
-}
-
-.gallery.gap-md {
-    gap: var(--mineral-spacing-sm);
-}
-
-.gallery.gap-lg {
-    gap: var(--mineral-spacing-md);
-}
-
 .gallery-item {
     position: relative;
     margin: 0;
     overflow: hidden;
+}
+
+.gallery-item > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
 }
 
 .gallery-item.rounded {

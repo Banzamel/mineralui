@@ -1,11 +1,11 @@
-.input-number .stepper {
+.number.input .number.stepper {
     display: flex;
     flex-direction: column;
     gap: 1px;
     margin-left: var(--mineral-spacing-xs);
 }
 
-.input-number .step-btn {
+.number.input .number.step.button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,17 +23,17 @@
     user-select: none;
 }
 
-.input-number .step-btn svg {
+.number.input .number.step.button svg {
     width: 12px;
     height: 12px;
     display: block;
 }
 
-.input-number .step-btn:hover {
+.number.input .number.step.button:hover {
     color: var(--mineral-text);
     background: rgba(255, 255, 255, 0.05);
 }
 
-.input-number .step-btn:active {
+.number.input .number.step.button:active {
     background: rgba(255, 255, 255, 0.1);
 }

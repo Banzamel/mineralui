@@ -3,6 +3,7 @@ import type {InputNameProps} from './InputName.types'
 import {Input} from '../Input'
 import {capitalizeWords} from '../../../utils/formatters'
 import type {ValidationResult} from '../../../utils/validators'
+import {UserIcon} from '../../../icons'
 
 // Extend the base input with name-friendly filtering and optional word-count validation.
 export const InputName = forwardRef<HTMLInputElement, InputNameProps>(function InputName(
@@ -87,13 +88,6 @@ export const InputName = forwardRef<HTMLInputElement, InputNameProps>(function I
     const isError = error || (touched && !validation.valid)
     const resolvedErrorText = errorText || (touched && !validation.valid ? validation.error : undefined)
 
-    const userIcon = (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="8" cy="5" r="3" />
-            <path d="M2 14c0-3 2.5-5 6-5s6 2 6 5" />
-        </svg>
-    )
-
     return (
         <Input
             {...rest}
@@ -105,7 +99,7 @@ export const InputName = forwardRef<HTMLInputElement, InputNameProps>(function I
             error={isError}
             errorText={resolvedErrorText}
             placeholder={placeholder}
-            startIcon={userIcon}
+            startIcon={<UserIcon />}
         />
     )
 })

@@ -1,10 +1,11 @@
 import {useState, useRef, useCallback, useMemo} from 'react'
 import type {AutocompleteProps} from './Autocomplete.types'
-import {Popover} from '../../primitives/Popover'
+import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useKeyboardNav} from '../../../utils/useKeyboardNav'
 import {useDebouncedCallback} from '../../../utils/useDebounce'
+import {CloseIcon} from '../../../icons'
 import './Autocomplete.css'
 
 // Resolve labels for primitive string options without extra configuration.
@@ -221,15 +222,7 @@ export function Autocomplete<T = string>({
                                         }}
                                         tabIndex={-1}
                                     >
-                                        <svg viewBox="0 0 16 16" aria-hidden="true">
-                                            <path
-                                                d="M4 4L12 12M12 4L4 12"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="1.8"
-                                                strokeLinecap="round"
-                                            />
-                                        </svg>
+                                        <CloseIcon />
                                     </button>
                                 </span>
                             ))}
@@ -260,15 +253,7 @@ export function Autocomplete<T = string>({
 
                 {clearable && (selectedValues.length > 0 || inputValue) && !loading && !disabled && (
                     <button type="button" className="clear-btn" onClick={handleClear} tabIndex={-1}>
-                        <svg viewBox="0 0 16 16" aria-hidden="true">
-                            <path
-                                d="M4 4L12 12M12 4L4 12"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.8"
-                                strokeLinecap="round"
-                            />
-                        </svg>
+                        <CloseIcon />
                     </button>
                 )}
             </div>

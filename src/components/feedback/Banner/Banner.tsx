@@ -25,21 +25,12 @@ export function Banner({
     }
 
     return (
-        <div
-            className={cn('banner', color, variant, className)}
-            role="banner"
-            {...rest}
-        >
+        <div className={cn('banner', color, variant, className)} role="banner" {...rest}>
             {icon && <span className="banner-icon">{icon}</span>}
             <div className="banner-content">{children}</div>
             {action && <div className="banner-action">{action}</div>}
             {dismissible && (
-                <button
-                    className="banner-dismiss"
-                    onClick={handleDismiss}
-                    aria-label="Dismiss"
-                    type="button"
-                >
+                <button className="banner-dismiss" onClick={handleDismiss} aria-label="Dismiss" type="button">
                     ✕
                 </button>
             )}

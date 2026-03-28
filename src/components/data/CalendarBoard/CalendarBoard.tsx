@@ -15,14 +15,14 @@ import type {
     CalendarTimelineSlotState,
 } from './CalendarBoard.types'
 import {cn} from '../../../utils/cn'
-import {Badge} from '../../feedback/Badge'
-import {Button} from '../../controls/Button'
-import {Avatar} from '../../media/Avatar'
-import {Card, CardBody} from '../../cards/Card'
-import {Modal} from '../../overlays/Modal'
-import {Popover} from '../../primitives/Popover'
+import {Button} from '../../controls'
+import {Badge} from '../../feedback'
+import {Card, CardBody} from '../../cards'
+import {Avatar} from '../../media'
+import {Modal} from '../../overlays'
+import {Popover} from '../../primitives'
 import {Heading, Text} from '../../typography'
-import {Stack} from '../../layout/Stack'
+import {Stack} from '../../layout'
 import './CalendarBoard.css'
 
 interface CalendarCopy {
@@ -274,8 +274,8 @@ function CalendarDetailsContent({
     }
 
     return (
-        <Stack gap={'md'}>
-            <Stack gap={'xs'}>
+        <Stack>
+            <Stack>
                 <Heading level={4}>{formatBoardDate(date, locale)}</Heading>
                 <Text tone={'muted'} size={'sm'}>
                     {events.length > 0 ? `${events.length} items` : emptyStateText}
@@ -315,7 +315,7 @@ function CalendarFilters({
     }
 
     return (
-        <div className={'calendar-board-filters'}>
+        <div className={'calendar filters'}>
             {filters.map((filterOption) => {
                 const isActive = activeFilterIds.includes(filterOption.id)
 
@@ -326,7 +326,7 @@ function CalendarFilters({
                         size={'sm'}
                         variant={isActive ? 'primary' : 'outlined'}
                         color={isActive ? 'primary' : 'neutral'}
-                        className={'calendar-board-filter-btn'}
+                        className={'calendar filter button'}
                         onClick={() => onToggle(filterOption.id)}
                     >
                         {filterOption.label}
@@ -351,7 +351,7 @@ function CalendarWeekView({
     const todayKey = getDateKey(stripTime(new Date()))
 
     return (
-        <div className={'calendar-board-week'}>
+        <div className={'calendar week'}>
             {days.map((day) => {
                 const dayKey = getDateKey(day)
                 const dayEvents = eventsByDay.get(dayKey) ?? []
@@ -370,7 +370,7 @@ function CalendarWeekView({
                 }
 
                 return (
-                    <div key={dayKey} className={'calendar-board-week-col'}>
+                    <div key={dayKey} className={'calendar week column'}>
                         <CalendarDayCell
                             date={day}
                             events={dayEvents}
@@ -408,7 +408,7 @@ export function CalendarDayCell({
         <button
             type={'button'}
             className={cn(
-                'calendar-day-cell',
+                'calendar day cell',
                 isToday && 'today',
                 isSelected && 'selected',
                 isOutsideMonth && 'outside-month',
@@ -418,9 +418,9 @@ export function CalendarDayCell({
         >
             {children ?? (
                 <>
-                    <div className={'day-header'}>
-                        <span className={'day-number'}>{date.getDate()}</span>
-                        <div className={'day-meta'}>{badge}</div>
+                    <div className={'day header'}>
+                        <span className={'day number'}>{date.getDate()}</span>
+                        <div className={'day meta'}>{badge}</div>
                     </div>
                     <div className={'markers'}>{markers ?? buildDayMarkers(events)}</div>
                 </>
@@ -441,10 +441,10 @@ export function CalendarEventItem({event, locale = 'en', className, currentDate,
                 : 'warning'
 
     return (
-        <div className={cn('calendar-event-item', className)} {...rest}>
-            <div className={'event-time'}>{formatEventTime(event, copy)}</div>
-            <div className={'event-content'}>
-                <div className={'event-title-row'}>
+        <div className={cn('calendar event item', className)} {...rest}>
+            <div className={'event time'}>{formatEventTime(event, copy)}</div>
+            <div className={'event content'}>
+                <div className={'event title row'}>
                     <Heading level={5}>{event.title}</Heading>
                     {event.status && (
                         <Badge color={statusColor} size={'sm'}>
@@ -457,7 +457,7 @@ export function CalendarEventItem({event, locale = 'en', className, currentDate,
                         {event.description}
                     </Text>
                 )}
-                <div className={'event-details'}>
+                <div className={'event details'}>
                     {event.type && (
                         <Badge color={'neutral'} size={'sm'}>
                             {event.type}
@@ -465,7 +465,7 @@ export function CalendarEventItem({event, locale = 'en', className, currentDate,
                     )}
                     {event.badgeLabel && <Badge size={'sm'}>{event.badgeLabel}</Badge>}
                     {event.user && (
-                        <span className={'event-user'}>
+                        <span className={'event user'}>
                             <Avatar
                                 size={'sm'}
                                 src={event.user.avatar}
@@ -499,15 +499,15 @@ export function CalendarEventList({
 
     if (!events.length) {
         return (
-            <Text size={'sm'} tone={'muted'} className={cn('calendar-event-list', className)} {...rest}>
+            <Text size={'sm'} tone={'muted'} className={cn('calendar event list', className)} {...rest}>
                 {emptyStateText ?? copy.emptyStateText}
             </Text>
         )
     }
 
     return (
-        <div className={cn('calendar-event-list', className)} {...rest}>
-            <Stack gap={'sm'}>
+        <div className={cn('calendar event list', className)} {...rest}>
+            <Stack>
                 {sortEventsByTime(events).map((event) =>
                     renderEventItem ? (
                         <div key={event.id}>{renderEventItem(event)}</div>
@@ -533,10 +533,10 @@ export function CalendarTimeline({
     const hours = Array.from({length: Math.max(endHour - startHour + 1, 1)}, (_, index) => startHour + index)
 
     return (
-        <div className={cn('calendar-timeline', className)} {...rest}>
-            <Stack gap={'sm'}>
+        <div className={cn('calendar timeline', className)} {...rest}>
+            <Stack>
                 <Heading level={5}>{copy.timelineTitle}</Heading>
-                <div className={'timeline-slots'}>
+                <div className={'timeline slots'}>
                     {hours.map((hour) => {
                         const matchingEvents = events.filter((event) => {
                             if (!event.startTime) {
@@ -548,16 +548,16 @@ export function CalendarTimeline({
                         const slotState = getTimelineSlotState(date, hour)
 
                         return (
-                            <div key={hour} className={cn('timeline-slot', slotState)}>
-                                <div className={'slot-time'}>{`${String(hour).padStart(2, '0')}:00`}</div>
-                                <div className={'slot-line'} />
-                                <div className={'slot-content'}>
+                            <div key={hour} className={cn('timeline slot', slotState)}>
+                                <div className={'slot time'}>{`${String(hour).padStart(2, '0')}:00`}</div>
+                                <div className={'slot line'} />
+                                <div className={'slot content'}>
                                     {matchingEvents.length > 0 ? (
-                                        <Stack gap={'xs'}>
+                                        <Stack>
                                             {matchingEvents.map((event) => (
-                                                <div key={event.id} className={'slot-event'}>
+                                                <div key={event.id} className={'slot event'}>
                                                     <span
-                                                        className={'slot-event-dot'}
+                                                        className={'slot event dot'}
                                                         style={{
                                                             background: event.color ?? getStatusColor(event.status),
                                                         }}
@@ -604,10 +604,10 @@ export function CalendarEventPopover({
             anchorRef={anchorRef}
             onClose={onClose}
             placement={'bottom-start'}
-            className={cn('calendar-board-popover', className)}
+            className={cn('calendar popover', className)}
             style={style}
         >
-            <Card className={'calendar-event-popover'} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
+            <Card className={'calendar event popover'} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
                 <CardBody>
                     <CalendarDetailsContent
                         date={date}
@@ -836,16 +836,16 @@ export function CalendarBoard({
     )
 
     return (
-        <div className={cn('calendar-board', fullWidth && 'full-width', className)} {...rest}>
-            <div className={'calendar-board-header'}>
-                <Stack gap={'xs'}>
+        <div className={cn('calendar board', fullWidth && 'full-width', className)} {...rest}>
+            <div className={'calendar header'}>
+                <Stack>
                     <Heading level={3}>{getViewTitle(visibleMonth, currentView, locale, weekStartsOn)}</Heading>
                     <Text size={'sm'} tone={'muted'}>
                         {getViewSubtitle(currentView, copy)}
                     </Text>
                 </Stack>
-                <Stack gap={'sm'} align={'end'}>
-                    <div className={'calendar-board-actions'}>
+                <Stack align={'end'}>
+                    <div className={'calendar actions'}>
                         <Button
                             type={'button'}
                             size={'sm'}
@@ -866,7 +866,7 @@ export function CalendarBoard({
                         </Button>
                     </div>
                     {(canShowMonthView || canShowWeekView) && (
-                        <div className={'calendar-board-views'}>
+                        <div className={'calendar views'}>
                             {canShowMonthView && (
                                 <Button
                                     type={'button'}
@@ -896,9 +896,9 @@ export function CalendarBoard({
 
             <CalendarFilters filters={filters} activeFilterIds={resolvedActiveFilters} onToggle={handleFilterToggle} />
 
-            <div className={'calendar-board-days'}>
+            <div className={'calendar days'}>
                 {Array.from({length: 7}, (_, index) => addDays(dayNameBase, index)).map((day) => (
-                    <div key={getDateKey(day)} className={'calendar-board-day'}>
+                    <div key={getDateKey(day)} className={'calendar day'}>
                         {new Intl.DateTimeFormat(locale === 'pl' ? 'pl-PL' : 'en-US', {weekday: 'short'}).format(day)}
                     </div>
                 ))}
@@ -922,7 +922,7 @@ export function CalendarBoard({
                     locale={locale}
                 />
             ) : (
-                <div className={'calendar-board-grid'}>
+                <div className={'calendar grid'}>
                     {calendarDays.map((day) => {
                         const dayKey = getDateKey(day)
                         const dayEvents = eventsByDay.get(dayKey) ?? []

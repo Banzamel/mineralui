@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback, useRef, Children} from 'react'
 import type {CarouselProps} from './Carousel.types'
 import {cn} from '../../../utils/cn'
+import {ChevronLeftIcon, ChevronRightIcon} from '../../../icons'
 import './Carousel.css'
 
 // Render a swipeable content slider with arrows, dots and transition modes.
@@ -24,13 +25,16 @@ export function Carousel({
     const dragStartX = useRef(0)
     const trackRef = useRef<HTMLDivElement>(null)
 
-    const goTo = useCallback((index: number) => {
-        if (loop) {
-            setActive((index + count) % count)
-        } else {
-            setActive(Math.max(0, Math.min(index, count - 1)))
-        }
-    }, [count, loop])
+    const goTo = useCallback(
+        (index: number) => {
+            if (loop) {
+                setActive((index + count) % count)
+            } else {
+                setActive(Math.max(0, Math.min(index, count - 1)))
+            }
+        },
+        [count, loop]
+    )
 
     const prev = useCallback(() => goTo(active - 1), [active, goTo])
     const next = useCallback(() => goTo(active + 1), [active, goTo])
@@ -95,13 +99,12 @@ export function Carousel({
                 onPointerMove={onPointerMove}
                 onPointerUp={onPointerUp}
                 onPointerCancel={onPointerUp}
-                style={{touchAction: draggable ? 'pan-y' : undefined, cursor: draggable ? (isDragging ? 'grabbing' : 'grab') : undefined}}
+                style={{
+                    touchAction: draggable ? 'pan-y' : undefined,
+                    cursor: draggable ? (isDragging ? 'grabbing' : 'grab') : undefined,
+                }}
             >
-                <div
-                    ref={trackRef}
-                    className={cn('carousel-track', isDragging && 'dragging')}
-                    style={trackStyle}
-                >
+                <div ref={trackRef} className={cn('carousel-track', isDragging && 'dragging')} style={trackStyle}>
                     {slides.map((slide, i) => (
                         <div
                             key={i}
@@ -125,9 +128,7 @@ export function Carousel({
                         aria-label="Previous slide"
                         type="button"
                     >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                            <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <ChevronLeftIcon />
                     </button>
                     <button
                         className="carousel-arrow carousel-arrow-next"
@@ -135,9 +136,7 @@ export function Carousel({
                         aria-label="Next slide"
                         type="button"
                     >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                            <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <ChevronRightIcon />
                     </button>
                 </>
             )}

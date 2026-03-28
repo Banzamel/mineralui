@@ -1,11 +1,11 @@
-.crop-editor {
+.crop.editor {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--mineral-spacing-md);
 }
 
-.crop-editor .viewport {
+.crop.viewport {
     position: relative;
     width: 280px;
     height: 280px;
@@ -17,19 +17,19 @@
     border: 1px solid rgba(var(--mineral-neutral-rgb), 0.12);
 }
 
-.crop-editor .viewport:active {
+.crop.viewport:active {
     cursor: grabbing;
 }
 
-.crop-editor .viewport.square {
+.crop.viewport.square {
     border-radius: var(--mineral-radius-md);
 }
 
-.crop-editor .viewport.circle {
+.crop.viewport.circle {
     border-radius: 50%;
 }
 
-.crop-editor .image {
+.crop.image {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,36 +37,36 @@
     pointer-events: none;
 }
 
-.crop-editor .overlay {
+.crop.overlay {
     position: absolute;
     inset: 0;
     pointer-events: none;
     box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.3);
 }
 
-.crop-editor .overlay.square {
+.crop.overlay.square {
     border-radius: var(--mineral-radius-md);
 }
 
-.crop-editor .overlay.circle {
+.crop.overlay.circle {
     border-radius: 50%;
 }
 
-.crop-editor .zoom {
+.crop.zoom {
     display: flex;
     align-items: center;
     gap: var(--mineral-spacing-sm);
     width: 280px;
 }
 
-.crop-editor .zoom-icon {
+.crop.zoom.icon {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
     color: var(--mineral-text-secondary);
 }
 
-.crop-editor .zoom-slider {
+.crop.zoom.slider {
     flex: 1;
     height: 4px;
     -webkit-appearance: none;
@@ -76,7 +76,7 @@
     outline: none;
 }
 
-.crop-editor .zoom-slider::-webkit-slider-thumb {
+.crop.zoom.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
@@ -87,7 +87,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-.crop-editor .zoom-slider::-moz-range-thumb {
+.crop.zoom.slider::-moz-range-thumb {
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -97,12 +97,12 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-.crop-editor .actions {
+.crop.actions {
     display: flex;
     gap: var(--mineral-spacing-sm);
 }
 
-.crop-editor .btn {
+.crop.button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -118,26 +118,26 @@
         color var(--mineral-transition-fast);
 }
 
-.crop-editor .btn.cancel {
+.crop.button.cancel {
     background: rgba(var(--mineral-neutral-rgb), 0.08);
     color: var(--mineral-text-secondary);
 }
 
-.crop-editor .btn.cancel:hover {
+.crop.button.cancel:hover {
     background: rgba(var(--mineral-neutral-rgb), 0.15);
     color: var(--mineral-text);
 }
 
-.crop-editor .btn.confirm {
+.crop.button.confirm {
     background: rgba(var(--mineral-primary-rgb), 0.15);
     color: rgba(var(--mineral-primary-rgb), 1);
 }
 
-.crop-editor .btn.confirm:hover {
+.crop.button.confirm:hover {
     background: rgba(var(--mineral-primary-rgb), 0.25);
 }
 
-.crop-editor .btn:focus-visible {
+.crop.button:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px rgba(var(--mineral-primary-rgb), 0.3);
 }

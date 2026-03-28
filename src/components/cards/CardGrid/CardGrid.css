@@ -1,9 +1,9 @@
-.card-grid {
+.card.grid {
     width: 100%;
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
 }
 
-.cg-toolbar {
+.card.grid.toolbar {
     display: flex;
     align-items: center;
     gap: var(--mineral-spacing-sm);
@@ -11,18 +11,18 @@
     flex-wrap: wrap;
 }
 
-.cg-search {
+.card.grid.search {
     flex: 1;
     min-width: 220px;
 }
 
-.cg-toolbar-actions {
+.card.grid.actions {
     display: flex;
     gap: var(--mineral-spacing-xs);
     margin-left: auto;
 }
 
-.cg-toolbar-btn {
+.card.grid.toolbar.button {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -42,17 +42,21 @@
         border-color var(--mineral-transition-fast);
 }
 
-.cg-toolbar-btn:hover {
+.card.grid.button.icon {
+    flex: 0 0 auto;
+}
+
+.card.grid.toolbar.button:hover {
     background: rgba(var(--mineral-primary-rgb), 0.08);
     color: var(--mineral-text);
     border-color: var(--mineral-border-hover);
 }
 
-.cg-dropdown-wrap {
+.card.grid.dropdown.wrap {
     position: relative;
 }
 
-.cg-dropdown {
+.card.grid.dropdown {
     position: absolute;
     top: 100%;
     right: 0;
@@ -68,15 +72,15 @@
     z-index: 20;
 }
 
-.cg-filter-group {
+.card.grid.filter.group {
     margin-bottom: var(--mineral-spacing-sm);
 }
 
-.cg-filter-group:last-child {
+.card.grid.filter.group:last-child {
     margin-bottom: 0;
 }
 
-.cg-filter-label {
+.card.grid.filter.label {
     display: block;
     font-size: var(--mineral-font-size-xs);
     font-weight: 600;
@@ -86,21 +90,20 @@
     margin-bottom: 4px;
 }
 
-.cg-filter-option {
-    display: flex;
-    align-items: center;
-    gap: var(--mineral-spacing-sm);
+.card.grid.filter.option {
     padding: 4px 0;
-    font-size: var(--mineral-font-size-sm);
-    color: var(--mineral-text);
-    cursor: pointer;
 }
 
-.cg-filter-option input[type='checkbox'] {
-    accent-color: var(--mineral-primary);
+.card.grid.filter.option .checkbox {
+    width: 100%;
 }
 
-.cg-sort-item {
+.card.grid.filter.option .checkbox .label {
+    width: 100%;
+    gap: var(--mineral-spacing-sm);
+}
+
+.card.grid.sort.item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -117,28 +120,34 @@
     transition: background 0.12s;
 }
 
-.cg-sort-item:hover {
+.card.grid.sort.item:hover {
     background: rgba(var(--mineral-primary-rgb), 0.08);
 }
 
-.cg-sort-item.active {
+.card.grid.sort.item.active {
     color: var(--mineral-primary);
     font-weight: 600;
 }
 
-.cg-sort-dir {
-    font-size: 12px;
+.card.grid.sort.dir {
+    display: inline-flex;
+    align-items: center;
     margin-left: 4px;
 }
 
-.cg-grid {
+.card.grid.sort.icon {
+    flex: 0 0 auto;
+}
+
+.card.grid.items {
     display: grid;
     gap: var(--mineral-spacing-md);
 }
 
-.cg-empty {
+.card.grid.empty {
     text-align: center;
     padding: var(--mineral-spacing-xl);
     color: var(--mineral-text-muted);
     font-size: var(--mineral-font-size-sm);
 }
+

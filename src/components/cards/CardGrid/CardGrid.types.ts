@@ -23,6 +23,5 @@ export interface CardGridProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, '
     sortKeys?: CardGridSortKey<T>[]
     defaultSort?: {key: keyof T & string; direction: 'asc' | 'desc'}
     columns?: number
-    gap?: string
     emptyMessage?: ReactNode
 }

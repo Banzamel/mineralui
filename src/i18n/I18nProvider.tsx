@@ -85,6 +85,14 @@ export function MI18nProvider<T extends Dict = Dict>({
         (key: string, fb?: string): string => {
             const val = getByPath(dict, key)
             if (typeof val === 'string') return val
+
+            const docsVal =
+                dict != null && typeof dict === 'object' && typeof (dict as Dict).docsTranslations === 'object'
+                    ? ((dict as Dict).docsTranslations as Dict)[key]
+                    : undefined
+
+            if (typeof docsVal === 'string') return docsVal
+
             return fb ?? key
         },
         [dict]

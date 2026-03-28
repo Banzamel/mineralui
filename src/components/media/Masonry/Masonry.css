@@ -1,0 +1,13 @@
+.masonry {
+    column-gap: var(--mineral-spacing-md);
+    width: 100%;
+}
+
+.masonry.item {
+    break-inside: avoid;
+    margin-bottom: var(--mineral-spacing-md);
+}
+
+.masonry.item > * {
+    width: 100%;
+}

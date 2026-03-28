@@ -17,11 +17,7 @@ export function Accordion({
     children,
     ...rest
 }: AccordionProps) {
-    const initialOpen = Array.isArray(defaultOpen)
-        ? defaultOpen
-        : defaultOpen
-            ? [defaultOpen]
-            : []
+    const initialOpen = Array.isArray(defaultOpen) ? defaultOpen : defaultOpen ? [defaultOpen] : []
 
     const [openIds, setOpenIds] = useState<string[]>(initialOpen)
 

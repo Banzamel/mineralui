@@ -2,30 +2,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-}
-
-.stack.xs {
-    gap: var(--mineral-spacing-xs);
-}
-
-.stack.sm {
-    gap: var(--mineral-spacing-sm);
-}
-
-.stack.md {
     gap: var(--mineral-spacing-md);
-}
-
-.stack.lg {
-    gap: var(--mineral-spacing-lg);
-}
-
-.stack.xl {
-    gap: var(--mineral-spacing-xl);
-}
-
-.stack.gap-2xl {
-    gap: var(--mineral-spacing-2xl);
 }
 
 .stack.stretch {

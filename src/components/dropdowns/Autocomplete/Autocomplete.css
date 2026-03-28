@@ -3,7 +3,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     position: relative;
 }
 
@@ -305,3 +305,4 @@
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-error);
 }
+

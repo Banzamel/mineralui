@@ -44,7 +44,9 @@ export function CountUp({
 
     return (
         <span className={cn('count-up', className)} {...rest}>
-            {prefix}{formatted}{suffix}
+            {prefix}
+            {formatted}
+            {suffix}
         </span>
     )
 }

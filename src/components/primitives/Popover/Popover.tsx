@@ -12,6 +12,7 @@ export function Popover({
     placement = 'bottom-start',
     matchWidth = false,
     offset = 4,
+    zIndex,
     children,
     className,
     style,
@@ -19,6 +20,31 @@ export function Popover({
     const popoverRef = useRef<HTMLDivElement>(null)
     const [position, setPosition] = useState<{top: number; left: number; width?: number} | null>(null)
     const [flipped, setFlipped] = useState(false)
+    const [layerZ, setLayerZ] = useState<number | string | null>(null)
+
+    // Lift popovers above drawers, modals and mobile sidebars when the anchor sits inside them.
+    const updateLayer = useCallback(() => {
+        if (zIndex !== undefined) {
+            setLayerZ(zIndex)
+            return
+        }
+
+        const anchor = anchorRef.current
+        if (!anchor || typeof window === 'undefined') {
+            setLayerZ(null)
+            return
+        }
+
+        const layerHost = anchor.closest('.drawer-backdrop, .modal-backdrop, .sidebar.mobile-open')
+        if (!layerHost) {
+            setLayerZ(null)
+            return
+        }
+
+        const computedZ = window.getComputedStyle(layerHost).zIndex
+        const parsedZ = Number.parseInt(computedZ, 10)
+        setLayerZ(Number.isFinite(parsedZ) ? parsedZ + 1 : null)
+    }, [anchorRef, zIndex])
 
     // Recalculate popover position whenever layout or viewport constraints change.
     const updatePosition = useCallback(() => {
@@ -102,9 +128,11 @@ export function Popover({
     useEffect(() => {
         if (!open) {
             setPosition(null)
+            setLayerZ(null)
             return
         }
 
+        updateLayer()
         // Wait one frame so the rendered popover can be measured accurately.
         requestAnimationFrame(updatePosition)
 
@@ -114,7 +142,7 @@ export function Popover({
             window.removeEventListener('scroll', updatePosition)
             window.removeEventListener('resize', updatePosition)
         }
-    }, [open, updatePosition])
+    }, [open, updateLayer, updatePosition])
 
     // Close the popover with the standard Escape key interaction.
     useEffect(() => {
@@ -155,6 +183,7 @@ export function Popover({
                     top: position?.top ?? 0,
                     left: position?.left ?? 0,
                     width: position?.width,
+                    zIndex: layerZ ?? undefined,
                     visibility: position ? 'visible' : 'hidden',
                     ...style,
                 }}

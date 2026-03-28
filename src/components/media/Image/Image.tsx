@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import type {ImageProps} from './Image.types'
 import {cn} from '../../../utils/cn'
+import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import './Image.css'
 
 const RATIO_MAP: Record<string, string> = {
@@ -17,6 +18,7 @@ export function Image({
     rounded = false,
     bordered = false,
     shadow = false,
+    clickEffect = 'none',
     fallback,
     className,
     style,
@@ -24,6 +26,9 @@ export function Image({
     ...rest
 }: ImageProps) {
     const [errored, setErrored] = useState(false)
+    const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLSpanElement>({
+        effect: clickEffect,
+    })
 
     const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
         if (fallback && !errored) {
@@ -33,20 +38,24 @@ export function Image({
         onError?.(e)
     }
 
-    const ratioStyle = ratio !== 'auto' && RATIO_MAP[ratio]
-        ? {aspectRatio: RATIO_MAP[ratio], ...style}
-        : style
+    const ratioStyle = ratio !== 'auto' && RATIO_MAP[ratio] ? {aspectRatio: RATIO_MAP[ratio], ...style} : style
+    const imgClassName = cn('image', fit, !effectLayer && rounded && 'rounded', !effectLayer && bordered && 'bordered', !effectLayer && shadow && 'shadow')
+
+    if (effectLayer) {
+        return (
+            <span
+                className={cn('image-wrap', rounded && 'rounded', bordered && 'bordered', shadow && 'shadow', effectClassName, className)}
+                onPointerDown={handlePointerDown}
+            >
+                {effectLayer}
+                <img className={imgClassName} style={ratioStyle} onError={handleError} {...rest} />
+            </span>
+        )
+    }
 
     return (
         <img
-            className={cn(
-                'image',
-                fit,
-                rounded && 'rounded',
-                bordered && 'bordered',
-                shadow && 'shadow',
-                className
-            )}
+            className={cn(imgClassName, className)}
             style={ratioStyle}
             onError={handleError}
             {...rest}

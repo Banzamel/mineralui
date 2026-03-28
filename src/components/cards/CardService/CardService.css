@@ -8,7 +8,7 @@
     border: 1px solid var(--mineral-border);
     background: var(--mineral-surface);
     color: var(--mineral-text);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family, sans-serif);
     overflow: hidden;
     transition: box-shadow var(--mineral-transition-fast);
 }
@@ -18,13 +18,27 @@
 }
 
 /* Color variants */
-.card-service.primary { --color-rgb: var(--mineral-primary-rgb); }
-.card-service.neutral { --color-rgb: var(--mineral-neutral-rgb); }
-.card-service.success { --color-rgb: var(--mineral-success-rgb); }
-.card-service.error { --color-rgb: var(--mineral-error-rgb); }
-.card-service.warning { --color-rgb: var(--mineral-warning-rgb); }
-.card-service.info { --color-rgb: var(--mineral-info-rgb); }
-.card-service.danger { --color-rgb: var(--mineral-danger-rgb); }
+.card-service.primary {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+.card-service.neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+.card-service.success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+.card-service.error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+.card-service.warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+.card-service.info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+.card-service.danger {
+    --color-rgb: var(--mineral-danger-rgb);
+}
 
 /* Gallery */
 .cs-gallery {
@@ -81,7 +95,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s, transform 0.15s;
+    transition:
+        background 0.15s,
+        transform 0.15s;
 }
 
 .cs-fav:hover {
@@ -209,16 +225,8 @@
     gap: 2px;
 }
 
-.cs-star {
-    color: var(--mineral-warning);
-}
-
-.cs-star.filled {
-    color: var(--mineral-warning);
-}
-
-.cs-star:not(.filled) {
-    color: var(--mineral-text-muted);
+.cs-stars {
+    flex-shrink: 0;
 }
 
 .cs-rating-value {
@@ -412,3 +420,4 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+

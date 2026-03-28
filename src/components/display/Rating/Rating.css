@@ -46,26 +46,33 @@
 }
 
 .rating-star {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     border: none;
     background: none;
-    color: rgba(var(--color-rgb), 0.25);
     cursor: pointer;
     font-size: inherit;
     line-height: 1;
-    transition:
-        color var(--mineral-transition-fast),
-        transform var(--mineral-transition-fast);
+    transition: transform var(--mineral-transition-fast);
 }
 
 .rating-star:hover:not(:disabled) {
     transform: scale(1.15);
 }
 
-.rating-star.filled {
+.rating-star svg {
+    width: 1em;
+    height: 1em;
+}
+
+.star-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
     color: rgba(var(--color-rgb), 1);
 }
 

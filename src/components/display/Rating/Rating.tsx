@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import type {RatingProps} from './Rating.types'
 import {cn} from '../../../utils/cn'
+import {StarIcon} from '../../../icons/glyphs/StarIcon'
+import {StarFillIcon} from '../../../icons/glyphs/StarFillIcon'
 import './Rating.css'
 
 // Render an interactive star-based rating control.
@@ -32,19 +34,21 @@ export function Rating({
         >
             {Array.from({length: max}, (_, i) => {
                 const starIndex = i + 1
-                const filled = starIndex <= displayValue
+                const filled = displayValue >= starIndex
                 return (
                     <button
                         key={i}
                         type="button"
-                        className={cn('rating-star', filled && 'filled')}
+                        className="rating-star"
                         onClick={() => handleClick(starIndex)}
                         onMouseEnter={() => !readOnly && setHovered(starIndex)}
                         aria-label={`${starIndex} star${starIndex > 1 ? 's' : ''}`}
                         tabIndex={readOnly ? -1 : 0}
                         disabled={readOnly}
                     >
-                        ★
+                        <span className="star-icon" aria-hidden="true">
+                            {filled ? <StarFillIcon /> : <StarIcon />}
+                        </span>
                     </button>
                 )
             })}
