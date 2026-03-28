@@ -3,7 +3,7 @@
 React component framework for dashboards, admin panels, documentation shells, settings screens and data-heavy internal products.
 
 - npm: `@banzamel/mineralui`
-- version: `0.10.0`
+- version: `0.10.1`
 - peer dependencies: `react >= 19`, `react-dom >= 19`
 - repository: `https://github.com/Banzamel/mineralui`
 - homepage: `https://mineralui.banzamel.pl`

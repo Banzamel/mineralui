@@ -19,31 +19,44 @@ function cssAutoInject(entryNames: string[]): Plugin {
             }
 
             const escaped = css.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$')
-            const injector = [
-                'if(typeof document!=="undefined"){',
-                'let s=document.getElementById("mineral-ui-styles");',
-                'if(!s){s=document.createElement("style");',
-                's.id="mineral-ui-styles";',
-                `s.textContent=\`${escaped}\`;`,
-                'document.head.appendChild(s)}}',
-            ].join('')
 
             const runtimes = [
                 {
                     file: 'style-runtime.js',
                     include: (file: string) => `${file}.js`,
-                    prefix: 'import \'./style-runtime.js\'\n',
+                    prefix: 'import {ensureStyles} from \'./style-runtime.js\'\nensureStyles()\n',
+                    code: [
+                        'export function ensureStyles(){',
+                        'if(typeof document!=="undefined"){',
+                        'let s=document.getElementById("mineral-ui-styles");',
+                        'if(!s){s=document.createElement("style");',
+                        's.id="mineral-ui-styles";',
+                        `s.textContent=\`${escaped}\`;`,
+                        'document.head.appendChild(s)}}',
+                        '}',
+                    ].join(''),
                 },
                 {
                     file: 'style-runtime.cjs',
                     include: (file: string) => `${file}.cjs`,
-                    prefix: 'require(\'./style-runtime.cjs\')\n',
+                    prefix: 'const {ensureStyles}=require(\'./style-runtime.cjs\')\nensureStyles()\n',
+                    code: [
+                        'function ensureStyles(){',
+                        'if(typeof document!=="undefined"){',
+                        'let s=document.getElementById("mineral-ui-styles");',
+                        'if(!s){s=document.createElement("style");',
+                        's.id="mineral-ui-styles";',
+                        `s.textContent=\`${escaped}\`;`,
+                        'document.head.appendChild(s)}}',
+                        '}',
+                        'exports.ensureStyles=ensureStyles',
+                    ].join(''),
                 },
             ]
 
             for (const runtime of runtimes) {
                 const runtimePath = resolve(distDir, runtime.file)
-                writeFileSync(runtimePath, injector)
+                writeFileSync(runtimePath, runtime.code)
 
                 for (const entryName of entryNames) {
                     const entryPath = resolve(distDir, runtime.include(entryName))
