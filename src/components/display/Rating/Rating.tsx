@@ -1,8 +1,7 @@
 import {useState} from 'react'
 import type {RatingProps} from './Rating.types'
+import {StarFillIcon, StarIcon} from '../../../icons'
 import {cn} from '../../../utils/cn'
-import {StarIcon} from '../../../icons/glyphs/StarIcon'
-import {StarFillIcon} from '../../../icons/glyphs/StarFillIcon'
 import './Rating.css'
 
 // Render an interactive star-based rating control.

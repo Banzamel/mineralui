@@ -1,6 +1,6 @@
 import type {ReactNode, RefObject} from 'react'
 import type {MineralColor} from '../../../theme'
-import type {PopoverPlacement} from '../../primitives/Popover'
+import type {PopoverPlacement} from '../../primitives'
 
 export interface PopconfirmProps {
     title: ReactNode

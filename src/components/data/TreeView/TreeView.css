@@ -1,6 +1,6 @@
 .tree {
     width: 100%;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text);
 }
@@ -112,12 +112,13 @@
 
 .tree.lines ul[role='group'] {
     position: relative;
+    --line-left: 17px;
 }
 
 .tree.lines ul[role='group']::before {
     content: '';
     position: absolute;
-    left: var(--line-left, 17px);
+    left: var(--line-left);
     top: 0;
     bottom: 8px;
     border-left: 1px dashed var(--mineral-border);

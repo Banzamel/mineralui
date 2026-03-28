@@ -4,7 +4,7 @@
     gap: var(--mineral-spacing-xs);
     color: var(--mineral-text);
     text-decoration: none;
-    font-family: var(--mineral-font-family-sans, var(--mineral-font-family));
+    font-family: var(--mineral-font-family-sans), sans-serif;
     font-size: var(--mineral-font-size-md);
     transition:
         color 0.18s ease,

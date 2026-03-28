@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useMemo, useEffect} from 'react'
+import type * as React from 'react'
 import type {TimePickerProps} from './TimePicker.types'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
@@ -23,9 +24,7 @@ function isTimeInRange(
     min?: {hours: number; minutes: number; seconds: number} | null,
     max?: {hours: number; minutes: number; seconds: number} | null
 ): boolean {
-    if (min && compareTimeParts(value, min) < 0) return false
-    if (max && compareTimeParts(value, max) > 0) return false
-    return true
+    return (!min || compareTimeParts(value, min) >= 0) && (!max || compareTimeParts(value, max) <= 0)
 }
 
 // Render a time input backed by scrollable hour, minute and second columns.

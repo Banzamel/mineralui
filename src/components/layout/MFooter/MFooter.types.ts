@@ -1,6 +1,6 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {ContainerSize} from '../Container/Container.types'
-import type {MHeaderTone} from '../MHeader/MHeader.types'
+import type {ContainerSize} from '../Container'
+import type {MHeaderTone} from '../MHeader'
 import type {LayoutUtilityProps} from '../../../utils/layoutProps'
 
 export interface MFooterProps extends HTMLAttributes<HTMLElement>, LayoutUtilityProps {

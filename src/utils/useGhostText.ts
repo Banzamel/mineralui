@@ -1,4 +1,5 @@
 import {useState, useCallback, useMemo} from 'react'
+import type * as React from 'react'
 
 export interface GhostTextOptions<T = string> {
     options: T[]

@@ -1,4 +1,5 @@
 import {useState, useCallback, useRef, useMemo, useEffect, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputFileProps, InputFileCropOptions} from './InputFile.types'
 import {CropEditor} from './CropEditor'
 import {cn} from '../../../utils/cn'
@@ -117,8 +118,7 @@ export const InputFile = forwardRef<HTMLDivElement, InputFileProps>(function Inp
 
     const processFiles = useCallback(
         (incoming: FileList | File[]) => {
-            const list = Array.from(incoming)
-            let accepted = list
+            let accepted = Array.from(incoming)
 
             if (accept) {
                 const patterns = accept.split(',').map((s) => s.trim().toLowerCase())

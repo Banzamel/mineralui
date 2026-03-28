@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useEffect, forwardRef} from 'react'
+import type * as React from 'react'
 import type {TextareaProps} from './Textarea.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'

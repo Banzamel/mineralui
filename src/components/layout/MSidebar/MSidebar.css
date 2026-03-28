@@ -143,7 +143,7 @@
     background: none;
     width: 100%;
     text-align: left;
-    font-family: var(--mineral-font-family-sans);
+    font-family: var(--mineral-font-family-sans), sans-serif;
     font-size: var(--mineral-font-size-xs);
     color: inherit;
     opacity: 0.7;
@@ -208,7 +208,7 @@
 
 /* Top-level item (outside group) — matches group header style */
 .sidebar-nav > .sidebar-item {
-    font-size: var(--mineral-font-size-base);
+    font-size: var(--mineral-font-size-md);
     font-weight: 600;
     letter-spacing: 0.02em;
     opacity: 1;
@@ -238,8 +238,8 @@
     background: none;
     width: 100%;
     text-align: left;
-    font-family: var(--mineral-font-family-sans);
-    font-size: var(--mineral-font-size-base);
+    font-family: var(--mineral-font-family-sans), sans-serif;
+    font-size: var(--mineral-font-size-md);
     color: var(--mineral-text-secondary);
     font-weight: 600;
     letter-spacing: 0.02em;

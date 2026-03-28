@@ -32,7 +32,8 @@ function getSlides<T>(items?: T[], renderItem?: (item: T, index: number) => Reac
 }
 
 function isShowcaseItem(value: unknown): value is ShowcaseCarouselSlide {
-    return !!value && typeof value === 'object' && 'src' in value && typeof (value as ShowcaseCarouselSlide).src === 'string'
+    const slide = value as {src?: unknown}
+    return !!value && typeof value === 'object' && 'src' in value && typeof slide.src === 'string'
 }
 
 function ShowcaseMediaSlide({item}: {item: ShowcaseCarouselSlide}) {

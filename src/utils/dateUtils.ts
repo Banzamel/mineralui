@@ -15,9 +15,7 @@ export function isSameDay(a: Date, b: Date): boolean {
 
 // Check whether a date falls inside optional min and max boundaries.
 export function isDateInRange(date: Date, min?: Date | null, max?: Date | null): boolean {
-    if (min && date < stripTime(min)) return false
-    if (max && date > stripTime(max)) return false
-    return true
+    return (!min || date >= stripTime(min)) && (!max || date <= stripTime(max))
 }
 
 // Drop the time portion to make date comparisons predictable.

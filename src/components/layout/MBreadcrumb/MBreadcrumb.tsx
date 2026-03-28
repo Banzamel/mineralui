@@ -1,4 +1,4 @@
-import {Fragment, useMemo} from 'react'
+import {useMemo} from 'react'
 import {cn} from '../../../utils/cn'
 import type {MBreadcrumbProps} from './MBreadcrumb.types'
 import './MBreadcrumb.css'

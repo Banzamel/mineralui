@@ -1,6 +1,6 @@
 .heading {
     margin: 0;
-    font-family: var(--mineral-font-family-heading, var(--mineral-font-family));
+    font-family: var(--mineral-font-family-heading), sans-serif;
     font-weight: 700;
     line-height: 1.15;
 }

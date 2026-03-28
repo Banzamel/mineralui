@@ -46,7 +46,7 @@
     text-align: center;
     font-size: var(--mineral-font-size-lg);
     font-weight: 600;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
     color: var(--mineral-text);
     background: rgba(var(--mineral-neutral-rgb), 0.06);
     border: 1px solid rgba(var(--mineral-neutral-rgb), 0.2);

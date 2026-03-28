@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useMemo} from 'react'
+import type * as React from 'react'
 import type {FormProps, FieldRegistration, FormContextValue, FormHelpers} from './Form.types'
 import {FormContext} from './FormContext'
 import {validateRequired} from '../../../utils/validators'
@@ -141,7 +142,7 @@ export function Form({
 
     // Guard submit flow with validation and a single in-flight submission state.
     const handleSubmit = useCallback(
-        async (e: React.FormEvent) => {
+        async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             if (isSubmitting) return
 

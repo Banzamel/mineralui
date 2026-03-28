@@ -8,7 +8,7 @@
     border: 1px solid var(--mineral-border);
     background: var(--mineral-surface);
     color: var(--mineral-text);
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
     overflow: hidden;
     transition: box-shadow var(--mineral-transition-fast);
 }

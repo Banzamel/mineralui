@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useMemo, useEffect} from 'react'
+import type * as React from 'react'
 import type {DatePickerProps} from './DatePicker.types'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'

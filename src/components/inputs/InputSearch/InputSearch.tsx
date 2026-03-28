@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputSearchProps} from './InputSearch.types'
 import {Input} from '../Input'
 import {useDebouncedCallback} from '../../../utils/useDebounce'

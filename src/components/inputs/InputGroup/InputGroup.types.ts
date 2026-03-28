@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react'
-import type {InputProps} from '../Input/Input.types'
+import type {InputProps} from '../Input'
 
 export interface InputGroupAddon {
     type: 'text' | 'icon' | 'button' | 'checkbox'

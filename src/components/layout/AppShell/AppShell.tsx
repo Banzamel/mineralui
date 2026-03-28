@@ -1,4 +1,5 @@
 import {forwardRef, Children, isValidElement} from 'react'
+import type * as React from 'react'
 import type {AppShellProps, BodyProps} from './AppShell.types'
 import {cn} from '../../../utils/cn'
 import {MSidebar} from '../MSidebar'

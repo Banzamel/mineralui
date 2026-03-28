@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputEmailProps} from './InputEmail.types'
 import {Input} from '../Input'
 import {validateEmail} from '../../../utils/validators'

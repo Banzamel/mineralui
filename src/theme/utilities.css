@@ -60,6 +60,7 @@
 }
 
 .has-fsize {
+    --mineral-layout-fsize: inherit;
     font-size: var(--mineral-layout-fsize);
 }
 

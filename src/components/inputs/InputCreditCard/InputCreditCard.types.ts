@@ -1,4 +1,4 @@
-import type {InputProps} from '../Input/Input.types'
+import type {InputProps} from '../Input'
 import type {CreditCardBrand} from '../../../utils/creditCards'
 import type {ValidationResult} from '../../../utils/validators'
 

@@ -1,9 +1,10 @@
 .qr-code {
+    --qr-size: 144px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--qr-size, 144px);
-    height: var(--qr-size, 144px);
+    width: var(--qr-size);
+    height: var(--qr-size);
     padding: 0;
     border: 1px solid var(--mineral-border);
     border-radius: var(--mineral-radius-md);

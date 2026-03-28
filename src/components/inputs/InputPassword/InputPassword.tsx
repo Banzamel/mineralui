@@ -1,4 +1,5 @@
 import {useState, useCallback, useEffect, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputPasswordProps, PasswordStrength} from './InputPassword.types'
 import {Input} from '../Input'
 import {cn} from '../../../utils/cn'

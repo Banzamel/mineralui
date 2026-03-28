@@ -2,7 +2,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family), sans-serif;
     position: relative;
 }
 
@@ -364,9 +364,7 @@
 }
 
 .date-range-calendar .day:hover:not(.disabled):not(.selected):not(.range-start):not(.range-end),
-.date-range-picker-popover
-    .date-range-calendar
-    .day:hover:not(.disabled):not(.selected):not(.range-start):not(.range-end) {
+.date-range-picker-popover .date-range-calendar .day:hover:not(.disabled):not(.selected):not(.range-start):not(.range-end) {
     background: var(--mineral-option-hover-bg);
 }
 
@@ -537,3 +535,4 @@
         justify-content: flex-end;
     }
 }
+

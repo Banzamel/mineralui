@@ -1,9 +1,10 @@
 .mineral-reveal {
+    --mineral-reveal-delay: 0s;
     opacity: 0;
     transform: translateY(20px);
     transition:
-        opacity 0.46s ease-out var(--mineral-reveal-delay, 0s),
-        transform 0.46s ease-out var(--mineral-reveal-delay, 0s);
+        opacity 0.46s ease-out var(--mineral-reveal-delay),
+        transform 0.46s ease-out var(--mineral-reveal-delay);
 }
 
 .mineral-reveal.mineral-revealed {

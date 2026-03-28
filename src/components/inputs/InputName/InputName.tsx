@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputNameProps} from './InputName.types'
 import {Input} from '../Input'
 import {capitalizeWords} from '../../../utils/formatters'

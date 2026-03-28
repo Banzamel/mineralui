@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, Children, isValidElement, cloneElement} from 'react'
+import type * as React from 'react'
 import {Popover} from '../../primitives'
 import {useKeyboardNav} from '../../../utils/useKeyboardNav'
 import {cn} from '../../../utils/cn'
@@ -193,6 +194,7 @@ export function MDropdownItem({
             e.preventDefault()
             return
         }
+        onClick?.()
         _onClick?.()
     }
 

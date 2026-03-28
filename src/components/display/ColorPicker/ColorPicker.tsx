@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
+import type * as React from 'react'
 import type {ColorPickerProps} from './ColorPicker.types'
 import {cn} from '../../../utils/cn'
 import './ColorPicker.css'

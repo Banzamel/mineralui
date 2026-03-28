@@ -1,4 +1,5 @@
 import {forwardRef, useEffect, useRef} from 'react'
+import type * as React from 'react'
 import type {CheckboxProps} from './Checkbox.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'

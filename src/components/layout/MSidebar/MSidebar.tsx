@@ -219,7 +219,7 @@ export function MSidebarItem({
             className={cls}
             onClick={disabled ? undefined : onClick}
             aria-disabled={disabled || undefined}
-            title={isCollapsed ? (typeof label === 'string' ? label : undefined) : undefined}
+            title={isCollapsed ? label : undefined}
             {...linkProps}
         >
             {icon && <span className="sidebar-item-icon">{icon}</span>}
@@ -255,7 +255,7 @@ export function MSidebarGroup({
         const trigger = (
             <span
                 className={cn('sidebar-group-icon collapsed', active && 'active')}
-                title={typeof label === 'string' ? label : undefined}
+                title={label}
             >
                 {icon}
             </span>

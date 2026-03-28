@@ -1,4 +1,5 @@
 import {forwardRef, useCallback, useMemo, useState} from 'react'
+import type * as React from 'react'
 import type {InputPostCodeProps} from './InputPostCode.types'
 import {InputGroup} from '../InputGroup'
 import {cn} from '../../../utils/cn'

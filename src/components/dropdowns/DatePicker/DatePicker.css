@@ -2,7 +2,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family), sans-serif;
     position: relative;
 }
 
@@ -28,8 +28,7 @@
     color: var(--mineral-error);
 }
 
-.date-picker /* === Trigger === */
-.trigger {
+.date-picker .trigger {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -162,8 +161,7 @@
     overflow: visible;
 }
 
-.date-picker /* === Header === */
-.calendar-header,
+.date-picker .calendar-header,
 .date-picker-popover .calendar-header {
     display: flex;
     align-items: center;
@@ -213,8 +211,7 @@
     background: var(--mineral-option-hover-bg);
 }
 
-.date-picker /* === Day names === */
-.day-names,
+.date-picker .day-names,
 .date-picker-popover .day-names {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -232,8 +229,7 @@
     padding: 4px 0;
 }
 
-.date-picker /* === Day grid === */
-.day-grid,
+.date-picker .day-grid,
 .date-picker-popover .day-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -288,8 +284,7 @@
     cursor: not-allowed;
 }
 
-.date-picker /* === Month grid === */
-.month-grid,
+.date-picker .month-grid,
 .date-picker-popover .month-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -319,8 +314,7 @@
     font-weight: 600;
 }
 
-.date-picker /* === Footer === */
-.footer,
+.date-picker .footer,
 .date-picker-popover .footer {
     display: flex;
     justify-content: center;
@@ -348,8 +342,7 @@
     background: var(--mineral-option-hover-bg);
 }
 
-.date-picker /* === Bottom row === */
-.bottom-row {
+.date-picker .bottom-row {
     display: flex;
     gap: var(--mineral-spacing-sm);
 }

@@ -1,4 +1,5 @@
 import {useState, useCallback, useRef, useEffect, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputNumberProps} from './InputNumber.types'
 import {Input} from '../Input'
 import {cn} from '../../../utils/cn'

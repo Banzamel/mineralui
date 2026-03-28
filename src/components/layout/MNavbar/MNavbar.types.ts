@@ -1,5 +1,5 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {ContainerSize} from '../Container/Container.types'
+import type {ContainerSize} from '../Container'
 import type {MineralFontColor} from '../../../theme'
 
 export type MNavbarTone = 'default' | 'surface' | 'subtle'

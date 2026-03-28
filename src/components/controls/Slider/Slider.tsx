@@ -1,4 +1,5 @@
 import {useCallback, useRef} from 'react'
+import type * as React from 'react'
 import type {SliderProps} from './Slider.types'
 import {cn} from '../../../utils/cn'
 import './Slider.css'

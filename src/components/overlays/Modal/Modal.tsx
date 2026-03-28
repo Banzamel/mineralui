@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import type {MouseEvent} from 'react'
 import type {ModalProps} from './Modal.types'
-import {Portal} from '../../primitives/Portal'
-import {Card, CardBody, CardFooter, CardHeader} from '../../cards/Card'
+import {Card, CardBody, CardFooter, CardHeader} from '../../cards'
+import {Portal} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import './Modal.css'
 

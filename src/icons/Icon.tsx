@@ -36,7 +36,9 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
     },
     ref
 ) {
-    const iconSize = typeof size === 'string' && size in sizeMap ? sizeMap[size as keyof typeof sizeMap] : size
+    const iconSize = Object.prototype.hasOwnProperty.call(sizeMap, size)
+        ? sizeMap[size as keyof typeof sizeMap]
+        : size
     const iconColor = colorMap[color]
 
     return (

@@ -3,7 +3,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family), sans-serif;
     position: relative;
 }
 
@@ -255,3 +255,4 @@
 .textarea .char-count.over {
     color: var(--mineral-error);
 }
+

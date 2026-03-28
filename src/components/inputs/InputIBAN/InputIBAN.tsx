@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputIBANProps} from './InputIBAN.types'
 import {Input} from '../Input'
 import {validateIBAN} from '../../../utils/validators'

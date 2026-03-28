@@ -1,6 +1,6 @@
 .card.grid {
     width: 100%;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
 }
 
 .card.grid.toolbar {

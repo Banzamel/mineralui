@@ -1,4 +1,5 @@
 import {useMemo, useState} from 'react'
+import type * as React from 'react'
 import type {DataTableProps, DataTableSort} from './DataTable.types'
 import {Checkbox} from '../../controls'
 import {InputSearch} from '../../inputs'

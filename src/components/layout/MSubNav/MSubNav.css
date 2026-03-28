@@ -8,7 +8,7 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     overflow-x: auto;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
 }
 
 .subnav.item {
@@ -20,7 +20,7 @@
     border-radius: var(--mineral-radius-md);
     background: none;
     color: var(--mineral-text-secondary);
-    font-family: var(--mineral-font-family-sans);
+    font-family: var(--mineral-font-family-sans), sans-serif;
     font-size: var(--mineral-font-size-sm);
     font-weight: 500;
     white-space: nowrap;

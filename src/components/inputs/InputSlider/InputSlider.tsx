@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputSliderProps} from './InputSlider.types'
 import {Slider} from '../../controls'
 import {cn} from '../../../utils/cn'

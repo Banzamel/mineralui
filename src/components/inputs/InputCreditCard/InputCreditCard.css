@@ -1,3 +1,7 @@
+.credit.card.input {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
 .credit.card.input .credit.brand {
     display: inline-flex;
     align-items: center;
@@ -11,8 +15,8 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     background: rgba(var(--mineral-neutral-rgb), 0.14);
-    color: rgba(var(--color-rgb, var(--mineral-primary-rgb)), 0.95);
-    border: 1px solid rgba(var(--color-rgb, var(--mineral-primary-rgb)), 0.22);
+    color: rgba(var(--color-rgb), 0.95);
+    border: 1px solid rgba(var(--color-rgb), 0.22);
 }
 
 .credit.card.input .credit.brand.visa {

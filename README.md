@@ -3,10 +3,11 @@
 React component framework for dashboards, admin panels, documentation shells, settings screens and data-heavy internal products.
 
 - npm: `@banzamel/mineralui`
-- release version: `0.10.0`
+- version: `0.10.0`
 - peer dependencies: `react >= 19`, `react-dom >= 19`
 - repository: `https://github.com/Banzamel/mineralui`
-- styles: auto-injected — CSS is bundled into JS and applied automatically on import
+- homepage: `https://mineralui.banzamel.pl`
+- styles: bundled and auto-injected on component import
 
 ## Installation
 
@@ -14,20 +15,19 @@ React component framework for dashboards, admin panels, documentation shells, se
 npm install @banzamel/mineralui
 ```
 
-No separate CSS import needed. Styles are auto-injected when you import any component.
+No separate CSS import is required.
 
 ## Quick Start
 
 ```tsx
 import {
     MThemeProvider,
-    MButton,
     MCard,
-    MCardBody,
     MCardHeader,
+    MCardBody,
     MInput,
     MSelect,
-    MStack,
+    MButton,
 } from '@banzamel/mineralui'
 
 function AccountSettings() {
@@ -36,18 +36,16 @@ function AccountSettings() {
             <MCard>
                 <MCardHeader title="Workspace settings" description="Basic account data and role assignment." />
                 <MCardBody>
-                    <MStack gap="md">
-                        <MInput label="Workspace name" placeholder="Banzamel Studio" fullWidth />
-                        <MSelect
-                            label="Default role"
-                            fullWidth
-                            options={[
-                                {value: 'owner', label: 'Owner'},
-                                {value: 'editor', label: 'Editor'},
-                            ]}
-                        />
-                        <MButton>Save changes</MButton>
-                    </MStack>
+                    <MInput label="Workspace name" placeholder="Banzamel Studio" fullWidth />
+                    <MSelect
+                        label="Default role"
+                        fullWidth
+                        options={[
+                            {value: 'owner', label: 'Owner'},
+                            {value: 'editor', label: 'Editor'},
+                        ]}
+                    />
+                    <MButton>Save changes</MButton>
                 </MCardBody>
             </MCard>
         </MThemeProvider>
@@ -55,12 +53,43 @@ function AccountSettings() {
 }
 ```
 
+## Grouped Imports
+
+MineralUI supports both the main entry and grouped subpath exports.
+
+```tsx
+import {MButton, MCheckbox} from '@banzamel/mineralui/controls'
+import {MCard, MCardBody} from '@banzamel/mineralui/cards'
+import {MShowcaseCarousel, MMasonry} from '@banzamel/mineralui/media'
+import {MTimeAgo, MProgressBar} from '@banzamel/mineralui/display'
+```
+
+Available subpaths:
+
+- `@banzamel/mineralui/cards`
+- `@banzamel/mineralui/controls`
+- `@banzamel/mineralui/data`
+- `@banzamel/mineralui/display`
+- `@banzamel/mineralui/dropdowns`
+- `@banzamel/mineralui/feedback`
+- `@banzamel/mineralui/form`
+- `@banzamel/mineralui/i18n`
+- `@banzamel/mineralui/icons`
+- `@banzamel/mineralui/inputs`
+- `@banzamel/mineralui/layout`
+- `@banzamel/mineralui/media`
+- `@banzamel/mineralui/overlays`
+- `@banzamel/mineralui/primitives`
+- `@banzamel/mineralui/theme`
+- `@banzamel/mineralui/typography`
+- `@banzamel/mineralui/utils`
+
 ## What Is Included
 
-### Theme and primitives
+### Theme and foundations
 - `MThemeProvider`, `useMTheme`
+- `MI18nProvider`, `useMI18n`
 - `MPortal`, `MPopover`
-- `MI18nProvider` — locale context for framework-level translations
 - CSS variable token system for dark and light mode
 - scoped theme overrides through the provider
 
@@ -69,175 +98,143 @@ function AccountSettings() {
 - `MStack`, `MInline`, `MGrid`, `MGridItem`
 - `MSurface`, `MDivider`
 - `MHeader`, `MFooter`, `MNavbar`, `MNavs`, `MTabs`
-- `MSidebar`, `MSidebarItem`, `MSidebarGroup`, `MSidebarDivider` — top-level items outside groups now share group-header styling
-- `MSubNav`
-- `MBreadcrumb` — single-line path navigation with collapsible middle items and ellipsis overflow
-- `MPagination` — numbered and simple page navigation
-- `MAppShell`, `MBody` — top-level app structure; auto-detects `MSidebar` among direct children and wraps the rest in an internal content column
+- `MSidebar`, `MSidebarHeader`, `MSidebarBody`, `MSidebarNav`, `MSidebarItem`, `MSidebarGroup`, `MSidebarFooter`, `MSidebarDivider`
+- `MSubNav`, `MBreadcrumb`, `MPagination`
+- `MAppShell`, `MBody`
 
 ### Cards
-- `MCard`, `MCardHeader`, `MCardBody`, `MCardFooter` — generic content card
-- `MCardPayment` — display-only payment card with balance, masked number, holder name and brand badge
-- `MCardBusiness` — business card with `user` and `company` variants, avatar, online status indicator, contact info, QR code and social links
-- `MCardService` — service/course/product card with `service`, `course` and `product` variants, gallery, rating, favorites, dropdown menu, participant avatars and add-to-cart
-- `MCardGrid` — grid container with built-in search, filter by object fields and sort toolbar
+- `MCard`, `MCardHeader`, `MCardBody`, `MCardFooter`
+- `MCardPayment`
+- `MCardBusiness`
+- `MCardService`
+- `MCardGrid`
 
 ### Data
-- `MDataTable` — data-driven table with sorting, filtering, pagination and row selection
-- `MTreeView` — hierarchical tree list with dashed indent guide lines, automatic file/folder icons by extension and selection
-- `MTaskList`, `MTaskItem` — checklist-style task tracking
+- `MDataTable`
+- `MTreeView`
+- `MTaskList`
 - `MCalendarBoard`, `MCalendarDayCell`, `MCalendarEventList`, `MCalendarEventItem`, `MCalendarEventPopover`, `MCalendarTimeline`
 
 ### Feedback
-- `MAlert`, `MBanner` — inline and page-level messaging
-- `MBadge` — compact semantic label with `pulsing` prop for attention
-- `MTag` — interactive tags with close buttons and outlined variant
-- `MSpinner`, `MLoader` — loading indicators
-- `MToastProvider`, `useMToast` — toast notification system with auto-dismiss, smooth fade-out animation and 6 position options
+- `MAlert`, `MBanner`, `MBadge`, `MTag`
+- `MSpinner`, `MLoader`
+- `MToastProvider`, `useMToast`
 
 ### Overlays
-- `MModal` — blocking overlay for dense details and mobile-friendly dialogs
-- `MDrawer` — slide-out panel from any edge of the screen
-- `MTooltip` — hover/focus tooltip with 4 placements, delay and Portal-based rendering
-- `MPopconfirm` — confirmation popover built on MPopover
-- `MDropdownMenu`, `MDropdownItem`, `MDropdownGroup`, `MDropdownDivider` — context menus and action lists
+- `MModal`
+- `MDrawer`, `MDrawerHeader`, `MDrawerBody`, `MDrawerFooter`
+- `MTooltip`
+- `MPopconfirm`
+- `MDropdownMenu`, `MDropdownItem`, `MDropdownGroup`, `MDropdownDivider`
 
 ### Media
-- `MAvatar` — user avatar with size, shape and fallback initials
-- `MImage` — image with aspect ratio, fallback and lazy loading
-- `MGallery` — responsive image grid
-- `MCarousel` — image and content slideshows
+- `MAvatar`
+- `MImage`
+- `MGallery`
+- `MCarousel`
+- `MShowcaseCarousel`
+- `MShowcaseCarouselItem`
+- `MMasonry`
+- `MMasonryItem`
 
 ### Display
-- `MAccordion`, `MAccordionItem` — disclosure group with single or multiple open state
-- `MCollapsible` — single collapsible section
-- `MProgressBar` — animated progress with label support
-- `MCountUp` — animated number counters
-- `MRating` — star-based interactive ratings
-- `MColorPicker` — visual color picker with hue/saturation area, hex/rgb/hsl input and swatches
+- `MCollapsible`
+- `MAccordion`, `MAccordionItem`
+- `MProgressBar`
+- `MCountUp`
+- `MTimeAgo`
+- `MRating`
+- `MColorPicker`
+- `MQrCode`
 
 ### Typography
-- `MHeading`, `MText`, `MSubText`, `MLink`, `MCode`, `MList`, `MListItem`
-- `MKbd` — inline keyboard key indicator for shortcuts and key combinations
+- `MHeading`, `MText`, `MSubText`, `MLink`, `MCode`, `MList`, `MListItem`, `MKbd`
 
 ### Controls
-- `MButton` — action primitive with `pulsing` prop for attention-drawing glow animation
+- `MButton`
 - `MCheckbox`
 - `MRadio`, `MRadioGroup`
 - `MToggle`
-- `MSlider` — drag-based range input with marks and labels
+- `MSlider`
 
 ### Inputs
 - `MInput`, `MTextarea`
 - `MInputPassword`, `MInputNumber`, `MInputSearch`, `MInputEmail`
-- `MInputPhone`, `MInputName`, `MInputIBAN`, `MInputTaxId`, `MInputCurrency`
-- `MInputCreditCard`, `MInputPostCode`
-- `MInputOTP` — one-time password input with auto-focus and paste support
-- `MInputSlider` — combined slider track with numeric input field
-- `MInputFile` — file upload dropzone with drag-and-drop, thumbnails and image cropping
+- `MInputPhone`, `MInputName`, `MInputIBAN`, `MInputTaxId`
+- `MInputCurrency`, `MInputCreditCard`, `MInputPostCode`
+- `MInputOTP`
+- `MInputSlider`
+- `MInputFile`
 - `MInputGroup`
 
 ### Dropdowns
 - `MSelect`
 - `MAutocomplete`
 - `MDatePicker`
-- `MDateRangePicker` — supports `presetsSidebar` for a toggleable side panel with predefined date ranges
+- `MDateRangePicker`
 - `MTimePicker`
 
-### Form and validation
+### Form and utilities
 - `MForm`, `useFormField`, `useFormContext`
-- validators: `validateEmail`, `validatePhone`, `validateIBAN`, `validateNIP`, `validatePESEL`, `validateREGON`
-- formatters: `formatIBAN`, `formatPhone`, `formatNIP`, `formatCurrency`, `parseCurrencyToNumber`
-- date helpers: `formatDate`, `parseDate`, `formatTime`, `parseTime`
+- validators, formatters, date helpers, postal-code helpers and credit-card helpers
+- `useDebounce`, `useDebouncedCallback`
+- `useClickOutside`
+- `useKeyboardNav`
+- `useInteractionEffect`
+- `useReveal`
+- `useGhostText`
+- `formatRelativeTime`, `formatAbsoluteTime`
 
 ### Icons
-- `MIcon` — base icon component with size, color and className support
-- 130+ built-in SVG glyphs: arrows, chevrons, actions, devices, files, flags, brands and more
-- All icons are tree-shakeable individual exports
-- Used internally by `MRating`, `MSidebar`, `MTreeView` and other components
-
-### Hooks and utilities
-- `useReveal` — viewport reveal animation with IntersectionObserver
-- `useGhostText` — inline ghost text suggestions for any text input
-- `mergeClasses`
-- `useDebounce`, `useDebouncedCallback`
-- `useOutsideClick`
-- `useKeyNavigation`
-- `useClickEffect`
+- `MIcon` base component
+- 210 built-in glyphs across app icons, file types, flags and brands
+- tree-shakeable individual exports
+- used internally across inputs, tables, navigation, cards and overlays
 
 ## Feature Highlights
 
 ### Layout-first API
-- `MAppShell` auto-detects `MSidebar` among its direct children — no separate prop needed. Place `MSidebar`, `MHeader`, `MBody` and other elements as siblings inside `MAppShell`.
-- `MBody` provides default padding for page content.
-- `MStack`, `MInline` and `MGrid` cover the majority of internal dashboard layouts without extra utility libraries.
-- `MGrid` supports equal columns by default and responsive span overrides with `sm`, `md`, `lg`, `xl`.
-- `MSidebar` provides collapsible, nested navigation with grouped items and dividers. Top-level items outside groups automatically inherit group-header styling.
+- `MAppShell` auto-detects `MSidebar` among direct children
+- `MSidebarBody` and `MDrawerBody` keep scrolling inside the body area, while header and footer stay pinned
+- `MDrawerHeader`, `MDrawerFooter`, `MSidebarHeader` and `MSidebarFooter` support optional bordered separation
+- `MStack`, `MInline` and `MGrid` cover the majority of dashboard and docs layouts without extra utility libraries
 
-### Card system
-- `MCard` is the generic container; specialized cards (`MCardPayment`, `MCardBusiness`, `MCardService`) handle domain-specific layouts.
-- `MCardBusiness` supports `user` and `company` variants with pulsing online/offline status indicator, QR code and social links.
-- `MCardService` covers three use cases (`service`, `course`, `product`) with gallery, avatar stack, rating, favorites and add-to-cart.
-- `MCardGrid` wraps any card type with a toolbar for search, filtering by object fields and sort direction.
+### Card and content system
+- `MCard` is the generic content container
+- specialized cards cover payment, business and service use cases
+- `MCardGrid` wraps card collections with built-in search, filters and sorting
+- `MShowcaseCarousel` and `MMasonry` cover richer gallery and card-wall layouts
 
-### Reveal animations
-- `reveal` prop on `MCard`, `MStack`, `MInline`, `MSurface`, `MSection` — elements animate into view when they enter the viewport.
-- Supports custom delay with `reveal={0.2}` for staggered effects.
-- Respects `prefers-reduced-motion` automatically.
+### Media layouts
+- `MShowcaseCarousel` starts from the middle item by default and also supports `initialIndex`
+- `MShowcaseCarouselItem` gives structured image, overlay, body and footer slots
+- `MMasonryItem` gives the same structured model for masonry walls
+- `MImage`, `MGallery` and `MMasonryItem` support click ripple for interactive media
 
-### Ghost text suggestions
-- `ghostOptions` prop on `MInput` and `MTextarea` — shows inline ghost text as the user types.
-- Tab or Enter accepts the suggestion, arrow keys cycle through matches.
-- `useGhostText` hook is exported for use in custom components like chat inputs or search bars.
+### Form-heavy workflows
+- specialized inputs handle formatting and validation instead of pushing that logic into every app
+- `MInputCreditCard` detects brand and formats as the user types
+- `MInputPostCode` validates by country rule set
+- `MInputFile` supports drag and drop, thumbnails and built-in crop flow
+- `MInputOTP` supports auto-focus and paste
+- `MInputSlider` keeps slider and numeric field in sync
 
-### Toast notifications
-- `MToastProvider` wraps your app, `useMToast()` fires notifications from anywhere.
-- 6 positions, 7 color variants, auto-dismiss with configurable duration.
-- Smooth fade-out animation with scale and blur transition.
-
-### Form-heavy components
-- Specialized inputs handle formatting and validation instead of pushing that logic into every application.
-- `MInputCreditCard` detects brand and keeps formatting readable.
-- `MInputPostCode` validates against country-specific postal code rules.
-- `MInputFile` supports drag-and-drop, file type filtering, size limits, image thumbnails and built-in crop editor.
-- `MInputOTP` splits a code into individual digit fields with auto-focus and paste support.
-- `MInputSlider` combines a slider track with a numeric input, keeping both in sync.
-
-### Date workflows
-- `MDatePicker` and `MDateRangePicker` support inline and popover usage.
-- `MDateRangePicker` ships with 12 built-in presets and a toggleable `presetsSidebar` for quick range selection.
-- `MCalendarBoard` covers non-form calendar surfaces such as planning, invoices, birthdays, and task density views.
+### Date and time workflows
+- `MDatePicker`, `MDateRangePicker` and `MTimePicker` cover common date input needs
+- `MDateRangePicker` supports presets and side-panel workflows
+- `MTimeAgo` formats relative time through `Intl.RelativeTimeFormat` and falls back to absolute dates after a threshold
+- locale can follow the active `MI18nProvider`
 
 ### Data and navigation
-- `MDataTable` — sortable, filterable, paginated table with row selection and custom cell rendering.
-- `MBreadcrumb` — single-line path navigation with automatic ellipsis collapsing for deep hierarchies.
-- `MPagination` — numbered and simple page controls with dot collapsing.
-- `MTreeView` — hierarchical tree with dashed indent guide lines, automatic file/folder icons per extension and node selection.
+- `MDataTable` supports sorting, filtering, pagination and row selection
+- `MTreeView` supports selection, context actions and automatic file-type icons
+- `MBreadcrumb` handles deep hierarchies with collapsed middle items
+- `MPagination` supports numbered and compact page flows
 
-### Interaction model
-- `MButton` and `MBadge` support a `pulsing` prop for attention-drawing glow animation in the component's color.
-- Buttons, cards, avatars, tabs and interactive inputs can share the same click effect model.
-- Navigation and picker overlays render through shared popover primitives.
-
-## Architecture
-
-Components are organized into focused groups under `src/components/`:
-
-| Group | Purpose |
-|-------|---------|
-| `cards` | Card containers and specialized card types |
-| `data` | Tables, trees, calendars and task lists |
-| `feedback` | Alerts, badges, tags, spinners and toasts |
-| `overlays` | Modals, drawers, tooltips and dropdown menus |
-| `media` | Images, galleries, carousels and avatars |
-| `display` | Accordions, progress bars, ratings and color picker |
-| `controls` | Buttons, checkboxes, radios, toggles and sliders |
-| `inputs` | Text inputs and specialized input variants |
-| `dropdowns` | Select, autocomplete and date/time pickers |
-| `layout` | Containers, grids, sidebars and navigation |
-| `typography` | Headings, text, links, code and lists |
-| `form` | Form context, field hooks and validators |
-| `primitives` | Portal and popover building blocks |
+### Shared interaction model
+- buttons, cards, images and other interactive elements can share the same ripple/click-effect behavior
+- built-in icons are used across framework components, so products stay visually consistent without extra icon packages
+- alerts and toasts have built-in status icons with override or disable support
 
 ## Design System Notes
 
@@ -245,31 +242,25 @@ MineralUI is driven by CSS variables and readable class names.
 
 ```css
 :root {
-    /* Brand — override only *-rgb, the rest is auto-generated */
     --mineral-primary-rgb: 0, 165, 222;
     --mineral-primary: rgba(var(--mineral-primary-rgb), 1);
 
-    /* Status palette */
     --mineral-success-rgb: 22, 163, 74;
     --mineral-error-rgb: 220, 38, 38;
     --mineral-warning-rgb: 234, 124, 0;
     --mineral-info-rgb: 59, 130, 246;
 
-    /* Surface (dark mode default) */
     --mineral-surface: rgba(21, 29, 46, 1);
     --mineral-page-bg: rgba(15, 23, 42, 1);
     --mineral-input-bg: rgba(37, 51, 71, 1);
 
-    /* Text */
     --mineral-text: rgba(226, 232, 240, 1);
     --mineral-text-secondary: rgba(100, 116, 139, 1);
 
-    /* Borders */
     --mineral-border: rgba(255, 255, 255, 0.15);
     --mineral-border-hover: rgba(255, 255, 255, 0.25);
     --mineral-border-focus: var(--mineral-primary);
 
-    /* Z-index layers */
     --mineral-z-popover: 1000;
     --mineral-z-modal: 1100;
     --mineral-z-tooltip: 1150;
@@ -278,17 +269,19 @@ MineralUI is driven by CSS variables and readable class names.
 ```
 
 You can theme the package in four layers:
+
 - token overrides through `--mineral-*`
 - component props such as `color`, `fcolor`, `spacing`, `padding`, `fsize`
 - `className` for local integration
 - `MThemeProvider` for `mode` and scoped token overrides
 
 Framework defaults:
+
 - plain CSS, not CSS Modules
-- readable local class names
+- readable, override-friendly class names
 - no runtime dependencies besides React peer dependencies
 - dark and light mode supported through the same token system
-- default scrollbar styling and typography reset come from the framework styles
+- typography reset and scrollbar styling come from the bundled framework styles
 
 ## Repository
 

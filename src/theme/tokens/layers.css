@@ -19,6 +19,7 @@
 
     --mineral-text: rgba(30, 41, 59, 1);
     --mineral-text-secondary: rgba(100, 116, 139, 1);
+    --mineral-text-muted: var(--mineral-text-secondary);
     --mineral-text-heading: rgba(31, 41, 55, 0.84);
     --mineral-text-inverted: rgba(255, 255, 255, 1);
 
@@ -42,4 +43,6 @@
     --mineral-option-hover-bg: rgba(0, 0, 0, 0.04);
     --mineral-option-selected-bg: rgba(var(--mineral-primary-rgb), 0.1);
     --mineral-option-active-bg: rgba(var(--mineral-primary-rgb), 0.18);
+    --mineral-tooltip-text: rgba(255, 255, 255, 1);
+    --mineral-tooltip-bg: rgba(15, 23, 42, 0.92);
 }

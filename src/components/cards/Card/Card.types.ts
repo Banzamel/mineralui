@@ -1,6 +1,6 @@
 import type {HTMLAttributes, ReactNode} from 'react'
 import type {MineralColor, MineralFontColor} from '../../../theme'
-import type {SurfaceProps} from '../../layout/Surface'
+import type {SurfaceProps} from '../../layout'
 import type {MineralClickEffect} from '../../../utils/useInteractionEffect'
 
 export interface CardProps extends Omit<SurfaceProps, 'children'> {

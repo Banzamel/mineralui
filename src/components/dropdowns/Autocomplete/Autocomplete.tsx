@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useMemo} from 'react'
+import type * as React from 'react'
 import type {AutocompleteProps} from './Autocomplete.types'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
@@ -156,7 +157,7 @@ export function Autocomplete<T = string>({
                 handleRemoveTag(selectedValues.length - 1)
                 return
             }
-            navKeyDown(e as unknown as React.KeyboardEvent<Element>)
+            navKeyDown(e as unknown as React.KeyboardEvent)
         },
         [freeSolo, activeIndex, inputValue, multiple, selectedValues, onChange, navKeyDown, handleRemoveTag]
     )

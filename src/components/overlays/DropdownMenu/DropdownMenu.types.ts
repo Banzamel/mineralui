@@ -1,5 +1,5 @@
 import type {ReactNode, ElementType, CSSProperties} from 'react'
-import type {PopoverPlacement} from '../../primitives/Popover'
+import type {PopoverPlacement} from '../../primitives'
 import type {MineralColor, MineralSize} from '../../../theme'
 
 export interface MDropdownMenuProps {

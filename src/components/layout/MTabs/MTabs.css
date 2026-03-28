@@ -39,7 +39,7 @@
     border: none;
     background: transparent;
     color: var(--mineral-text-secondary);
-    font-family: var(--mineral-font-family-sans, var(--mineral-font-family));
+    font-family: var(--mineral-font-family-sans), sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition:

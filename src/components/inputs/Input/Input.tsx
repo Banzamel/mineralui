@@ -1,4 +1,5 @@
 import {forwardRef, useCallback, useRef, useState} from 'react'
+import type * as React from 'react'
 import type {InputProps} from './Input.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'

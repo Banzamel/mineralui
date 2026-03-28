@@ -1,5 +1,5 @@
 import type {InputProps} from '../Input'
-import type {SliderMark} from '../../controls/Slider'
+import type {SliderMark} from '../../controls'
 
 export interface InputSliderProps extends Omit<InputProps, 'type' | 'onChange' | 'value'> {
     min?: number

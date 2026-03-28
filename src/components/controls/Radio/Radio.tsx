@@ -1,4 +1,5 @@
 import {forwardRef, useCallback} from 'react'
+import type * as React from 'react'
 import type {RadioProps} from './Radio.types'
 import {useRadioGroup} from './RadioContext'
 import {cn} from '../../../utils/cn'

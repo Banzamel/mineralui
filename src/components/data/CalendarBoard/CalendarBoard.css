@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: var(--mineral-spacing-md);
     width: 100%;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
 }
 
 .calendar.header {

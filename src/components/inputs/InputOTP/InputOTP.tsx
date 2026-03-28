@@ -1,4 +1,5 @@
 import {useState, useCallback, useRef, useEffect, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputOTPProps} from './InputOTP.types'
 import {cn} from '../../../utils/cn'
 import './InputOTP.css'

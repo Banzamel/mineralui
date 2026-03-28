@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useEffect} from 'react'
+import type * as React from 'react'
 import type {InputFileCropShape} from './InputFile.types'
 import {ZoomInIcon} from '../../../icons'
 import './CropEditor.css'

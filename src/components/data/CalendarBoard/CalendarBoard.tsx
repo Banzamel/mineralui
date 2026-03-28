@@ -60,7 +60,6 @@ interface CalendarWeekViewProps {
     onDayLeave: () => void
     dayBadge?: CalendarBoardProps['dayBadge']
     renderDayCell?: CalendarBoardProps['renderDayCell']
-    locale: CalendarBoardLocale
 }
 
 function stripTime(date: Date) {
@@ -346,7 +345,6 @@ function CalendarWeekView({
     onDayLeave,
     dayBadge,
     renderDayCell,
-    locale,
 }: CalendarWeekViewProps) {
     const todayKey = getDateKey(stripTime(new Date()))
 
@@ -919,7 +917,6 @@ export function CalendarBoard({
                     }}
                     dayBadge={dayBadge}
                     renderDayCell={renderDayCell}
-                    locale={locale}
                 />
             ) : (
                 <div className={'calendar grid'}>

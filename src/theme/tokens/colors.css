@@ -55,6 +55,8 @@
     --mineral-text-muted: var(--mineral-text-secondary);
     --mineral-text-heading: rgba(241, 245, 249, 0.96);
     --mineral-text-inverted: rgba(15, 23, 42, 1);
+    --mineral-tooltip-text: rgba(255, 255, 255, 1);
+    --mineral-tooltip-bg: rgba(15, 23, 42, 0.92);
 
     /* Font colors */
     --mineral-fcolor-default: var(--mineral-text);

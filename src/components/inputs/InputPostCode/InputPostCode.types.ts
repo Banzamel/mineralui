@@ -1,4 +1,4 @@
-import type {InputGroupProps} from '../InputGroup/InputGroup.types'
+import type {InputGroupProps} from '../InputGroup'
 import type {ValidationResult} from '../../../utils/validators'
 
 export interface InputPostCodeProps extends Omit<InputGroupProps, 'prepend' | 'type' | 'inputMode'> {

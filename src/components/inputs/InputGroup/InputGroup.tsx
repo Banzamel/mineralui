@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, forwardRef, isValidElement} from 'react'
+import type * as React from 'react'
 import type {InputGroupProps, InputGroupAddon, InputGroupSlot} from './InputGroup.types'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'

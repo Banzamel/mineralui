@@ -193,7 +193,6 @@ function TreeItem({
                 onDragOver={(event) => onDragOver?.(event, node)}
                 onDrop={(event) => onDrop?.(event, node)}
                 onDragEnd={onDragEnd}
-                aria-grabbed={draggable && !node.disabled ? isDragging : undefined}
             >
                 <span className="toggle">
                     {hasChildren && expandable ? (

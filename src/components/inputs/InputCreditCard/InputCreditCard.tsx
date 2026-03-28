@@ -1,4 +1,5 @@
-import {forwardRef, useCallback, useMemo, useState} from 'react'
+import {forwardRef, useCallback, useState} from 'react'
+import type * as React from 'react'
 import type {InputCreditCardProps} from './InputCreditCard.types'
 import {Input} from '../Input'
 import {cn} from '../../../utils/cn'
@@ -41,8 +42,6 @@ export const InputCreditCard = forwardRef<HTMLInputElement, InputCreditCardProps
     const [touched, setTouched] = useState(false)
 
     const currentValue = value !== undefined ? formatCardNumber(value.toString()) : internalValue
-    const detectedBrand = useMemo(() => detectCardBrand(currentValue), [currentValue])
-
     const runValidation = useCallback(
         (formattedValue: string) => {
             const result = validateCardNumber(formattedValue)

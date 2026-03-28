@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputCurrencyProps} from './InputCurrency.types'
 import {Input} from '../Input'
 import {cn} from '../../../utils/cn'

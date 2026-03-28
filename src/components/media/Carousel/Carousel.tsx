@@ -1,4 +1,5 @@
 import {useState, useEffect, useCallback, useRef, Children} from 'react'
+import type * as React from 'react'
 import type {CarouselProps} from './Carousel.types'
 import {cn} from '../../../utils/cn'
 import {ChevronLeftIcon, ChevronRightIcon} from '../../../icons'

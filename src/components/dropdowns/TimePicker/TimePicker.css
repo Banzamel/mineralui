@@ -2,7 +2,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--mineral-spacing-xs);
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
     position: relative;
 }
 

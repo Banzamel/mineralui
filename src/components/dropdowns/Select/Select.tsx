@@ -1,4 +1,5 @@
 import {useState, useRef, useCallback, useMemo} from 'react'
+import type * as React from 'react'
 import type {SelectProps, SelectOption} from './Select.types'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'

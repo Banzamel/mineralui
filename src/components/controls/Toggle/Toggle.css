@@ -4,7 +4,7 @@
     gap: var(--mineral-spacing-sm);
     cursor: pointer;
     user-select: none;
-    font-family: var(--mineral-font-family);
+    font-family: var(--mineral-font-family), sans-serif;
 }
 
 .toggle.label-left {
@@ -154,3 +154,4 @@
 .toggle .label-text {
     color: var(--mineral-text);
 }
+

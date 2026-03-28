@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import type * as React from 'react'
 import type {ImageProps} from './Image.types'
 import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
@@ -22,6 +23,7 @@ export function Image({
     fallback,
     className,
     style,
+    alt,
     onError,
     ...rest
 }: ImageProps) {
@@ -48,7 +50,7 @@ export function Image({
                 onPointerDown={handlePointerDown}
             >
                 {effectLayer}
-                <img className={imgClassName} style={ratioStyle} onError={handleError} {...rest} />
+                <img className={imgClassName} style={ratioStyle} onError={handleError} {...rest} alt={alt ?? ''} />
             </span>
         )
     }
@@ -59,6 +61,7 @@ export function Image({
             style={ratioStyle}
             onError={handleError}
             {...rest}
+            alt={alt ?? ''}
         />
     )
 }

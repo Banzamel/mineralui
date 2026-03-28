@@ -4,7 +4,7 @@
     gap: var(--mineral-spacing-sm);
     cursor: pointer;
     user-select: none;
-    font-family: var(--mineral-font-family, sans-serif);
+    font-family: var(--mineral-font-family), sans-serif;
 }
 
 .radio.label-left {

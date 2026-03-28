@@ -1,4 +1,5 @@
 import {useState, useCallback, forwardRef} from 'react'
+import type * as React from 'react'
 import type {InputTaxIdProps, TaxIdType} from './InputTaxId.types'
 import {Input} from '../Input'
 import {validateNIP, validatePESEL, validateREGON} from '../../../utils/validators'
