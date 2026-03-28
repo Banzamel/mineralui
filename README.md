@@ -223,7 +223,9 @@ Available subpaths:
 - `MDatePicker`, `MDateRangePicker` and `MTimePicker` cover common date input needs
 - `MDateRangePicker` supports presets and side-panel workflows
 - `MTimeAgo` formats relative time through `Intl.RelativeTimeFormat` and falls back to absolute dates after a threshold
-- locale can follow the active `MI18nProvider`
+- `MDatePicker`, `MDateRangePicker` and `MTimeAgo` can follow the active `MI18nProvider` through `document.documentElement.lang`
+- calendar month and weekday labels are resolved through `Intl.DateTimeFormat`, so locale is no longer limited to manual `pl` / `en` tables
+- `locale` stays available as an explicit override when a picker should render in a different language than the current app shell
 
 ### Data and navigation
 - `MDataTable` supports sorting, filtering, pagination and row selection

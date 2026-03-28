@@ -11,7 +11,7 @@ import './InputCreditCard.css'
 function CardBrandBadge({value}: {value: string}) {
     const brand = detectCardBrand(value)
 
-    return <span className={cn('credit brand', brand.brand)}>{brand.iconLabel}</span>
+    return <span className={cn('credit-card-brand-badge', 'credit-brand', brand.brand)}>{brand.iconLabel}</span>
 }
 
 // Extend the base input with payment card detection, formatting and checksum validation.
@@ -97,7 +97,7 @@ export const InputCreditCard = forwardRef<HTMLInputElement, InputCreditCardProps
 
     const validIcon =
         showValidIcon && isSuccess ? (
-            <span className="credit valid" aria-hidden="true">
+            <span className="credit valid credit-card-valid-icon" aria-hidden="true">
                 <CheckIcon />
             </span>
         ) : undefined
@@ -117,7 +117,7 @@ export const InputCreditCard = forwardRef<HTMLInputElement, InputCreditCardProps
             placeholder={placeholder}
             startIcon={showBrandIcon ? <CardBrandBadge value={currentValue} /> : undefined}
             endIcon={validIcon}
-            className={cn('credit card input', className)}
+            className={cn('credit-card input', className)}
         />
     )
 })

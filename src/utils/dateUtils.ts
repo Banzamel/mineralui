@@ -68,46 +68,28 @@ export function parseDate(value: string, format: string = 'dd.MM.yyyy'): Date | 
     return new Date(year, month - 1, day)
 }
 
-const DAY_NAMES_PL = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd']
-const DAY_NAMES_EN = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
-
-const MONTH_NAMES_PL = [
-    'Styczeń',
-    'Luty',
-    'Marzec',
-    'Kwiecień',
-    'Maj',
-    'Czerwiec',
-    'Lipiec',
-    'Sierpień',
-    'Wrzesień',
-    'Październik',
-    'Listopad',
-    'Grudzień',
-]
-const MONTH_NAMES_EN = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-]
+function normalizeWeekdayLabel(label: string): string {
+    return label.replace(/\.$/u, '')
+}
 
 // Return localized short day names for calendar headers.
-export function getDayNames(locale: 'pl' | 'en' = 'pl'): string[] {
-    return locale === 'pl' ? DAY_NAMES_PL : DAY_NAMES_EN
+export function getDayNames(locale: string = 'en', firstDayOfWeek: 0 | 1 = 1): string[] {
+    const formatter = new Intl.DateTimeFormat(locale, {weekday: 'short'})
+    const sunday = new Date(Date.UTC(2021, 7, 1))
+    const dayNames = Array.from({length: 7}, (_, index) => {
+        const date = new Date(sunday)
+        date.setUTCDate(sunday.getUTCDate() + index)
+        return normalizeWeekdayLabel(formatter.format(date))
+    })
+
+    return firstDayOfWeek === 1 ? [...dayNames.slice(1), dayNames[0]] : dayNames
 }
 
 // Return localized month names for pickers and headers.
-export function getMonthNames(locale: 'pl' | 'en' = 'pl'): string[] {
-    return locale === 'pl' ? MONTH_NAMES_PL : MONTH_NAMES_EN
+export function getMonthNames(locale: string = 'en'): string[] {
+    const formatter = new Intl.DateTimeFormat(locale, {month: 'long'})
+
+    return Array.from({length: 12}, (_, month) => formatter.format(new Date(Date.UTC(2021, month, 1))))
 }
 
 // Parse a time string into numeric hour, minute and second parts.

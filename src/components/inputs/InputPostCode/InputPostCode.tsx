@@ -130,9 +130,9 @@ export const InputPostCode = forwardRef<HTMLInputElement, InputPostCodeProps>(fu
             disabled={disabled}
             prepend={
                 selectableCountry ? (
-            <div className="post code country wrap">
-                <select
-                    className="post code country select"
+                    <div className="country-select-wrap">
+                        <select
+                            className="country-select"
                             value={currentCountry}
                             onChange={handleCountryChange}
                             disabled={disabled}
@@ -149,7 +149,7 @@ export const InputPostCode = forwardRef<HTMLInputElement, InputPostCodeProps>(fu
                     {type: 'text', content: currentCountry}
                 )
             }
-            className={cn('post code input', className)}
+            className={cn('input-post-code', className)}
         />
     )
 })

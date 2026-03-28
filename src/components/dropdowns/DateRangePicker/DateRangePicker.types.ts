@@ -21,7 +21,7 @@ export interface DateRangePickerProps {
     defaultValue?: DateRangeValue
     onChange?: (range: {start: Date | null; end: Date | null}) => void
     format?: string
-    locale?: 'pl' | 'en'
+    locale?: string
     min?: Date | string
     max?: Date | string
     disabledDates?: Date[] | ((date: Date) => boolean)

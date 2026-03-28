@@ -1,13 +1,9 @@
-.post.code.input {
-    --color-rgb: var(--mineral-primary-rgb);
-}
-
-.post.code.input .addon.custom.prepend {
+.input-post-code .addon.custom.prepend {
     padding: 0;
-    border-right: 1px solid rgba(var(--color-rgb), 0.15);
+    border-right: 1px solid rgba(var(--color-rgb, var(--mineral-primary-rgb)), 0.15);
 }
 
-.post.code.country.select {
+.input-post-code .country-select {
     min-width: 92px;
     height: 100%;
     padding: 0 28px 0 12px;
@@ -21,30 +17,30 @@
     font-size: inherit;
 }
 
-.post.code.country.select option {
+.input-post-code .country-select option {
     background: var(--mineral-surface, #1e293b);
     color: var(--mineral-text);
 }
 
-.post.code.country.select:disabled {
+.input-post-code .country-select:disabled {
     cursor: not-allowed;
 }
 
-.post.code.country.wrap {
+.input-post-code .country-select-wrap {
     position: relative;
     display: flex;
     align-items: stretch;
 }
 
-.post.code.country.wrap::after {
+.input-post-code .country-select-wrap::after {
     content: '';
     position: absolute;
     right: 10px;
     top: 50%;
     width: 8px;
     height: 8px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    border-right: 1.8px solid currentColor;
+    border-bottom: 1.8px solid currentColor;
     transform: translateY(-65%) rotate(45deg);
     pointer-events: none;
     opacity: 0.7;

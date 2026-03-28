@@ -3,6 +3,7 @@ import type * as React from 'react'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
+import {getCalendarLocaleText, getLocaleLanguage, useDocumentLocale} from '../../../utils/locale'
 import {CalendarIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon} from '../../../icons'
 import {
     addMonths,
@@ -66,23 +67,54 @@ function monthsAgo(months: number): Date {
     return new Date(today.getFullYear(), today.getMonth() - months, today.getDate())
 }
 
-function getDefaultPresets(): DateRangePreset[] {
+function getDefaultPresets(locale: string): DateRangePreset[] {
     const today = stripTime(new Date())
     const previousMonthDate = new Date(today.getFullYear(), today.getMonth() - 1, 1)
+    const language = getLocaleLanguage(locale)
+    const labels =
+        language === 'pl'
+            ? {
+                  today: 'Dzisiaj',
+                  days2: '2 dni',
+                  days3: '3 dni',
+                  days7: '7 dni',
+                  days14: '14 dni',
+                  days31: '31 dni',
+                  thisMonth: 'Ten miesiąc',
+                  previousMonth: 'Poprzedni miesiąc',
+                  months2: '2 miesiące',
+                  months3: '3 miesiące',
+                  months6: '6 miesięcy',
+                  year1: '1 rok',
+              }
+            : {
+                  today: 'Today',
+                  days2: '2 days',
+                  days3: '3 days',
+                  days7: '7 days',
+                  days14: '14 days',
+                  days31: '31 days',
+                  thisMonth: 'This month',
+                  previousMonth: 'Previous month',
+                  months2: '2 months',
+                  months3: '3 months',
+                  months6: '6 months',
+                  year1: '1 year',
+              }
 
     return [
-        {label: 'Today', value: {start: today, end: today}},
-        {label: '2 days', value: {start: daysAgo(2), end: today}},
-        {label: '3 days', value: {start: daysAgo(3), end: today}},
-        {label: '7 days', value: {start: daysAgo(7), end: today}},
-        {label: '14 days', value: {start: daysAgo(14), end: today}},
-        {label: '31 days', value: {start: daysAgo(31), end: today}},
-        {label: 'This month', value: {start: startOfMonth(today), end: endOfMonth(today)}},
-        {label: 'Previous month', value: {start: startOfMonth(previousMonthDate), end: endOfMonth(previousMonthDate)}},
-        {label: '2 months', value: {start: monthsAgo(2), end: today}},
-        {label: '3 months', value: {start: monthsAgo(3), end: today}},
-        {label: '6 months', value: {start: monthsAgo(6), end: today}},
-        {label: '1 year', value: {start: monthsAgo(12), end: today}},
+        {label: labels.today, value: {start: today, end: today}},
+        {label: labels.days2, value: {start: daysAgo(2), end: today}},
+        {label: labels.days3, value: {start: daysAgo(3), end: today}},
+        {label: labels.days7, value: {start: daysAgo(7), end: today}},
+        {label: labels.days14, value: {start: daysAgo(14), end: today}},
+        {label: labels.days31, value: {start: daysAgo(31), end: today}},
+        {label: labels.thisMonth, value: {start: startOfMonth(today), end: endOfMonth(today)}},
+        {label: labels.previousMonth, value: {start: startOfMonth(previousMonthDate), end: endOfMonth(previousMonthDate)}},
+        {label: labels.months2, value: {start: monthsAgo(2), end: today}},
+        {label: labels.months3, value: {start: monthsAgo(3), end: today}},
+        {label: labels.months6, value: {start: monthsAgo(6), end: today}},
+        {label: labels.year1, value: {start: monthsAgo(12), end: today}},
     ]
 }
 
@@ -127,11 +159,11 @@ export function DateRangePicker({
     defaultValue,
     onChange,
     format = 'dd.MM.yyyy',
-    locale = 'pl',
+    locale: localeOverride,
     min,
     max,
     disabledDates,
-    placeholder = 'Select date range...',
+    placeholder,
     disabled = false,
     readOnly = false,
     name,
@@ -155,6 +187,7 @@ export function DateRangePicker({
     className,
     style,
 }: DateRangePickerProps) {
+    const locale = useDocumentLocale(localeOverride)
     const controlledRange = value
         ? {
               start: toDate(value.start),
@@ -175,11 +208,12 @@ export function DateRangePicker({
     const minDate = toDate(min)
     const maxDate = toDate(max)
     const hasError = error || !!errorText
-    const dayNames = getDayNames(locale)
+    const texts = getCalendarLocaleText(locale)
+    const dayNames = getDayNames(locale, firstDayOfWeek)
     const monthNames = getMonthNames(locale)
     const availablePresets = useMemo(() => {
         if (presets === true || (presetsSidebar && !presets)) {
-            return getDefaultPresets()
+            return getDefaultPresets(locale)
         }
 
         if (Array.isArray(presets)) {
@@ -187,7 +221,7 @@ export function DateRangePicker({
         }
 
         return []
-    }, [presets, presetsSidebar])
+    }, [locale, presets, presetsSidebar])
 
     const [viewDate, setViewDate] = useState(() => {
         const baseDate = startDate ?? new Date()
@@ -315,7 +349,7 @@ export function DateRangePicker({
             ? `${formatDate(startDate, format)} - ${formatDate(endDate, format)}`
             : startDate
               ? `${formatDate(startDate, format)} - ...`
-              : placeholder
+              : (placeholder ?? texts.defaultRangePlaceholder)
 
     const showSidebar = presetsSidebar && availablePresets.length > 0
     const showInlinePresets = !presetsSidebar && availablePresets.length > 0
@@ -342,14 +376,14 @@ export function DateRangePicker({
                     <span className="caption-title">
                         {monthNames[firstMonth.getMonth()]} {firstMonth.getFullYear()}
                     </span>
-                    <span className="caption-subtitle">Select start and end dates in one panel.</span>
+                    <span className="caption-subtitle">{texts.rangeSubtitle}</span>
                 </div>
                 <div className="nav-actions">
                     <button
                         type="button"
                         className="nav-btn"
                         onClick={() => setViewDate(addMonths(viewDate, -1))}
-                        aria-label="Previous month"
+                        aria-label={texts.previousMonth}
                     >
                         <ChevronLeftIcon />
                     </button>
@@ -357,7 +391,7 @@ export function DateRangePicker({
                         type="button"
                         className="nav-btn"
                         onClick={() => setViewDate(addMonths(viewDate, 1))}
-                        aria-label="Next month"
+                        aria-label={texts.nextMonth}
                     >
                         <ChevronRightIcon />
                     </button>
@@ -449,12 +483,12 @@ export function DateRangePicker({
                                 setHoveredDate(null)
                             }}
                         >
-                            Clear
+                            {texts.clear}
                         </button>
                     )}
                     {showTodayButton && (
                         <button type="button" className="footer-btn" onClick={handleToday}>
-                            Today
+                            {texts.today}
                         </button>
                     )}
                 </div>
@@ -517,7 +551,7 @@ export function DateRangePicker({
                     type="text"
                     className="input"
                     value={displayValue}
-                    placeholder={placeholder}
+                    placeholder={placeholder ?? texts.defaultRangePlaceholder}
                     disabled={disabled}
                     readOnly
                     id={id}
@@ -529,7 +563,7 @@ export function DateRangePicker({
                         className="clear-btn"
                         onClick={handleClear}
                         tabIndex={-1}
-                        aria-label="Clear date range"
+                        aria-label={texts.clear}
                     >
                         <CloseIcon />
                     </button>

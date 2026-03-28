@@ -8,7 +8,7 @@ export interface DatePickerProps {
     defaultValue?: Date | string
     onChange?: (date: Date | null) => void
     format?: string
-    locale?: 'pl' | 'en'
+    locale?: string
     min?: Date | string
     max?: Date | string
     disabledDates?: Date[] | ((date: Date) => boolean)

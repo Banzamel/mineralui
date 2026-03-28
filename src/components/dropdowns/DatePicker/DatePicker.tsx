@@ -4,6 +4,7 @@ import type {DatePickerProps} from './DatePicker.types'
 import {Popover} from '../../primitives'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
+import {getCalendarLocaleText, useDocumentLocale} from '../../../utils/locale'
 import {
     CalendarIcon as CalendarGlyphIcon,
     ChevronLeftIcon as ChevronLeftGlyphIcon,
@@ -38,7 +39,7 @@ export function DatePicker({
     defaultValue,
     onChange,
     format = 'dd.MM.yyyy',
-    locale = 'pl',
+    locale: localeOverride,
     min,
     max,
     disabledDates,
@@ -63,6 +64,7 @@ export function DatePicker({
     className,
     style,
 }: DatePickerProps) {
+    const locale = useDocumentLocale(localeOverride)
     const [open, setOpen] = useState(false)
     const [internalDate, setInternalDate] = useState<Date | null>(toDate(defaultValue))
     const [inputText, setInputText] = useState('')
@@ -88,7 +90,8 @@ export function DatePicker({
         return selectedDate ? formatDate(selectedDate, format) : ''
     }, [selectedDate, format, inputText])
 
-    const dayNames = getDayNames(locale)
+    const texts = getCalendarLocaleText(locale)
+    const dayNames = getDayNames(locale, firstDayOfWeek)
     const monthNames = getMonthNames(locale)
 
     // Centralize date disabling so all calendar paths share the same logic.
@@ -194,7 +197,7 @@ export function DatePicker({
                     type="button"
                     className="nav-btn"
                     onClick={() => setViewDate(addMonths(viewDate, -1))}
-                    aria-label="Previous month"
+                    aria-label={texts.previousMonth}
                 >
                     <ChevronLeftGlyphIcon />
                 </button>
@@ -209,7 +212,7 @@ export function DatePicker({
                     type="button"
                     className="nav-btn"
                     onClick={() => setViewDate(addMonths(viewDate, 1))}
-                    aria-label="Next month"
+                    aria-label={texts.nextMonth}
                 >
                     <ChevronRightGlyphIcon />
                 </button>
@@ -273,7 +276,7 @@ export function DatePicker({
             {showTodayButton && (
                 <div className="footer">
                     <button type="button" className="today-btn" onClick={handleToday}>
-                        Today
+                        {texts.today}
                     </button>
                 </div>
             )}
@@ -337,7 +340,7 @@ export function DatePicker({
                         className="clear-btn"
                         onClick={handleClear}
                         tabIndex={-1}
-                        aria-label="Clear date"
+                        aria-label={texts.clear}
                     >
                         <CloseGlyphIcon />
                     </button>

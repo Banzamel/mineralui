@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from 'react'
 import type {TimeAgoProps, TimeAgoUpdate} from './TimeAgo.types'
 import {cn} from '../../../utils/cn'
+import {useDocumentLocale} from '../../../utils/locale'
 import {
     formatAbsoluteTime,
     formatRelativeTime,
@@ -10,57 +11,12 @@ import {
 } from '../../../utils/relativeTime'
 import './TimeAgo.css'
 
-function resolveLocale(): string {
-    if (typeof document !== 'undefined') {
-        const lang = document.documentElement.lang?.trim()
-        if (lang) return lang
-    }
-
-    if (typeof navigator !== 'undefined') {
-        return navigator.language || navigator.languages?.[0] || 'en'
-    }
-
-    return 'en'
-}
-
 function getUpdateInterval(update: TimeAgoUpdate, value: Date | string | number, now: number): number | null {
     if (update === 'none') return null
     if (update === 'minute') return 60 * 1000
     if (update === 'hour') return 60 * 60 * 1000
     if (update === 'day') return 24 * 60 * 60 * 1000
     return getAutoUpdateInterval(value, now)
-}
-
-// React to lang changes driven by MI18nProvider without forcing the component to live inside the provider.
-function useDocumentLocale(explicitLocale?: string): string {
-    const [locale, setLocale] = useState(() => explicitLocale || resolveLocale())
-
-    useEffect(() => {
-        if (explicitLocale) {
-            setLocale(explicitLocale)
-            return
-        }
-
-        if (typeof document === 'undefined') return
-
-        const update = () => setLocale(resolveLocale())
-        update()
-
-        const observer = new MutationObserver(update)
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['lang'],
-        })
-
-        window.addEventListener('languagechange', update)
-
-        return () => {
-            observer.disconnect()
-            window.removeEventListener('languagechange', update)
-        }
-    }, [explicitLocale])
-
-    return locale
 }
 
 export function TimeAgo({
