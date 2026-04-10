@@ -27,3 +27,25 @@
     gap: var(--mineral-spacing-lg);
     min-height: var(--mineral-navbar-height);
 }
+
+.header .inner > * {
+    min-width: 0;
+}
+
+.header .inner.layout-balanced {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+}
+
+.header .inner.layout-balanced > :first-child {
+    justify-self: start;
+}
+
+.header .inner.layout-balanced > :nth-child(2) {
+    justify-self: center;
+}
+
+.header .inner.layout-balanced > :last-child {
+    justify-self: end;
+}

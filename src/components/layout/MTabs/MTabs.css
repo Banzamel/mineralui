@@ -8,6 +8,9 @@
     align-items: center;
     gap: var(--mineral-spacing-sm);
     border-bottom: 1px solid var(--mineral-border);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
 }
 
 .tabs.vertical {
@@ -43,9 +46,9 @@
     font-weight: 600;
     cursor: pointer;
     transition:
-        color 0.18s ease,
-        background-color 0.18s ease,
-        border-color 0.18s ease;
+        color var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast),
+        border-color var(--mineral-transition-fast);
 }
 
 .tabs.vertical .tabs-trigger {
@@ -102,6 +105,11 @@
     border-color: rgba(var(--mineral-primary-rgb), 0.32);
 }
 
+.tabs.xs .tabs-trigger {
+    min-height: 30px;
+    font-size: var(--mineral-font-size-xs);
+}
+
 .tabs.sm .tabs-trigger {
     min-height: 36px;
     font-size: var(--mineral-font-size-sm);
@@ -116,6 +124,11 @@
     font-size: var(--mineral-font-size-lg);
 }
 
+.tabs.xl .tabs-trigger {
+    min-height: 56px;
+    font-size: var(--mineral-font-size-xl);
+}
+
 .tabs .tabs-trigger.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -124,13 +137,13 @@
 .tabs .tabs-panel {
     color: var(--mineral-text);
     min-width: 0;
-    animation: tabs-fade-in 0.5s ease;
+    animation: tabs-fade-in 600ms var(--mineral-ease-out);
 }
 
 @keyframes tabs-fade-in {
     from {
         opacity: 0;
-        transform: translateY(4px);
+        transform: translateY(3px);
     }
     to {
         opacity: 1;

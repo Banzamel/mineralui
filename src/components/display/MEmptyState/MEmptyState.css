@@ -1,0 +1,107 @@
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--mineral-spacing-md);
+    padding: var(--mineral-spacing-xl) var(--mineral-spacing-lg);
+    width: 100%;
+}
+
+.empty-state-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(var(--color-rgb), 0.6);
+}
+
+.empty-state-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    max-width: 400px;
+}
+
+.empty-state-title {
+    font-weight: 600;
+    color: var(--mineral-text);
+}
+
+.empty-state-description {
+    color: var(--mineral-text-secondary);
+    line-height: 1.5;
+}
+
+.empty-state-action {
+    display: flex;
+    justify-content: center;
+    gap: var(--mineral-spacing-sm);
+}
+
+/* Sizes */
+.empty-state.xs .empty-state-title {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.empty-state.xs .empty-state-description {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.empty-state.xs {
+    gap: var(--mineral-spacing-xs);
+    padding: var(--mineral-spacing-md) var(--mineral-spacing-sm);
+}
+
+.empty-state.sm .empty-state-title {
+    font-size: var(--mineral-font-size-sm);
+}
+
+.empty-state.sm .empty-state-description {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.empty-state.sm {
+    gap: var(--mineral-spacing-sm);
+    padding: var(--mineral-spacing-lg) var(--mineral-spacing-md);
+}
+
+.empty-state.md .empty-state-title {
+    font-size: var(--mineral-font-size-lg);
+}
+
+.empty-state.md .empty-state-description {
+    font-size: var(--mineral-font-size-sm);
+}
+
+.empty-state.lg .empty-state-title {
+    font-size: var(--mineral-font-size-xl);
+}
+
+.empty-state.lg .empty-state-description {
+    font-size: var(--mineral-font-size-md);
+}
+
+.empty-state.lg {
+    gap: var(--mineral-spacing-lg);
+    padding: var(--mineral-spacing-2xl) var(--mineral-spacing-xl);
+}
+
+.empty-state.xl .empty-state-title {
+    font-size: var(--mineral-font-size-2xl);
+}
+
+.empty-state.xl .empty-state-description {
+    font-size: var(--mineral-font-size-lg);
+}
+
+.empty-state.xl {
+    gap: var(--mineral-spacing-xl);
+    padding: var(--mineral-spacing-3xl) var(--mineral-spacing-2xl);
+}

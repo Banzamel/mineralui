@@ -1,0 +1,77 @@
+.crop.editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--mineral-spacing-md);
+}
+
+.crop.viewport {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    background: rgba(var(--mineral-neutral-rgb), 0.06);
+    border: 1px solid rgba(var(--mineral-neutral-rgb), 0.12);
+}
+
+.crop.viewport:active {
+    cursor: grabbing;
+}
+
+.crop.viewport.square {
+    border-radius: var(--mineral-radius-md);
+}
+
+.crop.viewport.circle {
+    border-radius: 50%;
+}
+
+.crop.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none;
+    pointer-events: none;
+}
+
+.crop.overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.3);
+}
+
+.crop.overlay.square {
+    border-radius: var(--mineral-radius-md);
+}
+
+.crop.overlay.circle {
+    border-radius: 50%;
+}
+
+.crop.zoom {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    width: 280px;
+}
+
+.crop.zoom.icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--mineral-text-secondary);
+}
+
+.crop.zoom.slider {
+    flex: 1;
+}
+
+.crop.actions {
+    display: flex;
+    gap: var(--mineral-spacing-sm);
+}
+

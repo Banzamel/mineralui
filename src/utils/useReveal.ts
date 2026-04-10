@@ -14,13 +14,13 @@ export function useReveal<T extends HTMLElement = HTMLElement>(reveal: RevealPro
 
         const delay = typeof reveal === 'number' ? reveal : 0
         if (delay > 0) {
-            node.style.setProperty('--mineral-reveal-delay', `${delay}s`)
+            node.style.setProperty('--reveal-delay', `${delay}s`)
         }
 
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         if (prefersReduced) {
-            node.classList.remove('mineral-reveal')
-            node.classList.add('mineral-revealed')
+            node.classList.remove('reveal')
+            node.classList.add('revealed')
             return
         }
 
@@ -28,7 +28,7 @@ export function useReveal<T extends HTMLElement = HTMLElement>(reveal: RevealPro
             (entries) => {
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
-                        node.classList.add('mineral-revealed')
+                        node.classList.add('revealed')
                         observer.disconnect()
                     }
                 }

@@ -2,7 +2,6 @@ import {useId, useMemo, useState} from 'react'
 import type {KeyboardEvent} from 'react'
 import type {MTabsItem, MTabsProps} from './MTabs.types'
 import {cn} from '../../../utils/cn'
-import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import './MTabs.css'
 
@@ -59,7 +58,6 @@ export function MTabs({
     orientation = 'horizontal',
     size = 'md',
     fullWidth = false,
-    fcolor,
     showPanels = true,
     panelClassName,
     clickEffect = 'ripple',
@@ -111,18 +109,7 @@ export function MTabs({
     }
 
     return (
-        <div
-            className={cn(
-                'tabs',
-                variant,
-                orientation,
-                size,
-                ...getAppearanceClassNames({fcolor}),
-                fullWidth && 'full-width',
-                className
-            )}
-            {...rest}
-        >
+        <div className={cn('tabs', variant, orientation, size, fullWidth && 'full-width', className)} {...rest}>
             <div className="tabs-list" role="tablist" aria-orientation={orientation} onKeyDown={handleKeyDown}>
                 {items.map((item) => {
                     const isActive = item.value === activeItem?.value

@@ -1,0 +1,147 @@
+.avatar {
+    --avatar-size: 40px;
+    --avatar-bg: rgba(var(--mineral-primary-rgb), 0.5);
+    --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    overflow: visible;
+    background: var(--avatar-bg);
+    color: #fff;
+    border: 2px solid rgba(var(--color-rgb), 0.28);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(var(--color-rgb), 0.06);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    user-select: none;
+    transition:
+        border-color var(--mineral-transition-base),
+        box-shadow var(--mineral-transition-base),
+        transform var(--mineral-transition-fast),
+        background-color var(--mineral-transition-base);
+}
+
+.avatar > :not(.click-effect-layer):not(.overlay-badge) {
+    position: relative;
+    z-index: 1;
+}
+
+.avatar > .overlay-badge {
+    z-index: 3;
+}
+
+.avatar.click-effect-root {
+    overflow: visible;
+}
+
+.avatar.interactive {
+    cursor: pointer;
+}
+
+.avatar.interactive:hover {
+    border-color: rgba(var(--color-rgb), 0.38);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.12);
+    transform: translateY(-1px);
+}
+
+.avatar.interactive:focus-visible {
+    outline: none;
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.22);
+}
+
+.avatar.circle {
+    border-radius: 999px;
+}
+
+.avatar.rounded {
+    border-radius: var(--mineral-radius-md);
+}
+
+.avatar.square {
+    border-radius: 0;
+}
+
+.avatar.xs {
+    --avatar-size: 20px;
+}
+
+.avatar.sm {
+    --avatar-size: 28px;
+}
+
+.avatar.md {
+    --avatar-size: 40px;
+}
+
+.avatar.lg {
+    --avatar-size: 56px;
+}
+
+.avatar.xl {
+    --avatar-size: 72px;
+}
+
+.avatar.color-primary {
+    --avatar-bg: rgba(var(--mineral-primary-rgb), 0.5);
+}
+
+.avatar.color-success {
+    --avatar-bg: rgba(var(--mineral-success-rgb), 0.5);
+}
+
+.avatar.color-warning {
+    --avatar-bg: rgba(var(--mineral-warning-rgb), 0.5);
+}
+
+.avatar.color-error {
+    --avatar-bg: rgba(var(--mineral-error-rgb), 0.5);
+}
+
+.avatar.color-info {
+    --avatar-bg: rgba(var(--mineral-info-rgb), 0.5);
+}
+.avatar.color-light {
+    --avatar-bg: rgba(var(--mineral-light-rgb), 0.5);
+}
+.avatar.color-dark {
+    --avatar-bg: rgba(var(--mineral-dark-color-rgb), 0.5);
+}
+.avatar.color-news {
+    --avatar-bg: rgba(var(--mineral-news-rgb), 0.5);
+}
+
+.avatar.color-neutral {
+    --avatar-bg: rgba(var(--mineral-neutral-rgb), 0.5);
+}
+
+.avatar .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.avatar .fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Skeleton state — animation from MSkeleton.css (@keyframes skeleton-pulse) */
+.avatar.skeleton {
+    background: rgba(var(--mineral-text-rgb, 0 0 0), 0.08);
+    border-color: transparent;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.avatar.skeleton.animate {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}

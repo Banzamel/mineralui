@@ -1,0 +1,80 @@
+.image-wrap {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.image-wrap > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
+}
+
+.image-wrap .image {
+    width: 100%;
+}
+
+.image-wrap.has-ratio .image {
+    height: 100%;
+}
+
+.image-wrap.rounded {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.image-wrap.bordered {
+    border: 1px solid var(--mineral-border);
+}
+
+.image-wrap.shadow {
+    box-shadow: var(--mineral-shadow-md);
+}
+
+.image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.image.cover {
+    object-fit: cover;
+}
+
+.image.contain {
+    object-fit: contain;
+}
+
+.image.fill {
+    object-fit: fill;
+}
+
+.image.none {
+    object-fit: none;
+}
+
+.image.rounded {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.image.bordered {
+    border: 1px solid var(--mineral-border);
+}
+
+.image.shadow {
+    box-shadow: var(--mineral-shadow-md);
+}
+
+/* Skeleton placeholder for image */
+.image-skeleton {
+    width: 100%;
+    min-height: 8rem;
+}
+
+.image-skeleton.rounded {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.image-skeleton.bordered {
+    border: 1px solid var(--mineral-border);
+}

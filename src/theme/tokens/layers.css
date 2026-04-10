@@ -5,7 +5,7 @@
     --mineral-z-toast: 1200;
 }
 
-.mineral-light {
+.theme-light {
     --mineral-dark-rgb: 255, 255, 255;
     --mineral-dark: rgba(255, 255, 255, 1);
     --mineral-dark-light-rgb: 255, 255, 255;
@@ -17,7 +17,8 @@
     --mineral-page-bg: rgba(243, 244, 246, 1);
     --mineral-page-text: rgba(30, 41, 59, 1);
 
-    --mineral-text: rgba(30, 41, 59, 1);
+    --mineral-text-rgb: 30, 41, 59;
+    --mineral-text: rgba(var(--mineral-text-rgb), 1);
     --mineral-text-secondary: rgba(100, 116, 139, 1);
     --mineral-text-muted: var(--mineral-text-secondary);
     --mineral-text-heading: rgba(31, 41, 55, 0.84);

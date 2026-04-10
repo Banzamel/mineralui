@@ -1,4 +1,4 @@
-export {cn as mergeClasses, cn} from './utils/cn'
+export {cn} from './utils/cn'
 export {
     validateRequired,
     validateMinLength,
@@ -50,17 +50,30 @@ export {
     parseTime,
     formatTime,
 } from './utils/dateUtils'
+export {
+    formatRelativeTime,
+    formatAbsoluteTime,
+    getRelativeTimeValue,
+    getAutoUpdateInterval,
+    parseRelativeThreshold,
+    toDate,
+} from './utils/relativeTime'
+export type {RelativeTimeFallbackFormat, RelativeTimeUnit, RelativeTimeValue} from './utils/relativeTime'
 export {useDebounce, useDebouncedCallback} from './utils/useDebounce'
-export {useClickOutside as useOutsideClick, useClickOutside} from './utils/useClickOutside'
-export {useKeyboardNav as useKeyNavigation, useKeyboardNav} from './utils/useKeyboardNav'
-export type {UseKeyboardNavOptions, UseKeyboardNavOptions as UseKeyNavigationOptions} from './utils/useKeyboardNav'
-export {useInteractionEffect as useClickEffect, useInteractionEffect} from './utils/useInteractionEffect'
-export type {
-    MineralClickEffect,
-    UseInteractionEffectOptions,
-    UseInteractionEffectResult,
-} from './utils/useInteractionEffect'
+export {useClickOutside} from './utils/useClickOutside'
+export {useKeyboardNav} from './utils/useKeyboardNav'
+export type {UseKeyboardNavOptions} from './utils/useKeyboardNav'
+export {useInteractionEffect} from './utils/useInteractionEffect'
+export type {MClickEffect, UseInteractionEffectOptions, UseInteractionEffectResult} from './utils/useInteractionEffect'
 export {useReveal} from './utils/useReveal'
 export type {RevealProp} from './utils/useReveal'
 export {useGhostText} from './utils/useGhostText'
 export type {GhostTextOptions, GhostTextReturn} from './utils/useGhostText'
+export {
+    mineralComponentLicenses,
+    mineralProComponents,
+    isMineralProComponent,
+    getMineralComponentLicense,
+    getMineralComponentPlan,
+} from './utils/licensing'
+export type {MineralPlan, MineralComponentLicense, MineralProComponentName} from './utils/licensing'

@@ -81,6 +81,7 @@ const entryMap = {
     layout: resolve(__dirname, 'src/layout.ts'),
     controls: resolve(__dirname, 'src/controls.ts'),
     icons: resolve(__dirname, 'src/icons.entry.ts'),
+    illustrations: resolve(__dirname, 'src/illustrations.entry.ts'),
     cards: resolve(__dirname, 'src/cards.ts'),
     data: resolve(__dirname, 'src/data.ts'),
     display: resolve(__dirname, 'src/display.ts'),
@@ -97,13 +98,15 @@ const entryMap = {
     utils: resolve(__dirname, 'src/utils.entry.ts'),
 }
 
+const styleInjectedEntries = Object.keys(entryMap).filter((entryName) => entryName !== 'cookie-consent-bootstrap')
+
 export default defineConfig({
     plugins: [
         dts({
             insertTypesEntry: true,
             rollupTypes: false,
         }),
-        cssAutoInject(Object.keys(entryMap)),
+        cssAutoInject(styleInjectedEntries),
     ],
     build: {
         lib: {

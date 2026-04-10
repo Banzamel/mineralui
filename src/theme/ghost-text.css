@@ -36,7 +36,7 @@
     opacity: 0.5;
 }
 
-/* Textarea ghost — align to top */
+/* MTextarea ghost — align to top */
 .ghost-text-field-multi .ghost-text-overlay {
     align-items: flex-start;
     padding: inherit;

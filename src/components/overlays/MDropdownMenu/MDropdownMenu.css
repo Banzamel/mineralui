@@ -1,0 +1,116 @@
+.dropdown.menu.anchor {
+    display: inline-flex;
+    position: relative;
+}
+
+.dropdown.menu.trigger {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown.menu.popover {
+    min-width: 180px;
+}
+
+.dropdown.menu.list {
+    padding: var(--mineral-spacing-sm) 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Item - unified look for links and buttons */
+.dropdown.menu.item {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-family: var(--mineral-font-family-sans), sans-serif;
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 500;
+    color: var(--mineral-text);
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+        background var(--mineral-transition-fast),
+        color var(--mineral-transition-fast);
+    outline: none;
+}
+
+.dropdown.menu.item:hover,
+.dropdown.menu.item.active {
+    background: var(--mineral-option-hover-bg);
+}
+
+.dropdown.menu.item.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.dropdown.menu.item.disabled:hover {
+    background: none;
+}
+
+/* Color variants */
+.dropdown.menu.item.error {
+    color: var(--mineral-error);
+}
+
+.dropdown.menu.item.error:hover,
+.dropdown.menu.item.error.active {
+    background: rgba(var(--mineral-error-rgb), 0.1);
+}
+
+.dropdown.menu.item.success {
+    color: var(--mineral-success);
+}
+
+.dropdown.menu.item.warning {
+    color: var(--mineral-warning);
+}
+
+.dropdown.menu.item.info {
+    color: var(--mineral-info);
+}
+
+.dropdown.menu.item.primary {
+    color: var(--mineral-primary);
+}
+
+/* Icon */
+.dropdown.menu.icon {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.1em;
+    flex-shrink: 0;
+}
+
+/* Label */
+.dropdown.menu.label {
+    flex: 1;
+}
+
+/* Group */
+.dropdown.menu.group-label {
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md) var(--mineral-spacing-xs);
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* MDivider */
+.dropdown.menu.divider {
+    height: 1px;
+    background: var(--mineral-border);
+    margin: var(--mineral-spacing-xs) 0;
+}

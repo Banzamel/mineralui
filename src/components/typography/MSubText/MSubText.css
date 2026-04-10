@@ -1,0 +1,30 @@
+.subtext {
+    display: inline-block;
+    color: var(--mineral-text-secondary);
+    line-height: 1.4;
+}
+
+.subtext.default {
+    color: var(--mineral-text);
+}
+
+.subtext.muted {
+    color: var(--mineral-text-secondary);
+}
+
+.subtext.accent {
+    color: var(--mineral-primary);
+    text-shadow: 0 1px 10px rgba(var(--mineral-primary-rgb), 0.5);
+}
+
+.subtext.xs {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.subtext.sm {
+    font-size: var(--mineral-font-size-sm);
+}
+
+.subtext.md {
+    font-size: var(--mineral-font-size-md);
+}

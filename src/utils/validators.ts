@@ -263,5 +263,70 @@ export function composeValidators(...validators: ValidatorFn[]): ValidatorFn {
     }
 }
 
+// === Date (DD/MM/YYYY, MM/DD/YYYY, YYYY/MM/DD) ===
+
+export type DateFormat = 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY/MM/DD'
+
+interface DateValidationOptions {
+    format?: DateFormat
+    minDate?: Date
+    maxDate?: Date
+}
+
+// Parse a date string in the given format into a Date or null.
+export function parseDateString(value: string, format: DateFormat = 'DD/MM/YYYY'): Date | null {
+    const digits = value.replace(/\D/g, '')
+    if (digits.length !== 8) return null
+
+    let day: number, month: number, year: number
+    if (format === 'DD/MM/YYYY') {
+        day = parseInt(digits.slice(0, 2), 10)
+        month = parseInt(digits.slice(2, 4), 10)
+        year = parseInt(digits.slice(4, 8), 10)
+    } else if (format === 'MM/DD/YYYY') {
+        month = parseInt(digits.slice(0, 2), 10)
+        day = parseInt(digits.slice(2, 4), 10)
+        year = parseInt(digits.slice(4, 8), 10)
+    } else {
+        year = parseInt(digits.slice(0, 4), 10)
+        month = parseInt(digits.slice(4, 6), 10)
+        day = parseInt(digits.slice(6, 8), 10)
+    }
+
+    if (month < 1 || month > 12) return null
+    if (day < 1 || day > 31) return null
+    if (year < 1) return null
+
+    const date = new Date(year, month - 1, day)
+    // Verify the date didn't overflow (e.g. Feb 30 → Mar 2)
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+        return null
+    }
+    return date
+}
+
+// Validate a date string with optional range constraints.
+export function validateDate(value: string, options: DateValidationOptions = {}): ValidationResult {
+    if (!value) return ok
+    const {format = 'DD/MM/YYYY', minDate, maxDate} = options
+
+    const digits = value.replace(/\D/g, '')
+    if (digits.length !== 8) return fail('Incomplete date')
+
+    const date = parseDateString(value, format)
+    if (!date) return fail('Invalid date')
+
+    if (minDate) {
+        const min = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
+        if (date < min) return fail('Date is too early')
+    }
+    if (maxDate) {
+        const max = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())
+        if (date > max) return fail('Date is too far in the future')
+    }
+
+    return ok
+}
+
 export {validatePostCode} from './postalCodes'
 export {validateCardNumber} from './creditCards'

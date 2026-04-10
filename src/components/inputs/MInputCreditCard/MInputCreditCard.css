@@ -1,0 +1,56 @@
+.credit-card.input {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
+.credit-card.input .credit-card-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: var(--mineral-radius-sm);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(var(--mineral-neutral-rgb), 0.14);
+    color: rgba(var(--color-rgb), 0.95);
+    border: 1px solid rgba(var(--color-rgb), 0.22);
+}
+
+.credit-card.input .credit-brand.visa {
+    background: rgba(20, 64, 174, 0.12);
+    border-color: rgba(20, 64, 174, 0.22);
+    color: rgba(20, 64, 174, 1);
+}
+
+.credit-card.input .credit-brand.mastercard {
+    background: rgba(234, 88, 12, 0.12);
+    border-color: rgba(234, 88, 12, 0.22);
+    color: rgba(234, 88, 12, 1);
+}
+
+.credit-card.input .credit-brand.amex {
+    background: rgba(8, 145, 178, 0.12);
+    border-color: rgba(8, 145, 178, 0.22);
+    color: rgba(8, 145, 178, 1);
+}
+
+.credit-card.input .credit-brand.discover {
+    background: rgba(245, 158, 11, 0.14);
+    border-color: rgba(245, 158, 11, 0.24);
+    color: rgba(180, 83, 9, 1);
+}
+
+.credit-card.input .credit-brand.maestro {
+    background: rgba(109, 40, 217, 0.12);
+    border-color: rgba(109, 40, 217, 0.24);
+    color: rgba(109, 40, 217, 1);
+}
+
+.credit-card.input .credit.valid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

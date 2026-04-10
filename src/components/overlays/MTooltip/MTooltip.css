@@ -1,0 +1,79 @@
+.tooltip.wrapper {
+    display: inline-flex;
+}
+
+.tooltip.bubble {
+    position: fixed;
+    z-index: var(--mineral-z-tooltip, 1150);
+    padding: 0.375rem 0.625rem;
+    font-size: var(--mineral-font-size-xs);
+    line-height: 1.4;
+    color: var(--mineral-tooltip-text);
+    background: var(--mineral-tooltip-bg);
+    border: 1px solid var(--mineral-popover-border);
+    border-radius: var(--mineral-radius-md);
+    box-shadow: var(--mineral-popover-shadow);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Directional enter animations */
+.tooltip.bubble.top {
+    animation: tooltip-slide-top 360ms var(--mineral-ease-out);
+}
+
+.tooltip.bubble.bottom {
+    animation: tooltip-slide-bottom 360ms var(--mineral-ease-out);
+}
+
+.tooltip.bubble.left {
+    animation: tooltip-slide-left 360ms var(--mineral-ease-out);
+}
+
+.tooltip.bubble.right {
+    animation: tooltip-slide-right 360ms var(--mineral-ease-out);
+}
+
+@keyframes tooltip-slide-top {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes tooltip-slide-bottom {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes tooltip-slide-left {
+    from {
+        opacity: 0;
+        transform: translateX(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tooltip-slide-right {
+    from {
+        opacity: 0;
+        transform: translateX(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,127 @@
+/* === Wrapper === */
+.textarea {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    font-family: var(--mineral-font-family), sans-serif;
+    position: relative;
+}
+
+.textarea.full-width {
+    width: 100%;
+}
+
+
+/* === MContainer === */
+.textarea .container {
+    display: flex;
+    position: relative;
+    transition:
+        border-color var(--mineral-transition-base),
+        box-shadow var(--mineral-transition-base),
+        background-color var(--mineral-transition-base);
+}
+
+
+/* --- Status --- */
+.textarea .container.error {
+    border-color: var(--mineral-error) !important;
+}
+
+.textarea .container.error.focused {
+    box-shadow: 0 0 0 3px rgba(var(--mineral-error-rgb), 0.22);
+}
+
+.textarea .container.success {
+    border-color: var(--mineral-success) !important;
+}
+
+.textarea .container.success.focused {
+    box-shadow: 0 0 0 3px rgba(var(--mineral-success-rgb), 0.22);
+}
+
+/* --- Sizes (height and padding overridden for textarea) --- */
+.textarea .container.field-sm,
+.textarea .container.field-md,
+.textarea .container.field-lg {
+    height: auto;
+    padding: 0;
+}
+
+.textarea .container.field-sm .field {
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-sm);
+}
+
+.textarea .container.field-md .field {
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md);
+}
+
+.textarea .container.field-lg .field {
+    padding: var(--mineral-spacing-md) var(--mineral-spacing-lg);
+}
+
+/* --- Disabled --- */
+.textarea .container.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* === MTextarea element === */
+.textarea .field {
+    flex: 1;
+    width: 100%;
+    min-height: 60px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--mineral-text);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.textarea .field::placeholder {
+    color: var(--mineral-text-secondary);
+    opacity: 0.6;
+}
+
+.textarea .field:disabled {
+    cursor: not-allowed;
+    resize: none;
+}
+
+/* === Spinner === */
+.textarea .textarea-spinner {
+    position: absolute;
+    top: var(--mineral-spacing-sm);
+    right: var(--mineral-spacing-sm);
+}
+
+/* === Bottom row === */
+.textarea .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--mineral-spacing-sm);
+}
+
+.textarea .field-helper {
+    margin-top: 2px;
+}
+
+.textarea .field-error {
+    margin-top: 2px;
+}
+
+.textarea .char-count {
+    font-size: var(--mineral-font-size-xs);
+    color: var(--mineral-text-secondary);
+    text-align: right;
+    margin-top: 2px;
+}
+
+.textarea .char-count.over {
+    color: var(--mineral-error);
+}

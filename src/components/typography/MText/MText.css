@@ -1,0 +1,85 @@
+.text {
+    margin: 0;
+    font-family: var(--mineral-font-family-sans), sans-serif;
+    line-height: 1.6;
+}
+
+.text.default {
+    color: var(--mineral-text);
+}
+
+.text.muted {
+    color: var(--mineral-text-secondary);
+}
+
+.text.accent {
+    color: var(--mineral-primary);
+    text-shadow: 0 1px 10px rgba(var(--mineral-primary-rgb), 0.5);
+}
+
+.text.xs {
+    font-size: var(--mineral-font-size-xs);
+}
+
+.text.sm {
+    font-size: var(--mineral-font-size-sm);
+}
+
+.text.md {
+    font-size: var(--mineral-font-size-md);
+}
+
+.text.lg {
+    font-size: var(--mineral-font-size-lg);
+}
+
+.text.xl {
+    font-size: var(--mineral-font-size-xl);
+}
+
+.text.left {
+    text-align: left;
+}
+
+.text.center {
+    text-align: center;
+}
+
+.text.right {
+    text-align: right;
+}
+
+.text.justify {
+    text-align: justify;
+}
+
+.text.normal {
+    font-weight: 400;
+}
+
+.text.medium {
+    font-weight: 500;
+}
+
+.text.semibold {
+    font-weight: 600;
+}
+
+.text.bold {
+    font-weight: 700;
+}
+
+/* Single-line ellipsis */
+.text.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Multi-line clamp */
+.text.line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--line-clamp, 2);
+    overflow: hidden;
+}

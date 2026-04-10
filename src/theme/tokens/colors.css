@@ -1,5 +1,5 @@
 :root {
-    /* Brand palette — override only *-rgb, rest is auto-generated */
+    /* Brand palette - override only *-rgb, rest is auto-generated */
     --mineral-primary-rgb: 0, 165, 222;
     --mineral-primary: rgba(var(--mineral-primary-rgb), 1);
     --mineral-primary-dark: color-mix(in srgb, rgba(var(--mineral-primary-rgb), 1) 80%, black);
@@ -13,7 +13,7 @@
     --mineral-neutral-soft: color-mix(in srgb, rgba(var(--mineral-neutral-rgb), 1) 65%, white);
     --mineral-neutral-contrast: rgba(255, 255, 255, 1);
 
-    /* Status palette — override only *-rgb */
+    /* Status palette - override only *-rgb */
     --mineral-success-rgb: 22, 163, 74;
     --mineral-success: rgba(var(--mineral-success-rgb), 1);
     --mineral-success-dark: color-mix(in srgb, rgba(var(--mineral-success-rgb), 1) 75%, black);
@@ -31,13 +31,25 @@
     --mineral-info-dark: color-mix(in srgb, rgba(var(--mineral-info-rgb), 1) 80%, black);
     --mineral-info-contrast: rgba(255, 255, 255, 1);
 
-    /* Danger alias */
-    --mineral-danger-rgb: var(--mineral-error-rgb);
-    --mineral-danger: var(--mineral-error);
-    --mineral-danger-dark: var(--mineral-error-dark);
-    --mineral-danger-contrast: var(--mineral-error-contrast);
+    /* Light palette */
+    --mineral-light-rgb: 148, 163, 184;
+    --mineral-light: rgba(var(--mineral-light-rgb), 1);
+    --mineral-light-dark: color-mix(in srgb, rgba(var(--mineral-light-rgb), 1) 75%, black);
+    --mineral-light-contrast: rgba(15, 23, 42, 1);
 
-    /* Surface palette - dark mode */
+    /* Dark palette */
+    --mineral-dark-color-rgb: 30, 41, 59;
+    --mineral-dark-color: rgba(var(--mineral-dark-color-rgb), 1);
+    --mineral-dark-color-dark: color-mix(in srgb, rgba(var(--mineral-dark-color-rgb), 1) 80%, black);
+    --mineral-dark-color-contrast: rgba(255, 255, 255, 1);
+
+    /* News palette (violet/magenta) */
+    --mineral-news-rgb: 168, 85, 247;
+    --mineral-news: rgba(var(--mineral-news-rgb), 1);
+    --mineral-news-dark: color-mix(in srgb, rgba(var(--mineral-news-rgb), 1) 75%, black);
+    --mineral-news-contrast: rgba(255, 255, 255, 1);
+
+    /* MSurface palette - dark mode */
     --mineral-dark-rgb: 15, 23, 42;
     --mineral-dark: rgba(var(--mineral-dark-rgb), 1);
     --mineral-dark-light-rgb: 30, 41, 59;
@@ -49,8 +61,9 @@
     --mineral-page-bg: var(--mineral-dark);
     --mineral-page-text: var(--mineral-text);
 
-    /* Text palette */
-    --mineral-text: rgba(226, 232, 240, 1);
+    /* MText palette */
+    --mineral-text-rgb: 226, 232, 240;
+    --mineral-text: rgba(var(--mineral-text-rgb), 1);
     --mineral-text-secondary: rgba(100, 116, 139, 1);
     --mineral-text-muted: var(--mineral-text-secondary);
     --mineral-text-heading: rgba(241, 245, 249, 0.96);
@@ -69,34 +82,45 @@
     --mineral-fcolor-error: var(--mineral-error);
     --mineral-fcolor-warning: var(--mineral-warning);
     --mineral-fcolor-info: var(--mineral-info);
-    --mineral-fcolor-danger: var(--mineral-danger);
+    --mineral-fcolor-light: var(--mineral-light);
+    --mineral-fcolor-dark: var(--mineral-dark-color);
+    --mineral-fcolor-news: var(--mineral-news);
 
     /* Borders and states */
+    --mineral-disabled-opacity: 0.5;
     --mineral-border: rgba(255, 255, 255, 0.15);
     --mineral-border-hover: rgba(255, 255, 255, 0.25);
     --mineral-border-focus: var(--mineral-primary);
 
-    /* Text rendering */
+    /* MText rendering */
     --mineral-text-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
 
-    /* Shell shadow (sidebar, navbar — visible in light mode) */
+    /* Shell shadow (sidebar, navbar - visible in light mode) */
     --mineral-shell-shadow: none;
 
-    /* Gleam — subtle color-tinted gradient overlay
-       --mineral-gleam-intensity: opacity of the tint (0.0–1.0)
-       --mineral-gleam uses primary color; components override with --color-rgb */
+    /* Gleam - subtle gradient overlay
+       --mineral-gleam-intensity: opacity of the tint (0.0-1.0)
+       --mineral-gleam uses primary color for layout shells
+       --mineral-gleam-gradient is a bold white-highlight / dark-shadow overlay for filled surfaces
+       Tinted gleam (using --color-rgb) must stay inline because --color-rgb is contextual */
     --mineral-gleam-intensity: 0.06;
     --mineral-gleam: linear-gradient(
         135deg,
         rgba(var(--mineral-primary-rgb), var(--mineral-gleam-intensity)) 0%,
         transparent 60%
     );
+    --mineral-gleam-gradient: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, calc(var(--mineral-gleam-intensity) * 2)) 0%,
+        transparent 40%,
+        rgba(0, 0, 0, var(--mineral-gleam-intensity)) 100%
+    );
 
     /* Control hover shadow */
     --mineral-control-shadow:
         0 4px 14px rgba(var(--mineral-primary-rgb), 0.16), 0 2px 6px rgba(var(--mineral-primary-rgb), 0.08);
 
-    /* Popover and dropdown */
+    /* MPopover and dropdown */
     --mineral-popover-bg: rgba(30, 41, 59, 0.95);
     --mineral-popover-border: rgba(255, 255, 255, 0.08);
     --mineral-popover-backdrop-blur: 12px;

@@ -1,217 +1,223 @@
-export {Icon} from './Icon'
-export type {IconProps} from './Icon.types'
-export {SearchIcon} from './glyphs/SearchIcon'
-export {CloseIcon} from './glyphs/CloseIcon'
-export {CheckIcon} from './glyphs/CheckIcon'
-export {ChevronLeftIcon} from './glyphs/ChevronLeftIcon'
-export {ChevronRightIcon} from './glyphs/ChevronRightIcon'
-export {ChevronDownIcon} from './glyphs/ChevronDownIcon'
-export {ChevronUpIcon} from './glyphs/ChevronUpIcon'
-export {ArrowLeftIcon} from './glyphs/ArrowLeftIcon'
-export {ArrowRightIcon} from './glyphs/ArrowRightIcon'
-export {ArrowUpIcon} from './glyphs/ArrowUpIcon'
-export {ArrowDownIcon} from './glyphs/ArrowDownIcon'
-export {ArrowUpDownIcon} from './glyphs/ArrowUpDownIcon'
-export {CalendarIcon} from './glyphs/CalendarIcon'
-export {ClockIcon} from './glyphs/ClockIcon'
-export {CopyrightIcon} from './glyphs/CopyrightIcon'
-export {MailIcon} from './glyphs/MailIcon'
-export {MailOpenIcon} from './glyphs/MailOpenIcon'
-export {PhoneIcon} from './glyphs/PhoneIcon'
-export {DevicePhoneIcon} from './glyphs/DevicePhoneIcon'
-export {DeviceTabletIcon} from './glyphs/DeviceTabletIcon'
-export {DeviceMonitorIcon} from './glyphs/DeviceMonitorIcon'
-export {GlobeIcon} from './glyphs/GlobeIcon'
-export {PinIcon} from './glyphs/PinIcon'
-export {HelpIcon} from './glyphs/HelpIcon'
-export {WarningIcon} from './glyphs/WarningIcon'
-export {InfoIcon} from './glyphs/InfoIcon'
-export {ErrorIcon} from './glyphs/ErrorIcon'
-export {SuccessIcon} from './glyphs/SuccessIcon'
-export {NeutralIcon} from './glyphs/NeutralIcon'
-export {CheckCircleIcon} from './glyphs/CheckCircleIcon'
-export {UploadIcon} from './glyphs/UploadIcon'
-export {StarIcon} from './glyphs/StarIcon'
-export {StarFillIcon} from './glyphs/StarFillIcon'
-export {FileIcon} from './glyphs/FileIcon'
-export {DocPlusIcon} from './glyphs/DocPlusIcon'
-export {DocCopyIcon} from './glyphs/DocCopyIcon'
-export {FileTextIcon} from './glyphs/FileTextIcon'
-export {FilePdfIcon} from './glyphs/FilePdfIcon'
-export {FileImageIcon} from './glyphs/FileImageIcon'
-export {FileCodeIcon} from './glyphs/FileCodeIcon'
-export {FileArchiveIcon} from './glyphs/FileArchiveIcon'
-export {FileVideoIcon} from './glyphs/FileVideoIcon'
+export {MIcon} from './MIcon'
+export type {MIconProps} from './MIcon.types'
+export {MSearchIcon} from './glyphs/MSearchIcon'
+export {MCloseIcon} from './glyphs/MCloseIcon'
+export {MCheckIcon} from './glyphs/MCheckIcon'
+export {MChevronLeftIcon} from './glyphs/MChevronLeftIcon'
+export {MChevronRightIcon} from './glyphs/MChevronRightIcon'
+export {MChevronDownIcon} from './glyphs/MChevronDownIcon'
+export {MChevronUpIcon} from './glyphs/MChevronUpIcon'
+export {MArrowLeftIcon} from './glyphs/MArrowLeftIcon'
+export {MArrowRightIcon} from './glyphs/MArrowRightIcon'
+export {MArrowUpIcon} from './glyphs/MArrowUpIcon'
+export {MArrowDownIcon} from './glyphs/MArrowDownIcon'
+export {MArrowUpDownIcon} from './glyphs/MArrowUpDownIcon'
+export {MAttachIcon} from './glyphs/MAttachIcon'
+export {MCalendarIcon} from './glyphs/MCalendarIcon'
+export {MClockIcon} from './glyphs/MClockIcon'
+export {MCopyrightIcon} from './glyphs/MCopyrightIcon'
+export {MMailIcon} from './glyphs/MMailIcon'
+export {MMailOpenIcon} from './glyphs/MMailOpenIcon'
+export {MPhoneIcon} from './glyphs/MPhoneIcon'
+export {MDevicePhoneIcon} from './glyphs/MDevicePhoneIcon'
+export {MDeviceTabletIcon} from './glyphs/MDeviceTabletIcon'
+export {MDeviceMonitorIcon} from './glyphs/MDeviceMonitorIcon'
+export {MGlobeIcon} from './glyphs/MGlobeIcon'
+export {MPinIcon} from './glyphs/MPinIcon'
+export {MHelpIcon} from './glyphs/MHelpIcon'
+export {MWarningIcon} from './glyphs/MWarningIcon'
+export {MInfoIcon} from './glyphs/MInfoIcon'
+export {MErrorIcon} from './glyphs/MErrorIcon'
+export {MSuccessIcon} from './glyphs/MSuccessIcon'
+export {MNeutralIcon} from './glyphs/MNeutralIcon'
+export {MCheckCircleIcon} from './glyphs/MCheckCircleIcon'
+export {MUploadIcon} from './glyphs/MUploadIcon'
+export {MStarIcon} from './glyphs/MStarIcon'
+export {MStarFillIcon} from './glyphs/MStarFillIcon'
+export {MFileIcon} from './glyphs/MFileIcon'
+export {MDocPlusIcon} from './glyphs/MDocPlusIcon'
+export {MDocCopyIcon} from './glyphs/MDocCopyIcon'
+export {MFileTextIcon} from './glyphs/MFileTextIcon'
+export {MFilePdfIcon} from './glyphs/MFilePdfIcon'
+export {MFileImageIcon} from './glyphs/MFileImageIcon'
+export {MFileCodeIcon} from './glyphs/MFileCodeIcon'
+export {MFileArchiveIcon} from './glyphs/MFileArchiveIcon'
+export {MFileVideoIcon} from './glyphs/MFileVideoIcon'
 export {
-    FileTxtIcon,
-    FileDocsIcon,
-    FileJpgIcon,
-    FileJsonIcon,
-    FileExeIcon,
-    FileOdtIcon,
-    FileMdIcon,
-    FileJsIcon,
-    FileHtmlIcon,
-    FileCssIcon,
-    FilePhpIcon,
-    FilePngIcon,
-    FileSvgIcon,
-    FileGifIcon,
-    FileWebpIcon,
-    FileTsIcon,
-    FileTsxIcon,
-    FileJsxIcon,
-    FileXmlIcon,
-    FileCsvIcon,
-    FileXlsIcon,
-    FilePptIcon,
-    FileZipIcon,
-    FileRarIcon,
-    FileMp3Icon,
-    FileMp4Icon,
-} from './glyphs/FileExtIcons'
-export {FolderIcon} from './glyphs/FolderIcon'
-export {FolderOpenIcon} from './glyphs/FolderOpenIcon'
-export {FolderPlusIcon} from './glyphs/FolderPlusIcon'
-export {PlusIcon} from './glyphs/PlusIcon'
-export {MinusIcon} from './glyphs/MinusIcon'
-export {HomeIcon} from './glyphs/HomeIcon'
-export {LayoutIcon} from './glyphs/LayoutIcon'
-export {DashboardIcon} from './glyphs/DashboardIcon'
-export {SidebarIcon} from './glyphs/SidebarIcon'
-export {KanbanIcon} from './glyphs/KanbanIcon'
-export {FormIcon} from './glyphs/FormIcon'
-export {SlidersIcon} from './glyphs/SlidersIcon'
-export {TerminalIcon} from './glyphs/TerminalIcon'
-export {WindowIcon} from './glyphs/WindowIcon'
-export {CubeIcon} from './glyphs/CubeIcon'
-export {UserIcon} from './glyphs/UserIcon'
-export {UsersIcon} from './glyphs/UsersIcon'
-export {TeamIcon} from './glyphs/TeamIcon'
-export {GroupIcon} from './glyphs/GroupIcon'
-export {BugIcon} from './glyphs/BugIcon'
-export {BankIcon} from './glyphs/BankIcon'
-export {IdCardIcon} from './glyphs/IdCardIcon'
-export {EyeIcon} from './glyphs/EyeIcon'
-export {EyeOffIcon} from './glyphs/EyeOffIcon'
-export {CreditCardIcon} from './glyphs/CreditCardIcon'
-export {HeartIcon} from './glyphs/HeartIcon'
-export {HeartFillIcon} from './glyphs/HeartFillIcon'
-export {EllipsisHorizontalIcon, MoreIcon} from './glyphs/MoreIcon'
-export {TrashIcon} from './glyphs/TrashIcon'
-export {ZoomInIcon} from './glyphs/ZoomInIcon'
-export {ZoomOutIcon} from './glyphs/ZoomOutIcon'
-export {MenuIcon} from './glyphs/MenuIcon'
-export {EllipsisVerticalIcon} from './glyphs/EllipsisVerticalIcon'
-export {BuildingIcon} from './glyphs/BuildingIcon'
-export {FilterIcon} from './glyphs/FilterIcon'
-export {SortIcon} from './glyphs/SortIcon'
-export {CopyIcon} from './glyphs/CopyIcon'
-export {EditIcon} from './glyphs/EditIcon'
-export {DownloadIcon} from './glyphs/DownloadIcon'
-export {ExternalLinkIcon} from './glyphs/ExternalLinkIcon'
-export {ClickIcon} from './glyphs/ClickIcon'
-export {GalleryIcon} from './glyphs/GalleryIcon'
-export {ImageIcon} from './glyphs/ImageIcon'
-export {BellIcon} from './glyphs/BellIcon'
-export {TranslateIcon} from './glyphs/TranslateIcon'
-export {SunIcon} from './glyphs/SunIcon'
-export {MoonIcon} from './glyphs/MoonIcon'
-export {LightbulbIcon} from './glyphs/LightbulbIcon'
-export {BoltIcon} from './glyphs/BoltIcon'
-export {ProtectIcon} from './glyphs/ProtectIcon'
-export {BoxIcon} from './glyphs/BoxIcon'
-export {DatabaseIcon} from './glyphs/DatabaseIcon'
-export {DocIcon} from './glyphs/DocIcon'
-export {MagicIcon} from './glyphs/MagicIcon'
-export {LinkIcon} from './glyphs/LinkIcon'
-export {LockIcon} from './glyphs/LockIcon'
-export {LockOpenIcon} from './glyphs/LockOpenIcon'
-export {DollarIcon} from './glyphs/DollarIcon'
-export {EuroIcon} from './glyphs/EuroIcon'
-export {PaletteIcon} from './glyphs/PaletteIcon'
-export {PuzzleIcon} from './glyphs/PuzzleIcon'
-export {RefreshIcon} from './glyphs/RefreshIcon'
-export {SendIcon} from './glyphs/SendIcon'
-export {ChatIcon} from './glyphs/ChatIcon'
-export {ChatsIcon} from './glyphs/ChatsIcon'
-export {CommentIcon} from './glyphs/CommentIcon'
-export {CameraIcon} from './glyphs/CameraIcon'
-export {TagIcon} from './glyphs/TagIcon'
-export {ClipboardIcon} from './glyphs/ClipboardIcon'
-export {CartIcon} from './glyphs/CartIcon'
-export {SettingsIcon} from './glyphs/SettingsIcon'
-export {ChartIcon} from './glyphs/ChartIcon'
-export {Signal1Icon} from './glyphs/Signal1Icon'
-export {Signal2Icon} from './glyphs/Signal2Icon'
-export {Signal3Icon} from './glyphs/Signal3Icon'
-export {Signal4Icon} from './glyphs/Signal4Icon'
-export {FlagPlIcon} from './glyphs/FlagPlIcon'
-export {FlagUsIcon} from './glyphs/FlagUsIcon'
-export {FlagGbIcon} from './glyphs/FlagGbIcon'
-export {FlagDeIcon} from './glyphs/FlagDeIcon'
-export {FlagFrIcon} from './glyphs/FlagFrIcon'
-export {FlagUaIcon} from './glyphs/FlagUaIcon'
-export {FlagEsIcon} from './glyphs/FlagEsIcon'
-export {FlagItIcon} from './glyphs/FlagItIcon'
-export {FlagCnIcon} from './glyphs/FlagCnIcon'
-export {FlagCzIcon} from './glyphs/FlagCzIcon'
-export {FlagSkIcon} from './glyphs/FlagSkIcon'
-export {FlagJpIcon} from './glyphs/FlagJpIcon'
-export {FlagRuIcon} from './glyphs/FlagRuIcon'
-export {FlagArIcon} from './glyphs/FlagArIcon'
-export {FlagBrIcon} from './glyphs/FlagBrIcon'
-export {FlagInIcon} from './glyphs/FlagInIcon'
-export {FlagCaIcon} from './glyphs/FlagCaIcon'
-export {FlagMxIcon} from './glyphs/FlagMxIcon'
-export {AmericanExpressIcon, AmericanExpressColorIcon} from './glyphs/AmericanExpressIcon'
+    MFileTxtIcon,
+    MFileDocsIcon,
+    MFileJpgIcon,
+    MFileJsonIcon,
+    MFileExeIcon,
+    MFileOdtIcon,
+    MFileMdIcon,
+    MFileJsIcon,
+    MFileHtmlIcon,
+    MFileCssIcon,
+    MFilePhpIcon,
+    MFilePngIcon,
+    MFileSvgIcon,
+    MFileGifIcon,
+    MFileWebpIcon,
+    MFileTsIcon,
+    MFileTsxIcon,
+    MFileJsxIcon,
+    MFileXmlIcon,
+    MFileCsvIcon,
+    MFileXlsIcon,
+    MFilePptIcon,
+    MFileZipIcon,
+    MFileRarIcon,
+    MFileMp3Icon,
+    MFileMp4Icon,
+} from './glyphs/MFileExtIcons'
+export {MFolderIcon} from './glyphs/MFolderIcon'
+export {MFolderOpenIcon} from './glyphs/MFolderOpenIcon'
+export {MFolderPlusIcon} from './glyphs/MFolderPlusIcon'
+export {MPlusIcon} from './glyphs/MPlusIcon'
+export {MMinusIcon} from './glyphs/MMinusIcon'
+export {MHomeIcon} from './glyphs/MHomeIcon'
+export {MLayoutIcon} from './glyphs/MLayoutIcon'
+export {MDashboardIcon} from './glyphs/MDashboardIcon'
+export {MSidebarIcon} from './glyphs/MSidebarIcon'
+export {MKanbanIcon} from './glyphs/MKanbanIcon'
+export {MFormIcon} from './glyphs/MFormIcon'
+export {MSlidersIcon} from './glyphs/MSlidersIcon'
+export {MTerminalIcon} from './glyphs/MTerminalIcon'
+export {MWindowIcon} from './glyphs/MWindowIcon'
+export {MCubeIcon} from './glyphs/MCubeIcon'
+export {MUserIcon} from './glyphs/MUserIcon'
+export {MUsersIcon} from './glyphs/MUsersIcon'
+export {MTeamIcon} from './glyphs/MTeamIcon'
+export {MGroupIcon} from './glyphs/MGroupIcon'
+export {MBugIcon} from './glyphs/MBugIcon'
+export {MBankIcon} from './glyphs/MBankIcon'
+export {MIdCardIcon} from './glyphs/MIdCardIcon'
+export {MEyeIcon} from './glyphs/MEyeIcon'
+export {MEyeOffIcon} from './glyphs/MEyeOffIcon'
+export {MCreditCardIcon} from './glyphs/MCreditCardIcon'
+export {MHeartIcon} from './glyphs/MHeartIcon'
+export {MHeartFillIcon} from './glyphs/MHeartFillIcon'
+export {MEllipsisHorizontalIcon} from './glyphs/MEllipsisHorizontalIcon'
+export {MTrashIcon} from './glyphs/MTrashIcon'
+export {MZoomInIcon} from './glyphs/MZoomInIcon'
+export {MZoomOutIcon} from './glyphs/MZoomOutIcon'
+export {MMenuIcon} from './glyphs/MMenuIcon'
+export {MEllipsisVerticalIcon} from './glyphs/MEllipsisVerticalIcon'
+export {MBuildingIcon} from './glyphs/MBuildingIcon'
+export {MFilterIcon} from './glyphs/MFilterIcon'
+export {MSortIcon} from './glyphs/MSortIcon'
+export {MCopyIcon} from './glyphs/MCopyIcon'
+export {MEditIcon} from './glyphs/MEditIcon'
+export {MDownloadIcon} from './glyphs/MDownloadIcon'
+export {MExternalLinkIcon} from './glyphs/MExternalLinkIcon'
+export {MClickIcon} from './glyphs/MClickIcon'
+export {MGalleryIcon} from './glyphs/MGalleryIcon'
+export {MImageIcon} from './glyphs/MImageIcon'
+export {MBellIcon} from './glyphs/MBellIcon'
+export {MTranslateIcon} from './glyphs/MTranslateIcon'
+export {MSunIcon} from './glyphs/MSunIcon'
+export {MMoonIcon} from './glyphs/MMoonIcon'
+export {MLightbulbIcon} from './glyphs/MLightbulbIcon'
+export {MBoltIcon} from './glyphs/MBoltIcon'
+export {MProtectIcon} from './glyphs/MProtectIcon'
+export {MBoxIcon} from './glyphs/MBoxIcon'
+export {MDatabaseIcon} from './glyphs/MDatabaseIcon'
+export {MDocIcon} from './glyphs/MDocIcon'
+export {MMagicIcon} from './glyphs/MMagicIcon'
+export {MLinkIcon} from './glyphs/MLinkIcon'
+export {MLockIcon} from './glyphs/MLockIcon'
+export {MLockOpenIcon} from './glyphs/MLockOpenIcon'
+export {MDollarIcon} from './glyphs/MDollarIcon'
+export {MEuroIcon} from './glyphs/MEuroIcon'
+export {MPaletteIcon} from './glyphs/MPaletteIcon'
+export {MPuzzleIcon} from './glyphs/MPuzzleIcon'
+export {MRefreshIcon} from './glyphs/MRefreshIcon'
+export {MSendIcon} from './glyphs/MSendIcon'
+export {MChatIcon} from './glyphs/MChatIcon'
+export {MChatsIcon} from './glyphs/MChatsIcon'
+export {MCommentIcon} from './glyphs/MCommentIcon'
+export {MCameraIcon} from './glyphs/MCameraIcon'
+export {MTagIcon} from './glyphs/MTagIcon'
+export {MClipboardIcon} from './glyphs/MClipboardIcon'
+export {MCartIcon} from './glyphs/MCartIcon'
+export {MSettingsIcon} from './glyphs/MSettingsIcon'
+export {MChartIcon} from './glyphs/MChartIcon'
+export {MQrCodeIcon} from './glyphs/MQrCodeIcon'
+export {MSignal1Icon} from './glyphs/MSignal1Icon'
+export {MSignal2Icon} from './glyphs/MSignal2Icon'
+export {MSignal3Icon} from './glyphs/MSignal3Icon'
+export {MSignal4Icon} from './glyphs/MSignal4Icon'
+export {MFlagPlIcon} from './glyphs/MFlagPlIcon'
+export {MFlagUsIcon} from './glyphs/MFlagUsIcon'
+export {MFlagGbIcon} from './glyphs/MFlagGbIcon'
+export {MFlagDeIcon} from './glyphs/MFlagDeIcon'
+export {MFlagFrIcon} from './glyphs/MFlagFrIcon'
+export {MFlagUaIcon} from './glyphs/MFlagUaIcon'
+export {MFlagEsIcon} from './glyphs/MFlagEsIcon'
+export {MFlagItIcon} from './glyphs/MFlagItIcon'
+export {MFlagCnIcon} from './glyphs/MFlagCnIcon'
+export {MFlagCzIcon} from './glyphs/MFlagCzIcon'
+export {MFlagSkIcon} from './glyphs/MFlagSkIcon'
+export {MFlagJpIcon} from './glyphs/MFlagJpIcon'
+export {MFlagRuIcon} from './glyphs/MFlagRuIcon'
+export {MFlagArIcon} from './glyphs/MFlagArIcon'
+export {MFlagBrIcon} from './glyphs/MFlagBrIcon'
+export {MFlagInIcon} from './glyphs/MFlagInIcon'
+export {MFlagCaIcon} from './glyphs/MFlagCaIcon'
+export {MFlagMxIcon} from './glyphs/MFlagMxIcon'
+export {MAmericanExpressIcon, MAmericanExpressColorIcon} from './glyphs/MAmericanExpressIcon'
 export {
-    GoogleIcon,
-    GoogleColorIcon,
-    FacebookIcon,
-    FacebookColorIcon,
-    InstagramIcon,
-    InstagramColorIcon,
-    LinkedInIcon,
-    LinkedInColorIcon,
-    YouTubeIcon,
-    YouTubeColorIcon,
-    GitHubIcon,
-    GitHubColorIcon,
-    DiscordIcon,
-    DiscordColorIcon,
-    FigmaIcon,
-    FigmaColorIcon,
-    XIcon,
-    XColorIcon,
-    SlackIcon,
-    SlackColorIcon,
-} from './glyphs/BrandIcons'
+    MGoogleIcon,
+    MGoogleColorIcon,
+    MFacebookIcon,
+    MFacebookColorIcon,
+    MInstagramIcon,
+    MInstagramColorIcon,
+    MLinkedInIcon,
+    MLinkedInColorIcon,
+    MYouTubeIcon,
+    MYouTubeColorIcon,
+    MGitHubIcon,
+    MGitHubColorIcon,
+    MDiscordIcon,
+    MDiscordColorIcon,
+    MFigmaIcon,
+    MFigmaColorIcon,
+    MXIcon,
+    MXColorIcon,
+    MSlackIcon,
+    MSlackColorIcon,
+} from './glyphs/MBrandIcons'
 export {
-    AppleIcon,
-    AppleColorIcon,
-    AmazonIcon,
-    AmazonColorIcon,
-    MastercardIcon,
-    MastercardColorIcon,
-    VisaIcon,
-    VisaColorIcon,
-    LetsEncryptIcon,
-    LetsEncryptColorIcon,
-    MicrosoftIcon,
-    MicrosoftColorIcon,
-    PinterestIcon,
-    PinterestColorIcon,
-    PayPalIcon,
-    PayPalColorIcon,
-    SpotifyIcon,
-    SpotifyColorIcon,
-    TumblrIcon,
-    TumblrColorIcon,
-    UnityIcon,
-    UnityColorIcon,
-    VimeoIcon,
-    VimeoColorIcon,
-    VkIcon,
-    VkColorIcon,
-} from './glyphs/BrandMoreIcons'
+    MAppleIcon,
+    MAppleColorIcon,
+    MAmazonIcon,
+    MAmazonColorIcon,
+    MMastercardIcon,
+    MMastercardColorIcon,
+    MDiscoverIcon,
+    MDiscoverColorIcon,
+    MMaestroIcon,
+    MMaestroColorIcon,
+    MVisaIcon,
+    MVisaColorIcon,
+    MLetsEncryptIcon,
+    MLetsEncryptColorIcon,
+    MMicrosoftIcon,
+    MMicrosoftColorIcon,
+    MPinterestIcon,
+    MPinterestColorIcon,
+    MPayPalIcon,
+    MPayPalColorIcon,
+    MSpotifyIcon,
+    MSpotifyColorIcon,
+    MTumblrIcon,
+    MTumblrColorIcon,
+    MUnityIcon,
+    MUnityColorIcon,
+    MVimeoIcon,
+    MVimeoColorIcon,
+    MVkIcon,
+    MVkColorIcon,
+} from './glyphs/MBrandMoreIcons'

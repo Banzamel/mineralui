@@ -1,24 +1,12 @@
 import type {MNavsProps} from './MNavs.types'
 import {cn} from '../../../utils/cn'
-import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {MLink} from '../../typography'
 import './MNavs.css'
 
 // Render a lightweight navigation list from data or custom children.
-export function MNavs({
-    items,
-    orientation = 'horizontal',
-    fcolor,
-    wrap = false,
-    className,
-    children,
-    ...rest
-}: MNavsProps) {
+export function MNavs({items, orientation = 'horizontal', wrap = false, className, children, ...rest}: MNavsProps) {
     return (
-        <div
-            className={cn('navs', orientation, ...getAppearanceClassNames({fcolor}), wrap && 'wrap', className)}
-            {...rest}
-        >
+        <div className={cn('navs', orientation, wrap && 'wrap', className)} {...rest}>
             {items
                 ? items.map((item) => (
                       <MLink
@@ -29,7 +17,6 @@ export function MNavs({
                           target={item.target}
                           rel={item.rel}
                           title={item.title}
-                          fcolor={fcolor}
                           current={item.current}
                           disabled={item.disabled}
                           className={cn('link', item.className)}

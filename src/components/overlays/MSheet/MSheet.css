@@ -1,0 +1,110 @@
+.sheet-backdrop {
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-sm) 0;
+}
+
+.sheet-shell {
+    width: min(100%, 720px);
+    animation: sheet-content-in 720ms var(--mineral-ease-spring);
+    transform-origin: bottom center;
+    transition: transform var(--mineral-transition-fast);
+}
+
+.sheet-backdrop.closing .sheet-shell {
+    animation: sheet-content-out 540ms var(--mineral-ease-in-out) forwards;
+}
+
+.sheet.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    background-image:
+        linear-gradient(180deg, rgba(var(--mineral-primary-rgb), 0.05) 0%, transparent 26%), var(--mineral-gleam);
+}
+
+.sheet-grabber {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--mineral-spacing-sm) var(--mineral-spacing-md) var(--mineral-spacing-xs);
+    border: none;
+    background: transparent;
+    cursor: ns-resize;
+}
+
+.sheet-handle {
+    width: 3rem;
+    height: 0.3125rem;
+    border-radius: 999px;
+    background: rgba(var(--mineral-text-rgb), 0.2);
+}
+
+.sheet-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--mineral-spacing-md);
+    padding-top: 0;
+}
+
+.sheet-copy {
+    min-width: 0;
+    flex: 1;
+}
+
+.sheet-title {
+    font-size: var(--mineral-font-size-lg);
+    font-weight: 700;
+    color: var(--mineral-text-heading);
+}
+
+.sheet-description {
+    margin-top: var(--mineral-spacing-xs);
+    color: var(--mineral-text-secondary);
+    font-size: var(--mineral-font-size-sm);
+}
+
+.sheet-close {
+    flex-shrink: 0;
+}
+
+.sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.sheet-footer {
+    flex-shrink: 0;
+}
+
+@keyframes sheet-content-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sheet-content-out {
+    to {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sheet-shell,
+    .sheet-backdrop.closing .sheet-shell {
+        animation-duration: 0ms;
+    }
+}

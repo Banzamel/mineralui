@@ -1,0 +1,275 @@
+.social-button-root {
+    --sb-height: 56px;
+    --sb-padding-x: 22px;
+    --sb-gap: 14px;
+    --sb-bg: #ffffff;
+    --sb-text: #111827;
+    --sb-border: rgba(17, 24, 39, 0.18);
+    --sb-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    --sb-hover-bg: #f8fafc;
+    --sb-hover-border: rgba(17, 24, 39, 0.24);
+    --sb-hover-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+    --sb-focus: rgba(37, 99, 235, 0.18);
+    --sb-ripple: rgba(37, 99, 235, 0.16);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sb-gap);
+    min-height: var(--sb-height);
+    padding: 0 var(--sb-padding-x) 0 6px;
+    border: 1px solid var(--sb-border);
+    border-radius: 999px;
+    background: var(--sb-bg);
+    color: var(--sb-text);
+    box-shadow: var(--sb-shadow);
+    font-family: var(--mineral-font-family), sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition:
+        background-color var(--mineral-transition-fast),
+        border-color var(--mineral-transition-fast),
+        color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast),
+        opacity var(--mineral-transition-fast);
+    overflow: hidden;
+    --click-effect-color: var(--sb-ripple);
+}
+
+.social-button-root > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
+}
+
+.social-button-root.full-width {
+    width: 100%;
+}
+
+.social-button-root.xs {
+    --sb-height: 36px;
+    --sb-padding-x: 14px;
+    --sb-gap: 10px;
+    font-size: 0.85rem;
+}
+
+.social-button-root.sm {
+    --sb-height: 44px;
+    --sb-padding-x: 18px;
+    --sb-gap: 12px;
+    font-size: 0.95rem;
+}
+
+.social-button-root.md {
+    font-size: 1.05rem;
+}
+
+.social-button-root.lg {
+    --sb-height: 64px;
+    --sb-padding-x: 26px;
+    --sb-gap: 16px;
+    font-size: 1.2rem;
+}
+
+.social-button-root.xl {
+    --sb-height: 72px;
+    --sb-padding-x: 30px;
+    --sb-gap: 18px;
+    font-size: 1.35rem;
+}
+
+.social-button-root:hover:not(.disabled) {
+    background: var(--sb-hover-bg);
+    border-color: var(--sb-hover-border);
+    box-shadow: var(--sb-hover-shadow);
+}
+
+.social-button-root:focus-visible {
+    outline: none;
+    box-shadow:
+        var(--sb-shadow),
+        0 0 0 4px var(--sb-focus);
+}
+
+.social-button-root:active:not(.disabled) {
+    transform: translateY(1px);
+}
+
+.social-button-root.disabled {
+    opacity: var(--mineral-disabled-opacity);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.social-button-root.active {
+    box-shadow:
+        var(--sb-shadow),
+        0 0 0 3px var(--sb-focus);
+}
+
+.social-button-root.pulsing {
+    animation: social-button-pulse 2s ease-in-out infinite;
+}
+
+.social-button-root.loading .social-button-brand,
+.social-button-root.loading .social-button-label {
+    opacity: 0.28;
+}
+
+.social-button-root .social-button-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: calc(var(--sb-height) - 12px);
+    height: calc(var(--sb-height) - 12px);
+}
+
+.social-button-root .social-button-mark {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.social-button-root .social-button-label {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.social-button-root.icon-only {
+    width: var(--sb-height);
+    min-width: var(--sb-height);
+    padding: 0;
+    gap: 0;
+    border-radius: 50%;
+}
+
+.social-button-root.icon-only.icon-shape-square {
+    border-radius: var(--mineral-radius-lg);
+}
+
+.social-button-root.icon-only .social-button-brand {
+    width: 100%;
+    height: 100%;
+}
+
+.social-button-root .social-button-spinner {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    z-index: 2;
+}
+
+.social-button-root.google.outline {
+    --sb-bg: #ffffff;
+    --sb-text: #111827;
+    --sb-border: rgba(125, 125, 125, 0.75);
+    --sb-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+    --sb-hover-bg: #f8f8f8;
+    --sb-hover-border: #6f6f6f;
+    --sb-hover-shadow: 0 12px 28px rgba(66, 133, 244, 0.12);
+    --sb-focus: rgba(66, 133, 244, 0.16);
+    --sb-ripple: rgba(66, 133, 244, 0.18);
+}
+
+.social-button-root.google.dark {
+    --sb-bg: #171717;
+    --sb-text: #f9fafb;
+    --sb-border: rgba(255, 255, 255, 0.16);
+    --sb-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+    --sb-hover-bg: #1f1f1f;
+    --sb-hover-border: rgba(255, 255, 255, 0.22);
+    --sb-hover-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+    --sb-focus: rgba(255, 255, 255, 0.12);
+    --sb-ripple: rgba(255, 255, 255, 0.14);
+}
+
+.social-button-root.google.light {
+    --sb-bg: #f3f4f6;
+    --sb-text: #111827;
+    --sb-border: rgba(255, 255, 255, 0.8);
+    --sb-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    --sb-hover-bg: #ebedf1;
+    --sb-hover-border: rgba(226, 232, 240, 0.92);
+    --sb-hover-shadow: 0 12px 24px rgba(15, 23, 42, 0.09);
+    --sb-focus: rgba(66, 133, 244, 0.12);
+    --sb-ripple: rgba(66, 133, 244, 0.12);
+}
+
+.social-button-root.facebook.outline {
+    --sb-bg: #ffffff;
+    --sb-text: #1877f2;
+    --sb-border: rgba(24, 119, 242, 0.4);
+    --sb-shadow: 0 8px 22px rgba(24, 119, 242, 0.1);
+    --sb-hover-bg: #f6f9ff;
+    --sb-hover-border: rgba(22, 105, 217, 0.55);
+    --sb-hover-shadow: 0 12px 28px rgba(24, 119, 242, 0.16);
+    --sb-focus: rgba(24, 119, 242, 0.16);
+    --sb-ripple: rgba(24, 119, 242, 0.14);
+}
+
+.social-button-root.apple.brand {
+    --sb-bg: #111111;
+    --sb-text: #ffffff;
+    --sb-border: rgba(255, 255, 255, 0.08);
+    --sb-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    --sb-hover-bg: #1a1a1a;
+    --sb-hover-border: rgba(255, 255, 255, 0.12);
+    --sb-hover-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+    --sb-focus: rgba(255, 255, 255, 0.12);
+    --sb-ripple: rgba(255, 255, 255, 0.12);
+}
+
+.social-button-root.microsoft.brand {
+    --sb-bg: #171717;
+    --sb-text: #f9fafb;
+    --sb-border: rgba(255, 255, 255, 0.08);
+    --sb-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+    --sb-hover-bg: #1f1f1f;
+    --sb-hover-border: rgba(255, 255, 255, 0.12);
+    --sb-hover-shadow: 0 16px 34px rgba(0, 0, 0, 0.3);
+    --sb-focus: rgba(255, 255, 255, 0.1);
+    --sb-ripple: rgba(255, 255, 255, 0.1);
+}
+
+.social-button-root.pinterest.brand {
+    --sb-bg: #e60023;
+    --sb-text: #ffffff;
+    --sb-border: rgba(230, 0, 35, 0.72);
+    --sb-shadow: 0 12px 26px rgba(230, 0, 35, 0.24);
+    --sb-hover-bg: #cf001f;
+    --sb-hover-border: rgba(207, 0, 31, 0.88);
+    --sb-hover-shadow: 0 16px 34px rgba(230, 0, 35, 0.28);
+    --sb-focus: rgba(230, 0, 35, 0.16);
+    --sb-ripple: rgba(255, 255, 255, 0.12);
+}
+
+.social-button-root.linkedin.brand {
+    --sb-bg: #0a66c2;
+    --sb-text: #ffffff;
+    --sb-border: rgba(10, 102, 194, 0.72);
+    --sb-shadow: 0 12px 26px rgba(10, 102, 194, 0.24);
+    --sb-hover-bg: #0959aa;
+    --sb-hover-border: rgba(9, 89, 170, 0.88);
+    --sb-hover-shadow: 0 16px 34px rgba(10, 102, 194, 0.28);
+    --sb-focus: rgba(10, 102, 194, 0.16);
+    --sb-ripple: rgba(255, 255, 255, 0.12);
+}
+
+
+@keyframes social-button-pulse {
+    0%,
+    100% {
+        box-shadow: var(--sb-shadow);
+    }
+    50% {
+        box-shadow:
+            var(--sb-shadow),
+            0 0 0 10px color-mix(in srgb, var(--sb-focus) 40%, transparent 60%);
+    }
+}

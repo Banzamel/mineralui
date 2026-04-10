@@ -1,2 +1,2 @@
 export {MHeader} from './MHeader'
-export type {MHeaderProps, MHeaderTone} from './MHeader.types'
+export type {MHeaderProps, MHeaderTone, MHeaderLayout} from './MHeader.types'

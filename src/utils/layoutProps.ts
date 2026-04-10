@@ -1,28 +1,26 @@
 import type {CSSProperties} from 'react'
-import type {MineralFontColor} from '../theme'
 
 // Keep the utility scale in one place so props and CSS stay in sync.
 export const mineralUtilityScaleValues = ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const
 
-export type MineralUtilityScale = (typeof mineralUtilityScaleValues)[number]
+export type MUtilityScale = (typeof mineralUtilityScaleValues)[number]
 
 export interface LayoutUtilityProps {
-    spacing?: MineralUtilityScale
-    padding?: MineralUtilityScale
+    spacing?: MUtilityScale
+    padding?: MUtilityScale
     fsize?: string | number
-    fcolor?: MineralFontColor
-    mt?: MineralUtilityScale
-    mb?: MineralUtilityScale
-    ml?: MineralUtilityScale
-    mr?: MineralUtilityScale
-    mx?: MineralUtilityScale
-    my?: MineralUtilityScale
-    pt?: MineralUtilityScale
-    pb?: MineralUtilityScale
-    pl?: MineralUtilityScale
-    pr?: MineralUtilityScale
-    px?: MineralUtilityScale
-    py?: MineralUtilityScale
+    mt?: MUtilityScale
+    mb?: MUtilityScale
+    ml?: MUtilityScale
+    mr?: MUtilityScale
+    mx?: MUtilityScale
+    my?: MUtilityScale
+    pt?: MUtilityScale
+    pb?: MUtilityScale
+    pl?: MUtilityScale
+    pr?: MUtilityScale
+    px?: MUtilityScale
+    py?: MUtilityScale
     fullWidth?: boolean
 }
 
@@ -31,7 +29,6 @@ export function getLayoutUtilityClassNames({
     spacing,
     padding,
     fsize,
-    fcolor,
     mt,
     mb,
     ml,
@@ -50,7 +47,6 @@ export function getLayoutUtilityClassNames({
         spacing !== undefined && `spacing-${spacing}`,
         padding !== undefined && `padding-${padding}`,
         fsize !== undefined && 'has-fsize',
-        fcolor !== undefined && `fcolor-${fcolor}`,
         mt !== undefined && `mt-${mt}`,
         mb !== undefined && `mb-${mb}`,
         ml !== undefined && `ml-${ml}`,

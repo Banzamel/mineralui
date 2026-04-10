@@ -79,7 +79,9 @@
 .sidebar-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(2, 6, 23, 0.56);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: calc(var(--mineral-z-modal) - 1);
 }
 
@@ -112,6 +114,18 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: var(--mineral-spacing-md);
+}
+
+.sidebar.collapsed .sidebar-body .input,
+.sidebar.collapsed .sidebar-body .input-group,
+.sidebar.collapsed .sidebar-body .textarea,
+.sidebar.collapsed .sidebar-body .select,
+.sidebar.collapsed .sidebar-body .autocomplete,
+.sidebar.collapsed .sidebar-body .date-picker,
+.sidebar.collapsed .sidebar-body .date-range-picker,
+.sidebar.collapsed .sidebar-body .time-picker {
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .sidebar.collapsed .sidebar-header {
@@ -191,6 +205,13 @@
     align-items: center;
     font-size: 1.25em;
     flex-shrink: 0;
+}
+
+/* Item label tooltip wrapper */
+.sidebar-item-label-tooltip {
+    flex: 1;
+    min-width: 0;
+    display: flex !important;
 }
 
 /* Item label */
@@ -323,32 +344,14 @@
 
 /* Toggle button */
 .sidebar-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    border: 1px solid var(--mineral-border);
-    border-radius: var(--mineral-radius-sm);
-    background: none;
-    color: var(--mineral-text-secondary);
-    cursor: pointer;
-    font-size: 1em;
+    min-width: 28px;
+    min-height: 28px;
     margin-left: auto;
-    transition:
-        background var(--mineral-transition-fast),
-        color var(--mineral-transition-fast);
 }
 
 .sidebar.collapsed .sidebar-toggle {
     margin-left: 0;
-}
-
-.sidebar-toggle:hover {
-    background: rgba(var(--mineral-primary-rgb), 0.1);
-    color: var(--mineral-text);
 }
 
 .sidebar-chevron {
@@ -409,7 +412,7 @@
     height: 100%;
 }
 
-/* Divider */
+/* MDivider */
 .sidebar-divider {
     border: none;
     border-top: 1px solid var(--mineral-border);

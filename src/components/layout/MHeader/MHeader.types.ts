@@ -1,15 +1,15 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {ContainerSize} from '../Container'
-import type {MineralFontColor} from '../../../theme'
+import type {MContainerSize} from '../MContainer'
 
 export type MHeaderTone = 'default' | 'surface' | 'subtle'
+export type MHeaderLayout = 'split' | 'balanced'
 
 export interface MHeaderProps extends HTMLAttributes<HTMLElement> {
-    container?: ContainerSize
+    container?: MContainerSize
     padded?: boolean
     bordered?: boolean
     sticky?: boolean
     tone?: MHeaderTone
-    fcolor?: MineralFontColor
+    layout?: MHeaderLayout
     children?: ReactNode
 }

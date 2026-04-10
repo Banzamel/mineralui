@@ -1,5 +1,7 @@
 import {useMemo} from 'react'
 import {cn} from '../../../utils/cn'
+import {MButton} from '../../controls'
+import {MChevronLeftIcon, MChevronRightIcon} from '../../../icons'
 import type {MPaginationProps} from './MPagination.types'
 import './MPagination.css'
 
@@ -58,34 +60,45 @@ export function MPagination({
     if (variant === 'simple') {
         return (
             <nav aria-label="pagination" className={cn('pagination', className)} {...rest}>
-                <button
-                    type="button"
-                    className="btn"
+                <MButton
+                    variant="outlined"
+                    size="sm"
+                    iconOnly
                     disabled={currentPage <= 1}
                     onClick={() => onChange(currentPage - 1)}
+                    className="nav"
                 >
-                    &#8249;
-                </button>
+                    <MChevronLeftIcon />
+                </MButton>
                 <span className="info">
                     {currentPage} / {totalPages}
                 </span>
-                <button
-                    type="button"
-                    className="btn"
+                <MButton
+                    variant="outlined"
+                    size="sm"
+                    iconOnly
                     disabled={currentPage >= totalPages}
                     onClick={() => onChange(currentPage + 1)}
+                    className="nav"
                 >
-                    &#8250;
-                </button>
+                    <MChevronRightIcon />
+                </MButton>
             </nav>
         )
     }
 
     return (
         <nav aria-label="pagination" className={cn('pagination', className)} {...rest}>
-            <button type="button" className="btn" disabled={currentPage <= 1} onClick={() => onChange(currentPage - 1)}>
-                &#8249;
-            </button>
+            <MButton
+                variant="outlined"
+                size="sm"
+                iconOnly
+                disabled={currentPage <= 1}
+                onClick={() => onChange(currentPage - 1)}
+                className="nav"
+            >
+                <MChevronLeftIcon />
+            </MButton>
             {pages.map((p, i) =>
                 p === 'dots' ? (
                     <span key={`dots-${i}`} className="dots">
@@ -102,14 +115,16 @@ export function MPagination({
                     </button>
                 )
             )}
-            <button
-                type="button"
-                className="btn"
+            <MButton
+                variant="outlined"
+                size="sm"
+                iconOnly
                 disabled={currentPage >= totalPages}
                 onClick={() => onChange(currentPage + 1)}
+                className="nav"
             >
-                &#8250;
-            </button>
+                <MChevronRightIcon />
+            </MButton>
         </nav>
     )
 }

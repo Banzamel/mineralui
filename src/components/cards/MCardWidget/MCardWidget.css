@@ -1,0 +1,100 @@
+.card-widget {
+    --color-rgb: var(--mineral-primary-rgb);
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-sm);
+    width: 100%;
+    max-width: 280px;
+    box-sizing: border-box;
+    padding: var(--mineral-spacing-lg);
+    border-radius: var(--mineral-radius-lg);
+    border: 1px solid var(--mineral-border);
+    background:
+        linear-gradient(135deg, rgba(var(--color-rgb), 0.08) 0%, transparent 55%, rgba(var(--color-rgb), 0.03) 100%),
+        var(--mineral-surface);
+    color: var(--mineral-text);
+}
+
+.cw-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--mineral-spacing-sm);
+}
+
+.cw-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    min-width: 0;
+}
+
+.cw-title {
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--mineral-text-muted);
+}
+
+.cw-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--mineral-text-heading);
+}
+
+.cw-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: var(--mineral-radius-md);
+    background: rgba(var(--color-rgb), 0.1);
+    color: rgba(var(--color-rgb), 1);
+}
+
+.cw-icon svg {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.cw-bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+}
+
+.cw-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.cw-trend.up {
+    color: var(--mineral-success);
+}
+
+.cw-trend.down {
+    color: var(--mineral-error);
+}
+
+.cw-trend.neutral {
+    color: var(--mineral-text-muted);
+}
+
+.cw-trend svg {
+    display: block;
+}
+
+.cw-helper {
+    font-size: var(--mineral-font-size-sm);
+    line-height: 1.5;
+    color: var(--mineral-text-muted);
+}

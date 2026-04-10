@@ -112,3 +112,96 @@ export function formatTime(hours: number, minutes: number, seconds?: number, sho
     const base = `${pad(hours)}:${pad(minutes)}`
     return showSeconds ? `${base}:${pad(seconds ?? 0)}` : base
 }
+
+type Meridiem = 'AM' | 'PM'
+
+function to12HourParts(value: {hours: number; minutes: number; seconds: number}) {
+    const meridiem: Meridiem = value.hours >= 12 ? 'PM' : 'AM'
+    const hours = value.hours % 12 || 12
+    return {hours, minutes: value.minutes, seconds: value.seconds, meridiem}
+}
+
+function to24HourValue(hours: number, meridiem: Meridiem): number {
+    if (meridiem === 'AM') {
+        return hours === 12 ? 0 : hours
+    }
+
+    return hours === 12 ? 12 : hours + 12
+}
+
+// Parse a time string in either 24h or 12h format.
+export function parseTimeWithFormat(
+    value: string,
+    format: '24h' | '12h' = '24h'
+): {hours: number; minutes: number; seconds: number} | null {
+    if (format === '24h') {
+        return parseTime(value)
+    }
+
+    const normalized = value.trim().toUpperCase()
+    const match = normalized.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/)
+
+    if (!match) {
+        return parseTime(value)
+    }
+
+    const hours = parseInt(match[1], 10)
+    const minutes = parseInt(match[2], 10)
+    const seconds = match[3] ? parseInt(match[3], 10) : 0
+    const meridiem = match[4] as Meridiem
+
+    if (hours < 1 || hours > 12 || minutes > 59 || seconds > 59) {
+        return null
+    }
+
+    return {hours: to24HourValue(hours, meridiem), minutes, seconds}
+}
+
+// Format a time string in either 24h or 12h format.
+export function formatTimeWithFormat(
+    hours: number,
+    minutes: number,
+    seconds: number = 0,
+    showSeconds: boolean = false,
+    format: '24h' | '12h' = '24h'
+): string {
+    if (format === '24h') {
+        return formatTime(hours, minutes, seconds, showSeconds)
+    }
+
+    const parts = to12HourParts({hours, minutes, seconds})
+    const base = `${pad(parts.hours)}:${pad(parts.minutes)}`
+    const withSeconds = showSeconds ? `${base}:${pad(parts.seconds)}` : base
+
+    return `${withSeconds} ${parts.meridiem}`
+}
+
+// Combine a calendar date with an optional time string into one Date value.
+export function combineDateAndTime(
+    date: Date,
+    timeValue?: string | null,
+    options: {format?: '24h' | '12h'; showSeconds?: boolean} = {}
+): Date {
+    const {format = '24h', showSeconds = false} = options
+    const parsedTime = timeValue ? parseTimeWithFormat(timeValue, format) : null
+
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        parsedTime?.hours ?? 0,
+        parsedTime?.minutes ?? 0,
+        showSeconds ? parsedTime?.seconds ?? 0 : 0
+    )
+}
+
+// Format the hidden input value without applying a timezone conversion.
+export function formatHiddenDateValue(date: Date, withTime: boolean = false, showSeconds: boolean = false): string {
+    const datePart = formatDate(date, 'yyyy-MM-dd')
+
+    if (!withTime) {
+        return datePart
+    }
+
+    return `${datePart}T${formatTime(date.getHours(), date.getMinutes(), date.getSeconds(), showSeconds)}`
+}

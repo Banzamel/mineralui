@@ -1,4 +1,4 @@
-export {Portal} from './Portal'
-export type {PortalProps} from './Portal'
-export {Popover} from './Popover'
-export type {PopoverProps, PopoverPlacement} from './Popover'
+export {MPortal} from './MPortal'
+export type {MPortalProps} from './MPortal'
+export {MPopover} from './MPopover'
+export type {MPopoverProps, MPopoverPlacement} from './MPopover'

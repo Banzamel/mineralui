@@ -1,7 +1,7 @@
 import type {MFooterProps} from './MFooter.types'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
-import {Container} from '../Container'
+import {MContainer} from '../MContainer'
 import './MFooter.css'
 
 // Render a reusable page footer shell with shared spacing utilities.
@@ -13,7 +13,6 @@ export function MFooter({
     spacing,
     padding,
     fsize,
-    fcolor,
     mt,
     mb,
     ml,
@@ -44,7 +43,6 @@ export function MFooter({
                     spacing,
                     padding,
                     fsize,
-                    fcolor,
                     mt,
                     mb,
                     ml,
@@ -64,9 +62,9 @@ export function MFooter({
             style={{...utilityStyle, ...style}}
             {...rest}
         >
-            <Container size={container} padded={padded} className="inner" fullWidth>
+            <MContainer size={container} padded={padded} className="inner" fullWidth>
                 {children}
-            </Container>
+            </MContainer>
         </footer>
     )
 }

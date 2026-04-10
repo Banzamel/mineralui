@@ -1,5 +1,5 @@
 import type {ReactNode, ElementType, CSSProperties} from 'react'
-import type {MineralColor} from '../../../theme'
+import type {MColor} from '../../../theme'
 
 export type MSidebarMode = 'expanded' | 'collapsed'
 
@@ -42,7 +42,7 @@ export interface MSidebarItemProps {
     active?: boolean
     disabled?: boolean
     badge?: ReactNode
-    color?: MineralColor
+    color?: MColor
     component?: ElementType
     className?: string
 }

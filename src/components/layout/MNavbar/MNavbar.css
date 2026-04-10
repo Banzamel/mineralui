@@ -39,6 +39,7 @@
     display: flex;
     gap: var(--mineral-spacing-md);
     min-height: inherit;
+    align-items: center;
 }
 
 .navbar .inner.start {
@@ -55,17 +56,6 @@
 
 .navbar .inner.end {
     justify-content: flex-end;
-}
-
-.navbar .inner.start,
-.navbar .inner.center,
-.navbar .inner.end,
-.navbar .inner.between {
-    align-items: center;
-}
-
-.navbar .inner.stretch {
-    align-items: stretch;
 }
 
 .navbar .inner.wrap {

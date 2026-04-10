@@ -1,10 +1,10 @@
 import {useCallback, useRef} from 'react'
 import type {PointerEvent, ReactElement} from 'react'
 
-export type MineralClickEffect = 'none' | 'ripple'
+export type MClickEffect = 'none' | 'ripple'
 
 export interface UseInteractionEffectOptions {
-    effect?: MineralClickEffect
+    effect?: MClickEffect
     disabled?: boolean
     centered?: boolean
     color?: string

@@ -1,2 +1,2 @@
 export {MNavbar} from './MNavbar'
-export type {MNavbarProps, MNavbarTone, MNavbarJustify, MNavbarAlign} from './MNavbar.types'
+export type {MNavbarProps, MNavbarTone, MNavbarJustify} from './MNavbar.types'

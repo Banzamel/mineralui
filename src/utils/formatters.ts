@@ -138,5 +138,25 @@ export function adjustCursorAfterFormat(oldValue: string, newValue: string, oldC
     return newValue.length
 }
 
+// Format date digits into a display string with the chosen separator.
+export function formatDateInput(
+    digits: string,
+    format: 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY/MM/DD' = 'DD/MM/YYYY',
+    separator: string = '/'
+): string {
+    if (!digits) return ''
+
+    if (format === 'YYYY/MM/DD') {
+        if (digits.length <= 4) return digits
+        if (digits.length <= 6) return `${digits.slice(0, 4)}${separator}${digits.slice(4)}`
+        return `${digits.slice(0, 4)}${separator}${digits.slice(4, 6)}${separator}${digits.slice(6, 8)}`
+    }
+
+    // DD/MM/YYYY or MM/DD/YYYY — first two groups are 2 digits
+    if (digits.length <= 2) return digits
+    if (digits.length <= 4) return `${digits.slice(0, 2)}${separator}${digits.slice(2)}`
+    return `${digits.slice(0, 2)}${separator}${digits.slice(2, 4)}${separator}${digits.slice(4, 8)}`
+}
+
 export {formatPostCode} from './postalCodes'
 export {formatCardNumber} from './creditCards'

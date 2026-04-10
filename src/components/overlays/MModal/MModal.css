@@ -1,0 +1,126 @@
+.modal-backdrop {
+    align-items: center;
+    justify-content: center;
+    padding: var(--mineral-spacing-lg);
+}
+
+.modal-shell {
+    width: min(100%, 960px);
+    max-height: calc(100vh - 48px);
+    animation: modal-content-in 840ms var(--mineral-ease-spring);
+}
+
+.modal-backdrop.closing .modal-shell {
+    animation: modal-content-out 540ms var(--mineral-ease-in-out) forwards;
+}
+
+.modal {
+    width: 100%;
+    max-height: calc(100vh - 48px);
+    overflow: hidden;
+}
+
+.modal.sm {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.modal.md {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.modal.lg {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.modal.xl {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.modal .body {
+    overflow: auto;
+}
+
+.modal-title {
+    font-size: var(--mineral-font-size-lg);
+    font-weight: 700;
+    color: var(--mineral-text-heading);
+}
+
+.modal-description {
+    margin-top: var(--mineral-spacing-xs);
+    color: var(--mineral-text-secondary);
+    font-size: var(--mineral-font-size-sm);
+}
+
+@keyframes modal-content-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modal-content-out {
+    to {
+        opacity: 0;
+        transform: scale(0.97) translateY(4px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal-backdrop,
+    .modal-shell,
+    .modal-backdrop.closing,
+    .modal-backdrop.closing .modal-shell {
+        animation-duration: 0ms;
+    }
+}
+
+@media (max-width: 640px) {
+    .modal-backdrop {
+        padding: var(--mineral-spacing-sm);
+        align-items: flex-end;
+    }
+
+    .modal,
+    .modal.sm,
+    .modal.md,
+    .modal.lg,
+    .modal.xl {
+        max-width: none;
+        max-height: calc(100vh - 16px);
+    }
+
+    .modal-shell {
+        animation-name: modal-content-slide-up;
+    }
+
+    .modal-backdrop.closing .modal-shell {
+        animation-name: modal-content-slide-down;
+    }
+}
+
+@keyframes modal-content-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modal-content-slide-down {
+    to {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+}

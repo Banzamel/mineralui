@@ -1,0 +1,188 @@
+.input-group {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-xs);
+    font-family: var(--mineral-font-family), sans-serif;
+}
+
+.input-group.full-width {
+    width: 100%;
+}
+
+
+/* === Group container (addons + input) === */
+.input-group .container {
+    --click-effect-color: rgba(var(--color-rgb), 0.18);
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    background: var(--mineral-input-bg);
+    border: 1px solid var(--mineral-border);
+    border-radius: var(--mineral-radius-md);
+    overflow: hidden;
+    transition:
+        border-color var(--mineral-transition-base),
+        box-shadow var(--mineral-transition-base);
+}
+
+.input-group .container > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
+}
+
+.input-group .container:hover:not(.disabled) {
+    border-color: var(--mineral-border-hover);
+}
+
+.input-group .container.focused {
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.25);
+}
+
+.input-group .container.has-error {
+    --color-rgb: var(--mineral-error-rgb);
+    border-color: rgba(var(--color-rgb), 0.6);
+}
+
+.input-group .container.has-error.focused {
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 0 0 3px rgba(var(--color-rgb), 0.25);
+}
+
+.input-group .container.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* === Addon === */
+.input-group .addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--mineral-spacing-md);
+    background: rgba(var(--color-rgb), 0.06);
+    color: rgba(var(--color-rgb), 0.7);
+    font-size: var(--mineral-font-size-sm);
+    font-family: var(--mineral-font-family), sans-serif;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: none;
+    user-select: none;
+}
+
+.input-group .addon.prepend {
+    border-right: 1px solid rgba(var(--color-rgb), 0.15);
+}
+
+.input-group .addon.append {
+    border-left: 1px solid rgba(var(--color-rgb), 0.15);
+}
+
+/* Addon button — MButton reset to fit inside group */
+.input-group .addon.addon-button {
+    border-radius: 0;
+    align-self: stretch;
+    min-height: unset;
+}
+
+.input-group .addon.checkbox {
+    cursor: pointer;
+    padding: 0 var(--mineral-spacing-sm);
+}
+
+.input-group .addon.checkbox .addon-checkbox .label {
+    gap: 0;
+}
+
+.input-group .addon.checkbox .addon-checkbox .box {
+    border-color: rgba(var(--color-rgb), 0.45);
+}
+
+/* Custom ReactNode addon — minimal wrapper, no background */
+.input-group .addon.custom {
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+}
+
+/* === MInput field inside group === */
+.input-group .field {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--mineral-text);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0 var(--mineral-spacing-md);
+}
+
+.input-group .field::placeholder {
+    color: rgba(var(--color-rgb), 0.4);
+}
+
+.input-group .field:disabled {
+    cursor: not-allowed;
+}
+
+/* === Sizes === */
+/* Height → min-height for input-group (addons stretch vertically) */
+.input-group .container.field-sm,
+.input-group .container.field-md,
+.input-group .container.field-lg {
+    height: auto;
+    padding: 0;
+}
+
+.input-group .container.field-sm {
+    min-height: 32px;
+}
+
+.input-group .container.field-sm .addon {
+    padding: 0 var(--mineral-spacing-sm);
+}
+
+.input-group .container.field-md {
+    min-height: 40px;
+}
+
+.input-group .container.field-lg {
+    min-height: 48px;
+}
+
+.input-group .container.field-lg .addon {
+    padding: 0 var(--mineral-spacing-lg);
+}
+
+/* === Loading spinner === */
+.input-group .spinner-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--mineral-spacing-md);
+    border: none;
+    flex-shrink: 0;
+}
+
+.input-group .clear-btn {
+    align-self: center;
+    margin-right: var(--mineral-spacing-sm);
+}
+
+
+/* === Helper / Error text === */
+.input-group .field-helper {
+    margin-top: 2px;
+}
+
+.input-group .field-error {
+    margin-top: 2px;
+}
+
+.input-group .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--mineral-spacing-sm);
+}

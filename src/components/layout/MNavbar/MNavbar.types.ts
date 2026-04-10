@@ -1,20 +1,16 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {ContainerSize} from '../Container'
-import type {MineralFontColor} from '../../../theme'
+import type {MContainerSize} from '../MContainer'
 
 export type MNavbarTone = 'default' | 'surface' | 'subtle'
 export type MNavbarJustify = 'start' | 'center' | 'between' | 'end'
-export type MNavbarAlign = 'start' | 'center' | 'end' | 'stretch'
 
 export interface MNavbarProps extends HTMLAttributes<HTMLElement> {
-    container?: ContainerSize
+    container?: MContainerSize
     padded?: boolean
     bordered?: boolean
     sticky?: boolean
     tone?: MNavbarTone
-    fcolor?: MineralFontColor
     justify?: MNavbarJustify
-    align?: MNavbarAlign
     wrap?: boolean
     children?: ReactNode
 }

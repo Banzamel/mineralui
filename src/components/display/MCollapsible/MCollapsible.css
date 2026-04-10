@@ -1,0 +1,49 @@
+.collapsible {
+    width: 100%;
+}
+
+.collapsible .trigger {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible .trigger .content {
+    flex: 1;
+    text-align: left;
+}
+
+.collapsible .content-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+        grid-template-rows 960ms var(--mineral-ease-in-out),
+        opacity 750ms var(--mineral-ease-in-out);
+}
+
+.collapsible .content-wrap.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.collapsible .content-wrap > .content {
+    overflow: hidden;
+    padding: var(--mineral-spacing-md);
+}
+
+.collapsible .chevron {
+    display: inline-flex;
+    align-items: center;
+    transition: transform 840ms var(--mineral-ease-in-out);
+}
+
+.collapsible .chevron svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+.collapsible .chevron.open {
+    transform: rotate(180deg);
+}

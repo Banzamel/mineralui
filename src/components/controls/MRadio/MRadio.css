@@ -1,0 +1,183 @@
+.radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--mineral-font-family), sans-serif;
+}
+
+.radio.label-left {
+    flex-direction: row-reverse;
+}
+
+.radio.disabled {
+    opacity: var(--mineral-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.radio.xs .circle {
+    width: 14px;
+    height: 14px;
+}
+.radio.sm .circle {
+    width: 16px;
+    height: 16px;
+}
+.radio.md .circle {
+    width: 20px;
+    height: 20px;
+}
+.radio.lg .circle {
+    width: 24px;
+    height: 24px;
+}
+.radio.xl .circle {
+    width: 28px;
+    height: 28px;
+}
+
+.radio.xs .label-text {
+    font-size: var(--mineral-font-size-xs);
+}
+.radio.sm .label-text {
+    font-size: var(--mineral-font-size-xs);
+}
+.radio.md .label-text {
+    font-size: var(--mineral-font-size-sm);
+}
+.radio.lg .label-text {
+    font-size: var(--mineral-font-size-md);
+}
+.radio.xl .label-text {
+    font-size: var(--mineral-font-size-lg);
+}
+
+.radio .circle {
+    --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.18);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--mineral-border-hover);
+    border-radius: 50%;
+    background: var(--mineral-input-bg);
+    transition:
+        border-color var(--mineral-transition-fast),
+        background-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast);
+    flex-shrink: 0;
+}
+
+.radio .circle > :not(.click-effect-layer):not(.dot) {
+    position: relative;
+    z-index: 1;
+}
+
+.radio .circle:hover {
+    border-color: rgba(var(--color-rgb), 1);
+    box-shadow: 0 2px 8px rgba(var(--color-rgb), 0.18);
+}
+
+.radio .input {
+    appearance: none;
+    -webkit-appearance: none;
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: inherit;
+}
+
+.radio .circle.color-primary:has(.input:checked) {
+    background: var(--mineral-primary);
+    border-color: var(--mineral-primary);
+}
+.radio .circle.color-success:has(.input:checked) {
+    background: var(--mineral-success);
+    border-color: var(--mineral-success);
+}
+.radio .circle.color-neutral:has(.input:checked) {
+    background: var(--mineral-neutral);
+    border-color: var(--mineral-neutral);
+}
+.radio .circle.color-error:has(.input:checked) {
+    background: var(--mineral-error);
+    border-color: var(--mineral-error);
+}
+.radio .circle.color-warning:has(.input:checked) {
+    background: var(--mineral-warning);
+    border-color: var(--mineral-warning);
+}
+.radio .circle.color-info:has(.input:checked) {
+    background: var(--mineral-info);
+    border-color: var(--mineral-info);
+}
+.radio .circle.color-light:has(.input:checked) {
+    background: rgba(var(--mineral-light-rgb), 1);
+    border-color: rgba(var(--mineral-light-rgb), 1);
+}
+.radio .circle.color-dark:has(.input:checked) {
+    background: rgba(var(--mineral-dark-color-rgb), 1);
+    border-color: rgba(var(--mineral-dark-color-rgb), 1);
+}
+.radio .circle.color-news:has(.input:checked) {
+    background: rgba(var(--mineral-news-rgb), 1);
+    border-color: rgba(var(--mineral-news-rgb), 1);
+}
+
+.radio .circle:has(.input:focus-visible) {
+    box-shadow: var(--mineral-focus-ring);
+}
+
+.radio .circle:has(.input:checked) {
+    animation: radio-flash 320ms ease;
+    transform: scale(1.02);
+}
+
+.radio .label-text {
+    color: var(--mineral-text);
+}
+
+.radio-group {
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.radio-group.vertical {
+    flex-direction: column;
+    gap: var(--mineral-spacing-sm);
+}
+
+.radio-group.horizontal {
+    flex-direction: row;
+    gap: var(--mineral-spacing-lg);
+}
+
+.radio-group .label {
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-text-secondary);
+    font-weight: 500;
+    margin-bottom: var(--mineral-spacing-sm);
+}
+
+.radio-group .label.error {
+    color: var(--mineral-error);
+}
+
+
+@keyframes radio-flash {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--color-rgb), 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(var(--color-rgb), 0.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--color-rgb), 0);
+    }
+}

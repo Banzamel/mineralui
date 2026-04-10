@@ -1,0 +1,171 @@
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--mineral-font-family), sans-serif;
+}
+
+.toggle.label-left {
+    flex-direction: row-reverse;
+}
+
+.toggle.disabled {
+    opacity: var(--mineral-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.toggle .track {
+    --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.18);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--mineral-radius-full);
+    background: var(--mineral-border-hover);
+    transition:
+        background-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast);
+    flex-shrink: 0;
+}
+
+.toggle .track > :not(.click-effect-layer):not(.knob) {
+    position: relative;
+    z-index: 1;
+}
+
+.toggle.xs .track {
+    width: 24px;
+    height: 14px;
+}
+.toggle.sm .track {
+    width: 28px;
+    height: 16px;
+}
+.toggle.md .track {
+    width: 36px;
+    height: 20px;
+}
+.toggle.lg .track {
+    width: 44px;
+    height: 24px;
+}
+.toggle.xl .track {
+    width: 52px;
+    height: 28px;
+}
+
+.toggle.xs .knob {
+    width: 10px;
+    height: 10px;
+}
+.toggle.sm .knob {
+    width: 12px;
+    height: 12px;
+}
+.toggle.md .knob {
+    width: 16px;
+    height: 16px;
+}
+.toggle.lg .knob {
+    width: 20px;
+    height: 20px;
+}
+.toggle.xl .knob {
+    width: 24px;
+    height: 24px;
+}
+
+.toggle.xs .label-text {
+    font-size: var(--mineral-font-size-xs);
+}
+.toggle.sm .label-text {
+    font-size: var(--mineral-font-size-xs);
+}
+.toggle.md .label-text {
+    font-size: var(--mineral-font-size-sm);
+}
+.toggle.lg .label-text {
+    font-size: var(--mineral-font-size-md);
+}
+.toggle.xl .label-text {
+    font-size: var(--mineral-font-size-lg);
+}
+
+.toggle.xs .input:checked ~ .knob {
+    transform: translateX(10px) translateY(-50%);
+}
+.toggle.sm .input:checked ~ .knob {
+    transform: translateX(12px) translateY(-50%);
+}
+.toggle.md .input:checked ~ .knob {
+    transform: translateX(16px) translateY(-50%);
+}
+.toggle.lg .input:checked ~ .knob {
+    transform: translateX(20px) translateY(-50%);
+}
+.toggle.xl .input:checked ~ .knob {
+    transform: translateX(24px) translateY(-50%);
+}
+
+.toggle .input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: inherit;
+}
+
+.toggle .knob {
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: white;
+    box-shadow: var(--mineral-shadow-sm);
+    transition: transform var(--mineral-transition-fast);
+    z-index: 1;
+}
+
+.toggle .track.color-primary:has(.input:checked) {
+    background: var(--mineral-primary);
+}
+.toggle .track.color-success:has(.input:checked) {
+    background: var(--mineral-success);
+}
+.toggle .track.color-neutral:has(.input:checked) {
+    background: var(--mineral-neutral);
+}
+.toggle .track.color-error:has(.input:checked) {
+    background: var(--mineral-error);
+}
+.toggle .track.color-warning:has(.input:checked) {
+    background: var(--mineral-warning);
+}
+.toggle .track.color-info:has(.input:checked) {
+    background: var(--mineral-info);
+}
+.toggle .track.color-light:has(.input:checked) {
+    background: rgba(var(--mineral-light-rgb), 1);
+}
+.toggle .track.color-dark:has(.input:checked) {
+    background: rgba(var(--mineral-dark-color-rgb), 1);
+}
+.toggle .track.color-news:has(.input:checked) {
+    background: rgba(var(--mineral-news-rgb), 1);
+}
+
+.toggle:not(.disabled) .track:hover {
+    box-shadow: 0 2px 8px rgba(var(--color-rgb), 0.18);
+}
+
+.toggle .track:has(.input:focus-visible) {
+    box-shadow: var(--mineral-focus-ring);
+}
+
+.toggle .label-text {
+    color: var(--mineral-text);
+}

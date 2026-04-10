@@ -1,7 +1,6 @@
 import type {MNavbarProps} from './MNavbar.types'
 import {cn} from '../../../utils/cn'
-import {getAppearanceClassNames} from '../../../utils/appearanceProps'
-import {Container} from '../Container'
+import {MContainer} from '../MContainer'
 import './MNavbar.css'
 
 // Render a horizontal app or site navigation shell with container alignment.
@@ -11,29 +10,17 @@ export function MNavbar({
     bordered = true,
     sticky = false,
     tone = 'surface',
-    fcolor,
     justify = 'between',
-    align = 'center',
     wrap = false,
     className,
     children,
     ...rest
 }: MNavbarProps) {
     return (
-        <nav
-            className={cn(
-                'navbar',
-                tone,
-                ...getAppearanceClassNames({fcolor}),
-                bordered && 'bordered',
-                sticky && 'sticky',
-                className
-            )}
-            {...rest}
-        >
-            <Container size={container} padded={padded} className="container">
-                <div className={cn('inner', justify, align, wrap && 'wrap')}>{children}</div>
-            </Container>
+        <nav className={cn('navbar', tone, bordered && 'bordered', sticky && 'sticky', className)} {...rest}>
+            <MContainer size={container} padded={padded} className="container">
+                <div className={cn('inner', justify, wrap && 'wrap')}>{children}</div>
+            </MContainer>
         </nav>
     )
 }

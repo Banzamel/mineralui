@@ -13,7 +13,7 @@ export interface CreditCardBrandDetails {
 
 const OK_RESULT: ValidationResult = {valid: true}
 
-// Card brand rules also drive formatting and visible brand badges.
+// MCard brand rules also drive formatting and visible brand badges.
 const creditCardBrands: CreditCardBrandDetails[] = [
     {
         brand: 'visa',
@@ -61,7 +61,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
 function fallbackBrand(digits: string): CreditCardBrandDetails {
     return {
         brand: 'unknown',
-        label: 'Card',
+        label: 'MCard',
         iconLabel: 'CARD',
         maxLength: Math.min(Math.max(digits.length || 16, 16), 19),
         formatGroups: [4, 4, 4, 4, 3],
@@ -140,7 +140,7 @@ export function validateCardNumber(value: string): ValidationResult {
     const rule = detectCardBrand(digits)
 
     if (digits.length < 12) {
-        return {valid: false, error: 'Card number is too short'}
+        return {valid: false, error: 'MCard number is too short'}
     }
 
     if (digits.length > rule.maxLength) {

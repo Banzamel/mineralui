@@ -1,7 +1,8 @@
 import {createContext, useContext, useState, useEffect, useCallback, useMemo} from 'react'
 import {cn} from '../../../utils/cn'
-import {ChevronRightIcon, MenuIcon} from '../../../icons'
-import {MDropdownMenu} from '../../overlays'
+import {MButton} from '../../controls'
+import {MChevronRightIcon, MMenuIcon} from '../../../icons'
+import {MDropdownMenu, MTooltip} from '../../overlays'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,
@@ -87,7 +88,7 @@ export function MSidebar({
     const resolvedMode: MSidebarMode =
         modeProp === 'auto' ? internalMode : modeProp === 'collapsed' ? 'collapsed' : 'expanded'
 
-    // Toggle only the desktop width state. Mobile uses its own overlay flow.
+    // MToggle only the desktop width state. Mobile uses its own overlay flow.
     const toggleMode = useCallback(() => {
         const next: MSidebarMode = resolvedMode === 'expanded' ? 'collapsed' : 'expanded'
 
@@ -152,7 +153,7 @@ export function MSidebar({
                     aria-label="Open menu"
                 >
                     <span className="sidebar-hamburger-icon" aria-hidden="true">
-                        <MenuIcon />
+                        <MMenuIcon />
                     </span>
                 </button>
             )}
@@ -169,15 +170,19 @@ export function MSidebarHeader({bordered = false, className, children}: MSidebar
         <div className={cn('sidebar-header', bordered && 'bordered', className)}>
             <div className="sidebar-header-content">{children}</div>
             {canToggle && (
-                <button
-                    className="sidebar-toggle"
+                <MButton
+                    variant="outlined"
+                    color="neutral"
+                    iconOnly
+                    size="sm"
                     onClick={toggleMode}
                     aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                    className="sidebar-toggle"
                 >
                     <span className={cn('sidebar-chevron', isCollapsed && 'flipped')}>
-                        <ChevronRightIcon />
+                        <MChevronRightIcon />
                     </span>
-                </button>
+                </MButton>
             )}
         </div>
     )
@@ -223,7 +228,11 @@ export function MSidebarItem({
             {...linkProps}
         >
             {icon && <span className="sidebar-item-icon">{icon}</span>}
-            {!isCollapsed && <span className="sidebar-item-label">{label}</span>}
+            {!isCollapsed && (
+                <MTooltip content={label} placement="top" className="sidebar-item-label-tooltip">
+                    <span className="sidebar-item-label">{label}</span>
+                </MTooltip>
+            )}
             {!isCollapsed && badge && <span className="sidebar-item-badge">{badge}</span>}
         </Tag>
     )
@@ -253,10 +262,7 @@ export function MSidebarGroup({
 
     if (isCollapsed) {
         const trigger = (
-            <span
-                className={cn('sidebar-group-icon collapsed', active && 'active')}
-                title={label}
-            >
+            <span className={cn('sidebar-group-icon collapsed', active && 'active')} title={label}>
                 {icon}
             </span>
         )
@@ -277,7 +283,7 @@ export function MSidebarGroup({
                 <span className="sidebar-group-label">{label}</span>
                 {collapsible && (
                     <span className={cn('sidebar-group-arrow', open && 'open')}>
-                        <ChevronRightIcon />
+                        <MChevronRightIcon />
                     </span>
                 )}
             </button>

@@ -1,10 +1,10 @@
-export {Form, useFormField, useFormContext} from './Form'
+export {MForm, useFormField, useFormContext} from './MForm'
 export type {
-    FormProps,
-    FormFieldProps,
-    FormContextValue,
-    FormHelpers,
-    FieldRegistration,
-    UseFormFieldReturn,
-    UseFormFieldOptions,
-} from './Form'
+    MFormProps,
+    MFormFieldProps,
+    MFormContextValue,
+    MFormHelpers,
+    MFieldRegistration,
+    MUseFormFieldReturn,
+    MUseFormFieldOptions,
+} from './MForm'

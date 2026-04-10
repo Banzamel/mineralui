@@ -1,9 +1,8 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {MineralFontColor} from '../../../theme'
-import type {MineralClickEffect} from '../../../utils/useInteractionEffect'
+import type {MClickEffect} from '../../../utils/useInteractionEffect'
 
 export type MTabsVariant = 'underline' | 'pills'
-export type MTabsSize = 'sm' | 'md' | 'lg'
+export type MTabsSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type MTabsOrientation = 'horizontal' | 'vertical'
 
 export interface MTabsItem {
@@ -23,9 +22,8 @@ export interface MTabsProps extends HTMLAttributes<HTMLDivElement> {
     orientation?: MTabsOrientation
     size?: MTabsSize
     fullWidth?: boolean
-    fcolor?: MineralFontColor
     showPanels?: boolean
     panelClassName?: string
-    clickEffect?: MineralClickEffect
+    clickEffect?: MClickEffect
     rippleColor?: string
 }
