@@ -217,12 +217,14 @@ function prepareBasicPackage(targetDir) {
 
     rewriteBasicViteConfig(resolve(targetDir, 'vite.config.ts'))
     rewriteBasicPackageJson(resolve(targetDir, 'package.json'))
+    rewritePackageEdition(resolve(targetDir, 'src/utils/packageEdition.ts'), 'basic')
     rewriteBasicLicensing(resolve(targetDir, 'src/utils/licensing.ts'))
     writeFileSync(resolve(targetDir, 'README.md'), basicReadme)
 }
 
 function prepareProPackage(targetDir) {
     rewriteProPackageJson(resolve(targetDir, 'package.json'))
+    rewritePackageEdition(resolve(targetDir, 'src/utils/packageEdition.ts'), 'pro')
     writeFileSync(resolve(targetDir, 'README.md'), proReadme)
 }
 
@@ -388,6 +390,15 @@ export function getMineralComponentLicense(componentName: string): MineralCompon
 export function getMineralComponentPlan(componentName: string): MineralPlan {
     return getMineralComponentLicense(componentName)?.plan ?? 'free'
 }
+`
+
+    writeFileSync(filePath, content)
+}
+
+function rewritePackageEdition(filePath, edition) {
+    const content = `export type MineralPackageEdition = 'basic' | 'pro' | 'source'
+
+export const mineralPackageEdition: MineralPackageEdition = '${edition}'
 `
 
     writeFileSync(filePath, content)
