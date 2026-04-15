@@ -4,6 +4,7 @@ import {
     createInactiveActivationState,
     getPackageManifest,
     getProjectPackageJson,
+    readProjectActivationState,
     resolveApiBaseUrl,
     resolveEnvironment,
     resolveFingerprint,
@@ -91,6 +92,7 @@ async function main() {
     const packageRoot = resolvePackageRoot(import.meta.url)
     const packageManifest = getPackageManifest(packageRoot)
     const projectPackage = getProjectPackageJson(projectRoot)
+    const storedActivationState = readProjectActivationState(projectRoot)
     const packageName = typeof packageManifest.name === 'string' ? packageManifest.name : '@banzamel/mineralui-pro'
     const packageVersion = typeof packageManifest.version === 'string' ? packageManifest.version : null
     const projectName =
@@ -100,8 +102,16 @@ async function main() {
         (typeof values.hostname === 'string' ? values.hostname.trim() : '') || resolveHostname(projectPackage)
     const environment =
         (typeof values.environment === 'string' ? values.environment.trim() : '') || resolveEnvironment()
+    const storedInstanceId =
+        storedActivationState?.activated === true &&
+        storedActivationState.packageName === packageName &&
+        typeof storedActivationState.instanceId === 'string' &&
+        storedActivationState.instanceId.trim() !== ''
+            ? storedActivationState.instanceId.trim()
+            : ''
     const instanceId =
         (typeof values['instance-id'] === 'string' ? values['instance-id'].trim() : '') ||
+        storedInstanceId ||
         resolveInstanceId(projectRoot, packageName, hostname)
     const fingerprint = resolveFingerprint(projectRoot, packageName, packageVersion ?? '0.0.0', hostname)
     const apiBaseUrl =
@@ -159,7 +169,13 @@ async function main() {
     writeProjectActivationState(projectRoot, activationState)
     writePackageActivationRuntime(packageRoot, activationState)
 
-    console.log('[MineralUI Pro] Activation completed successfully.')
+    const operation = payload?.operation === 'updated' ? 'updated' : 'created'
+
+    if (operation === 'updated') {
+        console.log('[MineralUI Pro] Installation updated successfully.')
+    } else {
+        console.log('[MineralUI Pro] Installation activated successfully.')
+    }
 
     if (activationState.activationId) {
         console.log(`[MineralUI Pro] Activation ID: ${activationState.activationId}`)
