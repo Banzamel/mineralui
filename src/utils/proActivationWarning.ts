@@ -37,7 +37,7 @@ function showMineralProActivationWarning() {
     console.warn(
         [
             '[MineralUI Pro] This project is using the private Pro package, but the installation is not registered yet.',
-            'Run `npx mineralui-pro activate --license-key=YOUR_LICENSE_KEY` to register this project in your license portal.',
+            'Run `node ./node_modules/@banzamel/mineralui-pro/bin/mineralui-pro.js activate --license-key=YOUR_LICENSE_KEY` to register this project in your license portal.',
         ].join(' ')
     )
 }

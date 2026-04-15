@@ -140,6 +140,12 @@ Configure your project registry and auth token first, then install:
 npm install @banzamel/mineralui-pro
 \`\`\`
 
+Then register the installation in the project root:
+
+\`\`\`bash
+node ./node_modules/@banzamel/mineralui-pro/bin/mineralui-pro.js activate --license-key=YOUR_LICENSE_KEY
+\`\`\`
+
 ## Notes
 
 This package is generated from the main MineralUI source tree and is intended for private distribution only.
@@ -354,9 +360,14 @@ function rewriteProPackageJson(filePath) {
 
     manifest.name = '@banzamel/mineralui-pro'
     manifest.description = 'Private full edition of MineralUI with premium components and product modules'
-    delete manifest.scripts
+    manifest.bin = {
+        'mineralui-pro': './bin/mineralui-pro.js',
+    }
+    manifest.scripts = {
+        postinstall: 'node ./scripts/pro-postinstall.mjs',
+    }
     delete manifest.prepublishOnly
-    manifest.files = ['dist', 'LICENSE', 'README.md']
+    manifest.files = ['bin', 'dist', 'scripts', 'LICENSE', 'README.md']
 
     writeJson(filePath, manifest)
 }

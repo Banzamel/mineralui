@@ -3,6 +3,9 @@ import {resolve} from 'path'
 import {readFileSync, writeFileSync} from 'fs'
 import dts from 'vite-plugin-dts'
 
+const packageManifest = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'))
+const isProPackage = packageManifest.name === '@banzamel/mineralui-pro'
+
 // Build one shared style runtime and attach it to every public entry once.
 // This keeps subpath exports small while preserving automatic style injection.
 function cssAutoInject(entryNames: string[]): Plugin {
@@ -55,6 +58,96 @@ function cssAutoInject(entryNames: string[]): Plugin {
             ]
 
             for (const runtime of runtimes) {
+                const runtimePath = resolve(distDir, runtime.file)
+                writeFileSync(runtimePath, runtime.code)
+
+                for (const entryName of entryNames) {
+                    const entryPath = resolve(distDir, runtime.include(entryName))
+
+                    try {
+                        const code = readFileSync(entryPath, 'utf-8')
+
+                        if (!code.startsWith(runtime.prefix)) {
+                            writeFileSync(entryPath, runtime.prefix + code)
+                        }
+                    } catch {
+                        /* skip if file doesn't exist */
+                    }
+                }
+            }
+
+            if (!isProPackage) {
+                return
+            }
+
+            const warningMessage = JSON.stringify(
+                [
+                    '[MineralUI Pro] This project is using the private Pro package, but the installation is not registered yet.',
+                    'Run `node ./node_modules/@banzamel/mineralui-pro/bin/mineralui-pro.js activate --license-key=YOUR_LICENSE_KEY` to register this project in your license portal.',
+                ].join(' ')
+            )
+
+            const activationRuntimes = [
+                {
+                    file: 'pro-activation-runtime.js',
+                    include: (file: string) => `${file}.js`,
+                    prefix: 'import \'./pro-activation-runtime.js\'\n',
+                    code: [
+                        'const activationState={',
+                        'activated:false,',
+                        `packageName:${JSON.stringify(packageManifest.name)},`,
+                        `packageVersion:${JSON.stringify(packageManifest.version ?? null)},`,
+                        'projectName:null,',
+                        'environment:null,',
+                        'hostname:null,',
+                        'instanceId:null,',
+                        'activationId:null,',
+                        'activatedAt:null,',
+                        `apiBaseUrl:${JSON.stringify('https://api.mineralui.io')}`,
+                        '}',
+                        'function applyMineralProActivationState(){',
+                        'if(typeof window==="undefined"){return}',
+                        'if(activationState.activated){window.__MINERAL_PRO_ACTIVATED__=true;return}',
+                        'if(window.__MINERAL_PRO_ACTIVATION_WARNING_SHOWN__===true){return}',
+                        'window.__MINERAL_PRO_ACTIVATION_WARNING_SHOWN__=true',
+                        `console.warn(${warningMessage})`,
+                        '}',
+                        'applyMineralProActivationState()',
+                        'export {activationState,applyMineralProActivationState}',
+                    ].join('\n'),
+                },
+                {
+                    file: 'pro-activation-runtime.cjs',
+                    include: (file: string) => `${file}.cjs`,
+                    prefix: 'require(\'./pro-activation-runtime.cjs\')\n',
+                    code: [
+                        'const activationState={',
+                        'activated:false,',
+                        `packageName:${JSON.stringify(packageManifest.name)},`,
+                        `packageVersion:${JSON.stringify(packageManifest.version ?? null)},`,
+                        'projectName:null,',
+                        'environment:null,',
+                        'hostname:null,',
+                        'instanceId:null,',
+                        'activationId:null,',
+                        'activatedAt:null,',
+                        `apiBaseUrl:${JSON.stringify('https://api.mineralui.io')}`,
+                        '}',
+                        'function applyMineralProActivationState(){',
+                        'if(typeof window==="undefined"){return}',
+                        'if(activationState.activated){window.__MINERAL_PRO_ACTIVATED__=true;return}',
+                        'if(window.__MINERAL_PRO_ACTIVATION_WARNING_SHOWN__===true){return}',
+                        'window.__MINERAL_PRO_ACTIVATION_WARNING_SHOWN__=true',
+                        `console.warn(${warningMessage})`,
+                        '}',
+                        'applyMineralProActivationState()',
+                        'exports.activationState=activationState',
+                        'exports.applyMineralProActivationState=applyMineralProActivationState',
+                    ].join('\n'),
+                },
+            ]
+
+            for (const runtime of activationRuntimes) {
                 const runtimePath = resolve(distDir, runtime.file)
                 writeFileSync(runtimePath, runtime.code)
 

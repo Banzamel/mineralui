@@ -1,6 +1,5 @@
 // Styles
 import './theme/index.css'
-import './utils/proActivationWarning'
 
 // Theme
 export * from './theme'
