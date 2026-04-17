@@ -61,7 +61,8 @@ function normalizeDatePickerFormat(format: string): MDatePickerInputConfig {
     const normalizedFormat = format.replace(/DD/g, 'dd').replace(/YYYY/g, 'yyyy')
     const tokens = normalizedFormat.match(/dd|MM|yyyy/g)
     const detectedSeparator = normalizedFormat.match(/[^dMy]/)?.[0]
-    const separator = detectedSeparator === '/' || detectedSeparator === '.' || detectedSeparator === '-' ? detectedSeparator : '.'
+    const separator =
+        detectedSeparator === '/' || detectedSeparator === '.' || detectedSeparator === '-' ? detectedSeparator : '.'
     const order = tokens?.join('/')
 
     switch (order) {
@@ -102,12 +103,15 @@ function getInputPlaceholder(
     return `${dateFormat} ${timePlaceholder ?? getDefaultTimePlaceholder(timeFormat, showSeconds)}`
 }
 
-function formatDisplayValue(date: Date | null, options: {
-    format: string
-    withTime: boolean
-    timeFormat: '24h' | '12h'
-    showSeconds: boolean
-}): string {
+function formatDisplayValue(
+    date: Date | null,
+    options: {
+        format: string
+        withTime: boolean
+        timeFormat: '24h' | '12h'
+        showSeconds: boolean
+    }
+): string {
     if (!date) return ''
 
     const datePart = formatDate(stripTime(date), options.format)
@@ -532,23 +536,24 @@ export function MDatePicker({
         withTime,
     ])
 
-    const handleInputKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (
-            ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter'].includes(event.key)
-        ) {
-            return
-        }
+    const handleInputKeyDown = useCallback(
+        (event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter'].includes(event.key)) {
+                return
+            }
 
-        if (event.ctrlKey || event.metaKey) {
-            return
-        }
+            if (event.ctrlKey || event.metaKey) {
+                return
+            }
 
-        const allowCharacter = withTime ? /^[0-9\s:./-APMapm]$/ : /^[0-9./-]$/
+            const allowCharacter = withTime ? /^[0-9\s:./-APMapm]$/ : /^[0-9./-]$/
 
-        if (!allowCharacter.test(event.key)) {
-            event.preventDefault()
-        }
-    }, [withTime])
+            if (!allowCharacter.test(event.key)) {
+                event.preventDefault()
+            }
+        },
+        [withTime]
+    )
 
     const handleClear = useCallback(() => {
         setInputValue('')
@@ -574,9 +579,7 @@ export function MDatePicker({
         (date: Date) => {
             if (isDisabled(date)) return
 
-            const nextTime = withTime
-                ? draftTimeValue || formatTimeWithFormat(0, 0, 0, showSeconds, timeFormat)
-                : ''
+            const nextTime = withTime ? draftTimeValue || formatTimeWithFormat(0, 0, 0, showSeconds, timeFormat) : ''
             const nextValue = withTime
                 ? combineDateAndTime(date, nextTime, {format: timeFormat, showSeconds})
                 : stripTime(date)
@@ -873,7 +876,14 @@ export function MDatePicker({
     )
 
     const maxLength = withTime ? (timeFormat === '12h' ? (showSeconds ? 22 : 19) : showSeconds ? 19 : 16) : 10
-    const inputPlaceholder = getInputPlaceholder(placeholder, format, withTime, timeFormat, showSeconds, timePlaceholder)
+    const inputPlaceholder = getInputPlaceholder(
+        placeholder,
+        format,
+        withTime,
+        timeFormat,
+        showSeconds,
+        timePlaceholder
+    )
 
     if (inline) {
         return (
@@ -908,7 +918,11 @@ export function MDatePicker({
                 />
                 {renderPopoverContent()}
                 {name && selectedValue && (
-                    <input type="hidden" name={name} value={formatHiddenDateValue(selectedValue, withTime, showSeconds)} />
+                    <input
+                        type="hidden"
+                        name={name}
+                        value={formatHiddenDateValue(selectedValue, withTime, showSeconds)}
+                    />
                 )}
             </div>
         )

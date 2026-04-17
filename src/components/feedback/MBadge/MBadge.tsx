@@ -16,7 +16,15 @@ export function MBadge({
 }: MBadgeProps) {
     return (
         <span
-            className={cn('badge', `color-${color}`, size, pulsing && 'pulsing', rounded && 'rounded', fullWidth && 'full-width', className)}
+            className={cn(
+                'badge',
+                `color-${color}`,
+                size,
+                pulsing && 'pulsing',
+                rounded && 'rounded',
+                fullWidth && 'full-width',
+                className
+            )}
             {...rest}
         >
             {icon && <span className="badge-icon">{icon}</span>}

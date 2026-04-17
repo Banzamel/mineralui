@@ -49,7 +49,9 @@ export const MInputCVC = forwardRef<HTMLInputElement, MInputCVCProps>(function M
     },
     ref
 ) {
-    const [internalValue, setInternalValue] = useState(() => stripDigits(defaultValue?.toString() ?? '').slice(0, length))
+    const [internalValue, setInternalValue] = useState(() =>
+        stripDigits(defaultValue?.toString() ?? '').slice(0, length)
+    )
     const [validation, setValidation] = useState<ValidationResult>(OK)
     const [touched, setTouched] = useState(false)
 

@@ -218,10 +218,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
                                         <button
                                             key={sortItem.key}
                                             type="button"
-                                            className={cn(
-                                                'card-grid-sort-item',
-                                                sortKey === sortItem.key && 'active'
-                                            )}
+                                            className={cn('card-grid-sort-item', sortKey === sortItem.key && 'active')}
                                             onClick={() => {
                                                 if (sortKey === sortItem.key) {
                                                     setSortDir(sortDir === 'asc' ? 'desc' : 'asc')

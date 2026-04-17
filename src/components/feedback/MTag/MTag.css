@@ -45,7 +45,11 @@
 
 .m-tag.solid {
     background-color: rgba(var(--color-rgb), 0.14);
-    background-image: linear-gradient(135deg, rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%, transparent 60%);
+    background-image: linear-gradient(
+        135deg,
+        rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
     color: rgba(var(--color-rgb), 1);
 }
 

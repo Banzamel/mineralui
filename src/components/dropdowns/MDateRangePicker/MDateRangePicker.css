@@ -21,8 +21,6 @@
         background-color var(--mineral-transition-base);
 }
 
-
-
 .date-range-picker .trigger.error {
     border-color: var(--mineral-error) !important;
 }

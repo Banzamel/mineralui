@@ -75,10 +75,7 @@ export function MLoadMore({
 
             {showCount && (
                 <div className="load-more-bar">
-                    <div
-                        className="load-more-bar-fill"
-                        style={{width: `${Math.min((loaded / total) * 100, 100)}%`}}
-                    />
+                    <div className="load-more-bar-fill" style={{width: `${Math.min((loaded / total) * 100, 100)}%`}} />
                 </div>
             )}
         </div>

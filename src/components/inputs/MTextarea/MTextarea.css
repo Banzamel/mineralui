@@ -12,7 +12,6 @@
     width: 100%;
 }
 
-
 /* === MContainer === */
 .textarea .container {
     display: flex;
@@ -22,7 +21,6 @@
         box-shadow var(--mineral-transition-base),
         background-color var(--mineral-transition-base);
 }
-
 
 /* --- Status --- */
 .textarea .container.error {

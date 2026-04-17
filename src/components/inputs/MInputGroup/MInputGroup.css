@@ -9,7 +9,6 @@
     width: 100%;
 }
 
-
 /* === Group container (addons + input) === */
 .input-group .container {
     --click-effect-color: rgba(var(--color-rgb), 0.18);
@@ -169,7 +168,6 @@
     align-self: center;
     margin-right: var(--mineral-spacing-sm);
 }
-
 
 /* === Helper / Error text === */
 .input-group .field-helper {

@@ -26,7 +26,6 @@
         box-shadow var(--mineral-transition-base);
 }
 
-
 /* Height → min-height + vertical padding for autocomplete (tags wrap) */
 .autocomplete .input-wrapper.field-sm,
 .autocomplete .input-wrapper.field-md,
@@ -107,7 +106,6 @@
     display: block;
 }
 
-
 .autocomplete .clear-btn {
     margin-left: var(--mineral-spacing-xs);
 }
@@ -160,4 +158,3 @@
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-text-secondary);
 }
-

@@ -161,7 +161,14 @@ export function MSelect({
 
             <div
                 ref={triggerRef}
-                className={cn('trigger', `field-${variant}`, `field-${size}`, open && 'focused', hasError && 'error', disabled && 'disabled')}
+                className={cn(
+                    'trigger',
+                    `field-${variant}`,
+                    `field-${size}`,
+                    open && 'focused',
+                    hasError && 'error',
+                    disabled && 'disabled'
+                )}
                 onClick={handleTriggerClick}
                 onKeyDown={onKeyDown as unknown as React.KeyboardEventHandler}
                 tabIndex={disabled ? -1 : 0}

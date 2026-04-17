@@ -51,12 +51,7 @@ export function MImage({
             <MSkeleton
                 variant="rectangle"
                 animate="pulse"
-                className={cn(
-                    'image-skeleton',
-                    rounded && 'rounded',
-                    bordered && 'bordered',
-                    className
-                )}
+                className={cn('image-skeleton', rounded && 'rounded', bordered && 'bordered', className)}
                 style={ratioStyle}
                 aria-label="Loading"
             />

@@ -264,7 +264,8 @@ export const MInputExpDate = forwardRef<HTMLInputElement, MInputExpDateProps>(fu
 
     const hasError = error || (touched && !validation.valid)
     const resolvedErrorText = errorText || (touched && !validation.valid ? validation.error : undefined)
-    const isSuccess = !hasError && (success !== undefined ? success : touched && validation.valid && Boolean(month && year))
+    const isSuccess =
+        !hasError && (success !== undefined ? success : touched && validation.valid && Boolean(month && year))
     const resolvedColorClass = hasError ? 'color-error' : color ? `color-${color}` : undefined
 
     const containerClasses = cn(
@@ -335,7 +336,11 @@ export const MInputExpDate = forwardRef<HTMLInputElement, MInputExpDateProps>(fu
                         <MDropdownMenu
                             trigger={
                                 <span
-                                    className={cn('input-exp-date-trigger', monthMenuOpen && 'open', !month && 'placeholder')}
+                                    className={cn(
+                                        'input-exp-date-trigger',
+                                        monthMenuOpen && 'open',
+                                        !month && 'placeholder'
+                                    )}
                                     onMouseDown={focusHiddenInput}
                                 >
                                     <span>{monthLabel}</span>
@@ -372,7 +377,11 @@ export const MInputExpDate = forwardRef<HTMLInputElement, MInputExpDateProps>(fu
                         <MDropdownMenu
                             trigger={
                                 <span
-                                    className={cn('input-exp-date-trigger', yearMenuOpen && 'open', !year && 'placeholder')}
+                                    className={cn(
+                                        'input-exp-date-trigger',
+                                        yearMenuOpen && 'open',
+                                        !year && 'placeholder'
+                                    )}
                                     onMouseDown={focusHiddenInput}
                                 >
                                     <span>{yearLabel}</span>

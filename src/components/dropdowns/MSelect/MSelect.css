@@ -67,7 +67,6 @@
     overflow: hidden;
 }
 
-
 .select .arrow {
     margin-left: var(--mineral-spacing-sm);
     color: rgba(var(--color-rgb), 0.68);
@@ -87,7 +86,6 @@
 .select .clear-btn {
     margin-left: var(--mineral-spacing-xs);
 }
-
 
 .select-popover {
     overflow: hidden;
@@ -195,4 +193,3 @@
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-text-secondary);
 }
-

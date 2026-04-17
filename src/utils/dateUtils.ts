@@ -191,7 +191,7 @@ export function combineDateAndTime(
         date.getDate(),
         parsedTime?.hours ?? 0,
         parsedTime?.minutes ?? 0,
-        showSeconds ? parsedTime?.seconds ?? 0 : 0
+        showSeconds ? (parsedTime?.seconds ?? 0) : 0
     )
 }
 

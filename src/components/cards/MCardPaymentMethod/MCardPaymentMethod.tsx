@@ -34,7 +34,9 @@ export function MCardPaymentMethod({
 }: MCardPaymentMethodProps) {
     const expirySummary = expiryProps?.value ?? expiryProps?.defaultValue
     const resolvedBadgeLabel = badgeLabel === undefined ? 'Default' : badgeLabel
-    const derivedSummary = expirySummary ? `Credit card - Expiration date ${String(expirySummary).replace('/', '.')}` : 'Credit card'
+    const derivedSummary = expirySummary
+        ? `Credit card - Expiration date ${String(expirySummary).replace('/', '.')}`
+        : 'Credit card'
     const resolvedSummary = summary === undefined ? derivedSummary : summary
     const brandLabel = resolveBrandLabel(brand)
     const resolvedExpiryProps = {
@@ -84,18 +86,8 @@ export function MCardPaymentMethod({
                 )}
 
                 <div className={'cpm-fields'}>
-                    <MInputExpDate
-                        label={expiryLabel}
-                        placeholder={'MM/YYYY'}
-                        fullWidth
-                        {...resolvedExpiryProps}
-                    />
-                    <MInputCVC
-                        label={cvcLabel}
-                        placeholder={'123'}
-                        fullWidth
-                        {...cvcProps}
-                    />
+                    <MInputExpDate label={expiryLabel} placeholder={'MM/YYYY'} fullWidth {...resolvedExpiryProps} />
+                    <MInputCVC label={cvcLabel} placeholder={'123'} fullWidth {...cvcProps} />
                 </div>
             </div>
         </div>

@@ -13,7 +13,11 @@
     box-sizing: border-box;
     border-radius: var(--mineral-radius-lg);
     background-color: var(--card-body-bg);
-    background-image: linear-gradient(135deg, rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%, transparent 60%);
+    background-image: linear-gradient(
+        135deg,
+        rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
 }
 
 .card.no-stretch {

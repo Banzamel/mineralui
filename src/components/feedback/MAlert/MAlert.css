@@ -7,7 +7,11 @@
     border: 1px solid rgba(var(--color-rgb), 0.28);
     border-radius: var(--mineral-radius-md);
     background-color: rgba(var(--color-rgb), 0.1);
-    background-image: linear-gradient(135deg, rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%, transparent 60%);
+    background-image: linear-gradient(
+        135deg,
+        rgba(var(--color-rgb), var(--mineral-gleam-intensity)) 0%,
+        transparent 60%
+    );
     color: rgba(var(--color-rgb), 1);
     box-sizing: border-box;
     animation: alert-enter 750ms var(--mineral-ease-out);

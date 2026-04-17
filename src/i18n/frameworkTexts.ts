@@ -246,10 +246,7 @@ export function useMCookieConsentTexts(): MCookieConsentTexts {
             noDeclarationItems: t('mineralui.cookieConsent.noDeclarationItems', 'No declaration items available.'),
             searchDeclaration: t('mineralui.cookieConsent.searchDeclaration', 'Search cookies...'),
             triggerLabel: t('mineralui.cookieConsent.triggerLabel', 'Cookie settings'),
-            detectedCookiesLabel: t(
-                'mineralui.cookieConsent.detectedCookiesLabel',
-                'Detected storage and trackers'
-            ),
+            detectedCookiesLabel: t('mineralui.cookieConsent.detectedCookiesLabel', 'Detected storage and trackers'),
             noDetectedCookies: t(
                 'mineralui.cookieConsent.noDetectedCookies',
                 'No storage or trackers detected in this category yet.'

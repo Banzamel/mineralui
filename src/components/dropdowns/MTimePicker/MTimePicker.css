@@ -20,7 +20,6 @@
         box-shadow var(--mineral-transition-base);
 }
 
-
 .time.trigger.error {
     border-color: var(--mineral-error) !important;
 }
@@ -140,4 +139,3 @@
     font-size: var(--mineral-font-size-xs);
     color: var(--mineral-text-secondary);
 }
-

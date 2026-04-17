@@ -33,12 +33,7 @@ export function MEmptyState({
             </div>
             {buttonText && onAction && (
                 <div className="empty-state-action">
-                    <MButton
-                        size={BUTTON_SIZE_MAP[size]}
-                        variant="outlined"
-                        color={color}
-                        onClick={onAction}
-                    >
+                    <MButton size={BUTTON_SIZE_MAP[size]} variant="outlined" color={color} onClick={onAction}>
                         {buttonText}
                     </MButton>
                 </div>

@@ -173,8 +173,8 @@ const entryMap = {
     index: resolve(__dirname, 'src/index.ts'),
     layout: resolve(__dirname, 'src/layout.ts'),
     controls: resolve(__dirname, 'src/controls.ts'),
-    icons: resolve(__dirname, 'src/icons.entry.ts'),
-    illustrations: resolve(__dirname, 'src/illustrations.entry.ts'),
+    icons: resolve(__dirname, 'src/icons/index.ts'),
+    illustrations: resolve(__dirname, 'src/illustrations/index.ts'),
     cards: resolve(__dirname, 'src/cards.ts'),
     data: resolve(__dirname, 'src/data.ts'),
     display: resolve(__dirname, 'src/display.ts'),
@@ -186,8 +186,8 @@ const entryMap = {
     overlays: resolve(__dirname, 'src/overlays.ts'),
     primitives: resolve(__dirname, 'src/primitives.ts'),
     typography: resolve(__dirname, 'src/typography.ts'),
-    theme: resolve(__dirname, 'src/theme.entry.ts'),
-    i18n: resolve(__dirname, 'src/i18n.entry.ts'),
+    theme: resolve(__dirname, 'src/theme/index.ts'),
+    i18n: resolve(__dirname, 'src/i18n/index.ts'),
     utils: resolve(__dirname, 'src/utils.entry.ts'),
 }
 

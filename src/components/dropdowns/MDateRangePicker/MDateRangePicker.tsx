@@ -484,7 +484,9 @@ export function MDateRangePicker({
                 className={cn('date-range-picker', color && `color-${color}`, fullWidth && 'full-width', className)}
                 style={style}
             >
-                {label && <label className={cn('field-label', hasError && 'error', required && 'required')}>{label}</label>}
+                {label && (
+                    <label className={cn('field-label', hasError && 'error', required && 'required')}>{label}</label>
+                )}
                 {renderCalendar()}
             </div>
         )
@@ -506,7 +508,14 @@ export function MDateRangePicker({
 
             <div
                 ref={triggerRef}
-                className={cn('trigger', `field-${variant}`, `field-${size}`, open && 'focused', hasError && 'error', disabled && 'disabled')}
+                className={cn(
+                    'trigger',
+                    `field-${variant}`,
+                    `field-${size}`,
+                    open && 'focused',
+                    hasError && 'error',
+                    disabled && 'disabled'
+                )}
                 onClick={() => !disabled && !readOnly && setOpen(true)}
             >
                 <span className="icon">
