@@ -1,0 +1,9 @@
+.input-cvc-field {
+    letter-spacing: 0.28em;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+}
+
+.input-cvc-field::placeholder {
+    letter-spacing: 0.28em;
+}

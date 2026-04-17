@@ -1,0 +1,166 @@
+.card-payment-method {
+    --card-payment-rgb: var(--mineral-primary-rgb);
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--mineral-spacing-lg);
+    border-radius: var(--mineral-radius-lg);
+    background: linear-gradient(
+        135deg,
+        rgba(var(--card-payment-rgb), 0.15) 0%,
+        var(--mineral-dark-light) 50%,
+        rgba(var(--card-payment-rgb), 0.08) 100%
+    );
+    border: 1px solid var(--mineral-border);
+    color: var(--mineral-text);
+    font-family: var(--mineral-font-family), sans-serif;
+    overflow: hidden;
+}
+
+.card-payment-method.primary {
+    --card-payment-rgb: var(--mineral-primary-rgb);
+}
+
+.card-payment-method.neutral {
+    --card-payment-rgb: var(--mineral-neutral-rgb);
+}
+
+.card-payment-method.success {
+    --card-payment-rgb: var(--mineral-success-rgb);
+}
+
+.card-payment-method.error {
+    --card-payment-rgb: var(--mineral-error-rgb);
+}
+
+.card-payment-method.warning {
+    --card-payment-rgb: var(--mineral-warning-rgb);
+}
+
+.card-payment-method.info {
+    --card-payment-rgb: var(--mineral-info-rgb);
+}
+
+.card-payment-method.light {
+    --card-payment-rgb: var(--mineral-light-rgb);
+}
+
+.card-payment-method.dark {
+    --card-payment-rgb: var(--mineral-dark-rgb);
+}
+
+.card-payment-method.news {
+    --card-payment-rgb: var(--mineral-news-rgb);
+}
+
+.card-payment-method .cpm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--mineral-spacing-md);
+    margin-bottom: var(--mineral-spacing-md);
+}
+
+.card-payment-method .cpm-title {
+    margin: 0;
+    color: var(--mineral-text-heading);
+    font-size: var(--mineral-font-size-xl);
+    font-weight: 700;
+}
+
+.card-payment-method .cpm-action {
+    flex-shrink: 0;
+    font-weight: 600;
+}
+
+.card-payment-method .cpm-surface {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-md);
+    padding: var(--mineral-spacing-md);
+    border: 1px solid rgba(var(--card-payment-rgb), 0.5);
+    border-radius: var(--mineral-radius-lg);
+    background: color-mix(in srgb, var(--mineral-surface) 88%, rgba(var(--card-payment-rgb), 0.08));
+}
+
+.card-payment-method .cpm-method {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.card-payment-method .cpm-method-row {
+    gap: var(--mineral-spacing-sm);
+}
+
+.card-payment-method .cpm-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    height: 32px;
+    padding: 0 0.75rem;
+    border-radius: var(--mineral-radius-sm);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    background: var(--mineral-surface);
+    color: var(--mineral-text-heading);
+    border: 1px solid var(--mineral-border);
+}
+
+.card-payment-method .cpm-brand.visa {
+    background: linear-gradient(135deg, #1a1f71, #2e3bc7);
+    color: #fff;
+}
+
+.card-payment-method .cpm-brand.mastercard {
+    background: linear-gradient(135deg, #eb001b, #f79e1b);
+    color: #fff;
+}
+
+.card-payment-method .cpm-brand.amex {
+    background: linear-gradient(135deg, #006fcf, #00a1e4);
+    color: #fff;
+}
+
+.card-payment-method .cpm-brand.discover {
+    background: linear-gradient(135deg, #ff6600, #ffb347);
+    color: #fff;
+}
+
+.card-payment-method .cpm-brand.maestro {
+    background: linear-gradient(135deg, #0099df, #6c6bbf);
+    color: #fff;
+}
+
+.card-payment-method .cpm-last4 {
+    color: var(--mineral-text-heading);
+    font-family: var(--mineral-font-family-mono), monospace;
+    font-size: var(--mineral-font-size-lg);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.card-payment-method .cpm-summary,
+.card-payment-method .cpm-helper {
+    margin: 0;
+}
+
+.card-payment-method .cpm-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--mineral-spacing-md);
+}
+
+@media (max-width: 768px) {
+    .card-payment-method .cpm-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .card-payment-method .cpm-fields {
+        grid-template-columns: 1fr;
+    }
+}
