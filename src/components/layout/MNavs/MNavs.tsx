@@ -8,22 +8,41 @@ export function MNavs({items, orientation = 'horizontal', wrap = false, classNam
     return (
         <div className={cn('navs', orientation, wrap && 'wrap', className)} {...rest}>
             {items
-                ? items.map((item) => (
-                      <MLink
-                          key={item.key ?? item.href ?? item.title?.toString() ?? item.label?.toString()}
-                          component={item.component}
-                          href={item.href}
-                          to={item.to}
-                          target={item.target}
-                          rel={item.rel}
-                          title={item.title}
-                          current={item.current}
-                          disabled={item.disabled}
-                          className={cn('link', item.className)}
-                      >
-                          {item.label}
-                      </MLink>
-                  ))
+                ? items.map((item) => {
+                      const Icon = item.icon
+                      const hideLabel = item.iconOnly === true && Icon != null
+                      const labelAsString = typeof item.label === 'string' ? item.label : undefined
+                      const ariaLabel = hideLabel ? labelAsString : undefined
+                      const linkTitle = item.title ?? (hideLabel ? labelAsString : undefined)
+
+                      return (
+                          <MLink
+                              key={
+                                  item.key ??
+                                  item.href ??
+                                  item.title?.toString() ??
+                                  (labelAsString ?? '')
+                              }
+                              component={item.component}
+                              href={item.href}
+                              to={item.to}
+                              target={item.target}
+                              rel={item.rel}
+                              title={linkTitle}
+                              current={item.current}
+                              disabled={item.disabled}
+                              className={cn('link', hideLabel && 'icon-only', item.className)}
+                              aria-label={ariaLabel}
+                          >
+                              {Icon ? (
+                                  <span className='icon' aria-hidden={!hideLabel || undefined}>
+                                      <Icon size={item.iconSize} />
+                                  </span>
+                              ) : null}
+                              {!hideLabel ? item.label : null}
+                          </MLink>
+                      )
+                  })
                 : children}
         </div>
     )

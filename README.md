@@ -3,7 +3,7 @@
 Modern React UI framework with a sharp admin aesthetic, theming system, and production-ready components.
 
 - npm: `@banzamel/mineralui`
-- version: `1.1.1`
+- version: `1.2.0`
 - peer dependencies: `react >= 19`, `react-dom >= 19`
 - repository: `https://github.com/Banzamel/mineralui`
 - homepage: `https://mineralui.io`
