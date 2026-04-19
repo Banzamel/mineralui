@@ -49,3 +49,9 @@ export interface MTheme {
 
 export type MColor = 'primary' | 'neutral' | 'success' | 'error' | 'warning' | 'info' | 'light' | 'dark' | 'news'
 export type MSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type MBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+export type MHidden = MBreakpoint
+
+export interface MHiddenProps {
+    hidden?: MHidden | boolean
+}

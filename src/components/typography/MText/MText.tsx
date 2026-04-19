@@ -1,4 +1,5 @@
 import type {MTextProps} from './MText.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
@@ -10,6 +11,7 @@ export function MText({
     tone = 'default',
     size,
     align = 'left',
+    hidden,
     color,
     weight = 'normal',
     truncate,
@@ -74,6 +76,7 @@ export function MText({
                 ...(lines ? ({'--line-clamp': lines} as React.CSSProperties) : undefined),
                 ...style,
             }}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {children}

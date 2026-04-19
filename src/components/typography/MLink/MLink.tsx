@@ -1,6 +1,7 @@
 import {forwardRef} from 'react'
 import type {MouseEvent} from 'react'
 import type {MLinkProps} from './MLink.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import './MLink.css'
 
@@ -11,6 +12,7 @@ export const MLink = forwardRef<HTMLElement, MLinkProps>(function MLink(
         to,
         tone = 'default',
         underline = 'hover',
+        hidden,
         current = false,
         block = false,
         disabled = false,
@@ -51,6 +53,7 @@ export const MLink = forwardRef<HTMLElement, MLinkProps>(function MLink(
             aria-current={current ? 'page' : undefined}
             aria-disabled={disabled || undefined}
             onClick={handleClick}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {children}

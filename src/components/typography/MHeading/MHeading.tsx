@@ -1,6 +1,7 @@
 import {createElement} from 'react'
 import type {CSSProperties} from 'react'
 import type {MHeadingProps} from './MHeading.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import './MHeading.css'
@@ -9,6 +10,7 @@ import './MHeading.css'
 export function MHeading({
     level = 2,
     tone = 'default',
+    hidden,
     color,
     truncate,
     className,
@@ -31,6 +33,7 @@ export function MHeading({
                 className
             ),
             style: lines ? ({'--line-clamp': lines, ...style} as CSSProperties) : style,
+            ...getHiddenProps(hidden),
             ...rest,
         },
         children

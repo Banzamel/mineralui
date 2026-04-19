@@ -17,12 +17,7 @@ export function MNavs({items, orientation = 'horizontal', wrap = false, classNam
 
                       return (
                           <MLink
-                              key={
-                                  item.key ??
-                                  item.href ??
-                                  item.title?.toString() ??
-                                  (labelAsString ?? '')
-                              }
+                              key={item.key ?? item.href ?? item.title?.toString() ?? labelAsString ?? ''}
                               component={item.component}
                               href={item.href}
                               to={item.to}
@@ -35,7 +30,7 @@ export function MNavs({items, orientation = 'horizontal', wrap = false, classNam
                               aria-label={ariaLabel}
                           >
                               {Icon ? (
-                                  <span className='icon' aria-hidden={!hideLabel || undefined}>
+                                  <span className="icon" aria-hidden={!hideLabel || undefined}>
                                       <Icon size={item.iconSize} />
                                   </span>
                               ) : null}

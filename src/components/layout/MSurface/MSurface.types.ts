@@ -1,10 +1,12 @@
 import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
+import type {MHiddenProps} from '../../../theme'
 import type {LayoutUtilityProps} from '../../../utils/layoutProps'
 import type {RevealProp} from '../../../utils/useReveal'
 
 export type MSurfaceTone = 'default' | 'subtle' | 'raised' | 'inverse'
 
-export interface MSurfaceProps extends HTMLAttributes<HTMLDivElement>, LayoutUtilityProps {
+export interface MSurfaceProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'hidden'>, LayoutUtilityProps, MHiddenProps {
     tone?: MSurfaceTone
     outlined?: boolean
     padded?: boolean

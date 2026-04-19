@@ -1,4 +1,5 @@
 import type {MSubTextProps} from './MSubText.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getAppearanceClassNames} from '../../../utils/appearanceProps'
 import './MSubText.css'
@@ -8,6 +9,7 @@ export function MSubText({
     as = 'span',
     size = 'sm',
     tone = 'muted',
+    hidden,
     color,
     className,
     children,
@@ -17,6 +19,7 @@ export function MSubText({
     return (
         <Component
             className={cn('subtext', !color && tone, size, ...getAppearanceClassNames({color}), className)}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {children}

@@ -3,6 +3,7 @@ import {cn} from '../../../utils/cn'
 import {MButton} from '../../controls'
 import {MChevronRightIcon, MMenuIcon} from '../../../icons'
 import {MDropdownMenu, MTooltip} from '../../overlays'
+import {MBreakpoints} from '../../../theme'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,
@@ -41,10 +42,12 @@ function useSidebar() {
 
 // Track the responsive breakpoint once for the whole sidebar tree.
 function useIsMobile(breakpoint: number): boolean {
-    const [mobile, setMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < breakpoint : false))
+    const [mobile, setMobile] = useState(() =>
+        typeof window !== 'undefined' ? window.innerWidth <= breakpoint : false
+    )
 
     useEffect(() => {
-        const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`)
+        const mq = window.matchMedia(`(max-width: ${breakpoint}px)`)
         const handler = (e: MediaQueryListEvent) => setMobile(e.matches)
 
         setMobile(mq.matches)
@@ -64,7 +67,7 @@ export function MSidebar({
     side = 'left',
     tone = 'subtle',
     bordered = true,
-    mobileBreakpoint = 768,
+    mobileBreakpoint = MBreakpoints.md,
     className,
     style,
     children,

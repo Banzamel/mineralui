@@ -1,4 +1,5 @@
 import type {MTagProps} from './MTag.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {MButton} from '../../controls'
 import {MCloseIcon} from '../../../icons'
@@ -9,6 +10,7 @@ export function MTag({
     color = 'primary',
     variant = 'solid',
     size = 'md',
+    hidden,
     rounded = false,
     closable = false,
     onClose,
@@ -17,7 +19,11 @@ export function MTag({
     ...rest
 }: MTagProps) {
     return (
-        <span className={cn('m-tag', `color-${color}`, variant, size, rounded && 'rounded', className)} {...rest}>
+        <span
+            className={cn('m-tag', `color-${color}`, variant, size, rounded && 'rounded', className)}
+            {...getHiddenProps(hidden)}
+            {...rest}
+        >
             {icon && <span className="m-tag icon">{icon}</span>}
             <span className="m-tag label">{label}</span>
             {closable && (

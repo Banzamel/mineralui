@@ -1,11 +1,9 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {MColor} from '../../../theme'
-
-import type {MSize} from '../../../theme'
+import type {MColor, MHiddenProps, MSize} from '../../../theme'
 
 export type MTagVariant = 'solid' | 'outlined'
 
-export interface MTagProps extends HTMLAttributes<HTMLSpanElement> {
+export interface MTagProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'hidden'>, MHiddenProps {
     label: ReactNode
     color?: MColor
     variant?: MTagVariant

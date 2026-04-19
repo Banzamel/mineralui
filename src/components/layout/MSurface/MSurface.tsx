@@ -1,4 +1,5 @@
 import type {MSurfaceProps} from './MSurface.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
 import {useReveal} from '../../../utils/useReveal'
@@ -9,6 +10,7 @@ export function MSurface({
     tone = 'default',
     outlined = true,
     padded = true,
+    hidden,
     reveal,
     spacing,
     padding,
@@ -64,6 +66,7 @@ export function MSurface({
                 className
             )}
             style={{...utilityStyle, ...style}}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {children}

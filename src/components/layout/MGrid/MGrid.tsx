@@ -1,11 +1,12 @@
 import {Children, cloneElement, isValidElement} from 'react'
 import type {ReactElement} from 'react'
 import type {MGridColumns, MGridItemProps, MGridProps} from './MGrid.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
 import './MGrid.css'
 
-type GridBreakpoint = 'span' | 'xl' | 'lg' | 'md' | 'sm'
+type GridBreakpoint = 'span' | 'xxl' | 'xl' | 'lg' | 'md' | 'sm'
 
 function isGridColumnElement(child: unknown): child is ReactElement<MGridProps | MGridItemProps> {
     if (!isValidElement(child)) {
@@ -21,7 +22,8 @@ function isGridColumnElement(child: unknown): child is ReactElement<MGridProps |
 
 function getNormalizedSpans(props: Partial<MGridProps>) {
     return {
-        span: props.span ?? props.xl ?? props.lg ?? props.md ?? props.sm,
+        span: props.span ?? props.xxl ?? props.xl ?? props.lg ?? props.md ?? props.sm,
+        xxl: props.xxl ?? props.xl ?? props.lg ?? props.md ?? props.sm,
         xl: props.xl ?? props.lg ?? props.md ?? props.sm,
         lg: props.lg ?? props.md ?? props.sm,
         md: props.md ?? props.sm,
@@ -48,7 +50,7 @@ function distributeRemainingColumns(remaining: number, count: number): Array<MGr
 }
 
 function resolveAutoSpans(columnProps: Array<Partial<MGridProps>>) {
-    const breakpoints: GridBreakpoint[] = ['span', 'xl', 'lg', 'md', 'sm']
+    const breakpoints: GridBreakpoint[] = ['span', 'xxl', 'xl', 'lg', 'md', 'sm']
     const normalized = columnProps.map((props) => getNormalizedSpans(props))
     const resolved = normalized.map((spans) => ({...spans}))
 
@@ -85,6 +87,8 @@ export function MGrid({
     md,
     lg,
     xl,
+    xxl,
+    hidden,
     spacing,
     padding,
     fsize,
@@ -107,7 +111,7 @@ export function MGrid({
     ...rest
 }: MGridProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
-    const baseSpan = span ?? xl ?? lg
+    const baseSpan = span ?? xxl ?? xl ?? lg
 
     if (type === 'col') {
         return (
@@ -116,6 +120,7 @@ export function MGrid({
                     'grid',
                     'col',
                     baseSpan ? `span-${baseSpan}` : 'span-auto',
+                    xxl && `xxl-${xxl}`,
                     xl && `xl-${xl}`,
                     lg && `lg-${lg}`,
                     md && `md-${md}`,
@@ -141,6 +146,7 @@ export function MGrid({
                     className
                 )}
                 style={{...utilityStyle, ...style}}
+                {...getHiddenProps(hidden)}
                 {...rest}
             >
                 {children}
@@ -153,7 +159,7 @@ export function MGrid({
     const autoColumns = Math.min(Math.max(columnEntries.length || childArray.length, 1), 12)
     const hasTrackedSizing = columnEntries.some(({child}) => {
         const p = child.props as MGridProps
-        return Boolean(p.span || p.xl || p.lg || p.md || p.sm)
+        return Boolean(p.span || p.xxl || p.xl || p.lg || p.md || p.sm)
     })
     const resolvedSpans = hasTrackedSizing
         ? resolveAutoSpans(columnEntries.map(({child}) => child.props as Partial<MGridProps>))
@@ -171,6 +177,7 @@ export function MGrid({
 
                   return cloneElement(child, {
                       span: spans.span,
+                      xxl: spans.xxl,
                       xl: spans.xl,
                       lg: spans.lg,
                       md: spans.md,
@@ -206,6 +213,7 @@ export function MGrid({
                 className
             )}
             style={{...utilityStyle, ...style}}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {resolvedChildren}
@@ -214,6 +222,6 @@ export function MGrid({
 }
 
 // Keep MGridItem as a compatibility alias for explicit column declarations.
-export function MGridItem({span, sm, md, lg, xl, ...rest}: MGridItemProps) {
-    return <MGrid type="col" span={span} sm={sm} md={md} lg={lg} xl={xl} {...rest} />
+export function MGridItem({span, sm, md, lg, xl, xxl, ...rest}: MGridItemProps) {
+    return <MGrid type="col" span={span} sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} {...rest} />
 }

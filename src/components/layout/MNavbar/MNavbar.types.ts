@@ -1,11 +1,12 @@
 import type {HTMLAttributes, ReactNode} from 'react'
+import type {MHiddenProps} from '../../../theme'
 import type {MContainerSize} from '../MContainer'
 
 export type MNavbarTone = 'default' | 'surface' | 'subtle'
 export type MNavbarJustify = 'start' | 'center' | 'between' | 'end'
 export type MNavbarMobileMenu = 'dropdown' | 'drawer'
 
-export interface MNavbarProps extends HTMLAttributes<HTMLElement> {
+export interface MNavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'hidden'>, MHiddenProps {
     container?: MContainerSize
     padded?: boolean
     bordered?: boolean

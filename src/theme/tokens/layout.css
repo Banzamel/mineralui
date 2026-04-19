@@ -4,4 +4,9 @@
     --mineral-sidebar-width: 240px;
     --mineral-sidebar-collapsed-width: 64px;
     --mineral-content-max-width: 1120px;
+    --mineral-breakpoint-sm: 640px;
+    --mineral-breakpoint-md: 768px;
+    --mineral-breakpoint-lg: 1024px;
+    --mineral-breakpoint-xl: 1280px;
+    --mineral-breakpoint-2xl: 1536px;
 }

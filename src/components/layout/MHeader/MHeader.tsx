@@ -1,4 +1,5 @@
 import type {MHeaderProps} from './MHeader.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {MContainer} from '../MContainer'
 import './MHeader.css'
@@ -11,12 +12,17 @@ export function MHeader({
     sticky = false,
     tone = 'surface',
     layout = 'split',
+    hidden,
     className,
     children,
     ...rest
 }: MHeaderProps) {
     return (
-        <header className={cn('header', tone, bordered && 'bordered', sticky && 'sticky', className)} {...rest}>
+        <header
+            className={cn('header', tone, bordered && 'bordered', sticky && 'sticky', className)}
+            {...getHiddenProps(hidden)}
+            {...rest}
+        >
             <MContainer size={container} padded={padded} className={cn('inner', `layout-${layout}`)}>
                 {children}
             </MContainer>

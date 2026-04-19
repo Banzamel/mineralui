@@ -1,5 +1,6 @@
 import {forwardRef} from 'react'
 import type {MSocialButtonProps} from './MSocialButton.types'
+import {getHiddenProps} from '../../../theme'
 import {
     SocialAppleMark,
     SocialFacebookMark,
@@ -59,6 +60,7 @@ export const MSocialButton = forwardRef<HTMLButtonElement, MSocialButtonProps>(f
         size = 'md',
         iconOnly = false,
         iconShape = 'circle',
+        hidden,
         fullWidth = false,
         loading = false,
         active = false,
@@ -124,6 +126,7 @@ export const MSocialButton = forwardRef<HTMLButtonElement, MSocialButtonProps>(f
 
                 onKeyDown?.(event)
             }}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {effectLayer}

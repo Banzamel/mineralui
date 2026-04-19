@@ -1,6 +1,7 @@
 import {forwardRef} from 'react'
 import type {KeyboardEvent, MouseEvent, PointerEvent} from 'react'
 import type {MButtonProps} from './MButton.types'
+import {getHiddenProps} from '../../../theme'
 import {useButtonGroup} from '../MButtonGroup/MButtonGroupContext'
 import {MSpinner} from '../../feedback'
 import {cn} from '../../../utils/cn'
@@ -17,6 +18,7 @@ export const MButton = forwardRef<HTMLElement, MButtonProps>(function MButton(
         variant: variantProp,
         size: sizeProp,
         color: colorProp,
+        hidden,
         fullWidth = false,
         rounded = false,
         shape,
@@ -105,6 +107,7 @@ export const MButton = forwardRef<HTMLElement, MButtonProps>(function MButton(
 
                 onKeyDown?.(event as never)
             }}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {effectLayer}

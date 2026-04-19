@@ -1,4 +1,5 @@
 import type {MBadgeProps} from './MBadge.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import './MBadge.css'
 
@@ -6,6 +7,7 @@ import './MBadge.css'
 export function MBadge({
     color = 'primary',
     size = 'md',
+    hidden,
     pulsing = false,
     rounded = false,
     fullWidth = false,
@@ -25,6 +27,7 @@ export function MBadge({
                 fullWidth && 'full-width',
                 className
             )}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {icon && <span className="badge-icon">{icon}</span>}

@@ -1,11 +1,11 @@
 import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
-import type {MColor, MSize} from '../../../theme'
+import type {MColor, MHiddenProps, MSize} from '../../../theme'
 import type {MClickEffect} from '../../../utils/useInteractionEffect'
 
 export type MAvatarSize = MSize | number
 export type MAvatarShape = 'circle' | 'rounded' | 'square'
 
-export interface MAvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
+export interface MAvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'color' | 'hidden'>, MHiddenProps {
     src?: string
     alt?: string
     name?: string

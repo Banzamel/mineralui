@@ -1,7 +1,7 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {MColor, MSize} from '../../../theme'
+import type {MColor, MHiddenProps, MSize} from '../../../theme'
 
-export interface MBadgeProps extends HTMLAttributes<HTMLSpanElement> {
+export interface MBadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'hidden'>, MHiddenProps {
     color?: MColor
     size?: MSize
     pulsing?: boolean

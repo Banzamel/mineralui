@@ -1,4 +1,5 @@
 import type {MFooterProps} from './MFooter.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
 import {MContainer} from '../MContainer'
@@ -10,6 +11,7 @@ export function MFooter({
     padded = true,
     bordered = true,
     tone = 'surface',
+    hidden,
     spacing,
     padding,
     fsize,
@@ -60,6 +62,7 @@ export function MFooter({
                 className
             )}
             style={{...utilityStyle, ...style}}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             <MContainer size={container} padded={padded} className="inner" fullWidth>

@@ -1,6 +1,7 @@
 import {Children, cloneElement, isValidElement, useEffect, useId, useRef, useState} from 'react'
 import type {MouseEvent as ReactMouseEvent, ReactElement} from 'react'
 import type {MNavbarProps} from './MNavbar.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {MContainer} from '../MContainer'
 import {MInline} from '../MInline'
@@ -25,6 +26,7 @@ export function MNavbar({
     mobileMenu = 'dropdown',
     mobileMenuContent,
     mobileMenuLabel = 'Open navigation',
+    hidden,
     className,
     children,
     ...rest
@@ -41,7 +43,7 @@ export function MNavbar({
             cloneElement(child, {
                 key: `mnavbar-mobile-navs-${index}`,
                 orientation: 'vertical',
-            }),
+            })
         )
 
     const toggleButton = (
@@ -70,17 +72,18 @@ export function MNavbar({
         }
     }
 
-    const renderedChildren = lastInlineIndex === -1
-        ? [...childArray, toggleButton]
-        : childArray.map((child, index) => {
-              if (index !== lastInlineIndex) return child
-              const inlineChild = child as ReactElement<MInlineProps>
-              const inlineChildren = Children.toArray(inlineChild.props.children)
-              return cloneElement(inlineChild, {
-                  key: inlineChild.key ?? `mnavbar-inline-${index}`,
-                  children: [...inlineChildren, toggleButton],
+    const renderedChildren =
+        lastInlineIndex === -1
+            ? [...childArray, toggleButton]
+            : childArray.map((child, index) => {
+                  if (index !== lastInlineIndex) return child
+                  const inlineChild = child as ReactElement<MInlineProps>
+                  const inlineChildren = Children.toArray(inlineChild.props.children)
+                  return cloneElement(inlineChild, {
+                      key: inlineChild.key ?? `mnavbar-inline-${index}`,
+                      children: [...inlineChildren, toggleButton],
+                  })
               })
-          })
 
     useEffect(() => {
         if (!open) return
@@ -126,14 +129,13 @@ export function MNavbar({
                 sticky && 'sticky',
                 open && 'mobile-open',
                 `mobile-${mobileMenu}`,
-                className,
+                className
             )}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             <MContainer size={container} padded={padded} className="container">
-                <div className={cn('inner', justify, wrap && 'wrap')}>
-                    {renderedChildren}
-                </div>
+                <div className={cn('inner', justify, wrap && 'wrap')}>{renderedChildren}</div>
             </MContainer>
 
             {mobileMenu === 'drawer' && <div className={cn('mobile-backdrop', open && 'visible')} aria-hidden />}

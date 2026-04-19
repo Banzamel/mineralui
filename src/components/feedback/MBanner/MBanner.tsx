@@ -1,5 +1,6 @@
 import {useState, useRef} from 'react'
 import type {MBannerProps} from './MBanner.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {MButton} from '../../controls'
 import {MCloseIcon} from '../../../icons'
@@ -11,6 +12,7 @@ export function MBanner({
     variant = 'filled',
     icon,
     action,
+    hidden,
     dismissible = false,
     onDismiss,
     className,
@@ -41,7 +43,7 @@ export function MBanner({
     }
 
     return (
-        <div ref={wrapRef} className={cn('banner-wrap', dismissing && 'dismissing')}>
+        <div ref={wrapRef} className={cn('banner-wrap', dismissing && 'dismissing')} {...getHiddenProps(hidden)}>
             <div className={cn('banner', `color-${color}`, variant, className)} role="banner" {...rest}>
                 {icon && <span className="banner-icon">{icon}</span>}
                 <div className="banner-content">{children}</div>

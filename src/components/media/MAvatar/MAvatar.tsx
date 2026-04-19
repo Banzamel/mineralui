@@ -1,5 +1,6 @@
 import type {CSSProperties} from 'react'
 import type {MAvatarProps} from './MAvatar.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import {renderOverlayBadge} from '../../../utils/overlayBadge'
@@ -22,6 +23,7 @@ export function MAvatar({
     initials,
     size = 'md',
     shape = 'circle',
+    hidden,
     color,
     badge,
     badgeColor,
@@ -73,6 +75,7 @@ export function MAvatar({
                 handlePointerDown(event)
                 onPointerDown?.(event)
             }}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {effectLayer}

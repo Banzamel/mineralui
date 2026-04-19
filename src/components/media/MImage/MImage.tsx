@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import type * as React from 'react'
 import type {MImageProps} from './MImage.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import {MSkeleton} from '../../feedback'
@@ -17,6 +18,7 @@ const RATIO_MAP: Record<string, string> = {
 export function MImage({
     fit = 'cover',
     ratio = 'auto',
+    hidden,
     rounded = false,
     bordered = false,
     shadow = false,
@@ -54,6 +56,7 @@ export function MImage({
                 className={cn('image-skeleton', rounded && 'rounded', bordered && 'bordered', className)}
                 style={ratioStyle}
                 aria-label="Loading"
+                {...getHiddenProps(hidden)}
             />
         )
     }
@@ -80,6 +83,7 @@ export function MImage({
                 )}
                 style={ratioStyle}
                 onPointerDown={handlePointerDown}
+                {...getHiddenProps(hidden)}
             >
                 {effectLayer}
                 <img className={imgClassName} onError={handleError} {...rest} alt={alt ?? ''} />
@@ -92,6 +96,7 @@ export function MImage({
             className={cn(imgClassName, className)}
             style={ratioStyle}
             onError={handleError}
+            {...getHiddenProps(hidden)}
             {...rest}
             alt={alt ?? ''}
         />

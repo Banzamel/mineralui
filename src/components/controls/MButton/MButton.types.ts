@@ -1,11 +1,11 @@
 import type {ButtonHTMLAttributes, CSSProperties, ElementType, ReactNode} from 'react'
-import type {MColor, MSize} from '../../../theme'
+import type {MColor, MHiddenProps, MSize} from '../../../theme'
 import type {MClickEffect} from '../../../utils/useInteractionEffect'
 
 export type MButtonVariant = 'filled' | 'secondary' | 'outlined' | 'ghost' | 'link' | 'icon'
 export type MButtonShape = 'default' | 'circle'
 
-export interface MButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+export interface MButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'hidden'>, MHiddenProps {
     component?: ElementType
     to?: string
     href?: string

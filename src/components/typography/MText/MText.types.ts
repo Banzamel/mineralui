@@ -1,12 +1,13 @@
 import type {HTMLAttributes, ReactNode} from 'react'
-import type {MColor} from '../../../theme'
+import type {MColor, MHiddenProps} from '../../../theme'
 import type {LayoutUtilityProps} from '../../../utils/layoutProps'
 
 export type MTextTone = 'default' | 'muted' | 'accent'
 export type MTextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type MTextAlign = 'left' | 'center' | 'right' | 'justify'
 
-export interface MTextProps extends Omit<HTMLAttributes<HTMLElement>, 'color'>, LayoutUtilityProps {
+export interface MTextProps
+    extends Omit<HTMLAttributes<HTMLElement>, 'color' | 'hidden'>, LayoutUtilityProps, MHiddenProps {
     as?: 'p' | 'span' | 'div' | 'strong' | 'em'
     tone?: MTextTone
     size?: MTextSize

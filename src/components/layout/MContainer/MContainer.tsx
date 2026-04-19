@@ -1,4 +1,5 @@
 import type {MContainerProps} from './MContainer.types'
+import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
 import './MContainer.css'
@@ -7,6 +8,7 @@ import './MContainer.css'
 export function MContainer({
     size = 'content',
     padded = true,
+    hidden,
     spacing,
     padding,
     fsize,
@@ -57,6 +59,7 @@ export function MContainer({
                 className
             )}
             style={{...utilityStyle, ...style}}
+            {...getHiddenProps(hidden)}
             {...rest}
         >
             {children}
