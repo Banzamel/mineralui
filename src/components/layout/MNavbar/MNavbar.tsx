@@ -1,7 +1,7 @@
 import {Children, cloneElement, isValidElement, useEffect, useId, useRef, useState} from 'react'
 import type {MouseEvent as ReactMouseEvent, ReactElement} from 'react'
 import type {MNavbarProps} from './MNavbar.types'
-import {getHiddenProps} from '../../../theme'
+import {getHiddenProps, MShellBreakpoints, useMaxWidth} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {MContainer} from '../MContainer'
 import {MInline} from '../MInline'
@@ -26,6 +26,7 @@ export function MNavbar({
     mobileMenu = 'dropdown',
     mobileMenuContent,
     mobileMenuLabel = 'Open navigation',
+    mobileBreakpoint = MShellBreakpoints.compact,
     hidden,
     className,
     children,
@@ -34,6 +35,7 @@ export function MNavbar({
     const [open, setOpen] = useState(false)
     const rootRef = useRef<HTMLElement | null>(null)
     const menuId = useId()
+    const mobile = useMaxWidth(mobileBreakpoint)
 
     const childArray = Children.toArray(children)
 
@@ -107,6 +109,12 @@ export function MNavbar({
         }
     }, [open])
 
+    useEffect(() => {
+        if (!mobile) {
+            setOpen(false)
+        }
+    }, [mobile])
+
     function handleToggleClick() {
         setOpen((previous) => !previous)
     }
@@ -127,6 +135,7 @@ export function MNavbar({
                 tone,
                 bordered && 'bordered',
                 sticky && 'sticky',
+                mobile && 'mobile-view',
                 open && 'mobile-open',
                 `mobile-${mobileMenu}`,
                 className

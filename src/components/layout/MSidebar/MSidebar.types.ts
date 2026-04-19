@@ -12,6 +12,7 @@ export interface MSidebarProps {
     tone?: 'default' | 'subtle' | 'surface' | 'inverse'
     bordered?: boolean
     mobileBreakpoint?: number
+    compactBreakpoint?: number
     className?: string
     style?: CSSProperties
     children: ReactNode

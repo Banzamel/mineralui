@@ -3,7 +3,7 @@ import {cn} from '../../../utils/cn'
 import {MButton} from '../../controls'
 import {MChevronRightIcon, MMenuIcon} from '../../../icons'
 import {MDropdownMenu, MTooltip} from '../../overlays'
-import {MBreakpoints} from '../../../theme'
+import {MShellBreakpoints, useMaxWidth} from '../../../theme'
 import type {
     MSidebarProps,
     MSidebarHeaderProps,
@@ -40,24 +40,6 @@ function useSidebar() {
     return useContext(SidebarCtx)
 }
 
-// Track the responsive breakpoint once for the whole sidebar tree.
-function useIsMobile(breakpoint: number): boolean {
-    const [mobile, setMobile] = useState(() =>
-        typeof window !== 'undefined' ? window.innerWidth <= breakpoint : false
-    )
-
-    useEffect(() => {
-        const mq = window.matchMedia(`(max-width: ${breakpoint}px)`)
-        const handler = (e: MediaQueryListEvent) => setMobile(e.matches)
-
-        setMobile(mq.matches)
-        mq.addEventListener('change', handler)
-        return () => mq.removeEventListener('change', handler)
-    }, [breakpoint])
-
-    return mobile
-}
-
 // Render the sidebar shell and coordinate desktop and mobile behavior.
 export function MSidebar({
     mode: modeProp = 'auto',
@@ -67,12 +49,16 @@ export function MSidebar({
     side = 'left',
     tone = 'subtle',
     bordered = true,
-    mobileBreakpoint = MBreakpoints.md,
+    mobileBreakpoint = MShellBreakpoints.mobile,
+    compactBreakpoint = MShellBreakpoints.compact,
     className,
     style,
     children,
 }: MSidebarProps) {
-    const mobile = useIsMobile(mobileBreakpoint)
+    const resolvedCompactBreakpoint = Math.max(compactBreakpoint, mobileBreakpoint)
+    const mobile = useMaxWidth(mobileBreakpoint)
+    const compactViewport = useMaxWidth(resolvedCompactBreakpoint)
+    const compact = !mobile && compactViewport
     const [mobileOpen, setMobileOpen] = useState(false)
 
     const [internalMode, setInternalMode] = useState<MSidebarMode>(() => {
@@ -88,8 +74,15 @@ export function MSidebar({
         return defaultMode
     })
 
-    const resolvedMode: MSidebarMode =
-        modeProp === 'auto' ? internalMode : modeProp === 'collapsed' ? 'collapsed' : 'expanded'
+    const resolvedMode: MSidebarMode = mobile
+        ? 'expanded'
+        : compact
+          ? 'collapsed'
+          : modeProp === 'auto'
+            ? internalMode
+            : modeProp === 'collapsed'
+              ? 'collapsed'
+              : 'expanded'
 
     // MToggle only the desktop width state. Mobile uses its own overlay flow.
     const toggleMode = useCallback(() => {
@@ -121,7 +114,13 @@ export function MSidebar({
         return () => document.removeEventListener('keydown', handler)
     }, [mobileOpen])
 
-    const canToggle = !mobile && modeProp === 'auto'
+    useEffect(() => {
+        if (!mobile) {
+            setMobileOpen(false)
+        }
+    }, [mobile])
+
+    const canToggle = !mobile && !compact && modeProp === 'auto'
 
     const ctx = useMemo<SidebarContextValue>(
         () => ({mode: resolvedMode, mobile, mobileOpen, canToggle, toggleMode}),
@@ -135,6 +134,7 @@ export function MSidebar({
         tone,
         side,
         isCollapsed && 'collapsed',
+        compact && 'compact',
         bordered && 'bordered',
         mobile && 'mobile',
         mobile && mobileOpen && 'mobile-open',

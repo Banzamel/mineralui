@@ -17,5 +17,6 @@ export interface MNavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'hidden'
     mobileMenu?: MNavbarMobileMenu
     mobileMenuContent?: ReactNode
     mobileMenuLabel?: string
+    mobileBreakpoint?: number
     children?: ReactNode
 }

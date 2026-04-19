@@ -51,6 +51,7 @@ export type MColor = 'primary' | 'neutral' | 'success' | 'error' | 'warning' | '
 export type MSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type MBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export type MHidden = MBreakpoint
+export type MShellBreakpoint = 'mobile' | 'compact'
 
 export interface MHiddenProps {
     hidden?: MHidden | boolean
