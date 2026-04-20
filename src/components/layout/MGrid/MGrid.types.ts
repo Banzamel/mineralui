@@ -8,7 +8,6 @@ export type MGridColumns = (typeof mGridColumnValues)[number]
 
 export interface MGridProps extends Omit<HTMLAttributes<HTMLDivElement>, 'hidden'>, LayoutUtilityProps, MHiddenProps {
     type?: MGridType
-    span?: MGridColumns
     sm?: MGridColumns
     md?: MGridColumns
     lg?: MGridColumns
@@ -19,8 +18,7 @@ export interface MGridProps extends Omit<HTMLAttributes<HTMLDivElement>, 'hidden
     style?: CSSProperties
 }
 
-export interface MGridItemProps
-    extends Omit<MGridProps, 'type'>, Pick<MGridProps, 'span' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> {
+export interface MGridItemProps extends Omit<MGridProps, 'type'> {
     children?: ReactNode
     className?: string
     style?: CSSProperties

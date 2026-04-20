@@ -1,0 +1,200 @@
+.code-block-card {
+    --code-block-body-bg: color-mix(in srgb, var(--mineral-surface) 88%, black 12%);
+    --code-block-header-bg: color-mix(in srgb, var(--mineral-surface-contrast) 75%, transparent 25%);
+    --code-block-header-border: rgba(var(--mineral-primary-rgb), 0.12);
+}
+
+.code-block-card > .code-block-header {
+    padding: 0;
+    background: var(--code-block-header-bg);
+    border-bottom: 1px solid var(--code-block-header-border);
+}
+
+.code-block-card > .code-block-body {
+    padding: 0;
+    gap: 0;
+    background: var(--code-block-body-bg);
+}
+
+.code-block-card .code-block-header-layout {
+    width: 100%;
+}
+
+.code-block-card .code-block-header-meta {
+    min-width: 0;
+}
+
+.code-block-card .code-block-title {
+    line-height: 1.3;
+}
+
+.code-block-card .code-block-scroll {
+    overflow-x: auto;
+}
+
+.code-block-card .code-block-pre {
+    margin: 0;
+    padding: var(--mineral-spacing-lg);
+    min-width: max-content;
+    color: var(--mineral-text);
+    font-family: var(--mineral-font-family-mono, 'Cascadia Code', 'Fira Code', monospace);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+    tab-size: 4;
+    box-sizing: border-box;
+}
+
+.code-block-card .code-block-pre.with-line-numbers {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--mineral-spacing-md);
+    align-items: start;
+}
+
+.code-block-card .code-block-line-numbers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: var(--mineral-spacing-md);
+    border-right: 1px solid rgba(var(--mineral-primary-rgb), 0.12);
+    color: var(--mineral-text-secondary);
+    font-size: inherit;
+    line-height: inherit;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.68;
+    user-select: none;
+}
+
+.code-block-card .code-block-code-shell {
+    display: inline-block;
+    min-width: max-content;
+}
+
+.code-block-card .code-block-pre .code-block-code {
+    display: block;
+    min-width: max-content;
+}
+
+.code-block-card .code-block-pre.with-line-numbers .code-block-code-shell {
+    display: block;
+}
+
+.code-block-card .token.comment,
+.code-block-card .token.prolog,
+.code-block-card .token.doctype,
+.code-block-card .token.cdata {
+    color: rgba(148, 163, 184, 0.95);
+}
+
+.code-block-card .token.punctuation {
+    color: rgba(203, 213, 225, 0.9);
+}
+
+.code-block-card .token.property,
+.code-block-card .token.tag,
+.code-block-card .token.boolean,
+.code-block-card .token.number,
+.code-block-card .token.constant,
+.code-block-card .token.symbol,
+.code-block-card .token.deleted {
+    color: rgba(251, 146, 60, 0.95);
+}
+
+.code-block-card .token.selector,
+.code-block-card .token.attr-name,
+.code-block-card .token.string,
+.code-block-card .token.char,
+.code-block-card .token.builtin,
+.code-block-card .token.inserted {
+    color: rgba(74, 222, 128, 0.95);
+}
+
+.code-block-card .token.operator,
+.code-block-card .token.entity,
+.code-block-card .token.url,
+.code-block-card .language-css .token.string,
+.code-block-card .style .token.string {
+    color: rgba(248, 250, 252, 0.9);
+}
+
+.code-block-card .token.atrule,
+.code-block-card .token.attr-value,
+.code-block-card .token.keyword {
+    color: rgba(125, 211, 252, 0.98);
+}
+
+.code-block-card .token.function,
+.code-block-card .token.class-name {
+    color: rgba(196, 181, 253, 0.96);
+}
+
+.code-block-card .token.regex,
+.code-block-card .token.important,
+.code-block-card .token.variable {
+    color: rgba(250, 204, 21, 0.96);
+}
+
+.theme-light .code-block-card {
+    --code-block-body-bg: rgba(255, 255, 255, 0.96);
+    --code-block-header-bg: rgba(241, 245, 249, 0.92);
+    --code-block-header-border: rgba(15, 23, 42, 0.08);
+}
+
+.theme-light .code-block-card .code-block-pre {
+    color: rgba(30, 41, 59, 1);
+}
+
+.theme-light .code-block-card .token.comment,
+.theme-light .code-block-card .token.prolog,
+.theme-light .code-block-card .token.doctype,
+.theme-light .code-block-card .token.cdata {
+    color: rgba(100, 116, 139, 0.95);
+}
+
+.theme-light .code-block-card .token.punctuation,
+.theme-light .code-block-card .token.operator,
+.theme-light .code-block-card .token.entity,
+.theme-light .code-block-card .token.url,
+.theme-light .code-block-card .language-css .token.string,
+.theme-light .code-block-card .style .token.string {
+    color: rgba(51, 65, 85, 0.9);
+}
+
+.theme-light .code-block-card .token.property,
+.theme-light .code-block-card .token.tag,
+.theme-light .code-block-card .token.boolean,
+.theme-light .code-block-card .token.number,
+.theme-light .code-block-card .token.constant,
+.theme-light .code-block-card .token.symbol,
+.theme-light .code-block-card .token.deleted {
+    color: rgba(194, 65, 12, 0.95);
+}
+
+.theme-light .code-block-card .token.selector,
+.theme-light .code-block-card .token.attr-name,
+.theme-light .code-block-card .token.string,
+.theme-light .code-block-card .token.char,
+.theme-light .code-block-card .token.builtin,
+.theme-light .code-block-card .token.inserted {
+    color: rgba(21, 128, 61, 0.95);
+}
+
+.theme-light .code-block-card .token.atrule,
+.theme-light .code-block-card .token.attr-value,
+.theme-light .code-block-card .token.keyword {
+    color: rgba(3, 105, 161, 0.98);
+}
+
+.theme-light .code-block-card .token.function,
+.theme-light .code-block-card .token.class-name {
+    color: rgba(109, 40, 217, 0.95);
+}
+
+.theme-light .code-block-card .token.regex,
+.theme-light .code-block-card .token.important,
+.theme-light .code-block-card .token.variable {
+    color: rgba(161, 98, 7, 0.95);
+}

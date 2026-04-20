@@ -6,7 +6,21 @@ import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
 import './MGrid.css'
 
-type GridBreakpoint = 'span' | 'xxl' | 'xl' | 'lg' | 'md' | 'sm'
+type GridBreakpoint = 'base' | 'xxl' | 'xl' | 'lg' | 'md' | 'sm'
+type GridBreakpointSpans = Record<GridBreakpoint, MGridColumns | undefined>
+type MGridInternalProps = MGridProps & {
+    resolvedBase?: MGridColumns
+}
+
+const gridBreakpointOrder: GridBreakpoint[] = ['base', 'xxl', 'xl', 'lg', 'md', 'sm']
+
+const hiddenBreakpointMap: Record<string, GridBreakpoint[]> = {
+    sm: ['sm'],
+    md: ['md', 'sm'],
+    lg: ['lg', 'md', 'sm'],
+    xl: ['xl', 'lg', 'md', 'sm'],
+    '2xl': ['xxl', 'xl', 'lg', 'md', 'sm'],
+}
 
 function isGridColumnElement(child: unknown): child is ReactElement<MGridProps | MGridItemProps> {
     if (!isValidElement(child)) {
@@ -20,15 +34,33 @@ function isGridColumnElement(child: unknown): child is ReactElement<MGridProps |
     return child.type === MGrid && (child.props as MGridProps).type === 'col'
 }
 
-function getNormalizedSpans(props: Partial<MGridProps>) {
+function getInheritedSpans(props: Partial<MGridProps>): GridBreakpointSpans {
+    const sm = props.sm
+    const md = props.md ?? sm
+    const lg = props.lg ?? md
+    const xl = props.xl ?? lg
+    const xxl = props.xxl ?? xl
+
     return {
-        span: props.span ?? props.xxl ?? props.xl ?? props.lg ?? props.md ?? props.sm,
-        xxl: props.xxl ?? props.xl ?? props.lg ?? props.md ?? props.sm,
-        xl: props.xl ?? props.lg ?? props.md ?? props.sm,
-        lg: props.lg ?? props.md ?? props.sm,
-        md: props.md ?? props.sm,
-        sm: props.sm,
+        base: xxl,
+        xxl,
+        xl,
+        lg,
+        md,
+        sm,
     }
+}
+
+function isHiddenAtBreakpoint(hidden: MGridProps['hidden'], breakpoint: GridBreakpoint) {
+    if (hidden === true) {
+        return true
+    }
+
+    if (hidden === undefined || hidden === false || breakpoint === 'base') {
+        return false
+    }
+
+    return hiddenBreakpointMap[hidden]?.includes(breakpoint) ?? false
 }
 
 function distributeRemainingColumns(remaining: number, count: number): Array<MGridColumns | undefined> {
@@ -50,15 +82,19 @@ function distributeRemainingColumns(remaining: number, count: number): Array<MGr
 }
 
 function resolveAutoSpans(columnProps: Array<Partial<MGridProps>>) {
-    const breakpoints: GridBreakpoint[] = ['span', 'xxl', 'xl', 'lg', 'md', 'sm']
-    const normalized = columnProps.map((props) => getNormalizedSpans(props))
+    const normalized = columnProps.map((props) => getInheritedSpans(props))
     const resolved = normalized.map((spans) => ({...spans}))
 
-    for (const breakpoint of breakpoints) {
+    for (const breakpoint of gridBreakpointOrder) {
         const autoIndexes: number[] = []
         let usedColumns = 0
 
         normalized.forEach((spans, index) => {
+            if (isHiddenAtBreakpoint(columnProps[index].hidden, breakpoint)) {
+                resolved[index][breakpoint] = undefined
+                return
+            }
+
             const value = spans[breakpoint]
 
             if (value) {
@@ -82,12 +118,12 @@ function resolveAutoSpans(columnProps: Array<Partial<MGridProps>>) {
 // Render either a responsive row or a responsive column using one shared grid API.
 export function MGrid({
     type = 'row',
-    span,
     sm,
     md,
     lg,
     xl,
     xxl,
+    resolvedBase,
     hidden,
     spacing,
     padding,
@@ -109,9 +145,10 @@ export function MGrid({
     style,
     children,
     ...rest
-}: MGridProps) {
+}: MGridInternalProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
-    const baseSpan = span ?? xxl ?? xl ?? lg
+    const inheritedSpans = getInheritedSpans({sm, md, lg, xl, xxl})
+    const baseSpan = resolvedBase ?? inheritedSpans.base
 
     if (type === 'col') {
         return (
@@ -157,15 +194,15 @@ export function MGrid({
     const childArray = Children.toArray(children)
     const columnEntries = childArray.flatMap((child, index) => (isGridColumnElement(child) ? [{child, index}] : []))
     const autoColumns = Math.min(Math.max(columnEntries.length || childArray.length, 1), 12)
-    const hasTrackedSizing = columnEntries.some(({child}) => {
+    const needsResponsiveResolution = columnEntries.some(({child}) => {
         const p = child.props as MGridProps
-        return Boolean(p.span || p.xxl || p.xl || p.lg || p.md || p.sm)
+        return Boolean(p.hidden || p.xxl || p.xl || p.lg || p.md || p.sm)
     })
-    const resolvedSpans = hasTrackedSizing
+    const resolvedSpans = needsResponsiveResolution
         ? resolveAutoSpans(columnEntries.map(({child}) => child.props as Partial<MGridProps>))
         : null
     const resolvedChildren =
-        hasTrackedSizing && resolvedSpans
+        needsResponsiveResolution && resolvedSpans
             ? childArray.map((child, childIndex) => {
                   const columnIndex = columnEntries.findIndex((entry) => entry.index === childIndex)
 
@@ -175,8 +212,8 @@ export function MGrid({
 
                   const spans = resolvedSpans[columnIndex]
 
-                  return cloneElement(child, {
-                      span: spans.span,
+                  return cloneElement(child as ReactElement<MGridInternalProps>, {
+                      resolvedBase: spans.base,
                       xxl: spans.xxl,
                       xl: spans.xl,
                       lg: spans.lg,
@@ -191,7 +228,7 @@ export function MGrid({
             className={cn(
                 'grid',
                 'row',
-                hasTrackedSizing ? 'tracked' : `auto-cols-${autoColumns}`,
+                needsResponsiveResolution ? 'tracked' : `auto-cols-${autoColumns}`,
                 ...getLayoutUtilityClassNames({
                     spacing,
                     padding,
@@ -222,6 +259,6 @@ export function MGrid({
 }
 
 // Keep MGridItem as a compatibility alias for explicit column declarations.
-export function MGridItem({span, sm, md, lg, xl, xxl, ...rest}: MGridItemProps) {
-    return <MGrid type="col" span={span} sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} {...rest} />
+export function MGridItem({sm, md, lg, xl, xxl, ...rest}: MGridItemProps) {
+    return <MGrid type="col" sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} {...rest} />
 }

@@ -11,7 +11,7 @@ export const MBreakpoints = {
 
 export const MShellBreakpoints = {
     mobile: 768,
-    compact: 960,
+    compact: 1024,
 } as const
 
 export function useMaxWidth(breakpoint: number): boolean {
