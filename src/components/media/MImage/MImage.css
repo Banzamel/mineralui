@@ -6,6 +6,15 @@
     vertical-align: top;
 }
 
+.image-button {
+    appearance: none;
+    padding: 0;
+    text-align: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .image-wrap > :not(.click-effect-layer) {
     position: relative;
     z-index: 1;
@@ -35,6 +44,9 @@
     display: block;
     max-width: 100%;
     height: auto;
+    transition:
+        transform var(--mineral-transition-base),
+        opacity var(--mineral-transition-base);
 }
 
 .image.cover {
@@ -63,6 +75,14 @@
 
 .image.shadow {
     box-shadow: var(--mineral-shadow-md);
+}
+
+.image-wrap.effect-zoom:hover .image {
+    transform: scale(1.04);
+}
+
+.image-wrap.effect-dim:hover .image {
+    opacity: 0.82;
 }
 
 /* Skeleton placeholder for image */

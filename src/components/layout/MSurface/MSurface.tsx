@@ -2,7 +2,6 @@ import type {MSurfaceProps} from './MSurface.types'
 import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils/layoutProps'
-import {useReveal} from '../../../utils/useReveal'
 import './MSurface.css'
 
 // Render a reusable surface primitive for cards, panels and preview blocks.
@@ -11,7 +10,6 @@ export function MSurface({
     outlined = true,
     padded = true,
     hidden,
-    reveal,
     spacing,
     padding,
     fsize,
@@ -34,17 +32,14 @@ export function MSurface({
     ...rest
 }: MSurfaceProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
-    const revealRef = useReveal<HTMLDivElement>(reveal)
 
     return (
         <div
-            ref={reveal !== undefined && reveal !== false ? revealRef : undefined}
             className={cn(
                 'surface',
                 tone,
                 outlined && 'outlined',
                 padded && 'padded',
-                reveal !== undefined && reveal !== false && 'reveal',
                 ...getLayoutUtilityClassNames({
                     spacing,
                     padding,

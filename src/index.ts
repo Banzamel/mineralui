@@ -82,8 +82,6 @@ export {useKeyboardNav} from './utils/useKeyboardNav'
 export type {UseKeyboardNavOptions} from './utils/useKeyboardNav'
 export {useInteractionEffect} from './utils/useInteractionEffect'
 export type {MClickEffect, UseInteractionEffectOptions, UseInteractionEffectResult} from './utils/useInteractionEffect'
-export {useReveal} from './utils/useReveal'
-export type {RevealProp} from './utils/useReveal'
 export {useGhostText} from './utils/useGhostText'
 export type {GhostTextOptions, GhostTextReturn} from './utils/useGhostText'
 export {
