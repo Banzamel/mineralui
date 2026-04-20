@@ -24,7 +24,8 @@
     width: 100%;
 }
 
-.image-wrap.has-ratio .image {
+.image-wrap.has-ratio .image,
+.image-wrap.has-size .image {
     height: 100%;
 }
 

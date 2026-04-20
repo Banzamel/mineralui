@@ -1,6 +1,7 @@
 import {useEffect, useId, useMemo, useState} from 'react'
 import type * as React from 'react'
-import type {MImageProps} from './MImage.types'
+import type {CSSProperties} from 'react'
+import type {MImageProps, MImageSize} from './MImage.types'
 import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
@@ -17,11 +18,18 @@ const RATIO_MAP: Record<string, string> = {
     '21:9': '21 / 9',
 }
 
+function toCssSize(value: MImageSize | undefined): string | undefined {
+    if (value == null) return undefined
+    return typeof value === 'number' ? `${value}px` : value
+}
+
 // Render a styled image with aspect ratio, fit, and optional fallback.
 export function MImage({
     src,
     fit = 'cover',
     ratio = 'auto',
+    width,
+    height,
     hidden,
     rounded = false,
     bordered = false,
@@ -55,8 +63,18 @@ export function MImage({
         onError?.(e)
     }
 
+    const widthValue = toCssSize(width)
+    const heightValue = toCssSize(height)
+    const hasExplicitSize = widthValue != null || heightValue != null
     const hasFixedRatio = ratio !== 'auto' && !!RATIO_MAP[ratio]
-    const ratioStyle = hasFixedRatio ? {aspectRatio: RATIO_MAP[ratio], ...style} : style
+    const sizeStyle: CSSProperties = {}
+    if (widthValue != null) sizeStyle.width = widthValue
+    if (heightValue != null) sizeStyle.height = heightValue
+    const ratioStyle: CSSProperties = {
+        ...style,
+        ...(hasFixedRatio ? {aspectRatio: RATIO_MAP[ratio]} : null),
+        ...sizeStyle,
+    }
     const resolvedSrc = errored && fallback ? fallback : src
     const previewItem = useMemo(
         () => ({
@@ -118,10 +136,12 @@ export function MImage({
         !effectLayer && bordered && 'bordered',
         !effectLayer && shadow && 'shadow'
     )
-    const usesWrapper = hasFixedRatio || Boolean(effectLayer) || preview || hoverEffect !== 'none'
+    const usesWrapper =
+        hasFixedRatio || hasExplicitSize || Boolean(effectLayer) || preview || hoverEffect !== 'none'
     const wrapperClassName = cn(
         'image-wrap',
         hasFixedRatio && 'has-ratio',
+        hasExplicitSize && 'has-size',
         rounded && 'rounded',
         bordered && 'bordered',
         shadow && 'shadow',
