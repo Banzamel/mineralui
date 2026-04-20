@@ -44,6 +44,10 @@ interface PrismLike {
     highlight: (code: string, grammar: PrismGrammar, language: string) => string
 }
 
+type PrismGlobal = typeof globalThis & {
+    Prism?: PrismLike
+}
+
 function escapeHtml(value: string): string {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
@@ -56,6 +60,7 @@ async function getPrism(): Promise<PrismLike> {
     if (!prismPromise) {
         prismPromise = (async () => {
             const prism = (await import('prismjs/components/prism-core')).default as PrismLike
+            ;(globalThis as PrismGlobal).Prism = prism
 
             await import('prismjs/components/prism-markup')
             await import('prismjs/components/prism-clike')
