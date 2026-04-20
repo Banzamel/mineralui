@@ -1,6 +1,6 @@
 {
     "name": "@banzamel/mineralui",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "description": "Modern React UI component framework with mineral dark aesthetic",
     "type": "module",
     "main": "dist/index.cjs",
@@ -317,7 +317,7 @@
         "url": "https://github.com/Banzamel/mineralui/issues"
     },
     "dependencies": {
-        "prismjs": "^1.30.0"
+        "highlight.js": "^11.11.1"
     },
     "publishConfig": {
         "access": "public"

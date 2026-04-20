@@ -8,13 +8,14 @@ import {MText} from '../../typography'
 import {MCopyIcon} from '../../../icons'
 import {cn} from '../../../utils/cn'
 import './MCodeBlock.css'
+import type {HLJSApi, LanguageFn} from 'highlight.js'
 
 const languageMap: Record<string, string> = {
     c: 'c',
     cpp: 'cpp',
     'c++': 'cpp',
-    arduino: 'cpp',
-    ino: 'cpp',
+    arduino: 'arduino',
+    ino: 'arduino',
     ts: 'typescript',
     typescript: 'typescript',
     tsx: 'tsx',
@@ -23,30 +24,30 @@ const languageMap: Record<string, string> = {
     jsx: 'jsx',
     json: 'json',
     css: 'css',
-    html: 'markup',
-    markup: 'markup',
+    html: 'html',
+    markup: 'html',
     bash: 'bash',
     shell: 'bash',
     shellscript: 'bash',
     php: 'php',
 }
 
-let prismPromise: Promise<PrismLike> | null = null
+const languageLoaders: Record<string, () => Promise<{default: LanguageFn}>> = {
+    xml: () => import('highlight.js/lib/languages/xml'),
+    css: () => import('highlight.js/lib/languages/css'),
+    javascript: () => import('highlight.js/lib/languages/javascript'),
+    typescript: () => import('highlight.js/lib/languages/typescript'),
+    json: () => import('highlight.js/lib/languages/json'),
+    bash: () => import('highlight.js/lib/languages/bash'),
+    c: () => import('highlight.js/lib/languages/c'),
+    cpp: () => import('highlight.js/lib/languages/cpp'),
+    arduino: () => import('highlight.js/lib/languages/arduino'),
+    php: () => import('highlight.js/lib/languages/php'),
+}
+
+let highlightJsPromise: Promise<HLJSApi> | null = null
 const codeBlockTypingSpeed = 42
 const codeBlockTypingStartDelay = 200
-
-interface PrismGrammar {
-    [key: string]: unknown
-}
-
-interface PrismLike {
-    languages: Record<string, PrismGrammar | undefined>
-    highlight: (code: string, grammar: PrismGrammar, language: string) => string
-}
-
-type PrismGlobal = typeof globalThis & {
-    Prism?: PrismLike
-}
 
 function escapeHtml(value: string): string {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -56,31 +57,25 @@ function resolveLanguage(language: string): string {
     return languageMap[language] ?? language
 }
 
-async function getPrism(): Promise<PrismLike> {
-    if (!prismPromise) {
-        prismPromise = (async () => {
-            const prism = (await import('prismjs/components/prism-core')).default as PrismLike
-            ;(globalThis as PrismGlobal).Prism = prism
+async function getHighlightJs(): Promise<HLJSApi> {
+    if (!highlightJsPromise) {
+        highlightJsPromise = (async () => {
+            const highlightJsCore = (await import('highlight.js/lib/core')).default
+            const highlightJs = highlightJsCore.newInstance()
 
-            await import('prismjs/components/prism-markup')
-            await import('prismjs/components/prism-clike')
-            await import('prismjs/components/prism-c')
-            await import('prismjs/components/prism-cpp')
-            await import('prismjs/components/prism-javascript')
-            await import('prismjs/components/prism-markup-templating')
-            await import('prismjs/components/prism-jsx')
-            await import('prismjs/components/prism-typescript')
-            await import('prismjs/components/prism-tsx')
-            await import('prismjs/components/prism-json')
-            await import('prismjs/components/prism-css')
-            await import('prismjs/components/prism-bash')
-            await import('prismjs/components/prism-php')
+            for (const [language, loadLanguage] of Object.entries(languageLoaders)) {
+                const definition = await loadLanguage()
+                highlightJs.registerLanguage(language, definition.default)
+            }
 
-            return prism
+            highlightJs.registerAliases(['shell', 'shellscript'], {languageName: 'bash'})
+            highlightJs.registerAliases('markup', {languageName: 'xml'})
+
+            return highlightJs
         })()
     }
 
-    return prismPromise
+    return highlightJsPromise
 }
 
 // Render a syntax-highlighted code block with optional card header and copy action.
@@ -149,10 +144,13 @@ export function MCodeBlock({
 
         async function highlightCode() {
             try {
-                const prism = await getPrism()
-                const grammar = prism.languages[normalizedLanguage]
-                const html = grammar
-                    ? prism.highlight(renderedCode, grammar, normalizedLanguage)
+                const highlightJs = await getHighlightJs()
+                const languageDefinition = highlightJs.getLanguage(normalizedLanguage)
+                const html = languageDefinition
+                    ? highlightJs.highlight(renderedCode, {
+                          language: normalizedLanguage,
+                          ignoreIllegals: true,
+                      }).value
                     : escapeHtml(renderedCode)
 
                 if (active) {
@@ -278,7 +276,7 @@ export function MCodeBlock({
                         )}
                         <span className="code-block-code-shell">
                             <code
-                                className={cn('code-block-code', `language-${normalizedLanguage}`)}
+                                className={cn('code-block-code', 'hljs', `language-${normalizedLanguage}`)}
                                 dangerouslySetInnerHTML={{__html: highlightedCode}}
                             />
                         </span>

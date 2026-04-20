@@ -82,58 +82,65 @@
     display: block;
 }
 
-.code-block-card .token.comment,
-.code-block-card .token.prolog,
-.code-block-card .token.doctype,
-.code-block-card .token.cdata {
+.code-block-card .hljs-comment,
+.code-block-card .hljs-quote {
     color: rgba(148, 163, 184, 0.95);
 }
 
-.code-block-card .token.punctuation {
+.code-block-card .hljs-punctuation,
+.code-block-card .hljs-meta,
+.code-block-card .hljs-attr,
+.code-block-card .hljs-attribute,
+.code-block-card .hljs-params,
+.code-block-card .hljs-subst {
     color: rgba(203, 213, 225, 0.9);
 }
 
-.code-block-card .token.property,
-.code-block-card .token.tag,
-.code-block-card .token.boolean,
-.code-block-card .token.number,
-.code-block-card .token.constant,
-.code-block-card .token.symbol,
-.code-block-card .token.deleted {
+.code-block-card .hljs-property,
+.code-block-card .hljs-tag,
+.code-block-card .hljs-name,
+.code-block-card .hljs-selector-tag,
+.code-block-card .hljs-literal,
+.code-block-card .hljs-number,
+.code-block-card .hljs-symbol,
+.code-block-card .hljs-bullet,
+.code-block-card .hljs-variable.constant_,
+.code-block-card .hljs-deletion {
     color: rgba(251, 146, 60, 0.95);
 }
 
-.code-block-card .token.selector,
-.code-block-card .token.attr-name,
-.code-block-card .token.string,
-.code-block-card .token.char,
-.code-block-card .token.builtin,
-.code-block-card .token.inserted {
+.code-block-card .hljs-selector-class,
+.code-block-card .hljs-selector-id,
+.code-block-card .hljs-selector-attr,
+.code-block-card .hljs-string,
+.code-block-card .hljs-char,
+.code-block-card .hljs-built_in,
+.code-block-card .hljs-addition {
     color: rgba(74, 222, 128, 0.95);
 }
 
-.code-block-card .token.operator,
-.code-block-card .token.entity,
-.code-block-card .token.url,
-.code-block-card .language-css .token.string,
-.code-block-card .style .token.string {
+.code-block-card .hljs-operator,
+.code-block-card .hljs-link {
     color: rgba(248, 250, 252, 0.9);
 }
 
-.code-block-card .token.atrule,
-.code-block-card .token.attr-value,
-.code-block-card .token.keyword {
+.code-block-card .hljs-keyword,
+.code-block-card .hljs-selector-pseudo,
+.code-block-card .hljs-template-tag {
     color: rgba(125, 211, 252, 0.98);
 }
 
-.code-block-card .token.function,
-.code-block-card .token.class-name {
+.code-block-card .hljs-title,
+.code-block-card .hljs-title.class_,
+.code-block-card .hljs-title.function_,
+.code-block-card .hljs-function .hljs-title,
+.code-block-card .hljs-type {
     color: rgba(196, 181, 253, 0.96);
 }
 
-.code-block-card .token.regex,
-.code-block-card .token.important,
-.code-block-card .token.variable {
+.code-block-card .hljs-regexp,
+.code-block-card .hljs-variable,
+.code-block-card .hljs-template-variable {
     color: rgba(250, 204, 21, 0.96);
 }
 
@@ -147,54 +154,61 @@
     color: rgba(30, 41, 59, 1);
 }
 
-.theme-light .code-block-card .token.comment,
-.theme-light .code-block-card .token.prolog,
-.theme-light .code-block-card .token.doctype,
-.theme-light .code-block-card .token.cdata {
+.theme-light .code-block-card .hljs-comment,
+.theme-light .code-block-card .hljs-quote {
     color: rgba(100, 116, 139, 0.95);
 }
 
-.theme-light .code-block-card .token.punctuation,
-.theme-light .code-block-card .token.operator,
-.theme-light .code-block-card .token.entity,
-.theme-light .code-block-card .token.url,
-.theme-light .code-block-card .language-css .token.string,
-.theme-light .code-block-card .style .token.string {
+.theme-light .code-block-card .hljs-punctuation,
+.theme-light .code-block-card .hljs-operator,
+.theme-light .code-block-card .hljs-link,
+.theme-light .code-block-card .hljs-meta,
+.theme-light .code-block-card .hljs-attr,
+.theme-light .code-block-card .hljs-attribute,
+.theme-light .code-block-card .hljs-params,
+.theme-light .code-block-card .hljs-subst {
     color: rgba(51, 65, 85, 0.9);
 }
 
-.theme-light .code-block-card .token.property,
-.theme-light .code-block-card .token.tag,
-.theme-light .code-block-card .token.boolean,
-.theme-light .code-block-card .token.number,
-.theme-light .code-block-card .token.constant,
-.theme-light .code-block-card .token.symbol,
-.theme-light .code-block-card .token.deleted {
+.theme-light .code-block-card .hljs-property,
+.theme-light .code-block-card .hljs-tag,
+.theme-light .code-block-card .hljs-name,
+.theme-light .code-block-card .hljs-selector-tag,
+.theme-light .code-block-card .hljs-literal,
+.theme-light .code-block-card .hljs-number,
+.theme-light .code-block-card .hljs-symbol,
+.theme-light .code-block-card .hljs-bullet,
+.theme-light .code-block-card .hljs-variable.constant_,
+.theme-light .code-block-card .hljs-deletion {
     color: rgba(194, 65, 12, 0.95);
 }
 
-.theme-light .code-block-card .token.selector,
-.theme-light .code-block-card .token.attr-name,
-.theme-light .code-block-card .token.string,
-.theme-light .code-block-card .token.char,
-.theme-light .code-block-card .token.builtin,
-.theme-light .code-block-card .token.inserted {
+.theme-light .code-block-card .hljs-selector-class,
+.theme-light .code-block-card .hljs-selector-id,
+.theme-light .code-block-card .hljs-selector-attr,
+.theme-light .code-block-card .hljs-string,
+.theme-light .code-block-card .hljs-char,
+.theme-light .code-block-card .hljs-built_in,
+.theme-light .code-block-card .hljs-addition {
     color: rgba(21, 128, 61, 0.95);
 }
 
-.theme-light .code-block-card .token.atrule,
-.theme-light .code-block-card .token.attr-value,
-.theme-light .code-block-card .token.keyword {
+.theme-light .code-block-card .hljs-keyword,
+.theme-light .code-block-card .hljs-selector-pseudo,
+.theme-light .code-block-card .hljs-template-tag {
     color: rgba(3, 105, 161, 0.98);
 }
 
-.theme-light .code-block-card .token.function,
-.theme-light .code-block-card .token.class-name {
+.theme-light .code-block-card .hljs-title,
+.theme-light .code-block-card .hljs-title.class_,
+.theme-light .code-block-card .hljs-title.function_,
+.theme-light .code-block-card .hljs-function .hljs-title,
+.theme-light .code-block-card .hljs-type {
     color: rgba(109, 40, 217, 0.95);
 }
 
-.theme-light .code-block-card .token.regex,
-.theme-light .code-block-card .token.important,
-.theme-light .code-block-card .token.variable {
+.theme-light .code-block-card .hljs-regexp,
+.theme-light .code-block-card .hljs-variable,
+.theme-light .code-block-card .hljs-template-variable {
     color: rgba(161, 98, 7, 0.95);
 }
