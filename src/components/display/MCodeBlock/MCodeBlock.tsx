@@ -10,6 +10,11 @@ import {cn} from '../../../utils/cn'
 import './MCodeBlock.css'
 
 const languageMap: Record<string, string> = {
+    c: 'c',
+    cpp: 'cpp',
+    'c++': 'cpp',
+    arduino: 'cpp',
+    ino: 'cpp',
     ts: 'typescript',
     typescript: 'typescript',
     tsx: 'tsx',
@@ -54,6 +59,8 @@ async function getPrism(): Promise<PrismLike> {
 
             await import('prismjs/components/prism-markup')
             await import('prismjs/components/prism-clike')
+            await import('prismjs/components/prism-c')
+            await import('prismjs/components/prism-cpp')
             await import('prismjs/components/prism-javascript')
             await import('prismjs/components/prism-markup-templating')
             await import('prismjs/components/prism-jsx')
@@ -82,6 +89,7 @@ export function MCodeBlock({
     copyLabel = 'Copy',
     copiedLabel = 'Copied',
     maxHeight,
+    stretch = false,
     animated = false,
     lineNumbers = false,
     className,
@@ -202,7 +210,7 @@ export function MCodeBlock({
     }
 
     return (
-        <MCard className={cn('code-block-card', className)} {...rest} padded={false}>
+        <MCard className={cn('code-block-card', className)} {...rest} padded={false} stretch={stretch}>
             {hasHeader && (
                 <MCardHeader className="code-block-header">
                     <MInline
