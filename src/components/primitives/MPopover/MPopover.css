@@ -8,8 +8,6 @@
     box-shadow: var(--mineral-popover-shadow);
     backdrop-filter: blur(var(--mineral-popover-backdrop-blur));
     -webkit-backdrop-filter: blur(var(--mineral-popover-backdrop-blur));
-    overflow: auto;
-    max-height: 300px;
     animation-duration: 150ms;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;

@@ -1,8 +1,8 @@
-import type {ReactNode} from 'react'
+import type {HTMLAttributes, ReactNode} from 'react'
 
 export type MTooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
 
-export interface MTooltipProps {
+export interface MTooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'children'> {
     content: ReactNode
     placement?: MTooltipPlacement
     delay?: number

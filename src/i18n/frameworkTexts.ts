@@ -42,6 +42,8 @@ export interface MCalendarBoardTexts {
     timelineTitle: string
     timelineEmptyState: string
     allDay: string
+    allDayTab: string
+    timelineTab: string
     itemsCount: (count: number) => string
 }
 
@@ -154,6 +156,8 @@ export function useMCalendarBoardTexts(): MCalendarBoardTexts {
             timelineTitle: t('mineralui.calendarBoard.timelineTitle', 'Daily timeline'),
             timelineEmptyState: t('mineralui.calendarBoard.timelineEmptyState', 'No events in this hour.'),
             allDay: t('mineralui.calendarBoard.allDay', 'All day'),
+            allDayTab: t('mineralui.calendarBoard.allDayTab', 'All day'),
+            timelineTab: t('mineralui.calendarBoard.timelineTab', 'Hourly timeline'),
             itemsCount: (count) =>
                 t('mineralui.calendarBoard.itemsCount', '{count} items').replace('{count}', String(count)),
         }),
