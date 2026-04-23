@@ -1,0 +1,200 @@
+.card-tile {
+    --color-rgb: var(--mineral-primary-rgb);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--mineral-radius-lg);
+    border: 1px solid rgba(var(--color-rgb), 0.35);
+    background: var(--mineral-surface);
+    color: var(--mineral-text);
+    font-family: var(--mineral-font-family), sans-serif;
+    overflow: hidden;
+    transition:
+        border-color var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast),
+        transform var(--mineral-transition-fast);
+}
+
+.card-tile.interactive:hover {
+    border-color: rgba(var(--color-rgb), 0.65);
+    box-shadow: 0 8px 24px rgba(var(--color-rgb), 0.25);
+    transform: translateY(-2px);
+}
+
+.card-tile.interactive:focus-within {
+    border-color: rgba(var(--color-rgb), 0.85);
+    box-shadow: 0 0 0 2px rgba(var(--color-rgb), 0.45);
+}
+
+.card-tile .tile-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.card-tile .tile-link:focus {
+    outline: none;
+}
+
+.card-tile .tile-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: rgba(var(--color-rgb), 0.05);
+    overflow: hidden;
+}
+
+.card-tile .tile-image,
+.card-tile .tile-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-tile .tile-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.card-tile .tile-illustration > * {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.card-tile .tile-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.card-tile .tile-scrim.scrim-bottom {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 80%);
+}
+
+.card-tile .tile-scrim.scrim-top {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 80%);
+}
+
+.card-tile .tile-scrim.scrim-center {
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 70%, transparent 100%);
+}
+
+.card-tile .tile-body {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-sm);
+    padding: var(--mineral-spacing-md);
+    flex: 1;
+    pointer-events: none;
+}
+
+.card-tile.media-fill .tile-body.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: var(--mineral-spacing-lg);
+    color: #fff;
+}
+
+.card-tile.media-fill .tile-body.overlay .tile-title {
+    color: #fff;
+}
+
+.card-tile.media-fill .tile-body.overlay .tile-desc {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.card-tile.media-fill .tile-body.overlay.pos-bottom {
+    bottom: 0;
+}
+
+.card-tile.media-fill .tile-body.overlay.pos-top {
+    top: 0;
+}
+
+.card-tile.media-fill .tile-body.overlay.pos-center {
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    align-items: center;
+}
+
+.card-tile .tile-top {
+    display: flex;
+    align-items: center;
+    gap: var(--mineral-spacing-sm);
+}
+
+.card-tile .tile-icon {
+    display: inline-flex;
+    font-size: 20px;
+    color: rgba(var(--color-rgb), 1);
+    flex-shrink: 0;
+}
+
+.card-tile.media-fill .tile-body.overlay .tile-icon {
+    color: #fff;
+}
+
+.card-tile .tile-title {
+    margin: 0;
+    font-size: var(--mineral-font-size-md);
+    font-weight: 700;
+    color: var(--mineral-text-heading);
+    line-height: 1.3;
+}
+
+.card-tile .tile-desc {
+    margin: 0;
+    font-size: var(--mineral-font-size-sm);
+    color: var(--mineral-text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-tile .tile-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    z-index: 3;
+}
+
+.card-tile .tile-actions .tile-menu-wrap {
+    position: relative !important;
+}
+
+.card-tile .tile-overlay-btn.button {
+    min-width: 32px;
+    min-height: 32px;
+    background: rgba(0, 0, 0, 0.35) !important;
+    color: #fff;
+}
+
+.card-tile .tile-overlay-btn.button:hover {
+    background: rgba(0, 0, 0, 0.55) !important;
+    transform: scale(1.1);
+}
+
+.card-tile .tile-fav-active.button {
+    color: #e74c3c;
+}

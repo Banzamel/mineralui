@@ -17,10 +17,22 @@ export interface MDataTableSort {
     dir: MDataTableSortDir
 }
 
+export interface MDataTableFilterKey<T = any> {
+    key: keyof T & string
+    label: string
+    options?: string[]
+}
+
+export interface MDataTableSortKey<T = any> {
+    key: keyof T & string
+    label: string
+}
+
 export interface MDataTableProps<T = any> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
     columns: MDataTableColumn<T>[]
     data: T[]
     rowKey?: string | ((row: T, index: number) => string)
+
     sortable?: boolean
     filterable?: boolean
     selectable?: boolean
@@ -29,8 +41,29 @@ export interface MDataTableProps<T = any> extends Omit<HTMLAttributes<HTMLDivEle
     striped?: boolean
     compact?: boolean
     stickyHeader?: boolean
+
     sort?: MDataTableSort | null
     onSortChange?: (sort: MDataTableSort | null) => void
+
+    search?: string
+    onSearchChange?: (search: string) => void
+    searchKeys?: (keyof T & string)[]
+
+    filterKeys?: MDataTableFilterKey<T>[]
+    filters?: Record<string, string[]>
+    onFiltersChange?: (filters: Record<string, string[]>) => void
+
+    sortKeys?: MDataTableSortKey<T>[]
+
+    page?: number
+    onPageChange?: (page: number) => void
+    total?: number
+
+    manualSearch?: boolean
+    manualFilters?: boolean
+    manualSort?: boolean
+    manualPagination?: boolean
+
     selectedKeys?: string[]
     onSelectionChange?: (keys: string[]) => void
     emptyText?: string

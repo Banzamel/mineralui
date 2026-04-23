@@ -4,7 +4,6 @@
     flex-direction: column;
     gap: var(--mineral-spacing-sm);
     width: 100%;
-    max-width: 280px;
     box-sizing: border-box;
     padding: var(--mineral-spacing-lg);
     border-radius: var(--mineral-radius-lg);

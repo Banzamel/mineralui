@@ -1,0 +1,49 @@
+.blur {
+    --mineral-blur-amount: 6px;
+    position: relative;
+    border-radius: var(--mineral-radius-sm);
+    transition: background-color var(--mineral-transition-fast);
+    user-select: none;
+}
+
+.blur.inline {
+    display: inline-flex;
+    align-items: baseline;
+    vertical-align: baseline;
+}
+
+.blur.block {
+    display: inline-block;
+    width: 100%;
+}
+
+.blur > .blur-inner {
+    display: inline-block;
+    filter: blur(var(--mineral-blur-amount));
+    transition:
+        filter var(--mineral-transition-base),
+        opacity var(--mineral-transition-base);
+    max-width: 100%;
+}
+
+.blur.reveal-click {
+    cursor: pointer;
+}
+
+.blur.reveal-click:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--mineral-primary-rgb), 0.45);
+}
+
+.blur.reveal-hover:hover > .blur-inner,
+.blur.reveal-hover:focus-within > .blur-inner,
+.blur.reveal-focus:focus-within > .blur-inner,
+.blur.revealed > .blur-inner {
+    filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .blur > .blur-inner {
+        transition-duration: 0ms;
+    }
+}

@@ -107,3 +107,9 @@
     color: var(--mineral-text-muted);
     font-size: var(--mineral-font-size-sm);
 }
+
+.card-grid-pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--mineral-spacing-md);
+}

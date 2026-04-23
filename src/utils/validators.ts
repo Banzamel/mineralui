@@ -158,6 +158,14 @@ const IBAN_LENGTHS: Record<string, number> = {
     VG: 24,
 }
 
+// Sorted list of supported ISO IBAN country codes for selection UIs.
+export const ibanCountries: string[] = Object.keys(IBAN_LENGTHS).sort()
+
+// Look up the expected IBAN length for a country code or return null if unknown.
+export function getIbanCountryLength(countryCode: string): number | null {
+    return IBAN_LENGTHS[countryCode.toUpperCase()] ?? null
+}
+
 // Run the MOD-97 remainder calculation on a numeric IBAN representation.
 function mod97(numStr: string): number {
     let remainder = 0

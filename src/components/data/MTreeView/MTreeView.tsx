@@ -8,6 +8,7 @@ import type {
     MTreeViewMoveEvent,
 } from './MTreeView.types'
 import {cn} from '../../../utils/cn'
+import {MCheckbox} from '../../controls'
 import {MPortal} from '../../primitives'
 import {
     MChevronRightIcon,
@@ -109,6 +110,7 @@ function getDefaultIcon(node: MTreeNode, isExpanded: boolean, fileIcons: boolean
 function buildTreeLookup(items: MTreeNode[]) {
     const nodeMap = new Map<string, MTreeNode>()
     const descendants = new Map<string, Set<string>>()
+    const parentMap = new Map<string, string>()
 
     function walk(node: MTreeNode) {
         nodeMap.set(node.id, node)
@@ -116,6 +118,7 @@ function buildTreeLookup(items: MTreeNode[]) {
         const childIds = new Set<string>()
 
         for (const child of node.children ?? []) {
+            parentMap.set(child.id, node.id)
             childIds.add(child.id)
 
             const nestedIds = walk(child)
@@ -128,7 +131,33 @@ function buildTreeLookup(items: MTreeNode[]) {
 
     items.forEach(walk)
 
-    return {nodeMap, descendants}
+    return {nodeMap, descendants, parentMap}
+}
+
+// Compute indeterminate ids: a node where some but not all leaf descendants are checked.
+function computeIndeterminate(items: MTreeNode[], checked: Set<string>): Set<string> {
+    const indeterminate = new Set<string>()
+
+    function walk(node: MTreeNode): {checked: number; total: number} {
+        if (!node.children?.length) {
+            return checked.has(node.id) ? {checked: 1, total: 1} : {checked: 0, total: 1}
+        }
+
+        let c = 0
+        let t = 0
+
+        for (const child of node.children) {
+            const r = walk(child)
+            c += r.checked
+            t += r.total
+        }
+
+        if (c > 0 && c < t) indeterminate.add(node.id)
+        return {checked: c, total: t}
+    }
+
+    items.forEach(walk)
+    return indeterminate
 }
 
 // Keep the context menu inside the viewport.
@@ -155,6 +184,10 @@ function TreeItem({
     dropTargetId,
     onToggle,
     onSelect,
+    checkable,
+    checkedIds,
+    indeterminateIds,
+    onCheck,
     indent,
     showLines,
     fileIcons,
@@ -173,6 +206,8 @@ function TreeItem({
     const isDropTarget = dropTargetId === node.id
     const canDrop = canDropOnNode?.(node)
     const icon = getDefaultIcon(node, isExpanded, !!fileIcons)
+    const isChecked = checkedIds?.has(node.id) ?? false
+    const isIndeterminate = indeterminateIds?.has(node.id) ?? false
 
     return (
         <li role="treeitem" aria-expanded={hasChildren ? isExpanded : undefined}>
@@ -209,6 +244,18 @@ function TreeItem({
                         <span className="spacer" />
                     )}
                 </span>
+                {checkable && (
+                    <span className="check" onClick={(event) => event.stopPropagation()}>
+                        <MCheckbox
+                            size="sm"
+                            clickEffect="none"
+                            disabled={node.disabled}
+                            checked={isChecked}
+                            indeterminate={isIndeterminate}
+                            onChange={() => onCheck?.(node.id)}
+                        />
+                    </span>
+                )}
                 {icon && <span className="icon">{icon}</span>}
                 <span className="label">{node.label}</span>
             </div>
@@ -231,6 +278,10 @@ function TreeItem({
                             dropTargetId={dropTargetId}
                             onToggle={onToggle}
                             onSelect={onSelect}
+                            checkable={checkable}
+                            checkedIds={checkedIds}
+                            indeterminateIds={indeterminateIds}
+                            onCheck={onCheck}
                             indent={indent}
                             showLines={showLines}
                             fileIcons={fileIcons}
@@ -259,6 +310,10 @@ export function MTreeView({
     onExpandChange,
     selected: controlledSelected,
     onSelect,
+    checkable = false,
+    defaultChecked = [],
+    checked: controlledChecked,
+    onCheckedChange,
     indent = 20,
     showLines = true,
     fileIcons = true,
@@ -272,6 +327,7 @@ export function MTreeView({
 }: MTreeViewProps) {
     const [internalExpanded, setInternalExpanded] = useState<string[]>(defaultExpanded)
     const [internalSelected, setInternalSelected] = useState<string | null>(null)
+    const [internalChecked, setInternalChecked] = useState<string[]>(defaultChecked)
     const [draggedId, setDraggedId] = useState<string | null>(null)
     const [dropTargetId, setDropTargetId] = useState<string | null>(null)
     const [menu, setMenu] = useState<{
@@ -285,7 +341,10 @@ export function MTreeView({
     const expandedArr = controlledExpanded ?? internalExpanded
     const expandedIds = new Set(expandedArr)
     const selectedId = controlledSelected !== undefined ? controlledSelected : internalSelected
-    const {nodeMap, descendants} = buildTreeLookup(items)
+    const checkedArr = controlledChecked ?? internalChecked
+    const checkedIds = new Set(checkedArr)
+    const indeterminateIds = checkable ? computeIndeterminate(items, checkedIds) : new Set<string>()
+    const {nodeMap, descendants, parentMap} = buildTreeLookup(items)
     const draggedNode = draggedId ? (nodeMap.get(draggedId) ?? null) : null
 
     useEffect(() => {
@@ -327,6 +386,46 @@ export function MTreeView({
     function handleSelect(id: string, node: MTreeNode) {
         if (onSelect) onSelect(id, node)
         else setInternalSelected(id)
+    }
+
+    function handleCheck(id: string) {
+        const node = nodeMap.get(id)
+        if (!node || node.disabled) return
+
+        const next = new Set(checkedIds)
+        const isCurrentlyChecked = next.has(id)
+        const subtree = [id, ...Array.from(descendants.get(id) ?? [])]
+
+        if (isCurrentlyChecked) {
+            for (const sid of subtree) next.delete(sid)
+        } else {
+            for (const sid of subtree) {
+                const sNode = nodeMap.get(sid)
+                if (sNode && !sNode.disabled) next.add(sid)
+            }
+        }
+
+        let parentId = parentMap.get(id)
+
+        while (parentId) {
+            const parent = nodeMap.get(parentId)
+            if (!parent) break
+
+            const allChildrenChecked = (parent.children ?? []).every(
+                (child) => child.disabled || next.has(child.id)
+            )
+            const hasEnabledChild = (parent.children ?? []).some((child) => !child.disabled)
+
+            if (allChildrenChecked && hasEnabledChild) next.add(parentId)
+            else next.delete(parentId)
+
+            parentId = parentMap.get(parentId)
+        }
+
+        const nextArr = Array.from(next)
+
+        if (controlledChecked === undefined) setInternalChecked(nextArr)
+        onCheckedChange?.(nextArr)
     }
 
     function closeDrag() {
@@ -416,6 +515,10 @@ export function MTreeView({
                         dropTargetId={dropTargetId}
                         onToggle={handleToggle}
                         onSelect={handleSelect}
+                        checkable={checkable}
+                        checkedIds={checkedIds}
+                        indeterminateIds={indeterminateIds}
+                        onCheck={handleCheck}
                         indent={indent}
                         showLines={showLines}
                         fileIcons={fileIcons}

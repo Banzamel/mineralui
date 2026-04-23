@@ -7,12 +7,95 @@
 
 .data-table .toolbar {
     display: flex;
+    align-items: center;
     gap: var(--mineral-spacing-sm);
+    flex-wrap: wrap;
 }
 
 .data-table .filter-search {
     flex: 1;
+    min-width: 220px;
     max-width: 320px;
+}
+
+.data-table .toolbar-actions {
+    display: flex;
+    gap: var(--mineral-spacing-xs);
+    margin-left: auto;
+}
+
+.data-table-dropdown {
+    min-width: 200px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: var(--mineral-spacing-sm);
+}
+
+.data-table-filter-group {
+    margin-bottom: var(--mineral-spacing-sm);
+}
+
+.data-table-filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.data-table-filter-label {
+    display: block;
+    font-size: var(--mineral-font-size-xs);
+    font-weight: 600;
+    color: var(--mineral-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+}
+
+.data-table-filter-option {
+    padding: 4px 0;
+}
+
+.data-table-filter-option .checkbox {
+    width: 100%;
+}
+
+.data-table-filter-option .checkbox .label {
+    width: 100%;
+    gap: var(--mineral-spacing-sm);
+}
+
+.data-table-sort-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    color: var(--mineral-text);
+    font-size: var(--mineral-font-size-sm);
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: var(--mineral-radius-sm);
+    text-align: left;
+    transition: background 0.12s;
+}
+
+.data-table-sort-item:hover {
+    background: rgba(var(--mineral-primary-rgb), 0.08);
+}
+
+.data-table-sort-item.active {
+    color: var(--mineral-primary);
+    font-weight: 600;
+}
+
+.data-table-sort-dir {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+}
+
+.data-table-sort-icon {
+    flex: 0 0 auto;
 }
 
 .data-table .scroll {

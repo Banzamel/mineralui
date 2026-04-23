@@ -136,8 +136,7 @@ export function MImage({
         !effectLayer && bordered && 'bordered',
         !effectLayer && shadow && 'shadow'
     )
-    const usesWrapper =
-        hasFixedRatio || hasExplicitSize || Boolean(effectLayer) || preview || hoverEffect !== 'none'
+    const usesWrapper = hasFixedRatio || hasExplicitSize || Boolean(effectLayer) || preview || hoverEffect !== 'none'
     const wrapperClassName = cn(
         'image-wrap',
         hasFixedRatio && 'has-ratio',

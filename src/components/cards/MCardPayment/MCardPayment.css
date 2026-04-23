@@ -2,7 +2,6 @@
     --card-payment-rgb: var(--mineral-primary-rgb);
     position: relative;
     width: 100%;
-    max-width: 420px;
     box-sizing: border-box;
     padding: var(--mineral-spacing-lg);
     border-radius: var(--mineral-radius-lg);

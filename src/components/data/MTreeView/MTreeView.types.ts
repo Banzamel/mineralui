@@ -25,7 +25,7 @@ export interface MTreeViewMoveEvent {
     targetNode: MTreeNode
 }
 
-export interface MTreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
+export interface MTreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'defaultChecked'> {
     items: MTreeNode[]
     expandable?: boolean
     selectable?: boolean
@@ -34,6 +34,10 @@ export interface MTreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
     onExpandChange?: (ids: string[]) => void
     selected?: string | null
     onSelect?: (id: string, node: MTreeNode) => void
+    checkable?: boolean
+    defaultChecked?: string[]
+    checked?: string[]
+    onCheckedChange?: (ids: string[]) => void
     indent?: number
     showLines?: boolean
     fileIcons?: boolean
@@ -55,6 +59,10 @@ export interface MTreeItemProps {
     dropTargetId?: string | null
     onToggle: (id: string) => void
     onSelect?: (id: string, node: MTreeNode) => void
+    checkable?: boolean
+    checkedIds?: Set<string>
+    indeterminateIds?: Set<string>
+    onCheck?: (id: string) => void
     indent: number
     showLines?: boolean
     fileIcons?: boolean

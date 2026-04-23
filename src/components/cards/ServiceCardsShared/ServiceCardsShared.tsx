@@ -2,8 +2,6 @@ import {useEffect, useState} from 'react'
 import type {SharedServiceCardProps} from './ServiceCardsShared.types'
 import {cn} from '../../../utils/cn'
 import {
-    MArrowDownIcon,
-    MArrowUpIcon,
     MClockIcon,
     MEllipsisVerticalIcon,
     MHeartFillIcon,
@@ -46,8 +44,6 @@ export function SharedServiceCard({
     date,
     location,
     status,
-    value,
-    trend,
     className,
     ...rest
 }: SharedServiceCardProps) {
@@ -119,32 +115,6 @@ export function SharedServiceCard({
     const parsedDate = date ? (date instanceof Date ? date : new Date(date)) : null
     const dateDay = parsedDate ? parsedDate.getDate() : null
     const dateMonth = parsedDate ? parsedDate.toLocaleString('en', {month: 'short'}).toUpperCase() : null
-
-    const trendType = trend !== undefined ? (trend > 0 ? 'up' : trend < 0 ? 'down' : 'neutral') : null
-
-    if (variant === 'widget') {
-        return (
-            <div className={cn('card-service', 'widget', `color-${color}`, className)} {...rest}>
-                <div className="cs-widget">
-                    {icon && <span className="cs-widget-icon">{icon}</span>}
-                    <div className="cs-widget-content">
-                        <span className="cs-widget-label">{title}</span>
-                        <span className="cs-widget-value">{value}</span>
-                        {trend !== undefined && (
-                            <span className={cn('cs-widget-trend', trendType)}>
-                                {trendType === 'up' && <MArrowUpIcon size={14} />}
-                                {trendType === 'down' && <MArrowDownIcon size={14} />}
-                                <span>
-                                    {trend > 0 ? '+' : ''}
-                                    {trend}%
-                                </span>
-                            </span>
-                        )}
-                    </div>
-                </div>
-            </div>
-        )
-    }
 
     return (
         <div className={cn('card-service', variant, `color-${color}`, className)} {...rest}>

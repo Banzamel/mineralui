@@ -89,12 +89,7 @@ export function MReveal({
     } as CSSProperties
 
     return (
-        <div
-            ref={revealRef}
-            className={cn('reveal', className)}
-            style={revealStyle}
-            {...rest}
-        >
+        <div ref={revealRef} className={cn('reveal', className)} style={revealStyle} {...rest}>
             {children}
         </div>
     )

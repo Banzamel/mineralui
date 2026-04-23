@@ -239,6 +239,7 @@ export const MInput = forwardRef<HTMLInputElement, MInputProps>(function MInput(
                     <button
                         type="button"
                         className="clear-btn clear-btn-base"
+                        onMouseDown={(event) => event.preventDefault()}
                         onClick={handleClear}
                         tabIndex={-1}
                         aria-label="Clear input"

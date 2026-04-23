@@ -89,6 +89,14 @@
     width: 18px;
 }
 
+.tree .check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 2px;
+}
+
 .tree .icon {
     display: inline-flex;
     align-items: center;

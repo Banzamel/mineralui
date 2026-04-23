@@ -121,7 +121,6 @@ export function MDropdownMenu({
                 _onHover: isDisabled ? undefined : () => setActiveIndex(idx),
                 _onClick: () => {
                     if (isDisabled) return
-                    p.onClick?.()
                     if (closeOnSelect) setMenuOpen(false)
                 },
             } as AnyProps)

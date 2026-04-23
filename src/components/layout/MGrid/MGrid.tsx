@@ -69,7 +69,7 @@ function distributeRemainingColumns(remaining: number, count: number): Array<MGr
     }
 
     if (remaining <= 0) {
-        return Array.from({length: count}, () => undefined)
+        return Array.from({length: count}, () => 12 as MGridColumns)
     }
 
     const base = Math.floor(remaining / count)
@@ -77,7 +77,7 @@ function distributeRemainingColumns(remaining: number, count: number): Array<MGr
 
     return Array.from({length: count}, (_, index) => {
         const value = base + (index < extra ? 1 : 0)
-        return value >= 1 ? (value as MGridColumns) : undefined
+        return value >= 1 ? (value as MGridColumns) : (12 as MGridColumns)
     })
 }
 
@@ -125,6 +125,7 @@ export function MGrid({
     xxl,
     resolvedBase,
     hidden,
+    align,
     spacing,
     padding,
     fsize,
@@ -162,6 +163,7 @@ export function MGrid({
                     lg && `lg-${lg}`,
                     md && `md-${md}`,
                     sm && `sm-${sm}`,
+                    align && `self-${align}`,
                     ...getLayoutUtilityClassNames({
                         spacing,
                         padding,
@@ -229,6 +231,7 @@ export function MGrid({
                 'grid',
                 'row',
                 needsResponsiveResolution ? 'tracked' : `auto-cols-${autoColumns}`,
+                align && `align-${align}`,
                 ...getLayoutUtilityClassNames({
                     spacing,
                     padding,
@@ -259,6 +262,6 @@ export function MGrid({
 }
 
 // Keep MGridItem as a compatibility alias for explicit column declarations.
-export function MGridItem({sm, md, lg, xl, xxl, ...rest}: MGridItemProps) {
-    return <MGrid type="col" sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} {...rest} />
+export function MGridItem({sm, md, lg, xl, xxl, align, ...rest}: MGridItemProps) {
+    return <MGrid type="col" sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} align={align} {...rest} />
 }

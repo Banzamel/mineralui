@@ -1,134 +1,223 @@
-import {useState, useCallback, useEffect, forwardRef} from 'react'
+import {forwardRef, useCallback, useMemo, useState} from 'react'
 import type * as React from 'react'
 import type {MInputIBANProps} from './MInputIBAN.types'
-import {MInput} from '../MInput'
-import {validateIBAN} from '../../../utils/validators'
+import {MInputGroup} from '../MInputGroup'
+import {cn} from '../../../utils/cn'
+import {ibanCountries, getIbanCountryLength, validateIBAN} from '../../../utils/validators'
 import {formatIBAN, unformatIBAN} from '../../../utils/formatters'
 import type {ValidationResult} from '../../../utils/validators'
-import {MBankIcon, MCheckIcon} from '../../../icons'
+import './MInputIBAN.css'
 
-function normalizeCountryCode(countryCode?: string): string | undefined {
-    const normalized = countryCode
-        ?.replace(/[^a-zA-Z]/g, '')
-        .toUpperCase()
-        .slice(0, 2)
-    return normalized || undefined
+function normalizeCountryCode(countryCode?: string): string {
+    return (
+        countryCode
+            ?.replace(/[^a-zA-Z]/g, '')
+            .toUpperCase()
+            .slice(0, 2) || ''
+    )
 }
 
-function normalizeIbanValue(value: string, countryCode?: string): string {
-    const clean = value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
-    const normalizedCountryCode = normalizeCountryCode(countryCode)
+function getAccountDigitsCap(countryCode: string): number {
+    const length = getIbanCountryLength(countryCode) ?? 28
+    return Math.max(length - 2, 0)
+}
 
-    if (!normalizedCountryCode) {
-        return clean
+function buildIbanPlaceholder(countryCode: string): string {
+    const accountChars = getAccountDigitsCap(countryCode)
+    const groups: string[] = []
+    let remaining = accountChars
+
+    while (remaining > 0) {
+        const take = Math.min(4, remaining)
+        groups.push('0'.repeat(take))
+        remaining -= take
     }
 
-    return `${normalizedCountryCode}${clean.replace(/^[A-Z]{0,2}/, '')}`
+    return groups.join(' ')
 }
 
-function formatIbanDisplayValue(value: string, countryCode?: string, formatOnChange: boolean = true): string {
-    const normalized = normalizeIbanValue(value, countryCode)
-    return formatOnChange ? formatIBAN(normalized) : normalized
+// Browser-level cap: account digits plus the spaces that formatIBAN inserts between 4-char groups.
+function getFormattedMaxLength(countryCode: string): number {
+    const accountChars = getAccountDigitsCap(countryCode)
+    if (accountChars === 0) return 0
+    const spaces = Math.max(0, Math.ceil(accountChars / 4) - 1)
+    return accountChars + spaces
 }
 
-function buildIbanPlaceholder(countryCode?: string): string {
-    const normalizedCountryCode = normalizeCountryCode(countryCode)
-    return normalizedCountryCode
-        ? `${normalizedCountryCode}00 0000 0000 0000 0000 0000 0000`
-        : 'PL00 0000 0000 0000 0000 0000 0000'
-}
-
-// Extend the base input with IBAN formatting and checksum validation.
+// Extend the grouped input with country-aware IBAN formatting and checksum validation.
 export const MInputIBAN = forwardRef<HTMLInputElement, MInputIBANProps>(function MInputIBAN(
     {
         countryCode,
         formatOnChange = true,
         validateOnBlur = true,
-        showValidIcon = true,
         onValidationChange,
         onValueChange,
+        onCountryChange,
+        onClear,
         value,
         defaultValue,
         onChange,
         onBlur,
         error,
         errorText,
-        success,
+        helperText,
         placeholder,
+        className,
+        disabled = false,
         ...rest
     },
     ref
 ) {
+    const [internalCountry, setInternalCountry] = useState(normalizeCountryCode(countryCode) || 'PL')
+    const currentCountry = normalizeCountryCode(countryCode) || internalCountry
+
+    const buildDisplayValue = useCallback(
+        (raw: string, country: string): string => {
+            const cleaned = unformatIBAN(raw)
+                .replace(/[^0-9]/g, '')
+                .slice(0, getAccountDigitsCap(country))
+            if (!cleaned) return ''
+            return formatOnChange ? formatIBAN(cleaned) : cleaned
+        },
+        [formatOnChange]
+    )
+
     const [internalValue, setInternalValue] = useState(() =>
-        formatIbanDisplayValue(defaultValue?.toString() ?? '', countryCode, formatOnChange)
+        buildDisplayValue(defaultValue?.toString() ?? '', normalizeCountryCode(countryCode) || 'PL')
     )
     const [validation, setValidation] = useState<ValidationResult>({valid: true})
     const [touched, setTouched] = useState(false)
 
-    const currentValue =
-        value !== undefined ? formatIbanDisplayValue(value.toString(), countryCode, formatOnChange) : internalValue
+    const currentValue = value !== undefined ? buildDisplayValue(value.toString(), currentCountry) : internalValue
 
-    useEffect(() => {
-        if (value !== undefined) return
-        setInternalValue((prev) => formatIbanDisplayValue(prev, countryCode, formatOnChange))
-    }, [countryCode, formatOnChange, value])
+    const resetValidation = useCallback(() => {
+        setValidation({valid: true})
+        setTouched(false)
+        onValidationChange?.({valid: true})
+    }, [onValidationChange])
 
     // Keep raw and formatted IBAN values aligned for consumers and display.
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            const clean = normalizeIbanValue(unformatIBAN(e.target.value), countryCode)
-            const formatted = formatOnChange ? formatIBAN(clean) : clean
+            const formatted = buildDisplayValue(e.target.value, currentCountry)
 
             if (value === undefined) {
                 setInternalValue(formatted)
             }
-            onValueChange?.(clean, formatted)
+
+            if (!formatted && (touched || !validation.valid)) {
+                resetValidation()
+            }
+
+            onValueChange?.(unformatIBAN(formatted), formatted)
             onChange?.(e)
         },
-        [countryCode, onChange, value, formatOnChange, onValueChange]
+        [buildDisplayValue, currentCountry, onChange, onValueChange, resetValidation, touched, validation.valid, value]
     )
 
     // Validate the normalized IBAN once the user leaves the field.
     const handleBlur = useCallback(
         (e: React.FocusEvent<HTMLInputElement>) => {
             setTouched(true)
+
             if (validateOnBlur && currentValue) {
-                const result = validateIBAN(normalizeIbanValue(unformatIBAN(currentValue), countryCode))
+                const fullIban = `${currentCountry}${unformatIBAN(currentValue)}`
+                const result = validateIBAN(fullIban)
                 setValidation(result)
                 onValidationChange?.(result)
             }
+
             onBlur?.(e)
         },
-        [countryCode, onBlur, validateOnBlur, currentValue, onValidationChange]
+        [currentCountry, currentValue, onBlur, onValidationChange, validateOnBlur]
+    )
+
+    // Reset both the displayed value and any error state when the clear button fires.
+    const handleClear = useCallback(() => {
+        if (value === undefined) setInternalValue('')
+        resetValidation()
+        onValueChange?.('', '')
+        onClear?.()
+    }, [onClear, onValueChange, resetValidation, value])
+
+    // Switch the country code via the inline select.
+    const handleCountrySelect = useCallback(
+        (e: React.ChangeEvent<HTMLSelectElement>) => {
+            const next = normalizeCountryCode(e.target.value)
+            if (!next) return
+
+            if (countryCode === undefined) {
+                setInternalCountry(next)
+            }
+
+            const reformatted = buildDisplayValue(currentValue, next)
+            if (value === undefined) {
+                setInternalValue(reformatted)
+            }
+            onValueChange?.(unformatIBAN(reformatted), reformatted)
+
+            onCountryChange?.(next)
+
+            if (touched && reformatted) {
+                const fullIban = `${next}${unformatIBAN(reformatted)}`
+                const result = validateIBAN(fullIban)
+                setValidation(result)
+                onValidationChange?.(result)
+            }
+        },
+        [
+            buildDisplayValue,
+            countryCode,
+            currentValue,
+            onCountryChange,
+            onValidationChange,
+            onValueChange,
+            touched,
+            value,
+        ]
     )
 
     const isError = error || (touched && !validation.valid)
     const resolvedErrorText = errorText || (touched && !validation.valid ? validation.error : undefined)
-    const isSuccess =
-        !isError && (success !== undefined ? success : touched && validation.valid && currentValue.length > 0)
 
-    const validIcon =
-        showValidIcon && isSuccess ? (
-            <span className="validation-icon">
-                <MCheckIcon />
-            </span>
-        ) : undefined
+    const countryOptions = useMemo(() => ibanCountries, [])
+    const resolvedHelperText = resolvedErrorText
+        ? undefined
+        : (helperText ?? `Format: ${currentCountry} ${buildIbanPlaceholder(currentCountry)}`)
 
     return (
-        <MInput
+        <MInputGroup
             {...rest}
             ref={ref}
             type="text"
             value={currentValue}
             onChange={handleChange}
             onBlur={handleBlur}
+            onClear={handleClear}
             error={isError}
             errorText={resolvedErrorText}
-            success={isSuccess}
-            placeholder={placeholder ?? buildIbanPlaceholder(countryCode)}
-            startIcon={<MBankIcon />}
-            endIcon={validIcon}
-            maxLength={34 + 8}
+            placeholder={placeholder ?? buildIbanPlaceholder(currentCountry)}
+            helperText={resolvedHelperText}
+            disabled={disabled}
+            maxLength={getFormattedMaxLength(currentCountry)}
+            prepend={
+                <div className="country-select-wrap">
+                    <select
+                        className="country-select"
+                        value={currentCountry}
+                        onChange={handleCountrySelect}
+                        disabled={disabled}
+                        aria-label="IBAN country"
+                    >
+                        {countryOptions.map((option) => (
+                            <option key={option} value={option}>
+                                {option}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            }
+            className={cn('input-iban', className)}
         />
     )
 })

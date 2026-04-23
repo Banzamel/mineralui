@@ -21,13 +21,7 @@ interface MMediaLightboxProps {
     onActiveIndexChange: (index: number) => void
 }
 
-export function MMediaLightbox({
-    open,
-    items,
-    activeIndex,
-    onClose,
-    onActiveIndexChange,
-}: MMediaLightboxProps) {
+export function MMediaLightbox({open, items, activeIndex, onClose, onActiveIndexChange}: MMediaLightboxProps) {
     const currentItem = items[activeIndex]
     const frameRef = useRef<HTMLDivElement | null>(null)
     const canGoPrev = activeIndex > 0
@@ -86,10 +80,7 @@ export function MMediaLightbox({
 
     return (
         <MPortal>
-            <div
-                className={cn('mineral-backdrop', 'media-lightbox-backdrop')}
-                onMouseDown={handleBackdropMouseDown}
-            >
+            <div className={cn('mineral-backdrop', 'media-lightbox-backdrop')} onMouseDown={handleBackdropMouseDown}>
                 <div className="media-lightbox-shell" role="dialog" aria-modal="true" aria-label={previewLabel}>
                     <div className="media-lightbox-stage">
                         <div ref={frameRef} className="media-lightbox-frame">

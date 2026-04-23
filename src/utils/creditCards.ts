@@ -9,6 +9,7 @@ export interface CreditCardBrandDetails {
     maxLength: number
     formatGroups: number[]
     regex: RegExp
+    prefixRegex: RegExp
 }
 
 const OK_RESULT: ValidationResult = {valid: true}
@@ -22,6 +23,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
         maxLength: 16,
         formatGroups: [4, 4, 4, 4],
         regex: /^4\d{12}(?:\d{3})?$/,
+        prefixRegex: /^4/,
     },
     {
         brand: 'mastercard',
@@ -30,6 +32,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
         maxLength: 16,
         formatGroups: [4, 4, 4, 4],
         regex: /^(5[1-5]\d{14}|2(?:2[2-9]|[3-6]\d|7[01])\d{12}|2720\d{12})$/,
+        prefixRegex: /^(5[1-5]|2(2[2-9]|[3-6]|7[01])|2720)/,
     },
     {
         brand: 'amex',
@@ -38,6 +41,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
         maxLength: 15,
         formatGroups: [4, 6, 5],
         regex: /^3[47]\d{13}$/,
+        prefixRegex: /^3[47]/,
     },
     {
         brand: 'discover',
@@ -46,6 +50,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
         maxLength: 16,
         formatGroups: [4, 4, 4, 4],
         regex: /^(6011\d{12}|65\d{14}|64[4-9]\d{13})$/,
+        prefixRegex: /^(6011|65|64[4-9])/,
     },
     {
         brand: 'maestro',
@@ -54,6 +59,7 @@ const creditCardBrands: CreditCardBrandDetails[] = [
         maxLength: 19,
         formatGroups: [4, 4, 4, 4, 3],
         regex: /^(5[06789]\d{0,17}|6\d{0,18})$/,
+        prefixRegex: /^(5[06789]|6)/,
     },
 ]
 
@@ -66,6 +72,7 @@ function fallbackBrand(digits: string): CreditCardBrandDetails {
         maxLength: Math.min(Math.max(digits.length || 16, 16), 19),
         formatGroups: [4, 4, 4, 4, 3],
         regex: /^\d{12,19}$/,
+        prefixRegex: /^\d/,
     }
 }
 
@@ -75,9 +82,19 @@ export function stripCardNumber(value: string): string {
 }
 
 // Detect the best matching payment brand from the visible card prefix.
+// Uses prefixRegex so the right brand (and its maxLength) is locked in while typing.
 export function detectCardBrand(value: string): CreditCardBrandDetails {
     const digits = stripCardNumber(value)
-    return creditCardBrands.find((rule) => rule.regex.test(digits)) ?? fallbackBrand(digits)
+
+    if (!digits) {
+        return fallbackBrand(digits)
+    }
+
+    return (
+        creditCardBrands.find((rule) => rule.regex.test(digits)) ??
+        creditCardBrands.find((rule) => rule.prefixRegex.test(digits)) ??
+        fallbackBrand(digits)
+    )
 }
 
 // Group card digits according to the detected payment brand.

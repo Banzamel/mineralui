@@ -46,7 +46,7 @@
     cursor: pointer;
 }
 
-.gallery-trigger > :not(.click-effect-layer) {
+.gallery-trigger > :not(.click-effect-layer):not(.gallery-caption) {
     position: relative;
     z-index: 1;
 }
@@ -80,9 +80,11 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 2;
     padding: var(--mineral-spacing-xs) var(--mineral-spacing-sm);
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
     color: rgba(255, 255, 255, 1);
     font-size: var(--mineral-font-size-xs);
     font-weight: 500;
+    pointer-events: none;
 }

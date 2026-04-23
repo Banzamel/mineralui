@@ -9,6 +9,46 @@
     gap: var(--mineral-spacing-lg);
 }
 
+.grid.row.align-stretch {
+    align-items: stretch;
+}
+
+.grid.row.align-start {
+    align-items: start;
+}
+
+.grid.row.align-center {
+    align-items: center;
+}
+
+.grid.row.align-end {
+    align-items: end;
+}
+
+.grid.row.align-baseline {
+    align-items: baseline;
+}
+
+.grid.col.self-stretch {
+    align-self: stretch;
+}
+
+.grid.col.self-start {
+    align-self: start;
+}
+
+.grid.col.self-center {
+    align-self: center;
+}
+
+.grid.col.self-end {
+    align-self: end;
+}
+
+.grid.col.self-baseline {
+    align-self: baseline;
+}
+
 .grid.row.tracked {
     grid-template-columns: repeat(12, minmax(0, 1fr));
 }

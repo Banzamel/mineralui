@@ -201,8 +201,13 @@ function formatTypedInput(
         return {formatted: timePart, datePart: '', timePart}
     }
 
+    // Preserve the space delimiter once the date is complete so the user can keep typing the time.
+    const dateComplete = dateDigits.length === 8
+    const userTypedSpaceAfterDate = /\s/.test(normalizedValue.slice(datePart.length))
+    const showSpace = timePart || (dateComplete && userTypedSpaceAfterDate)
+
     return {
-        formatted: timePart ? `${datePart} ${timePart}` : datePart,
+        formatted: showSpace ? `${datePart} ${timePart}` : datePart,
         datePart,
         timePart,
     }
@@ -466,8 +471,16 @@ export function MDatePicker({
                 emitValidation(nextParsedState.result)
             } else if (nextParsedState.status === 'valid') {
                 emitValidation({valid: true})
-                commitValue(nextParsedState.value)
                 setViewDate(new Date(nextParsedState.value.getFullYear(), nextParsedState.value.getMonth(), 1))
+                // Hold the commit until the time is fully typed so the formatter doesn't pad
+                // partial minutes/seconds (e.g. "21:3" → "21:03") and overwrite the cursor while typing.
+                // Blur falls back to 00:00 via the INVALID_TIME_ERROR retry if the user never finishes.
+                const requiredTimeDigits = showSeconds ? 6 : 4
+                const typedTimeDigits = withTime ? stripNonDigits(event.target.value).slice(8).length : 0
+                const timeComplete = !withTime || typedTimeDigits >= requiredTimeDigits
+                if (timeComplete) {
+                    commitValue(nextParsedState.value)
+                }
             }
         },
         [
@@ -511,6 +524,28 @@ export function MDatePicker({
         }
 
         if (nextParsedState.status === 'invalid') {
+            // Out-of-range time entry (e.g. 48:69) clamps to 00:00 on blur instead of staying invalid.
+            if (withTime && nextParsedState.result.error === INVALID_TIME_ERROR && nextParsedState.datePart) {
+                const fallbackTimePart = formatTimeWithFormat(0, 0, 0, showSeconds, timeFormat)
+                const retry = parseInputValue(`${nextParsedState.datePart} ${fallbackTimePart}`, {
+                    inputFormat,
+                    minDate,
+                    maxDate,
+                    withTime,
+                    timeFormat,
+                    showSeconds,
+                    isDisabled,
+                })
+
+                if (retry.status === 'valid') {
+                    emitValidation({valid: true})
+                    setInputValue(formatDisplayValue(retry.value, {format, withTime, timeFormat, showSeconds}))
+                    setDraftTimeValue(getTimeDraftFromDate(retry.value, showSeconds))
+                    commitValue(retry.value)
+                    return
+                }
+            }
+
             if (validateOnBlur) {
                 emitValidation(nextParsedState.result)
             }

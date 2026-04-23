@@ -1,10 +1,11 @@
-import {useMemo, useState} from 'react'
+import {useCallback, useMemo, useRef, useState} from 'react'
 import type * as React from 'react'
 import type {MDataTableProps, MDataTableSort} from './MDataTable.types'
-import {MCheckbox} from '../../controls'
+import {MButton, MCheckbox} from '../../controls'
 import {MInputSearch} from '../../inputs'
 import {MPagination} from '../../layout'
-import {MArrowDownIcon, MArrowUpDownIcon, MArrowUpIcon} from '../../../icons'
+import {MPopover} from '../../primitives'
+import {MArrowDownIcon, MArrowUpDownIcon, MArrowUpIcon, MFilterIcon, MSortIcon} from '../../../icons'
 import {cn} from '../../../utils/cn'
 import './MDataTable.css'
 
@@ -12,6 +13,18 @@ function getRowKey<T>(row: T, index: number, rowKey?: string | ((row: T, index: 
     if (typeof rowKey === 'function') return rowKey(row, index)
     if (typeof rowKey === 'string') return String((row as any)[rowKey])
     return String((row as any).id ?? index)
+}
+
+function getNestedValue(obj: unknown, key: string): unknown {
+    const parts = key.split('.')
+    let val: unknown = obj
+
+    for (const p of parts) {
+        if (val == null || typeof val !== 'object') return undefined
+        val = (val as Record<string, unknown>)[p]
+    }
+
+    return val
 }
 
 export function MDataTable<T = any>({
@@ -28,6 +41,20 @@ export function MDataTable<T = any>({
     stickyHeader = false,
     sort: controlledSort,
     onSortChange,
+    search: controlledSearch,
+    onSearchChange,
+    searchKeys,
+    filterKeys = [],
+    filters: controlledFilters,
+    onFiltersChange,
+    sortKeys = [],
+    page: controlledPage,
+    onPageChange,
+    total,
+    manualSearch = false,
+    manualFilters = false,
+    manualSort = false,
+    manualPagination = false,
     selectedKeys: controlledSelected,
     onSelectionChange,
     emptyText = 'No data',
@@ -37,12 +64,55 @@ export function MDataTable<T = any>({
 }: MDataTableProps<T>) {
     const [internalSort, setInternalSort] = useState<MDataTableSort | null>(null)
     const [internalSelected, setInternalSelected] = useState<string[]>([])
-    const [filter, setFilter] = useState('')
-    const [page, setPage] = useState(0)
+    const [internalSearch, setInternalSearch] = useState('')
+    const [internalFilters, setInternalFilters] = useState<Record<string, string[]>>({})
+    const [internalPage, setInternalPage] = useState(1)
+    const [filterOpen, setFilterOpen] = useState(false)
+    const [sortOpen, setSortOpen] = useState(false)
+    const filterBtnRef = useRef<HTMLElement>(null)
+    const sortBtnRef = useRef<HTMLElement>(null)
 
     const activeSort = controlledSort !== undefined ? controlledSort : internalSort
+    const search = controlledSearch !== undefined ? controlledSearch : internalSearch
+    const filters = controlledFilters !== undefined ? controlledFilters : internalFilters
+    const page = controlledPage !== undefined ? controlledPage : internalPage
     const selected = controlledSelected ?? internalSelected
     const setSelected = onSelectionChange ?? setInternalSelected
+
+    const setSearch = useCallback(
+        (next: string) => {
+            if (controlledSearch === undefined) setInternalSearch(next)
+            if (!manualPagination && controlledPage === undefined) setInternalPage(1)
+            onSearchChange?.(next)
+        },
+        [controlledSearch, controlledPage, manualPagination, onSearchChange]
+    )
+
+    const setFilters = useCallback(
+        (next: Record<string, string[]>) => {
+            if (controlledFilters === undefined) setInternalFilters(next)
+            if (!manualPagination && controlledPage === undefined) setInternalPage(1)
+            onFiltersChange?.(next)
+        },
+        [controlledFilters, controlledPage, manualPagination, onFiltersChange]
+    )
+
+    const setSort = useCallback(
+        (next: MDataTableSort | null) => {
+            if (controlledSort === undefined) setInternalSort(next)
+            if (!manualPagination && controlledPage === undefined) setInternalPage(1)
+            onSortChange?.(next)
+        },
+        [controlledSort, controlledPage, manualPagination, onSortChange]
+    )
+
+    const setPage = useCallback(
+        (next: number) => {
+            if (controlledPage === undefined) setInternalPage(next)
+            onPageChange?.(next)
+        },
+        [controlledPage, onPageChange]
+    )
 
     function handleSort(key: string) {
         let next: MDataTableSort | null
@@ -53,32 +123,81 @@ export function MDataTable<T = any>({
             next = {key, dir: 'asc'}
         }
 
-        if (onSortChange) onSortChange(next)
-        else setInternalSort(next)
-
-        setPage(0)
+        setSort(next)
     }
 
+    function toggleFilterValue(key: string, value: string) {
+        const current = filters[key] ?? []
+        const next = current.includes(value) ? current.filter((item) => item !== value) : [...current, value]
+        setFilters({...filters, [key]: next})
+    }
+
+    const filterOptions = useMemo(() => {
+        const map: Record<string, string[]> = {}
+
+        for (const filterKey of filterKeys) {
+            if (filterKey.options) {
+                map[filterKey.key] = filterKey.options
+                continue
+            }
+
+            const values = new Set<string>()
+
+            for (const row of data) {
+                const value = getNestedValue(row, filterKey.key)
+                if (value != null) values.add(String(value))
+            }
+
+            map[filterKey.key] = Array.from(values).sort()
+        }
+
+        return map
+    }, [data, filterKeys])
+
     const filtered = useMemo(() => {
-        if (!filterable || !filter.trim()) return data
+        let result: T[] = data
 
-        const query = filter.toLowerCase()
+        if (!manualSearch && filterable && search.trim()) {
+            const query = search.toLowerCase()
 
-        return data.filter((row) =>
-            columns.some((col) => {
-                if (col.filterable === false) return false
+            if (searchKeys && searchKeys.length > 0) {
+                result = result.filter((row) =>
+                    searchKeys.some((key) => {
+                        const value = getNestedValue(row, key)
+                        return value != null && String(value).toLowerCase().includes(query)
+                    })
+                )
+            } else {
+                result = result.filter((row) =>
+                    columns.some((col) => {
+                        if (col.filterable === false) return false
+                        const value = (row as any)[col.key]
+                        return value != null && String(value).toLowerCase().includes(query)
+                    })
+                )
+            }
+        }
 
-                const value = (row as any)[col.key]
-                return value != null && String(value).toLowerCase().includes(query)
-            })
-        )
-    }, [data, filter, filterable, columns])
+        if (!manualFilters) {
+            for (const [key, selectedValues] of Object.entries(filters)) {
+                if (!selectedValues || selectedValues.length === 0) continue
+
+                result = result.filter((row) => {
+                    const value = getNestedValue(row, key)
+                    return value != null && selectedValues.includes(String(value))
+                })
+            }
+        }
+
+        return result
+    }, [data, manualSearch, manualFilters, filterable, search, searchKeys, columns, filters])
 
     const sorted = useMemo(() => {
-        if (!activeSort) return filtered
+        if (manualSort || !activeSort) return filtered
 
         const col = columns.find((item) => item.key === activeSort.key)
-        if (!col?.sortable && !sortable) return filtered
+        const sortKeyAllowed = sortKeys.some((item) => item.key === activeSort.key)
+        if (!col?.sortable && !sortable && !sortKeyAllowed) return filtered
 
         const dir = activeSort.dir === 'asc' ? 1 : -1
 
@@ -93,12 +212,17 @@ export function MDataTable<T = any>({
 
             return String(va).localeCompare(String(vb)) * dir
         })
-    }, [filtered, activeSort, columns, sortable])
+    }, [filtered, activeSort, columns, sortable, sortKeys, manualSort])
 
-    const totalPages = pagination ? Math.max(1, Math.ceil(sorted.length / pageSize)) : 1
-    const pageData = pagination ? sorted.slice(page * pageSize, (page + 1) * pageSize) : sorted
+    const totalItems = manualPagination ? (total ?? sorted.length) : sorted.length
+    const totalPages = pagination ? Math.max(1, Math.ceil(totalItems / pageSize)) : 1
+    const pageData = useMemo(() => {
+        if (!pagination || manualPagination) return sorted
+        const start = (page - 1) * pageSize
+        return sorted.slice(start, start + pageSize)
+    }, [sorted, pagination, manualPagination, page, pageSize])
 
-    const allKeys = pageData.map((row, index) => getRowKey(row, page * pageSize + index, rowKey))
+    const allKeys = pageData.map((row, index) => getRowKey(row, (page - 1) * pageSize + index, rowKey))
     const allSelected = allKeys.length > 0 && allKeys.every((key) => selected.includes(key))
 
     function toggleAll() {
@@ -119,25 +243,145 @@ export function MDataTable<T = any>({
         toggleRow(key)
     }
 
+    const openFilter = useCallback(() => {
+        setFilterOpen((v) => !v)
+        setSortOpen(false)
+    }, [])
+
+    const openSort = useCallback(() => {
+        setSortOpen((v) => !v)
+        setFilterOpen(false)
+    }, [])
+
+    const activeSortMenuItem = sortKeys.find((item) => item.key === activeSort?.key)
+    const showToolbar = filterable || filterKeys.length > 0 || sortKeys.length > 0
+
     return (
         <div className={cn('data-table', className)} {...rest}>
-            {filterable && (
+            {showToolbar && (
                 <div className="toolbar">
-                    <MInputSearch
-                        className="filter-search"
-                        size="sm"
-                        fullWidth
-                        placeholder={filterPlaceholder}
-                        value={filter}
-                        onChange={(event) => {
-                            setFilter(event.target.value)
-                            setPage(0)
-                        }}
-                        onClear={() => {
-                            setFilter('')
-                            setPage(0)
-                        }}
-                    />
+                    {filterable && (
+                        <MInputSearch
+                            className="filter-search"
+                            size="sm"
+                            fullWidth
+                            placeholder={filterPlaceholder}
+                            value={search}
+                            onChange={(event) => setSearch(event.target.value)}
+                            onClear={() => setSearch('')}
+                        />
+                    )}
+
+                    {(filterKeys.length > 0 || sortKeys.length > 0) && (
+                        <div className="toolbar-actions">
+                            {filterKeys.length > 0 && (
+                                <>
+                                    <MButton
+                                        ref={filterBtnRef}
+                                        variant="outlined"
+                                        size="sm"
+                                        startIcon={<MFilterIcon />}
+                                        aria-expanded={filterOpen}
+                                        onClick={openFilter}
+                                    >
+                                        Filter
+                                    </MButton>
+                                    <MPopover
+                                        open={filterOpen}
+                                        anchorRef={filterBtnRef}
+                                        onClose={() => setFilterOpen(false)}
+                                        placement="bottom-end"
+                                        className="data-table-dropdown"
+                                    >
+                                        {filterKeys.map((filterKey) => (
+                                            <div key={filterKey.key} className="data-table-filter-group">
+                                                <span className="data-table-filter-label">{filterKey.label}</span>
+                                                {(filterOptions[filterKey.key] ?? []).map((option) => (
+                                                    <div key={option} className="data-table-filter-option">
+                                                        <MCheckbox
+                                                            size="sm"
+                                                            clickEffect="none"
+                                                            checked={
+                                                                filters[filterKey.key]?.includes(option) ?? false
+                                                            }
+                                                            onChange={() =>
+                                                                toggleFilterValue(filterKey.key, option)
+                                                            }
+                                                            label={option}
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </MPopover>
+                                </>
+                            )}
+
+                            {sortKeys.length > 0 && (
+                                <>
+                                    <MButton
+                                        ref={sortBtnRef}
+                                        variant="outlined"
+                                        size="sm"
+                                        startIcon={
+                                            activeSort ? (
+                                                activeSort.dir === 'asc' ? (
+                                                    <MArrowUpIcon />
+                                                ) : (
+                                                    <MArrowDownIcon />
+                                                )
+                                            ) : (
+                                                <MSortIcon />
+                                            )
+                                        }
+                                        aria-expanded={sortOpen}
+                                        onClick={openSort}
+                                    >
+                                        {activeSortMenuItem ? `Sort: ${activeSortMenuItem.label}` : 'Sort'}
+                                    </MButton>
+                                    <MPopover
+                                        open={sortOpen}
+                                        anchorRef={sortBtnRef}
+                                        onClose={() => setSortOpen(false)}
+                                        placement="bottom-end"
+                                        className="data-table-dropdown"
+                                    >
+                                        {sortKeys.map((sortItem) => (
+                                            <button
+                                                key={sortItem.key}
+                                                type="button"
+                                                className={cn(
+                                                    'data-table-sort-item',
+                                                    activeSort?.key === sortItem.key && 'active'
+                                                )}
+                                                onClick={() => {
+                                                    if (activeSort?.key === sortItem.key) {
+                                                        setSort({
+                                                            key: sortItem.key,
+                                                            dir: activeSort.dir === 'asc' ? 'desc' : 'asc',
+                                                        })
+                                                    } else {
+                                                        setSort({key: sortItem.key, dir: 'asc'})
+                                                    }
+                                                }}
+                                            >
+                                                {sortItem.label}
+                                                {activeSort?.key === sortItem.key && (
+                                                    <span className="data-table-sort-dir">
+                                                        {activeSort.dir === 'asc' ? (
+                                                            <MArrowUpIcon className="data-table-sort-icon" />
+                                                        ) : (
+                                                            <MArrowDownIcon className="data-table-sort-icon" />
+                                                        )}
+                                                    </span>
+                                                )}
+                                            </button>
+                                        ))}
+                                    </MPopover>
+                                </>
+                            )}
+                        </div>
+                    )}
                 </div>
             )}
             <div className="scroll">
@@ -202,7 +446,7 @@ export function MDataTable<T = any>({
                             </tr>
                         )}
                         {pageData.map((row, index) => {
-                            const key = getRowKey(row, page * pageSize + index, rowKey)
+                            const key = getRowKey(row, (page - 1) * pageSize + index, rowKey)
                             const isSelected = selected.includes(key)
 
                             return (
@@ -224,7 +468,7 @@ export function MDataTable<T = any>({
                                     {columns.map((col) => (
                                         <td key={col.key} className="td" style={{textAlign: col.align}}>
                                             {col.render
-                                                ? col.render((row as any)[col.key], row, page * pageSize + index)
+                                                ? col.render((row as any)[col.key], row, (page - 1) * pageSize + index)
                                                 : (row as any)[col.key]}
                                         </td>
                                     ))}
@@ -235,12 +479,7 @@ export function MDataTable<T = any>({
                 </table>
             </div>
             {pagination && totalPages > 1 && (
-                <MPagination
-                    total={sorted.length}
-                    page={page + 1}
-                    pageSize={pageSize}
-                    onChange={(nextPage) => setPage(nextPage - 1)}
-                />
+                <MPagination total={totalItems} page={page} pageSize={pageSize} onChange={setPage} />
             )}
         </div>
     )

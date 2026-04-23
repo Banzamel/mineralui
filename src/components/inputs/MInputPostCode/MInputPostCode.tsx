@@ -18,6 +18,7 @@ export const MInputPostCode = forwardRef<HTMLInputElement, MInputPostCodeProps>(
         onCountryChange,
         onValidationChange,
         onValueChange,
+        onClear,
         value,
         defaultValue,
         onChange,
@@ -87,6 +88,16 @@ export const MInputPostCode = forwardRef<HTMLInputElement, MInputPostCodeProps>(
         [currentCountry, currentValue, onBlur, runValidation, validateOnBlur]
     )
 
+    // Reset validation state alongside the value when the clear button fires.
+    const handleClear = useCallback(() => {
+        if (value === undefined) setInternalValue('')
+        setValidation({valid: true})
+        setTouched(false)
+        onValidationChange?.({valid: true})
+        onValueChange?.('', '', currentCountry)
+        onClear?.()
+    }, [onClear, onValidationChange, onValueChange, value, currentCountry])
+
     // Switch the formatter and validation rule whenever the selected country changes.
     const handleCountryChange = useCallback(
         (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -122,10 +133,11 @@ export const MInputPostCode = forwardRef<HTMLInputElement, MInputPostCodeProps>(
             value={currentValue}
             onChange={handleChange}
             onBlur={handleBlur}
+            onClear={handleClear}
             error={isError}
             errorText={resolvedErrorText}
             helperText={resolvedErrorText ? undefined : (helperText ?? `Format: ${currentRule.example}`)}
-            placeholder={placeholder ?? currentRule.placeholder}
+            placeholder={selectableCountry ? currentRule.placeholder : (placeholder ?? currentRule.placeholder)}
             maxLength={currentRule.maxLength}
             disabled={disabled}
             prepend={

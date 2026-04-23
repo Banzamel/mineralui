@@ -1,7 +1,7 @@
 import type {HTMLAttributes, ReactNode} from 'react'
 import type {MColor} from '../../../theme'
 
-export type SharedServiceCardVariant = 'service' | 'course' | 'product' | 'event' | 'widget'
+export type SharedServiceCardVariant = 'service' | 'course' | 'product' | 'event'
 
 export interface SharedServiceCardPerson {
     name: string
@@ -43,6 +43,4 @@ export interface SharedServiceCardProps extends Omit<HTMLAttributes<HTMLDivEleme
     date?: Date | string
     location?: string
     status?: string
-    value?: ReactNode
-    trend?: number
 }

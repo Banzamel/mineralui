@@ -24,6 +24,7 @@ export const MInputCreditCard = forwardRef<HTMLInputElement, MInputCreditCardPro
         onValidationChange,
         onCardBrandChange,
         onValueChange,
+        onClear,
         value,
         defaultValue,
         onChange,
@@ -88,6 +89,16 @@ export const MInputCreditCard = forwardRef<HTMLInputElement, MInputCreditCardPro
         [currentValue, onBlur, runValidation, validateOnBlur]
     )
 
+    // Reset validation state alongside the value when the clear button fires.
+    const handleClear = useCallback(() => {
+        if (value === undefined) setInternalValue('')
+        setValidation({valid: true})
+        setTouched(false)
+        onValidationChange?.({valid: true})
+        onValueChange?.('', '', 'unknown')
+        onClear?.()
+    }, [onClear, onValidationChange, onValueChange, value])
+
     const isError = error || (touched && !validation.valid)
     const resolvedErrorText = errorText || (touched && !validation.valid ? validation.error : undefined)
     const isSuccess =
@@ -111,6 +122,7 @@ export const MInputCreditCard = forwardRef<HTMLInputElement, MInputCreditCardPro
             value={currentValue}
             onChange={handleChange}
             onBlur={handleBlur}
+            onClear={handleClear}
             error={isError}
             errorText={resolvedErrorText}
             success={isSuccess}
