@@ -133,9 +133,57 @@
     flex: 0 0 auto;
 }
 
+/*
+ * Responsive columns — CSS custom properties driven from TSX.
+ *  - Fixed count (`columns={4}`): TSX writes inline `grid-template-columns` and that
+ *    overrides every breakpoint declared below.
+ *  - Responsive object (`columns={{base: 1, sm: 2, lg: 3, xl: 4}}`): TSX only sets the
+ *    `--cols-*` custom properties in inline style; the media queries below pick them up.
+ *  - Mobile-first: the base rule applies on the smallest viewport, each `min-width`
+ *    breakpoint progressively overrides it. Missing breakpoints inherit through the
+ *    `var()` fallback chain (xxl → xl → lg → md → sm → base → 1).
+ *  - Breakpoints map 1:1 to MBreakpoints (sm 640, md 768, lg 1024, xl 1280, 2xl 1536).
+ */
 .card-grid-items {
     display: grid;
     gap: var(--mineral-spacing-md);
+    grid-template-columns: repeat(var(--cols-base, 1), 1fr);
+}
+
+@media (min-width: 640px) {
+    .card-grid-items {
+        grid-template-columns: repeat(var(--cols-sm, var(--cols-base, 1)), 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .card-grid-items {
+        grid-template-columns: repeat(var(--cols-md, var(--cols-sm, var(--cols-base, 1))), 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .card-grid-items {
+        grid-template-columns: repeat(var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols-base, 1)))), 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .card-grid-items {
+        grid-template-columns: repeat(
+            var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols-base, 1))))),
+            1fr
+        );
+    }
+}
+
+@media (min-width: 1536px) {
+    .card-grid-items {
+        grid-template-columns: repeat(
+            var(--cols-xxl, var(--cols-xl, var(--cols-lg, var(--cols-md, var(--cols-sm, var(--cols-base, 1)))))),
+            1fr
+        );
+    }
 }
 
 .card-grid-empty {

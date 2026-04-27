@@ -1,5 +1,5 @@
-import {Fragment, useState, useMemo, useRef, useCallback} from 'react'
-import type {MCardGridProps, MCardGridSort} from './MCardGrid.types'
+import {Fragment, useState, useMemo, useRef, useCallback, type CSSProperties} from 'react'
+import type {MCardGridProps, MCardGridResponsiveColumns, MCardGridSort} from './MCardGrid.types'
 import {cn} from '../../../utils/cn'
 import {MButton, MCheckbox} from '../../controls'
 import {MInputSearch} from '../../inputs'
@@ -7,6 +7,26 @@ import {MPagination} from '../../layout'
 import {MPopover} from '../../primitives'
 import {MArrowDownIcon, MArrowUpIcon, MFilterIcon, MSortIcon} from '../../../icons'
 import './MCardGrid.css'
+
+/**
+ * Builds inline style for `.card-grid-items`:
+ *  - `number` → hard `grid-template-columns: repeat(N, 1fr)` (overrides every breakpoint).
+ *  - responsive object → CSS custom properties (`--cols-base`, `--cols-sm`, ...) consumed
+ *    by `min-width` media queries in `MCardGrid.css`. Missing breakpoints cascade through
+ *    the `var()` fallback chain (xxl → xl → lg → md → sm → base → 1).
+ */
+function buildColumnsStyle(columns: number | MCardGridResponsiveColumns): CSSProperties {
+    if (typeof columns === 'number') return {gridTemplateColumns: `repeat(${columns}, 1fr)`}
+
+    const style: Record<string, string | number> = {}
+    if (columns.base !== undefined) style['--cols-base'] = columns.base
+    if (columns.sm !== undefined) style['--cols-sm'] = columns.sm
+    if (columns.md !== undefined) style['--cols-md'] = columns.md
+    if (columns.lg !== undefined) style['--cols-lg'] = columns.lg
+    if (columns.xl !== undefined) style['--cols-xl'] = columns.xl
+    if (columns.xxl !== undefined) style['--cols-xxl'] = columns.xxl
+    return style as CSSProperties
+}
 
 function getNestedValue(obj: unknown, key: string): unknown {
     const parts = key.split('.')
@@ -316,12 +336,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
             )}
 
             {paginatedItems.length > 0 ? (
-                <div
-                    className="card-grid-items"
-                    style={{
-                        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                    }}
-                >
+                <div className="card-grid-items" style={buildColumnsStyle(columns)}>
                     {paginatedItems.map((item, index) => {
                         // Wrap each card so consumers don't have to remember `key={item.id}` in renderCard.
                         // Prefer the item's id when present (stable across reorders), fall back to index.

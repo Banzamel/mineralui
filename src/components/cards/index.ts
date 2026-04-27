@@ -23,7 +23,7 @@ export type {MCardWidgetProps, MCardWidgetTrendType} from './MCardWidget'
 export {MCardStat, MStatCard} from './MStatCard'
 export type {MCardStatProps, MCardStatTrendType, MStatCardProps, MStatCardTrendType} from './MStatCard'
 export {MCardGrid} from './MCardGrid'
-export type {MCardGridProps, MCardGridFilterKey, MCardGridSortKey} from './MCardGrid'
+export type {MCardGridProps, MCardGridFilterKey, MCardGridSortKey, MCardGridResponsiveColumns} from './MCardGrid'
 export {MCardDaySchedule} from './MCardDaySchedule'
 export type {
     MCardDayScheduleProps,
