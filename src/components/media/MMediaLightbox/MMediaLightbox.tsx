@@ -85,13 +85,13 @@ export function MMediaLightbox({open, items, activeIndex, onClose, onActiveIndex
                     <div className="media-lightbox-stage">
                         <div ref={frameRef} className="media-lightbox-frame">
                             <div className="media-lightbox-topbar">
-                                <MBadge color="dark" size="sm" rounded className="media-lightbox-counter">
+                                <MBadge color="dark" size="md" rounded className="media-lightbox-counter">
                                     {items.length > 1 ? `${activeIndex + 1} / ${items.length}` : 'Preview'}
                                 </MBadge>
                                 <MButton
                                     type="button"
                                     variant="ghost"
-                                    color="primary"
+                                    color="error"
                                     size="lg"
                                     shape="circle"
                                     iconOnly

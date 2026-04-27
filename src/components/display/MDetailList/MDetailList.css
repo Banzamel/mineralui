@@ -1,0 +1,27 @@
+.detail-list {
+    width: 100%;
+}
+
+.detail-list.bordered .detail-list-item + .detail-list-item {
+    border-top: 1px solid var(--mineral-border);
+}
+
+.detail-list-item {
+    padding: var(--mineral-spacing-sm) 0;
+}
+
+.detail-list.size-sm .detail-list-item {
+    padding: var(--mineral-spacing-xs) 0;
+}
+
+.detail-list-value {
+    font-weight: 600;
+    color: var(--mineral-text);
+}
+
+.detail-list-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: max-content;
+}

@@ -1,5 +1,6 @@
 .card-tile {
     --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.16);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -17,14 +18,16 @@
 }
 
 .card-tile.interactive:hover {
-    border-color: rgba(var(--color-rgb), 0.65);
-    box-shadow: 0 8px 24px rgba(var(--color-rgb), 0.25);
+    border-color: rgba(var(--color-rgb), 0.45);
     transform: translateY(-2px);
 }
 
 .card-tile.interactive:focus-within {
-    border-color: rgba(var(--color-rgb), 0.85);
-    box-shadow: 0 0 0 2px rgba(var(--color-rgb), 0.45);
+    border-color: rgba(var(--color-rgb), 0.45);
+}
+
+.card-tile > :not(.click-effect-layer) {
+    position: relative;
 }
 
 .card-tile .tile-link {
@@ -39,6 +42,7 @@
     color: inherit;
     cursor: pointer;
     text-indent: -9999px;
+    text-decoration: none;
     overflow: hidden;
 }
 
@@ -94,7 +98,7 @@
 
 .card-tile .tile-body {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: var(--mineral-spacing-sm);
@@ -176,7 +180,7 @@
     right: 8px;
     display: flex;
     gap: 4px;
-    z-index: 3;
+    z-index: 2;
 }
 
 .card-tile .tile-actions .tile-menu-wrap {

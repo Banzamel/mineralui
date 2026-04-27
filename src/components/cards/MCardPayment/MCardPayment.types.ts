@@ -1,9 +1,10 @@
-import type {HTMLAttributes, ReactNode} from 'react'
+import type {ElementType, HTMLAttributes, ReactNode} from 'react'
 import type {MColor} from '../../../theme'
+import type {MCardActionProps} from '../shared'
 
 export type MCardPaymentBrand = 'visa' | 'mastercard' | 'amex' | 'discover' | 'maestro' | 'unknown'
 
-export interface MCardPaymentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
+export interface MCardPaymentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color'>, MCardActionProps {
     holder: string
     number: string
     expiry: string

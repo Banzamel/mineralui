@@ -1,14 +1,12 @@
 import type {HTMLAttributes, ReactNode} from 'react'
 import type {MColor} from '../../../theme'
 import type {MSurfaceProps} from '../../layout'
-import type {MClickEffect} from '../../../utils/useInteractionEffect'
+import type {MCardActionProps} from '../shared'
 
-export interface MCardProps extends Omit<MSurfaceProps, 'children'> {
-    interactive?: boolean
+export interface MCardProps
+    extends Omit<MSurfaceProps, 'children' | 'component' | 'to' | 'href' | 'target' | 'rel'>, MCardActionProps {
     stretch?: boolean
     color?: MColor
-    clickEffect?: MClickEffect
-    rippleColor?: string
     /** Show skeleton placeholder instead of content */
     skeleton?: boolean
     children?: ReactNode

@@ -53,7 +53,8 @@
 }
 
 .dropdown.menu.item.disabled {
-    opacity: 0.45;
+    opacity: 1;
+    color: var(--mineral-text-secondary);
     cursor: not-allowed;
 }
 

@@ -3,10 +3,18 @@
     color: var(--mineral-text);
     box-sizing: border-box;
     max-width: 100%;
+    text-decoration: none;
     transition:
         background-color var(--mineral-transition-fast),
         border-color var(--mineral-transition-fast),
         box-shadow var(--mineral-transition-fast);
+}
+
+button.surface {
+    appearance: none;
+    font: inherit;
+    text-align: inherit;
+    border: none;
 }
 
 .surface.padded {

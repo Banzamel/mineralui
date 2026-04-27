@@ -37,7 +37,7 @@
 
 .sidebar.surface {
     background-color: var(--mineral-surface);
-    color: var(--mineral-surface-contrast);
+    color: var(--mineral-text);
 }
 
 .sidebar.inverse {

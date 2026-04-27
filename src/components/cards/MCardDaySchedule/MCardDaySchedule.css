@@ -1,0 +1,101 @@
+.day-schedule-card-side {
+    height: 100%;
+}
+
+.day-schedule-card-timeline {
+    position: relative;
+}
+
+.day-schedule-card-entry {
+    position: relative;
+    gap: var(--mineral-spacing-sm);
+    padding-bottom: var(--mineral-spacing-md);
+}
+
+.day-schedule-card-entry::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: 5.7rem;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--mineral-border);
+}
+
+.day-schedule-card-entry:last-child::before {
+    display: none;
+}
+
+.day-schedule-card-time {
+    display: inline-flex;
+    width: 4.75rem;
+    font-size: var(--mineral-font-size-sm);
+    font-weight: 600;
+    color: var(--mineral-text-secondary);
+    flex-shrink: 0;
+}
+
+.day-schedule-card-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--mineral-radius-full);
+    background-color: rgba(var(--mineral-primary-rgb), 0.12);
+    color: var(--mineral-primary);
+    flex-shrink: 0;
+}
+
+.day-schedule-card-dot[data-color='success'] {
+    background-color: rgba(var(--mineral-success-rgb), 0.12);
+    color: var(--mineral-success);
+}
+
+.day-schedule-card-dot[data-color='warning'] {
+    background-color: rgba(var(--mineral-warning-rgb), 0.12);
+    color: var(--mineral-warning);
+}
+
+.day-schedule-card-dot[data-color='error'] {
+    background-color: rgba(var(--mineral-error-rgb), 0.12);
+    color: var(--mineral-error);
+}
+
+.day-schedule-card-dot[data-color='info'] {
+    background-color: rgba(var(--mineral-info-rgb), 0.12);
+    color: var(--mineral-info);
+}
+
+.day-schedule-card-dot[data-color='news'] {
+    background-color: rgba(var(--mineral-news-rgb), 0.12);
+    color: var(--mineral-news);
+}
+
+.day-schedule-card-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.day-schedule-card-tab-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mineral-spacing-xs);
+}
+
+.day-schedule-card-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.4rem;
+    border-radius: var(--mineral-radius-full);
+    background-color: var(--mineral-surface-contrast);
+    color: var(--mineral-text-muted);
+    font-size: var(--mineral-font-size-xs);
+    font-weight: 600;
+    line-height: 1;
+}

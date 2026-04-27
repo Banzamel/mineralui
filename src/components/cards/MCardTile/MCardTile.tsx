@@ -2,22 +2,29 @@ import {useEffect, useRef} from 'react'
 import type {MouseEvent} from 'react'
 import type {MCardTileProps} from './MCardTile.types'
 import {cn} from '../../../utils/cn'
+import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import {MEllipsisVerticalIcon, MHeartFillIcon, MHeartIcon} from '../../../icons'
 import {MButton} from '../../controls'
 import {MDropdownItem, MDropdownMenu} from '../../overlays'
+import {resolveMCardAction} from '../shared'
 import './MCardTile.css'
 
 // Tile card: whole surface acts as a link/button, media can fill the card with text overlay.
 // Media can be an image URL, a video URL, an MIllustration element, or a live camera stream.
 export function MCardTile({
+    component,
     title,
     description,
     icon,
     color = 'primary',
+    to,
     href,
     target,
     rel,
     onClick,
+    interactive = false,
+    clickEffect,
+    rippleColor,
     image,
     video,
     illustration,
@@ -69,9 +76,26 @@ export function MCardTile({
     }, [camera])
 
     const hasMedia = Boolean(image || video || illustration || camera)
-    const interactive = Boolean(href || onClick)
-    const isLink = Boolean(href)
+    const {
+        component: OverlayComponent,
+        href: resolvedHref,
+        to: resolvedTo,
+        isInteractive,
+        isLink,
+    } = resolveMCardAction({
+        component,
+        href,
+        to,
+        interactive,
+        hasClickHandler: Boolean(onClick),
+        fallbackComponent: 'button',
+    })
     const fillMedia = mediaFill && hasMedia
+    const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLDivElement>({
+        effect: clickEffect ?? (isInteractive ? 'ripple' : 'none'),
+        disabled: !isInteractive,
+        color: rippleColor,
+    })
 
     function stopBubble(event: MouseEvent) {
         event.stopPropagation()
@@ -93,25 +117,10 @@ export function MCardTile({
             <div className={cn('tile-media', fillMedia && 'fill')}>
                 {image && <img src={image} alt={title} className="tile-image" />}
                 {video && (
-                    <video
-                        src={video}
-                        className="tile-video"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        aria-label={title}
-                    />
+                    <video src={video} className="tile-video" autoPlay muted loop playsInline aria-label={title} />
                 )}
                 {camera && (
-                    <video
-                        ref={videoRef}
-                        className="tile-video"
-                        autoPlay
-                        muted
-                        playsInline
-                        aria-label={title}
-                    />
+                    <video ref={videoRef} className="tile-video" autoPlay muted playsInline aria-label={title} />
                 )}
                 {illustration && <div className="tile-illustration">{illustration}</div>}
                 {fillMedia && <div className={cn('tile-scrim', `scrim-${overlayPosition}`)} />}
@@ -139,14 +148,18 @@ export function MCardTile({
                 'card-tile',
                 `color-${color}`,
                 fillMedia && 'media-fill',
-                interactive && 'interactive',
+                isInteractive && 'interactive',
+                effectClassName,
                 className
             )}
+            onPointerDown={handlePointerDown}
             {...rest}
         >
+            {effectLayer}
             {isLink && (
-                <a
-                    href={href}
+                <OverlayComponent
+                    href={OverlayComponent === 'a' || component ? resolvedHref : undefined}
+                    to={resolvedTo}
                     target={target}
                     rel={rel}
                     className="tile-link"
@@ -155,14 +168,14 @@ export function MCardTile({
                 />
             )}
             {!isLink && onClick && (
-                <button type="button" className="tile-link" aria-label={title} onClick={onClick} />
+                <OverlayComponent type="button" className="tile-link" aria-label={title} onClick={onClick} />
             )}
 
             {renderMedia()}
             {renderBody()}
 
             {hasActions && (
-                <div className="tile-actions" onClick={stopBubble}>
+                <div className="tile-actions" onClick={stopBubble} onPointerDown={stopBubble}>
                     {menuItems && menuItems.length > 0 && (
                         <MDropdownMenu
                             className="tile-menu-wrap"

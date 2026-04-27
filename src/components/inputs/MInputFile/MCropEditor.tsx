@@ -154,6 +154,10 @@ export function MCropEditor({file, shape, outputSize, quality, onCrop, onCancel}
 
     return (
         <div className="crop editor">
+            <div className="crop hint" role="note">
+                Drag the image to reposition, scroll or use the slider to zoom, then click <strong>Apply</strong> to
+                confirm the crop.
+            </div>
             <div
                 ref={containerRef}
                 className={`crop viewport ${shape}`}
@@ -194,8 +198,8 @@ export function MCropEditor({file, shape, outputSize, quality, onCrop, onCancel}
                 <MButton variant="ghost" size="sm" color="neutral" onClick={onCancel}>
                     Cancel
                 </MButton>
-                <MButton variant="ghost" size="sm" color="primary" onClick={exportCrop}>
-                    Crop
+                <MButton variant="filled" size="sm" color="primary" onClick={exportCrop}>
+                    Apply
                 </MButton>
             </div>
 

@@ -1,5 +1,7 @@
 .card-widget {
     --color-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--color-rgb), 0.16);
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--mineral-spacing-sm);
@@ -12,6 +14,30 @@
         linear-gradient(135deg, rgba(var(--color-rgb), 0.08) 0%, transparent 55%, rgba(var(--color-rgb), 0.03) 100%),
         var(--mineral-surface);
     color: var(--mineral-text);
+    text-align: left;
+    text-decoration: none;
+}
+
+button.card-widget {
+    appearance: none;
+}
+
+.card-widget.interactive {
+    cursor: pointer;
+    transition:
+        transform var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast),
+        border-color var(--mineral-transition-fast);
+}
+
+.card-widget.interactive:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--color-rgb), 0.45);
+}
+
+.card-widget > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
 }
 
 .cw-top {

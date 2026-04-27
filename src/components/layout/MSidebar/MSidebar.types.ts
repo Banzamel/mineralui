@@ -37,6 +37,13 @@ export interface MSidebarNavProps {
 export interface MSidebarItemProps {
     icon?: ReactNode
     label: ReactNode
+    /**
+     * Optional helper text. When set, it replaces the label inside the row's
+     * tooltip — `MSidebarItem` always shows ONE tooltip (description if
+     * present, label otherwise). This stops descriptions and labels from
+     * stacking when the row is wrapped in another tooltip from outside.
+     */
+    description?: ReactNode
     href?: string
     to?: string
     onClick?: () => void

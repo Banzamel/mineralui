@@ -58,7 +58,7 @@ function GalleryFigure({
     clickEffect,
     onOpen,
 }: {
-    item: {src: string; alt?: string; caption?: string}
+    item: {src: string; thumbnail?: string; alt?: string; caption?: string}
     rounded: boolean
     preview: boolean
     hoverEffect: 'none' | 'zoom' | 'dim' | 'zoom-dim'
@@ -85,7 +85,12 @@ function GalleryFigure({
                     onPointerDown={handlePointerDown}
                     aria-label={`Preview ${item.alt || 'image'}`}
                 >
-                    <img className="gallery-image" src={item.src} alt={item.alt || ''} loading="lazy" />
+                    <img
+                        className="gallery-image"
+                        src={item.thumbnail || item.src}
+                        alt={item.alt || ''}
+                        loading="lazy"
+                    />
                     {item.caption && <span className="gallery-caption">{item.caption}</span>}
                     {effectLayer}
                 </button>
@@ -100,7 +105,12 @@ function GalleryFigure({
                     )}
                     onPointerDown={handlePointerDown}
                 >
-                    <img className="gallery-image" src={item.src} alt={item.alt || ''} loading="lazy" />
+                    <img
+                        className="gallery-image"
+                        src={item.thumbnail || item.src}
+                        alt={item.alt || ''}
+                        loading="lazy"
+                    />
                     {item.caption && <span className="gallery-caption">{item.caption}</span>}
                     {effectLayer}
                 </div>

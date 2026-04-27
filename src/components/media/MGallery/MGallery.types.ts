@@ -6,6 +6,11 @@ export type MGalleryColumns = 2 | 3 | 4 | 5 | 6
 
 export interface MGalleryItem {
     src: string
+    /**
+     * Optional small-size variant rendered in the grid `<img>`. The lightbox preview always
+     * loads the full `src`. When omitted the grid falls back to `src`.
+     */
+    thumbnail?: string
     alt?: string
     caption?: string
 }

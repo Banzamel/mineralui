@@ -1,8 +1,11 @@
 .card-payment {
     --card-payment-rgb: var(--mineral-primary-rgb);
+    --click-effect-color: rgba(var(--card-payment-rgb), 0.16);
     position: relative;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     padding: var(--mineral-spacing-lg);
     border-radius: var(--mineral-radius-lg);
     background: linear-gradient(
@@ -14,7 +17,31 @@
     border: 1px solid var(--mineral-border);
     color: var(--mineral-text);
     font-family: var(--mineral-font-family), sans-serif;
+    text-align: left;
+    text-decoration: none;
     overflow: hidden;
+}
+
+button.card-payment {
+    appearance: none;
+}
+
+.card-payment.interactive {
+    cursor: pointer;
+    transition:
+        transform var(--mineral-transition-fast),
+        box-shadow var(--mineral-transition-fast),
+        border-color var(--mineral-transition-fast);
+}
+
+.card-payment.interactive:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--card-payment-rgb), 0.45);
+}
+
+.card-payment > :not(.click-effect-layer) {
+    position: relative;
+    z-index: 1;
 }
 
 .card-payment::before {

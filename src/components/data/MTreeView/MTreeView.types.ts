@@ -27,6 +27,7 @@ export interface MTreeViewMoveEvent {
 
 export interface MTreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'defaultChecked'> {
     items: MTreeNode[]
+    color?: MColor
     expandable?: boolean
     selectable?: boolean
     defaultExpanded?: string[]
@@ -50,6 +51,7 @@ export interface MTreeViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
 
 export interface MTreeItemProps {
     node: MTreeNode
+    color: MColor
     level: number
     expandable?: boolean
     selectable?: boolean

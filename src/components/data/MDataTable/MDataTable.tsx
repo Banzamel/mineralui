@@ -301,12 +301,8 @@ export function MDataTable<T = any>({
                                                         <MCheckbox
                                                             size="sm"
                                                             clickEffect="none"
-                                                            checked={
-                                                                filters[filterKey.key]?.includes(option) ?? false
-                                                            }
-                                                            onChange={() =>
-                                                                toggleFilterValue(filterKey.key, option)
-                                                            }
+                                                            checked={filters[filterKey.key]?.includes(option) ?? false}
+                                                            onChange={() => toggleFilterValue(filterKey.key, option)}
                                                             label={option}
                                                         />
                                                     </div>

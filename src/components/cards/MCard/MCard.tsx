@@ -3,10 +3,16 @@ import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
 import {MSurface} from '../../layout'
 import {MSkeleton} from '../../feedback'
+import {resolveMCardAction} from '../shared'
 import './MCard.css'
 
 // Compose elevated content blocks that can optionally behave like an interactive surface.
 export function MCard({
+    component,
+    to,
+    href,
+    target,
+    rel,
     interactive = false,
     stretch = true,
     tone = 'raised',
@@ -27,14 +33,32 @@ export function MCard({
     onPointerDown,
     ...rest
 }: MCardProps) {
+    const {
+        component: surfaceComponent,
+        href: resolvedHref,
+        to: resolvedTo,
+        isInteractive,
+    } = resolveMCardAction({
+        component,
+        href,
+        to,
+        interactive,
+        hasClickHandler: Boolean(rest.onClick),
+        hasPointerHandler: Boolean(onPointerDown),
+    })
     const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLDivElement>({
-        effect: clickEffect ?? (interactive ? 'ripple' : 'none'),
-        disabled: !interactive || skeleton,
+        effect: clickEffect ?? (isInteractive ? 'ripple' : 'none'),
+        disabled: !isInteractive || skeleton,
         color: rippleColor,
     })
 
     return (
         <MSurface
+            component={surfaceComponent}
+            href={resolvedHref}
+            to={resolvedTo}
+            target={target}
+            rel={rel}
             tone={tone}
             padded={padded}
             spacing={spacing}
@@ -48,7 +72,7 @@ export function MCard({
                 'card',
                 !stretch && 'no-stretch',
                 color && `color-${color}`,
-                interactive && !skeleton && 'interactive',
+                isInteractive && !skeleton && 'interactive',
                 skeleton && 'skeleton',
                 effectClassName,
                 className

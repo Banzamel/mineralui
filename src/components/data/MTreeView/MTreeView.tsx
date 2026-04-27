@@ -175,6 +175,7 @@ function clampMenuPosition(x: number, y: number) {
 // Render one visible row and recurse into children when expanded.
 function TreeItem({
     node,
+    color,
     level,
     expandable,
     selectable,
@@ -222,6 +223,7 @@ function TreeItem({
                     canDrop && 'can-drop',
                     isDropTarget && 'drop-target'
                 )}
+                data-color={color}
                 style={{paddingLeft: level * indent}}
                 draggable={draggable && !node.disabled}
                 onClick={() => {
@@ -269,6 +271,7 @@ function TreeItem({
                         <TreeItem
                             key={child.id}
                             node={child}
+                            color={color}
                             level={level + 1}
                             expandable={expandable}
                             selectable={selectable}
@@ -303,6 +306,7 @@ function TreeItem({
 // Render a file tree with selection, context actions and folder moves.
 export function MTreeView({
     items,
+    color = 'primary',
     expandable = true,
     selectable = false,
     defaultExpanded = [],
@@ -411,9 +415,7 @@ export function MTreeView({
             const parent = nodeMap.get(parentId)
             if (!parent) break
 
-            const allChildrenChecked = (parent.children ?? []).every(
-                (child) => child.disabled || next.has(child.id)
-            )
+            const allChildrenChecked = (parent.children ?? []).every((child) => child.disabled || next.has(child.id))
             const hasEnabledChild = (parent.children ?? []).some((child) => !child.disabled)
 
             if (allChildrenChecked && hasEnabledChild) next.add(parentId)
@@ -500,12 +502,13 @@ export function MTreeView({
     }
 
     return (
-        <div className={cn('tree', showLines && 'lines', className)} {...rest}>
+        <div className={cn('tree', `color-${color}`, showLines && 'lines', className)} {...rest}>
             <ul className="list" role="tree">
                 {items.map((item) => (
                     <TreeItem
                         key={item.id}
                         node={item}
+                        color={color}
                         level={0}
                         expandable={expandable}
                         selectable={selectable}

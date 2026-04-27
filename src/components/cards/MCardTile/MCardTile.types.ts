@@ -1,5 +1,6 @@
-import type {HTMLAttributes, ReactNode} from 'react'
+import type {ElementType, HTMLAttributes, ReactNode} from 'react'
 import type {MColor} from '../../../theme'
+import type {MCardActionProps} from '../shared'
 
 export type MCardTileOverlayPosition = 'top' | 'bottom' | 'center'
 
@@ -10,14 +11,11 @@ export interface MCardTileMenuItem {
     danger?: boolean
 }
 
-export interface MCardTileProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'onClick'> {
+export interface MCardTileProps extends Omit<HTMLAttributes<HTMLDivElement>, 'color' | 'onClick'>, MCardActionProps {
     title: string
     description?: string
     icon?: ReactNode
     color?: MColor
-    href?: string
-    target?: string
-    rel?: string
     onClick?: () => void
     image?: string
     video?: string

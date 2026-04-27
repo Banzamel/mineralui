@@ -6,6 +6,11 @@ import './MSurface.css'
 
 // Render a reusable surface primitive for cards, panels and preview blocks.
 export function MSurface({
+    component,
+    to,
+    href,
+    target,
+    rel,
     tone = 'default',
     outlined = true,
     padded = true,
@@ -32,9 +37,14 @@ export function MSurface({
     ...rest
 }: MSurfaceProps) {
     const utilityStyle = getLayoutUtilityStyles({fsize})
+    const Component = component ?? 'div'
 
     return (
-        <div
+        <Component
+            href={Component === 'a' || component ? href : undefined}
+            to={component ? to : undefined}
+            target={Component === 'a' || component ? target : undefined}
+            rel={Component === 'a' || component ? rel : undefined}
             className={cn(
                 'surface',
                 tone,
@@ -65,6 +75,6 @@ export function MSurface({
             {...rest}
         >
             {children}
-        </div>
+        </Component>
     )
 }

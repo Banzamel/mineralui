@@ -9,6 +9,8 @@ export interface MButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElemen
     component?: ElementType
     to?: string
     href?: string
+    target?: string
+    rel?: string
     variant?: MButtonVariant
     size?: MSize
     color?: MColor

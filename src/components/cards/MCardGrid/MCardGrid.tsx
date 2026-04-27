@@ -1,4 +1,4 @@
-import {useState, useMemo, useRef, useCallback} from 'react'
+import {Fragment, useState, useMemo, useRef, useCallback} from 'react'
 import type {MCardGridProps, MCardGridSort} from './MCardGrid.types'
 import {cn} from '../../../utils/cn'
 import {MButton, MCheckbox} from '../../controls'
@@ -23,6 +23,7 @@ function getNestedValue(obj: unknown, key: string): unknown {
 export function MCardGrid<T extends Record<string, unknown>>({
     items,
     renderCard,
+    color = 'primary',
     searchable = false,
     searchKeys,
     searchPlaceholder = 'Search...',
@@ -190,7 +191,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
     const activeSort = sortKeys.find((item) => item.key === sort?.key)
 
     return (
-        <div className={cn('card-grid', className)} style={style} {...rest}>
+        <div className={cn('card-grid', `color-${color}`, className)} style={style} {...rest}>
             {(searchable || filterable || sortable) && (
                 <div className="card-grid-toolbar">
                     {searchable && (
@@ -211,6 +212,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
                                 <MButton
                                     ref={filterBtnRef}
                                     variant="outlined"
+                                    color={color}
                                     size="sm"
                                     startIcon={<MFilterIcon />}
                                     aria-expanded={filterOpen}
@@ -250,6 +252,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
                                 <MButton
                                     ref={sortBtnRef}
                                     variant="outlined"
+                                    color={color}
                                     size="sm"
                                     startIcon={
                                         sort ? (
@@ -319,7 +322,12 @@ export function MCardGrid<T extends Record<string, unknown>>({
                         gridTemplateColumns: `repeat(${columns}, 1fr)`,
                     }}
                 >
-                    {paginatedItems.map((item, index) => renderCard(item, index))}
+                    {paginatedItems.map((item, index) => {
+                        // Wrap each card so consumers don't have to remember `key={item.id}` in renderCard.
+                        // Prefer the item's id when present (stable across reorders), fall back to index.
+                        const id = (item as {id?: string | number} | null | undefined)?.id
+                        return <Fragment key={id ?? index}>{renderCard(item, index)}</Fragment>
+                    })}
                 </div>
             ) : (
                 <div className="card-grid-empty">{emptyMessage}</div>

@@ -1,4 +1,5 @@
 import type {HTMLAttributes, ReactNode} from 'react'
+import type {MColor} from '../../../theme'
 
 export interface MCardGridFilterKey<T> {
     key: keyof T & string
@@ -19,6 +20,7 @@ export interface MCardGridSort<T = unknown> {
 export interface MCardGridProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onChange'> {
     items: T[]
     renderCard: (item: T, index: number) => ReactNode
+    color?: MColor
 
     searchable?: boolean
     searchKeys?: (keyof T & string)[]

@@ -1,6 +1,9 @@
+import type {PointerEvent} from 'react'
 import type {MCardPaymentProps} from './MCardPayment.types'
 import {cn} from '../../../utils/cn'
 import {creditCardBrands, detectCardBrand} from '../../../utils/creditCards'
+import {useInteractionEffect} from '../../../utils/useInteractionEffect'
+import {resolveMCardAction} from '../shared'
 import './MCardPayment.css'
 
 function maskNumber(raw: string): string {
@@ -12,6 +15,11 @@ function maskNumber(raw: string): string {
 
 // Display-only payment card with balance, masked number, holder name and brand badge.
 export function MCardPayment({
+    component,
+    to,
+    href,
+    target,
+    rel,
     holder,
     number,
     expiry,
@@ -20,7 +28,11 @@ export function MCardPayment({
     balance,
     balanceLabel = 'Current balance',
     color,
+    interactive = false,
+    clickEffect,
+    rippleColor,
     className,
+    onPointerDown,
     ...rest
 }: MCardPaymentProps) {
     const detectedDetails = detectCardBrand(number)
@@ -28,9 +40,45 @@ export function MCardPayment({
     const brandDetails = creditCardBrands.find((rule) => rule.brand === detected) ?? detectedDetails
     const masked = maskNumber(number)
     const brandLabel = brandDetails.iconLabel
+    const {
+        component: Component,
+        href: resolvedHref,
+        to: resolvedTo,
+        isInteractive,
+    } = resolveMCardAction({
+        component,
+        href,
+        to,
+        interactive,
+        hasClickHandler: Boolean(rest.onClick),
+        hasPointerHandler: Boolean(onPointerDown),
+    })
+    const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLDivElement>({
+        effect: clickEffect ?? (isInteractive ? 'ripple' : 'none'),
+        disabled: !isInteractive,
+        color: rippleColor,
+    })
 
     return (
-        <div className={cn('card-payment', color || 'primary', className)} {...rest}>
+        <Component
+            href={Component === 'a' || component ? resolvedHref : undefined}
+            to={resolvedTo}
+            target={target}
+            rel={rel}
+            className={cn(
+                'card-payment',
+                color || 'primary',
+                isInteractive && 'interactive',
+                effectClassName,
+                className
+            )}
+            onPointerDown={(event: PointerEvent<HTMLDivElement>) => {
+                handlePointerDown(event)
+                onPointerDown?.(event)
+            }}
+            {...rest}
+        >
+            {effectLayer}
             {balance !== undefined && (
                 <div>
                     <p className="cp-balance-label">{balanceLabel}</p>
@@ -53,6 +101,6 @@ export function MCardPayment({
                     <p className="cp-field-value">{expiry}</p>
                 </div>
             </div>
-        </div>
+        </Component>
     )
 }

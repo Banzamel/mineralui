@@ -5,6 +5,19 @@
     gap: var(--mineral-spacing-md);
 }
 
+.crop.hint {
+    width: 280px;
+    text-align: center;
+    font-size: var(--mineral-font-size-sm);
+    line-height: 1.4;
+    color: var(--mineral-text-secondary);
+}
+
+.crop.hint strong {
+    color: var(--mineral-text-primary);
+    font-weight: 600;
+}
+
 .crop.viewport {
     position: relative;
     width: 280px;

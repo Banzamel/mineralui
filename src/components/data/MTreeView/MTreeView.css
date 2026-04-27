@@ -1,8 +1,55 @@
 .tree {
+    --tree-color-rgb: var(--mineral-primary-rgb);
+    --tree-color: var(--mineral-primary);
     width: 100%;
     font-family: var(--mineral-font-family), sans-serif;
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text);
+}
+
+.tree.color-primary {
+    --tree-color-rgb: var(--mineral-primary-rgb);
+    --tree-color: var(--mineral-primary);
+}
+
+.tree.color-neutral {
+    --tree-color-rgb: var(--mineral-neutral-rgb);
+    --tree-color: var(--mineral-neutral);
+}
+
+.tree.color-success {
+    --tree-color-rgb: var(--mineral-success-rgb);
+    --tree-color: var(--mineral-success);
+}
+
+.tree.color-error {
+    --tree-color-rgb: var(--mineral-error-rgb);
+    --tree-color: var(--mineral-error);
+}
+
+.tree.color-warning {
+    --tree-color-rgb: var(--mineral-warning-rgb);
+    --tree-color: var(--mineral-warning);
+}
+
+.tree.color-info {
+    --tree-color-rgb: var(--mineral-info-rgb);
+    --tree-color: var(--mineral-info);
+}
+
+.tree.color-light {
+    --tree-color-rgb: var(--mineral-light-rgb);
+    --tree-color: var(--mineral-light);
+}
+
+.tree.color-dark {
+    --tree-color-rgb: var(--mineral-dark-rgb);
+    --tree-color: var(--mineral-dark-color);
+}
+
+.tree.color-news {
+    --tree-color-rgb: var(--mineral-news-rgb);
+    --tree-color: var(--mineral-news);
 }
 
 .tree .list {
@@ -35,12 +82,12 @@
 }
 
 .tree .item.selectable:hover {
-    background: rgba(var(--mineral-primary-rgb), 0.06);
+    background: rgba(var(--tree-color-rgb), 0.06);
 }
 
 .tree .item.selected {
-    background: rgba(var(--mineral-primary-rgb), 0.12);
-    color: rgba(var(--mineral-primary-rgb), 1);
+    background: rgba(var(--tree-color-rgb), 0.12);
+    color: rgba(var(--tree-color-rgb), 1);
 }
 
 .tree .item.disabled {
@@ -58,12 +105,12 @@
 }
 
 .tree .item.can-drop {
-    box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.12);
+    box-shadow: inset 0 0 0 1px rgba(var(--tree-color-rgb), 0.12);
 }
 
 .tree .item.drop-target {
-    background: rgba(var(--mineral-primary-rgb), 0.1);
-    box-shadow: inset 0 0 0 1px rgba(var(--mineral-primary-rgb), 0.35);
+    background: rgba(var(--tree-color-rgb), 0.1);
+    box-shadow: inset 0 0 0 1px rgba(var(--tree-color-rgb), 0.35);
 }
 
 .tree .toggle {
@@ -105,6 +152,7 @@
     width: 18px;
     height: 18px;
     opacity: 0.9;
+    color: var(--tree-color);
 }
 
 .tree .icon svg {

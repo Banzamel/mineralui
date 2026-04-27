@@ -205,6 +205,7 @@ export function MSidebarNav({className, children}: MSidebarNavProps) {
 export function MSidebarItem({
     icon,
     label,
+    description,
     href,
     to,
     onClick,
@@ -218,6 +219,16 @@ export function MSidebarItem({
     const {mode, mobile} = useSidebar()
     const isCollapsed = !mobile && mode === 'collapsed'
 
+    // ONE tooltip per row: prefer description, fall back to label. The HTML
+    // title attribute used in collapsed mode mirrors the same priority but is
+    // limited to strings (browsers can't render ReactNodes).
+    const tooltipContent = description ?? label
+    const titleAttr = typeof description === 'string'
+        ? description
+        : typeof label === 'string'
+            ? label
+            : undefined
+
     const Tag = component ?? (href || to ? 'a' : 'button')
     const linkProps = component ? (to ? {to} : href ? {href} : {}) : href ? {href} : to ? {href: to} : {}
     const cls = cn('sidebar-item', active && 'active', disabled && 'disabled', color, className)
@@ -227,12 +238,12 @@ export function MSidebarItem({
             className={cls}
             onClick={disabled ? undefined : onClick}
             aria-disabled={disabled || undefined}
-            title={isCollapsed ? label : undefined}
+            title={isCollapsed ? titleAttr : undefined}
             {...linkProps}
         >
             {icon && <span className="sidebar-item-icon">{icon}</span>}
             {!isCollapsed && (
-                <MTooltip content={label} placement="top" className="sidebar-item-label-tooltip">
+                <MTooltip content={tooltipContent} placement="top" className="sidebar-item-label-tooltip">
                     <span className="sidebar-item-label">{label}</span>
                 </MTooltip>
             )}

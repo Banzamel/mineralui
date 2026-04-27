@@ -1,6 +1,9 @@
+import type {PointerEvent} from 'react'
 import type {MCardWidgetProps} from './MCardWidget.types'
 import {cn} from '../../../utils/cn'
 import {MArrowDownIcon, MArrowUpIcon} from '../../../icons'
+import {useInteractionEffect} from '../../../utils/useInteractionEffect'
+import {resolveMCardAction} from '../shared'
 import './MCardWidget.css'
 
 function resolveTrendType(trend: MCardWidgetProps['trend'], explicit?: MCardWidgetProps['trendType']) {
@@ -18,6 +21,11 @@ function formatTrend(trend: MCardWidgetProps['trend']) {
 }
 
 export function MCardWidget({
+    component,
+    to,
+    href,
+    target,
+    rel,
     title,
     value,
     trend,
@@ -25,15 +33,49 @@ export function MCardWidget({
     icon,
     color = 'primary',
     helperText,
+    interactive = false,
+    clickEffect,
+    rippleColor,
     className,
+    onPointerDown,
     ...rest
 }: MCardWidgetProps) {
     const hasTrend = trend !== undefined && trend !== null
     const resolvedTrendType = resolveTrendType(trend, trendType)
     const formattedTrend = formatTrend(trend)
+    const {
+        component: Component,
+        href: resolvedHref,
+        to: resolvedTo,
+        isInteractive,
+    } = resolveMCardAction({
+        component,
+        href,
+        to,
+        interactive,
+        hasClickHandler: Boolean(rest.onClick),
+        hasPointerHandler: Boolean(onPointerDown),
+    })
+    const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLDivElement>({
+        effect: clickEffect ?? (isInteractive ? 'ripple' : 'none'),
+        disabled: !isInteractive,
+        color: rippleColor,
+    })
 
     return (
-        <div className={cn('card-widget', `color-${color}`, className)} {...rest}>
+        <Component
+            href={Component === 'a' || component ? resolvedHref : undefined}
+            to={resolvedTo}
+            target={target}
+            rel={rel}
+            className={cn('card-widget', `color-${color}`, isInteractive && 'interactive', effectClassName, className)}
+            onPointerDown={(event: PointerEvent<HTMLDivElement>) => {
+                handlePointerDown(event)
+                onPointerDown?.(event)
+            }}
+            {...rest}
+        >
+            {effectLayer}
             <div className="cw-top">
                 <div className="cw-meta">
                     <span className="cw-title">{title}</span>
@@ -53,6 +95,6 @@ export function MCardWidget({
             )}
 
             {helperText && <div className="cw-helper">{helperText}</div>}
-        </div>
+        </Component>
     )
 }

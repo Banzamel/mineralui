@@ -5,12 +5,13 @@ import {getLayoutUtilityClassNames, getLayoutUtilityStyles} from '../../../utils
 import './MInline.css'
 
 // Arrange children horizontally with shared alignment and wrapping helpers.
+// `spacing` is not accepted — the flex gap built into `.inline` already spaces children;
+// outer margin should go through `mx/my` or `padding` to avoid overflowing the parent when paired with `fullWidth`.
 export function MInline({
     align = 'center',
     justify = 'start',
     wrap = 'wrap',
     hidden,
-    spacing,
     padding,
     fsize,
     mt,
@@ -41,7 +42,6 @@ export function MInline({
                 `justify-${justify}`,
                 wrap,
                 ...getLayoutUtilityClassNames({
-                    spacing,
                     padding,
                     fsize,
                     mt,

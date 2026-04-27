@@ -15,6 +15,8 @@ export const MButton = forwardRef<HTMLElement, MButtonProps>(function MButton(
         component,
         to,
         href,
+        target,
+        rel,
         variant: variantProp,
         size: sizeProp,
         color: colorProp,
@@ -75,6 +77,8 @@ export const MButton = forwardRef<HTMLElement, MButtonProps>(function MButton(
             type={isNativeButton ? type : undefined}
             to={component ? (isDisabled ? undefined : to) : undefined}
             href={component ? (isDisabled ? undefined : href) : undefined}
+            target={component ? (isDisabled ? undefined : target) : undefined}
+            rel={component ? (isDisabled ? undefined : rel) : undefined}
             className={cn(
                 'button',
                 variant,

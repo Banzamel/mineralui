@@ -14,6 +14,8 @@ export {MLoadMore} from './MLoadMore'
 export type {MLoadMoreProps} from './MLoadMore'
 export {MScrollTop} from './MScrollTop'
 export type {MScrollTopProps} from './MScrollTop'
+export {MQuickActions} from './MQuickActions'
+export type {MQuickActionsProps, MQuickActionItem} from './MQuickActions'
 export {MSocialButton} from './MSocialButton'
 export type {
     MSocialButtonIconShape,

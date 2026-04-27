@@ -1,6 +1,43 @@
 .card-grid {
+    --color-rgb: var(--mineral-primary-rgb);
     width: 100%;
     font-family: var(--mineral-font-family), sans-serif;
+}
+
+.card-grid.color-primary {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
+.card-grid.color-neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+
+.card-grid.color-success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+
+.card-grid.color-error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+
+.card-grid.color-warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+
+.card-grid.color-info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+
+.card-grid.color-light {
+    --color-rgb: var(--mineral-light-rgb);
+}
+
+.card-grid.color-dark {
+    --color-rgb: var(--mineral-dark-rgb);
+}
+
+.card-grid.color-news {
+    --color-rgb: var(--mineral-news-rgb);
 }
 
 .card-grid-toolbar {
@@ -78,11 +115,11 @@
 }
 
 .card-grid-sort-item:hover {
-    background: rgba(var(--mineral-primary-rgb), 0.08);
+    background: rgba(var(--color-rgb), 0.08);
 }
 
 .card-grid-sort-item.active {
-    color: var(--mineral-primary);
+    color: rgba(var(--color-rgb), 1);
     font-weight: 600;
 }
 

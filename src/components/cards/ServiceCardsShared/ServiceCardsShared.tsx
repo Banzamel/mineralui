@@ -1,14 +1,7 @@
 import {useEffect, useState} from 'react'
 import type {SharedServiceCardProps} from './ServiceCardsShared.types'
 import {cn} from '../../../utils/cn'
-import {
-    MClockIcon,
-    MEllipsisVerticalIcon,
-    MHeartFillIcon,
-    MHeartIcon,
-    MMinusIcon,
-    MPlusIcon,
-} from '../../../icons'
+import {MClockIcon, MEllipsisVerticalIcon, MHeartFillIcon, MHeartIcon, MMinusIcon, MPlusIcon} from '../../../icons'
 import {MButton} from '../../controls'
 import {MBadge} from '../../feedback'
 import {MAvatar} from '../../media'

@@ -33,7 +33,7 @@
 }
 
 .navbar .container {
-    min-height: var(--mineral-navbar-height);
+    min-height: calc(var(--mineral-navbar-height) - 1px);
 }
 
 .navbar .inner {
