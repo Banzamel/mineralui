@@ -1,7 +1,7 @@
 .scroll-top.button {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: max(24px, env(safe-area-inset-bottom, 24px));
+    right: max(24px, env(safe-area-inset-right, 24px));
     z-index: var(--mineral-z-sticky, 100);
     box-shadow: var(--mineral-shadow-lg);
     opacity: 0;
@@ -9,7 +9,15 @@
     pointer-events: none;
     transition:
         opacity var(--mineral-transition-base),
-        transform var(--mineral-transition-base);
+        transform var(--mineral-transition-base),
+        right var(--mineral-transition-base);
+}
+
+/* When MChat (floating variant) is mounted on the page, slot the scroll-top
+   button to its left so the two never overlap. The trigger is ~56px wide and
+   anchored 20px from the right edge — leave 12px of breathing room between them. */
+body:has(.chat-floating-wrapper) .scroll-top.button {
+    right: calc(max(24px, env(safe-area-inset-right, 24px)) + 56px + 12px);
 }
 
 .scroll-top.button.visible {

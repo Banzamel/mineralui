@@ -41,14 +41,18 @@ export function useMaxWidth(breakpoint: number): boolean {
     return matches
 }
 
-export function getHiddenProps(hidden?: MHiddenProps['hidden']) {
-    if (hidden === undefined || hidden === false) {
-        return {}
-    }
-
+export function getHiddenProps(
+    hidden?: MHiddenProps['hidden'],
+    hiddenAbove?: MHiddenProps['hiddenAbove']
+) {
+    const result: Record<string, unknown> = {}
     if (hidden === true) {
-        return {hidden: true}
+        result.hidden = true
+    } else if (hidden !== undefined && hidden !== false) {
+        result['data-m-hidden'] = hidden
     }
-
-    return {'data-m-hidden': hidden}
+    if (hiddenAbove) {
+        result['data-m-hidden-above'] = hiddenAbove
+    }
+    return result
 }

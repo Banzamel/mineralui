@@ -125,6 +125,7 @@ export function MGrid({
     xxl,
     resolvedBase,
     hidden,
+    hiddenAbove,
     align,
     spacing,
     padding,
@@ -185,7 +186,7 @@ export function MGrid({
                     className
                 )}
                 style={{...utilityStyle, ...style}}
-                {...getHiddenProps(hidden)}
+                {...getHiddenProps(hidden, hiddenAbove)}
                 {...rest}
             >
                 {children}

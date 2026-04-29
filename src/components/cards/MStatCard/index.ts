@@ -1,2 +1,2 @@
-export {MCardStat, MStatCard} from './MStatCard'
-export type {MCardStatProps, MCardStatTrendType, MStatCardProps, MStatCardTrendType} from './MStatCard.types'
+export {MCardStat} from './MStatCard'
+export type {MCardStatProps, MCardStatTrendType} from './MStatCard.types'

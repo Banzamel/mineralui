@@ -79,8 +79,27 @@
     gap: var(--mineral-spacing-xs);
 }
 
-.navbar.mobile-view .inner > .navs {
+.navbar.mobile-view .inner .navs {
     display: none;
+}
+
+.navbar.mobile-view .mobile-menu .navs {
+    display: flex;
+}
+
+.navbar .mobile-menu-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mineral-spacing-sm);
+    padding-top: var(--mineral-spacing-sm);
+    border-top: 1px solid color-mix(in srgb, var(--mineral-border) 60%, transparent 40%);
+    margin-top: var(--mineral-spacing-xs);
+}
+
+.navbar .mobile-menu-footer > .inline {
+    width: 100%;
+    justify-content: center;
 }
 
 .navbar.mobile-view .navbar-toggle {

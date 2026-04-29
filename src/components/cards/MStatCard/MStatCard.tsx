@@ -79,5 +79,3 @@ export function MCardStat({
         </MCard>
     )
 }
-
-export const MStatCard = MCardStat

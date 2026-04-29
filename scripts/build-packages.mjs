@@ -31,11 +31,11 @@ const proSourcePaths = [
     'src/components/data/MChat',
     'src/components/data/MFileManager',
     'src/components/data/MSparkline',
+    'src/components/data/MTimelineCalendar',
     'src/components/display/MQrCode',
     'src/components/display/MStepper',
     'src/components/display/MTimeline',
     'src/components/feedback/MCookie',
-    'src/components/layout/MAppMenu',
     'src/components/layout/MTopbar',
     'src/components/media/MAvatarStack',
     'src/components/media/MMasonry',
@@ -43,7 +43,7 @@ const proSourcePaths = [
     'src/components/media/MShowcaseCarousel',
     'src/components/media/MShowcaseCarouselItem',
     'src/cookie-consent-bootstrap.ts',
-    'src/utils/commandPaletteFromAppMenu.ts',
+    'src/utils/commandPaletteFromNavGroups.ts',
     'src/icons/MIconV2.tsx',
     'src/icons/MIconV2Glyph.tsx',
     'src/icons/MIconV2Scenes.tsx',
@@ -51,13 +51,13 @@ const proSourcePaths = [
 
 const basicBlockMatchers = {
     'src/components/cards/index.ts': ['MCardBusiness', 'MCardFinance'],
-    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
+    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MTimelineCalendar', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
     'src/components/display/index.ts': ['MStepper', 'MTimeline', 'MQrCode'],
     'src/components/feedback/index.ts': ['./MCookie'],
-    'src/components/layout/index.ts': ['MTopbar', 'MAppMenu'],
+    'src/components/layout/index.ts': ['MTopbar'],
     'src/components/media/index.ts': ['MAvatarStack', 'MShowcaseCarousel', 'MMasonry', 'MMasonryItem', 'MShowcaseCarouselItem'],
     'src/icons/index.ts': ['V2'],
-    'src/index.ts': ['commandPaletteFromAppMenu', 'CommandPaletteFromAppMenuOptions'],
+    'src/index.ts': ['commandPaletteFromNavGroups', 'CommandPaletteFromNavGroupsOptions', 'MNavGroup', 'MNavGroupItem', 'MNavGroupIcon'],
 }
 
 const basicReadme = `# MineralUI

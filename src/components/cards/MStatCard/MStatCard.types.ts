@@ -14,6 +14,3 @@ export interface MCardStatProps extends Omit<MCardProps, 'children' | 'color'> {
     trendType?: MCardStatTrendType
     color?: MColor
 }
-
-export type MStatCardTrendType = MCardStatTrendType
-export type MStatCardProps = MCardStatProps

@@ -66,6 +66,37 @@
     }
 }
 
+/* hiddenAbove — show only at and below the breakpoint, hide above. */
+@media (min-width: 641px) {
+    [data-m-hidden-above='sm'] {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    [data-m-hidden-above='md'] {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    [data-m-hidden-above='lg'] {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1281px) {
+    [data-m-hidden-above='xl'] {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1537px) {
+    [data-m-hidden-above='2xl'] {
+        display: none !important;
+    }
+}
+
 .field-label {
     font-size: var(--mineral-font-size-sm);
     color: var(--mineral-text-secondary);

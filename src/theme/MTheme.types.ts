@@ -54,5 +54,10 @@ export type MHidden = MBreakpoint
 export type MShellBreakpoint = 'mobile' | 'compact'
 
 export interface MHiddenProps {
+    /** Hide on this breakpoint and below (mobile-first hide). */
     hidden?: MHidden | boolean
+    /** Hide above this breakpoint. Use as a complement to `hidden` to render
+     *  elements only on smaller viewports (e.g. `hiddenAbove="lg"` shows the
+     *  element at sm/md/lg and hides it on xl+). */
+    hiddenAbove?: MHidden
 }

@@ -1,5 +1,5 @@
 import {Children, cloneElement, isValidElement, useEffect, useId, useRef, useState} from 'react'
-import type {MouseEvent as ReactMouseEvent, ReactElement} from 'react'
+import type {MouseEvent as ReactMouseEvent, ReactElement, ReactNode} from 'react'
 import type {MNavbarProps} from './MNavbar.types'
 import {getHiddenProps, MShellBreakpoints, useMaxWidth} from '../../../theme'
 import {cn} from '../../../utils/cn'
@@ -7,10 +7,30 @@ import {MContainer} from '../MContainer'
 import {MInline} from '../MInline'
 import type {MInlineProps} from '../MInline'
 import {MNavs} from '../MNavs'
-import type {MNavsProps} from '../MNavs'
 import {MButton} from '../../controls/MButton'
 import {MMenuIcon} from '../../../icons'
 import './MNavbar.css'
+
+type NavLikeElement = ReactElement<{children?: ReactNode; orientation?: 'horizontal' | 'vertical'}>
+
+// Walks the children tree (any depth) looking for MNavs instances so the navbar
+// can pull them into the mobile menu even when wrapped in MInline / MStack.
+function findNavLikeChildren(children: ReactNode, found: NavLikeElement[] = []): NavLikeElement[] {
+    Children.forEach(children, (child) => {
+        if (!isValidElement(child)) {
+            return
+        }
+        if (child.type === MNavs) {
+            found.push(child as NavLikeElement)
+            return
+        }
+        const nestedChildren = (child.props as {children?: ReactNode} | null)?.children
+        if (nestedChildren !== undefined) {
+            findNavLikeChildren(nestedChildren, found)
+        }
+    })
+    return found
+}
 
 // Render a horizontal app or site navigation shell with container alignment.
 // Below the md breakpoint MNavs children are collapsed behind a hamburger toggle
@@ -25,6 +45,8 @@ export function MNavbar({
     wrap = false,
     mobileMenu = 'dropdown',
     mobileMenuContent,
+    mobileMenuFooter,
+    collapseActions = false,
     mobileMenuLabel = 'Open navigation',
     mobileBreakpoint = MShellBreakpoints.compact,
     hidden,
@@ -39,14 +61,12 @@ export function MNavbar({
 
     const childArray = Children.toArray(children)
 
-    const mobileNavs = childArray
-        .filter((child): child is ReactElement<MNavsProps> => isValidElement(child) && child.type === MNavs)
-        .map((child, index) =>
-            cloneElement(child, {
-                key: `mnavbar-mobile-navs-${index}`,
-                orientation: 'vertical',
-            })
-        )
+    const mobileNavs = findNavLikeChildren(children).map((element, index) =>
+        cloneElement(element, {
+            key: `mnavbar-mobile-navs-${index}`,
+            orientation: 'vertical',
+        })
+    )
 
     const toggleButton = (
         <MButton
@@ -74,11 +94,32 @@ export function MNavbar({
         }
     }
 
+    // When collapseActions is on and we're below the breakpoint, the last inline
+    // (usually theme / lang / search) is pulled out of the bar and rendered in
+    // the mobile menu footer. The burger toggle then attaches to the previous
+    // inline (typically primary actions) — or sits on its own when none exists.
+    const shouldCollapseLastInline = collapseActions && mobile && lastInlineIndex !== -1
+    let collapsedActionsInline: ReactElement<MInlineProps> | null = null
+    let workingChildren = childArray
+    let toggleHostIndex = lastInlineIndex
+    if (shouldCollapseLastInline) {
+        collapsedActionsInline = childArray[lastInlineIndex] as ReactElement<MInlineProps>
+        workingChildren = childArray.filter((_, index) => index !== lastInlineIndex)
+        toggleHostIndex = -1
+        for (let index = workingChildren.length - 1; index >= 0; index -= 1) {
+            const child = workingChildren[index]
+            if (isValidElement(child) && child.type === MInline) {
+                toggleHostIndex = index
+                break
+            }
+        }
+    }
+
     const renderedChildren =
-        lastInlineIndex === -1
-            ? [...childArray, toggleButton]
-            : childArray.map((child, index) => {
-                  if (index !== lastInlineIndex) return child
+        toggleHostIndex === -1
+            ? [...workingChildren, toggleButton]
+            : workingChildren.map((child, index) => {
+                  if (index !== toggleHostIndex) return child
                   const inlineChild = child as ReactElement<MInlineProps>
                   const inlineChildren = Children.toArray(inlineChild.props.children)
                   return cloneElement(inlineChild, {
@@ -158,6 +199,14 @@ export function MNavbar({
             >
                 {mobileNavs}
                 {mobileMenuContent}
+                {collapsedActionsInline ? (
+                    <div className="mobile-menu-footer">
+                        {cloneElement(collapsedActionsInline, {
+                            key: 'mnavbar-collapsed-actions',
+                        })}
+                    </div>
+                ) : null}
+                {mobileMenuFooter ? <div className="mobile-menu-footer">{mobileMenuFooter}</div> : null}
             </div>
         </nav>
     )
