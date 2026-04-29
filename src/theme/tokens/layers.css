@@ -1,8 +1,8 @@
 :root {
     --mineral-z-popover: 1000;
     --mineral-z-modal: 1100;
-    --mineral-z-tooltip: 1150;
     --mineral-z-toast: 1200;
+    --mineral-z-tooltip: 1250;
 }
 
 .theme-light {

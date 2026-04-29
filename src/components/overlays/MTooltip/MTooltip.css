@@ -4,7 +4,7 @@
 
 .tooltip.bubble {
     position: fixed;
-    z-index: var(--mineral-z-tooltip, 1150);
+    z-index: var(--mineral-z-tooltip, 1250);
     padding: 0.375rem 0.625rem;
     font-size: var(--mineral-font-size-xs);
     line-height: 1.4;

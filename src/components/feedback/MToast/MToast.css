@@ -26,17 +26,30 @@
     transform: translateX(-50%);
 }
 .toast.container.bottom-right {
-    bottom: 0;
+    bottom: var(--mineral-toast-bottom-offset, 0);
     right: 0;
 }
 .toast.container.bottom-left {
-    bottom: 0;
+    bottom: var(--mineral-toast-bottom-offset, 0);
     left: 0;
 }
 .toast.container.bottom-center {
-    bottom: 0;
+    bottom: var(--mineral-toast-bottom-offset, 0);
     left: 50%;
     transform: translateX(-50%);
+}
+
+/*
+ * When the page contains an `MFooter` (sticky or in-flow), bottom toasts
+ * automatically lift above it. Consumer apps can override the clearance via
+ * `--mineral-footer-clearance` (default `5rem` — covers MFooter min-height
+ * 64px + inner padding) or set `--mineral-toast-bottom-offset` directly to
+ * disable the auto-lift entirely.
+ */
+body:has(.footer) .toast.container.bottom-right,
+body:has(.footer) .toast.container.bottom-left,
+body:has(.footer) .toast.container.bottom-center {
+    --mineral-toast-bottom-offset: var(--mineral-footer-clearance, 5rem);
 }
 
 /* === Single toast === */
