@@ -23,6 +23,42 @@
     overflow: visible;
 }
 
+.button.color-primary {
+    --color-rgb: var(--mineral-primary-rgb);
+}
+
+.button.color-neutral {
+    --color-rgb: var(--mineral-neutral-rgb);
+}
+
+.button.color-success {
+    --color-rgb: var(--mineral-success-rgb);
+}
+
+.button.color-error {
+    --color-rgb: var(--mineral-error-rgb);
+}
+
+.button.color-warning {
+    --color-rgb: var(--mineral-warning-rgb);
+}
+
+.button.color-info {
+    --color-rgb: var(--mineral-info-rgb);
+}
+
+.button.color-light {
+    --color-rgb: var(--mineral-light-rgb);
+}
+
+.button.color-dark {
+    --color-rgb: var(--mineral-dark-rgb);
+}
+
+.button.color-news {
+    --color-rgb: var(--mineral-news-rgb);
+}
+
 .button.xs {
     min-height: 24px;
     padding: 0 var(--mineral-spacing-sm);

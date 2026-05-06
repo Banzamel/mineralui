@@ -1,5 +1,6 @@
 import type {CSSProperties} from 'react'
-import type {MAvatarProps} from './MAvatar.types'
+import type {MAvatarPresence, MAvatarProps} from './MAvatar.types'
+import type {MColor} from '../../../theme'
 import {getHiddenProps} from '../../../theme'
 import {cn} from '../../../utils/cn'
 import {useInteractionEffect} from '../../../utils/useInteractionEffect'
@@ -15,6 +16,13 @@ function getFallbackInitials(name?: string, initials?: string) {
     return `${parts[0][0]}${parts[1][0]}`.toUpperCase()
 }
 
+const PRESENCE_BADGE_COLOR: Record<MAvatarPresence, MColor> = {
+    online: 'success',
+    offline: 'neutral',
+    away: 'warning',
+    busy: 'error',
+}
+
 // Render user or entity identity as an image with initials fallback.
 export function MAvatar({
     src,
@@ -27,7 +35,8 @@ export function MAvatar({
     color,
     badge,
     badgeColor,
-    badgePulsing = false,
+    badgePulsing,
+    presence,
     backgroundColor,
     clickEffect,
     rippleColor,
@@ -39,6 +48,9 @@ export function MAvatar({
 }: MAvatarProps) {
     const fallbackInitials = getFallbackInitials(name, initials)
     const isInteractive = typeof rest.onClick === 'function' || rest.role === 'button' || rest.tabIndex !== undefined
+    const resolvedBadge = badge !== undefined ? badge : presence !== undefined ? true : undefined
+    const resolvedBadgeColor = badgeColor ?? (presence !== undefined ? PRESENCE_BADGE_COLOR[presence] : undefined)
+    const resolvedBadgePulsing = badgePulsing ?? (presence !== undefined ? true : false)
     const {effectClassName, effectLayer, handlePointerDown} = useInteractionEffect<HTMLSpanElement>({
         effect: clickEffect ?? (isInteractive ? 'ripple' : 'none'),
         disabled: !isInteractive || skeleton,
@@ -79,7 +91,7 @@ export function MAvatar({
             {...rest}
         >
             {effectLayer}
-            {renderOverlayBadge({badge, badgeColor, badgePulsing})}
+            {renderOverlayBadge({badge: resolvedBadge, badgeColor: resolvedBadgeColor, badgePulsing: resolvedBadgePulsing})}
             {skeleton ? null : src ? (
                 <img src={src} alt={alt ?? name ?? ''} className={'image'} />
             ) : (

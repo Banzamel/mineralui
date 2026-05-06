@@ -16,6 +16,9 @@ export type {MSpinnerProps} from './MSpinner'
 export {MLoader} from './MLoader'
 export type {MLoaderProps} from './MLoader'
 
+export {MProgressRing} from './MProgressRing'
+export type {MProgressRingProps} from './MProgressRing'
+
 export {MToastProvider, useMToast} from './MToast'
 export type {MToastProviderProps, MToastOptions, MToastEntry, MToastPosition, MToastContext} from './MToast'
 

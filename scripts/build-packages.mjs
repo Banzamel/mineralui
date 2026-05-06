@@ -31,10 +31,8 @@ const proSourcePaths = [
     'src/components/data/MChat',
     'src/components/data/MFileManager',
     'src/components/data/MSparkline',
-    'src/components/data/MTimelineCalendar',
+    'src/components/data/MTimelineBoard',
     'src/components/display/MQrCode',
-    'src/components/display/MStepper',
-    'src/components/display/MTimeline',
     'src/components/feedback/MCookie',
     'src/components/layout/MTopbar',
     'src/components/media/MAvatarStack',
@@ -51,8 +49,8 @@ const proSourcePaths = [
 
 const basicBlockMatchers = {
     'src/components/cards/index.ts': ['MCardBusiness', 'MCardFinance'],
-    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MTimelineCalendar', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
-    'src/components/display/index.ts': ['MStepper', 'MTimeline', 'MQrCode'],
+    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MTimelineBoard', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
+    'src/components/display/index.ts': ['MQrCode'],
     'src/components/feedback/index.ts': ['./MCookie'],
     'src/components/layout/index.ts': ['MTopbar'],
     'src/components/media/index.ts': ['MAvatarStack', 'MShowcaseCarousel', 'MMasonry', 'MMasonryItem', 'MShowcaseCarouselItem'],

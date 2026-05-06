@@ -1,0 +1,246 @@
+.canvas-grid {
+    --canvas-grid-line-color: var(--mineral-border);
+    --canvas-grid-line-width: 1px;
+    --canvas-grid-cells: 24;
+
+    position: relative;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+.canvas-grid.editable {
+    background: var(--mineral-surface);
+}
+
+.canvas-grid-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--canvas-grid-cells, 24), 1fr);
+    grid-template-rows: repeat(var(--canvas-grid-cells, 24), 1fr);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+}
+
+.canvas-grid[data-guides='on'] > .canvas-grid-overlay {
+    opacity: 1;
+}
+
+.canvas-grid-cell {
+    border-right: var(--canvas-grid-line-width) dashed var(--canvas-grid-line-color);
+    border-bottom: var(--canvas-grid-line-width) dashed var(--canvas-grid-line-color);
+}
+
+.canvas-grid-cell.no-right {
+    border-right: none;
+}
+
+.canvas-grid-cell.no-bottom {
+    border-bottom: none;
+}
+
+.canvas-grid-item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.canvas-grid.editable .canvas-grid-item {
+    border: 1px solid var(--mineral-border);
+    border-radius: 0;
+    background: var(--mineral-surface);
+}
+
+.canvas-grid-item-header {
+    flex: 0 0 auto;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 4px;
+    background: rgba(0, 0, 0, 0.22);
+    border-bottom: 1px solid var(--mineral-border);
+    user-select: none;
+    z-index: 4;
+}
+
+.theme-light .canvas-grid-item-header {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.canvas-grid:not(.editable) .canvas-grid-item-header {
+    display: none;
+}
+
+.canvas-grid.editable .canvas-grid-item-body > .card {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Make tile content scrollable when it overflows: outer MCard becomes a
+   bounded flex column, its body grows + scrolls. Header / footer stay
+   at natural height. */
+.canvas-grid-item-body > .card {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.canvas-grid-item-body > .card > .body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+.canvas-grid.editable .canvas-grid-item-header {
+    cursor: grab;
+    touch-action: none;
+}
+
+.canvas-grid.editable .canvas-grid-item.dragging .canvas-grid-item-header {
+    cursor: grabbing;
+}
+
+.canvas-grid-item-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.canvas-grid-item-body > * {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.canvas-grid-scale-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-grid-scale-content {
+    position: relative;
+    transform-origin: center center;
+    flex: 0 0 auto;
+}
+
+.canvas-grid.editable .canvas-grid-scale-content > .card {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.canvas-grid-item > .canvas-grid-view-expand-handle {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 160ms ease-out, transform 160ms ease-out;
+    transform: scale(0.85);
+}
+
+.canvas-grid-item:hover > .canvas-grid-view-expand-handle,
+.canvas-grid-item > .canvas-grid-view-expand-handle:focus-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.canvas-grid-item-glass {
+    position: absolute;
+    inset: 0;
+    background: rgba(var(--mineral-primary-rgb), 0.18);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.92);
+    pointer-events: none;
+    z-index: 3;
+    border-radius: inherit;
+    animation: canvas-grid-glass-in 120ms ease-out;
+}
+
+@keyframes canvas-grid-glass-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.canvas-grid-resize-handle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    cursor: nwse-resize;
+    z-index: 4;
+    background: linear-gradient(
+        135deg,
+        transparent 0,
+        transparent 50%,
+        rgba(var(--mineral-primary-rgb), 0.85) 50%,
+        rgba(var(--mineral-primary-rgb), 0.85) 100%
+    );
+    opacity: 0;
+    transition: opacity 120ms ease-out;
+    touch-action: none;
+}
+
+.canvas-grid-item:hover .canvas-grid-resize-handle,
+.canvas-grid-item.dragging .canvas-grid-resize-handle {
+    opacity: 0.85;
+}
+
+.canvas-grid-resize-handle:hover {
+    opacity: 1;
+}
+
+
+
+.canvas-grid.mobile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mineral-spacing-sm, 8px);
+    height: auto;
+    min-height: 0;
+}
+
+.canvas-grid.mobile > .canvas-grid-overlay {
+    display: none;
+}
+
+.canvas-grid.mobile .canvas-grid-item {
+    width: 100%;
+}
+
+.canvas-grid.compact {
+    --canvas-grid-cells: 12;
+}

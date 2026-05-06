@@ -74,6 +74,7 @@ export function MNavbar({
             type="button"
             variant="ghost"
             size="md"
+            shape="circle"
             iconOnly
             className="navbar-toggle"
             aria-label={mobileMenuLabel}

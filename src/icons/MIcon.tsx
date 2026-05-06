@@ -36,6 +36,7 @@ export const MIcon = forwardRef<SVGSVGElement, MIconProps>(function MIcon(
         strokeLinecap = 'round',
         strokeLinejoin = 'round',
         style,
+        shell: _shell,
         ...rest
     },
     ref

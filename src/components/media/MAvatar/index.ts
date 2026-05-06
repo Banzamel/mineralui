@@ -1,2 +1,2 @@
 export {MAvatar} from './MAvatar'
-export type {MAvatarProps, MAvatarSize, MAvatarShape} from './MAvatar.types'
+export type {MAvatarProps, MAvatarSize, MAvatarShape, MAvatarPresence} from './MAvatar.types'

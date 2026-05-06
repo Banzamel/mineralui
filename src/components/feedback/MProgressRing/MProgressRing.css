@@ -1,0 +1,97 @@
+.progress-ring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mineral-primary);
+    line-height: 1;
+}
+
+.progress-ring-svg {
+    display: block;
+    overflow: visible;
+}
+
+.progress-ring-track {
+    stroke: currentColor;
+    opacity: 0.18;
+}
+
+.progress-ring-indicator {
+    stroke: currentColor;
+    transition: stroke-dashoffset 240ms ease;
+}
+
+.progress-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    font-weight: 600;
+    text-align: center;
+    pointer-events: none;
+    font-size: 0.875rem;
+    line-height: 1;
+}
+
+.progress-ring.xs .progress-ring-label {
+    font-size: 0.5rem;
+}
+
+.progress-ring.sm .progress-ring-label {
+    font-size: 0.625rem;
+}
+
+.progress-ring.md .progress-ring-label {
+    font-size: 0.875rem;
+}
+
+.progress-ring.lg .progress-ring-label {
+    font-size: 1.125rem;
+}
+
+.progress-ring.xl .progress-ring-label {
+    font-size: 1.5rem;
+}
+
+.progress-ring.color-primary {
+    color: var(--mineral-primary);
+}
+
+.progress-ring.color-neutral {
+    color: var(--mineral-neutral);
+}
+
+.progress-ring.color-success {
+    color: var(--mineral-success);
+}
+
+.progress-ring.color-error {
+    color: var(--mineral-error);
+}
+
+.progress-ring.color-warning {
+    color: var(--mineral-warning);
+}
+
+.progress-ring.color-info {
+    color: var(--mineral-info);
+}
+
+.progress-ring.color-light {
+    color: var(--mineral-light);
+}
+
+.progress-ring.color-dark {
+    color: var(--mineral-dark-color);
+}
+
+.progress-ring.color-news {
+    color: var(--mineral-news);
+}
+
+.progress-ring.color-inherit {
+    color: inherit;
+}
