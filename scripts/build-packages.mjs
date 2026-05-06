@@ -348,6 +348,10 @@ function rewriteBasicPackageJson(filePath) {
     delete manifest.typesVersions['*']['cookie-consent-bootstrap']
     delete manifest.scripts
     delete manifest.prepublishOnly
+    // Source mineralui/package.json carries `"private": true` so an accidental
+    // `npm publish` from the dev tree fails fast — the published artifact must
+    // go out from mineralui-basic/. Strip the flag for the public package.
+    delete manifest.private
     manifest.files = ['dist', 'LICENSE', 'README.md']
     manifest.publishConfig = {
         access: 'public',
@@ -368,6 +372,10 @@ function rewriteProPackageJson(filePath) {
         postinstall: 'node ./scripts/pro-postinstall.mjs',
     }
     delete manifest.prepublishOnly
+    // Pro package is privately distributed via SFTP, but the manifest itself
+    // must not carry `"private": true` — the framework dev tree does, so
+    // strip it on the way out.
+    delete manifest.private
     manifest.files = ['bin', 'dist', 'scripts', 'LICENSE', 'README.md']
 
     writeJson(filePath, manifest)
