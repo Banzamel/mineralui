@@ -15,7 +15,6 @@
 .data-table .filter-search {
     flex: 1;
     min-width: 220px;
-    max-width: 320px;
 }
 
 .data-table .toolbar-actions {
@@ -190,20 +189,17 @@
     padding: 6px 10px;
 }
 
-.data-table .root.striped tbody tr:nth-child(odd) {
-    background: color-mix(in srgb, var(--mineral-surface) 96%, var(--mineral-dark-light) 4%);
+/* Striped rows: only even rows get a stripe; odd rows stay on the page background. */
+.data-table .root.striped tbody tr:nth-child(even):not(:hover) {
+    background: color-mix(in srgb, var(--mineral-dark-light), black 30%);
 }
 
-.data-table .root.striped tbody tr:nth-child(even) {
-    background: color-mix(in srgb, var(--mineral-dark-light) 92%, white 8%);
+.data-table .row:hover {
+    background: rgba(var(--mineral-primary-rgb), 0.06);
 }
 
 .data-table .row.selectable {
     cursor: pointer;
-}
-
-.data-table .row.selectable:hover {
-    background: rgba(var(--mineral-primary-rgb), 0.04);
 }
 
 .data-table .row.selected {
@@ -230,10 +226,6 @@
     background: rgba(226, 232, 240, 0.88);
 }
 
-.theme-light .data-table .root.striped tbody tr:nth-child(odd) {
-    background: rgba(248, 250, 252, 0.96);
-}
-
-.theme-light .data-table .root.striped tbody tr:nth-child(even) {
-    background: rgba(241, 245, 249, 0.98);
+.theme-light .data-table .root.striped tbody tr:nth-child(even):not(:hover) {
+    background: color-mix(in srgb, var(--mineral-surface), var(--mineral-text) 4%);
 }

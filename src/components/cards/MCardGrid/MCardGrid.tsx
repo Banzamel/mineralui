@@ -114,10 +114,15 @@ export function MCardGrid<T extends Record<string, unknown>>({
         [controlledSort, controlledPage, manualPagination, onSortChange]
     )
 
+    const rootRef = useRef<HTMLDivElement>(null)
+
     const setPage = useCallback(
         (next: number) => {
             if (controlledPage === undefined) setInternalPage(next)
             onPageChange?.(next)
+            // After page change, bring the top of the grid back into view so
+            // the user does not stay scrolled deep into the previous page's cards.
+            rootRef.current?.scrollIntoView({block: 'start', behavior: 'smooth'})
         },
         [controlledPage, onPageChange]
     )
@@ -211,7 +216,7 @@ export function MCardGrid<T extends Record<string, unknown>>({
     const activeSort = sortKeys.find((item) => item.key === sort?.key)
 
     return (
-        <div className={cn('card-grid', `color-${color}`, className)} style={style} {...rest}>
+        <div ref={rootRef} className={cn('card-grid', `color-${color}`, className)} style={style} {...rest}>
             {(searchable || filterable || sortable) && (
                 <div className="card-grid-toolbar">
                     {searchable && (

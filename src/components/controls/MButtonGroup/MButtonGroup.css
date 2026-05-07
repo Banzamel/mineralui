@@ -12,24 +12,32 @@
     align-items: stretch;
 }
 
-.button-group.attached.horizontal > .button:not(:first-child) {
+/* MTooltip wraps its trigger in `.tooltip.wrapper`, so a button inside a tooltip
+   is not a direct child of the group. The selectors below treat such a wrapped
+   button as if it were a direct slot in the group. */
+
+.button-group.attached.horizontal > .button:not(:first-child),
+.button-group.attached.horizontal > .tooltip.wrapper:not(:first-child) > .button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: -1px;
 }
 
-.button-group.attached.horizontal > .button:not(:last-child) {
+.button-group.attached.horizontal > .button:not(:last-child),
+.button-group.attached.horizontal > .tooltip.wrapper:not(:last-child) > .button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.button-group.attached.vertical > .button:not(:first-child) {
+.button-group.attached.vertical > .button:not(:first-child),
+.button-group.attached.vertical > .tooltip.wrapper:not(:first-child) > .button {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     margin-top: -1px;
 }
 
-.button-group.attached.vertical > .button:not(:last-child) {
+.button-group.attached.vertical > .button:not(:last-child),
+.button-group.attached.vertical > .tooltip.wrapper:not(:last-child) > .button {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }

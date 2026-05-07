@@ -106,10 +106,15 @@ export function MDataTable<T = any>({
         [controlledSort, controlledPage, manualPagination, onSortChange]
     )
 
+    const rootRef = useRef<HTMLDivElement>(null)
+
     const setPage = useCallback(
         (next: number) => {
             if (controlledPage === undefined) setInternalPage(next)
             onPageChange?.(next)
+            // After page change, bring the top of the table back into view so
+            // the user does not stay scrolled deep into the previous page's rows.
+            rootRef.current?.scrollIntoView({block: 'start', behavior: 'smooth'})
         },
         [controlledPage, onPageChange]
     )
@@ -257,7 +262,7 @@ export function MDataTable<T = any>({
     const showToolbar = filterable || filterKeys.length > 0 || sortKeys.length > 0
 
     return (
-        <div className={cn('data-table', className)} {...rest}>
+        <div ref={rootRef} className={cn('data-table', className)} {...rest}>
             {showToolbar && (
                 <div className="toolbar">
                     {filterable && (

@@ -35,7 +35,9 @@ export function MPopover({
             return
         }
 
-        const layerHost = anchor.closest('.drawer-backdrop, .modal-backdrop, .sheet-backdrop, .sidebar.mobile-open')
+        const layerHost = anchor.closest(
+            '.drawer-backdrop, .modal-backdrop, .sheet-backdrop, .sidebar.mobile-open, .popover'
+        )
         if (!layerHost) {
             setLayerZ(null)
             return
