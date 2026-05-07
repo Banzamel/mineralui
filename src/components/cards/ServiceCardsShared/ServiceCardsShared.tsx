@@ -34,6 +34,7 @@ export function SharedServiceCard({
     maxParticipants,
     quantity: controlledQty,
     onQuantityChange,
+    showQuantity = true,
     date,
     location,
     status,
@@ -282,7 +283,7 @@ export function SharedServiceCard({
                 )}
 
                 <div className="cs-actions">
-                    {variant === 'product' && onAddToCart && (
+                    {variant === 'product' && onAddToCart && showQuantity && (
                         <div className="cs-qty">
                             <MButton
                                 variant="ghost"

@@ -26,4 +26,6 @@ export interface MCardProductProps extends Omit<HTMLAttributes<HTMLDivElement>, 
     color?: MColor
     quantity?: number
     onQuantityChange?: (qty: number) => void
+    /** When false, hides the -/+ quantity controls in the footer. Defaults to true. */
+    showQuantity?: boolean
 }

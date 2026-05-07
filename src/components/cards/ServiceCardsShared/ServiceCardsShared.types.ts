@@ -40,6 +40,8 @@ export interface SharedServiceCardProps extends Omit<HTMLAttributes<HTMLDivEleme
     maxParticipants?: number
     quantity?: number
     onQuantityChange?: (qty: number) => void
+    /** When false, hides the -/+ quantity controls in the product variant. Defaults to true. */
+    showQuantity?: boolean
     date?: Date | string
     location?: string
     status?: string
