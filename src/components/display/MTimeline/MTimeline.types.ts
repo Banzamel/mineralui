@@ -11,7 +11,7 @@ export interface MTimelineItemProps {
 }
 
 export interface MTimelineProps extends HTMLAttributes<HTMLDivElement> {
-    align?: 'left' | 'alternate'
+    align?: 'left' | 'right' | 'alternate'
     color?: MColor
     size?: MSize
     children: ReactNode

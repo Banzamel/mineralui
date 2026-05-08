@@ -17,6 +17,17 @@
     transform: translateX(-50%);
 }
 
+.timeline.align-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(var(--timeline-dot-size) / 2);
+    width: 2px;
+    background-color: var(--mineral-border);
+    transform: translateX(50%);
+}
+
 .timeline.align-alternate::before {
     content: '';
     position: absolute;
@@ -45,6 +56,13 @@
 /* Left alignment */
 .timeline.align-left .timeline-item {
     padding-left: calc(var(--timeline-dot-size) + var(--mineral-spacing-md));
+}
+
+/* Right alignment */
+.timeline.align-right .timeline-item {
+    padding-right: calc(var(--timeline-dot-size) + var(--mineral-spacing-md));
+    flex-direction: row-reverse;
+    text-align: right;
 }
 
 /* Alternate alignment */
@@ -83,6 +101,12 @@
 
 .timeline.align-left .timeline-dot {
     left: 0;
+    transform: translateX(0);
+}
+
+.timeline.align-right .timeline-dot {
+    right: 0;
+    left: auto;
     transform: translateX(0);
 }
 

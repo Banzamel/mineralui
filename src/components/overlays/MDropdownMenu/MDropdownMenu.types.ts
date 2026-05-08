@@ -8,6 +8,10 @@ export interface MDropdownMenuProps {
     closeOnSelect?: boolean
     openOn?: 'click' | 'hover'
     onOpenChange?: (open: boolean) => void
+    /** Stop click and keydown propagation on the trigger so nesting inside a
+     *  clickable parent (Link, MCard with component={Link}, MDataTable row,
+     *  etc.) does not trigger the parent's navigation/click handler. */
+    isolateClick?: boolean
     className?: string
     style?: CSSProperties
     popoverClassName?: string

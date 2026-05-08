@@ -49,6 +49,7 @@ export function MDropdownMenu({
     closeOnSelect = true,
     openOn = 'click',
     onOpenChange,
+    isolateClick = false,
     className,
     style,
     popoverClassName,
@@ -97,11 +98,18 @@ export function MDropdownMenu({
         isOpen: open,
     })
 
-    const handleTriggerClick = () => setMenuOpen((o) => !o)
+    const handleTriggerClick = (e: React.MouseEvent) => {
+        if (isolateClick) {
+            e.stopPropagation()
+            e.preventDefault()
+        }
+        setMenuOpen((o) => !o)
+    }
 
     const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
             e.preventDefault()
+            if (isolateClick) e.stopPropagation()
             setMenuOpen(true)
         }
         if (open) onKeyDown(e as any)
