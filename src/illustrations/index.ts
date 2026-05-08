@@ -38,3 +38,45 @@ export {MDataTableIllustration} from './scenes/MDataTableIllustration'
 export {MTaskListIllustration} from './scenes/MTaskListIllustration'
 export {MNavbarIllustration} from './scenes/MNavbarIllustration'
 export {MGalleryIllustration} from './scenes/MGalleryIllustration'
+
+// Scenes — people / roles
+export {MStudentIllustration} from './scenes/MStudentIllustration'
+export {MTeacherIllustration} from './scenes/MTeacherIllustration'
+export {MTutorIllustration} from './scenes/MTutorIllustration'
+export {MFamilyIllustration} from './scenes/MFamilyIllustration'
+export {MCorporateIllustration} from './scenes/MCorporateIllustration'
+export {MOfficeIllustration} from './scenes/MOfficeIllustration'
+export {MAccountantIllustration} from './scenes/MAccountantIllustration'
+
+// Scenes — language skills
+export {MListeningIllustration} from './scenes/MListeningIllustration'
+export {MSpeakingIllustration} from './scenes/MSpeakingIllustration'
+export {MReadingIllustration} from './scenes/MReadingIllustration'
+export {MWritingIllustration} from './scenes/MWritingIllustration'
+
+// Scenes — courses & lessons
+export {MCourseIllustration} from './scenes/MCourseIllustration'
+export {MClassroomIllustration} from './scenes/MClassroomIllustration'
+export {MOnlineLessonIllustration} from './scenes/MOnlineLessonIllustration'
+export {MGroupClassIllustration} from './scenes/MGroupClassIllustration'
+export {MEnrollmentIllustration} from './scenes/MEnrollmentIllustration'
+export {MAttendanceIllustration} from './scenes/MAttendanceIllustration'
+
+// Scenes — exams & achievements
+export {MExamIllustration} from './scenes/MExamIllustration'
+export {MCertificateIllustration} from './scenes/MCertificateIllustration'
+export {MProgressIllustration} from './scenes/MProgressIllustration'
+export {MReviewIllustration} from './scenes/MReviewIllustration'
+
+// Scenes — materials
+export {MLibraryIllustration} from './scenes/MLibraryIllustration'
+export {MWorkbookIllustration} from './scenes/MWorkbookIllustration'
+export {MAudioFileIllustration} from './scenes/MAudioFileIllustration'
+
+// Scenes — billing
+export {MInvoiceIllustration} from './scenes/MInvoiceIllustration'
+export {MReceiptIllustration} from './scenes/MReceiptIllustration'
+export {MRefundIllustration} from './scenes/MRefundIllustration'
+
+// Scenes — operational
+export {MConflictIllustration} from './scenes/MConflictIllustration'
