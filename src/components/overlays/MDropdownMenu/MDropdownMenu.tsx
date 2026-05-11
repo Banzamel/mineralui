@@ -156,8 +156,34 @@ export function MDropdownMenu({
               }
             : {}
 
+    /**
+     * When `isolateClick` is set, every click bubbling out of the menu
+     * (trigger AND items) must be stopped — otherwise selecting an action
+     * also fires the click handler on a clickable parent (Link, MCard with
+     * onClick, MDataTable row link). Trigger click itself is handled by
+     * `handleTriggerClick`; this wrapper catches the bubbled item clicks
+     * before they leave the anchor. `preventDefault` is needed too — when the
+     * dropdown is rendered inside an `<a href>` (MCard component={Link}),
+     * stopping propagation alone does not block native link navigation.
+     *
+     * Caveat: MDropdownItem with `href` will not navigate while inside an
+     * `isolateClick` menu — use programmatic navigation (onClick + navigate)
+     * in those contexts instead.
+     */
+    const isolateAnchorClick = isolateClick
+        ? (e: React.MouseEvent) => {
+              e.stopPropagation()
+              e.preventDefault()
+          }
+        : undefined
+
     return (
-        <div className={cn('dropdown menu anchor', className)} style={style} {...hoverHandlers}>
+        <div
+            className={cn('dropdown menu anchor', className)}
+            style={style}
+            onClick={isolateAnchorClick}
+            {...hoverHandlers}
+        >
             <div
                 ref={anchorRef}
                 onClick={openOn === 'click' ? handleTriggerClick : undefined}

@@ -1,0 +1,28 @@
+.m-sticky-panel {
+    position: sticky;
+    overflow-y: auto;
+    /* Allow the sticky element to shrink inside flex/grid parents and be
+     *  shorter than its content if the viewport gets too small. */
+    min-height: 0;
+    /* Avoid text-selection flashes while dragging. Kept on at all times so
+     *  the cursor change does not flicker between grab and text. */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.m-sticky-panel.draggable {
+    cursor: grab;
+}
+
+.m-sticky-panel.draggable.is-dragging {
+    cursor: grabbing;
+}
+
+.m-sticky-panel.hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.m-sticky-panel.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
+}
