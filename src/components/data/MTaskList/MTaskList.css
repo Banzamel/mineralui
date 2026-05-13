@@ -1,19 +1,64 @@
 .task.list {
     --color-rgb: var(--mineral-primary-rgb);
+    --task-list-font-size: var(--mineral-font-size-sm);
+    --task-list-gap: var(--mineral-spacing-xs);
+    --task-list-item-pad-y: var(--mineral-spacing-xs);
+    --task-list-item-pad-x: var(--mineral-spacing-sm);
+    --task-list-item-gap: var(--mineral-spacing-sm);
     display: flex;
     flex-direction: column;
-    gap: var(--mineral-spacing-xs);
+    gap: var(--task-list-gap);
+}
+
+.task.list.size-xs {
+    --task-list-font-size: var(--mineral-font-size-xs);
+    --task-list-gap: 2px;
+    --task-list-item-pad-y: 2px;
+    --task-list-item-pad-x: var(--mineral-spacing-xs);
+    --task-list-item-gap: var(--mineral-spacing-xs);
+}
+
+.task.list.size-sm {
+    --task-list-font-size: var(--mineral-font-size-xs);
+    --task-list-gap: var(--mineral-spacing-xs);
+    --task-list-item-pad-y: var(--mineral-spacing-xs);
+    --task-list-item-pad-x: var(--mineral-spacing-sm);
+    --task-list-item-gap: var(--mineral-spacing-xs);
+}
+
+.task.list.size-md {
+    --task-list-font-size: var(--mineral-font-size-sm);
+    --task-list-gap: var(--mineral-spacing-xs);
+    --task-list-item-pad-y: var(--mineral-spacing-xs);
+    --task-list-item-pad-x: var(--mineral-spacing-sm);
+    --task-list-item-gap: var(--mineral-spacing-sm);
+}
+
+.task.list.size-lg {
+    --task-list-font-size: var(--mineral-font-size-md);
+    --task-list-gap: var(--mineral-spacing-sm);
+    --task-list-item-pad-y: var(--mineral-spacing-sm);
+    --task-list-item-pad-x: var(--mineral-spacing-md);
+    --task-list-item-gap: var(--mineral-spacing-md);
+}
+
+.task.list.size-xl {
+    --task-list-font-size: var(--mineral-font-size-lg);
+    --task-list-gap: var(--mineral-spacing-sm);
+    --task-list-item-pad-y: var(--mineral-spacing-md);
+    --task-list-item-pad-x: var(--mineral-spacing-lg);
+    --task-list-item-gap: var(--mineral-spacing-md);
 }
 
 .task.item {
     display: flex;
     align-items: center;
-    gap: var(--mineral-spacing-sm);
-    padding: var(--mineral-spacing-xs) var(--mineral-spacing-sm);
+    gap: var(--task-list-item-gap);
+    padding: var(--task-list-item-pad-y) var(--task-list-item-pad-x);
     border-radius: var(--mineral-radius-sm);
     cursor: pointer;
     transition: background-color var(--mineral-transition-fast);
-    font-size: var(--mineral-font-size-sm);
+    font-size: var(--task-list-font-size);
 }
 
 .task.item:hover {

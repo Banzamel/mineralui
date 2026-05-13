@@ -1,8 +1,20 @@
+import type {MSize} from '../../../theme'
 import type {MDetailListProps} from './MDetailList.types'
 import {cn} from '../../../utils/cn'
 import {MInline, MStack} from '../../layout'
 import {MLink, MText} from '../../typography'
+import type {MTextSize} from '../../typography'
 import './MDetailList.css'
+
+// Maps the list's outer size to the secondary-text size used for labels and helper text.
+// Labels sit one notch below the value so they read as metadata, not headline copy.
+const LABEL_SIZE_MAP: Record<MSize, MTextSize> = {
+    xs: 'xs',
+    sm: 'xs',
+    md: 'sm',
+    lg: 'md',
+    xl: 'md',
+}
 
 export function MDetailList({
     items,
@@ -15,6 +27,8 @@ export function MDetailList({
     if (!items.length) {
         return emptyState ? <div className={cn('detail-list', className)}>{emptyState}</div> : null
     }
+
+    const labelSize = LABEL_SIZE_MAP[size]
 
     return (
         <div className={cn('detail-list', `size-${size}`, bordered && 'bordered', className)} {...rest}>
@@ -39,12 +53,12 @@ export function MDetailList({
                     <div key={key} className="detail-list-item">
                         <MInline justify={'between'} align={'start'}>
                             <MStack>
-                                <MText size={'sm'} tone={'muted'}>
+                                <MText size={labelSize} tone={'muted'}>
                                     {item.label}
                                 </MText>
                                 {value && <div className="detail-list-value">{value}</div>}
                                 {item.helperText && (
-                                    <MText size={'sm'} tone={'muted'}>
+                                    <MText size={labelSize} tone={'muted'}>
                                         {item.helperText}
                                     </MText>
                                 )}

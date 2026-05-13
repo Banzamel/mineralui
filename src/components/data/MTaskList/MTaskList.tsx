@@ -7,13 +7,14 @@ import './MTaskList.css'
 export function MTaskList({
     items,
     color = 'primary',
+    size = 'md',
     strikethrough = true,
     onChange,
     className,
     ...rest
 }: MTaskListProps) {
     return (
-        <div className={cn('task list', `color-${color}`, className)} role="list" {...rest}>
+        <div className={cn('task list', `color-${color}`, `size-${size}`, className)} role="list" {...rest}>
             {items.map((item) => (
                 <div
                     key={item.id}
@@ -29,7 +30,7 @@ export function MTaskList({
                         className="task control"
                         checked={item.checked ?? false}
                         color={color}
-                        size="sm"
+                        size={size}
                         disabled={item.disabled}
                         onChange={(e) => onChange?.(item.id, e.target.checked)}
                         clickEffect="ripple"

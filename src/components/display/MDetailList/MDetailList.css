@@ -1,5 +1,33 @@
 .detail-list {
     width: 100%;
+    /* Defaults match size='md'; per-size blocks below override them. */
+    --detail-list-item-pad-y: var(--mineral-spacing-sm);
+    --detail-list-value-font-size: var(--mineral-font-size-md);
+}
+
+.detail-list.size-xs {
+    --detail-list-item-pad-y: 2px;
+    --detail-list-value-font-size: var(--mineral-font-size-xs);
+}
+
+.detail-list.size-sm {
+    --detail-list-item-pad-y: var(--mineral-spacing-xs);
+    --detail-list-value-font-size: var(--mineral-font-size-sm);
+}
+
+.detail-list.size-md {
+    --detail-list-item-pad-y: var(--mineral-spacing-sm);
+    --detail-list-value-font-size: var(--mineral-font-size-md);
+}
+
+.detail-list.size-lg {
+    --detail-list-item-pad-y: var(--mineral-spacing-md);
+    --detail-list-value-font-size: var(--mineral-font-size-lg);
+}
+
+.detail-list.size-xl {
+    --detail-list-item-pad-y: var(--mineral-spacing-lg);
+    --detail-list-value-font-size: var(--mineral-font-size-xl);
 }
 
 .detail-list.bordered .detail-list-item + .detail-list-item {
@@ -7,16 +35,14 @@
 }
 
 .detail-list-item {
-    padding: var(--mineral-spacing-sm) 0;
-}
-
-.detail-list.size-sm .detail-list-item {
-    padding: var(--mineral-spacing-xs) 0;
+    padding: var(--detail-list-item-pad-y) 0;
 }
 
 .detail-list-value {
     font-weight: 600;
     color: var(--mineral-text);
+    font-size: var(--detail-list-value-font-size);
+    line-height: 1.4;
 }
 
 .detail-list-status {
