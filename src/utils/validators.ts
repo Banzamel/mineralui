@@ -338,3 +338,56 @@ export function validateDate(value: string, options: DateValidationOptions = {})
 
 export {validatePostCode} from './postalCodes'
 export {validateCardNumber} from './creditCards'
+
+// === URL ===
+
+export interface UrlValidationOptions {
+    /**
+     * Allowed URL protocols (without trailing colon). When the value carries a
+     * protocol, it must be one of these. Defaults to `['http', 'https']`.
+     */
+    protocols?: string[]
+    /**
+     * When `true` (default), the value must include a protocol from `protocols`.
+     * When `false`, a protocol-less value (e.g. `example.com/path`) still passes
+     * as long as it parses as a URL after a synthetic `https://` prefix.
+     */
+    requireProtocol?: boolean
+}
+
+// Validate a URL while allowing empty optional fields. Uses the native URL
+// parser so we get IDN, port, query and fragment handling for free. The
+// protocol whitelist defaults to http/https — pass `protocols: []` to accept
+// any scheme.
+export function validateUrl(value: string, options: UrlValidationOptions = {}): ValidationResult {
+    if (!value) return ok
+
+    const {protocols = ['http', 'https'], requireProtocol = true} = options
+
+    const hasScheme = /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(value)
+    if (!hasScheme && requireProtocol) {
+        return fail(`URL must start with ${protocols.map((p) => `${p}://`).join(' or ')}`)
+    }
+
+    const candidate = hasScheme ? value : `https://${value}`
+
+    let parsed: URL
+    try {
+        parsed = new URL(candidate)
+    } catch {
+        return fail('Invalid URL')
+    }
+
+    // Reject the parsed URL when it has no host (e.g. `https://`) — those slip
+    // past `new URL()` silently in some engines.
+    if (!parsed.hostname) return fail('Invalid URL')
+
+    if (hasScheme && protocols.length > 0) {
+        const scheme = parsed.protocol.replace(/:$/, '')
+        if (!protocols.includes(scheme)) {
+            return fail(`Protocol "${scheme}" is not allowed`)
+        }
+    }
+
+    return ok
+}

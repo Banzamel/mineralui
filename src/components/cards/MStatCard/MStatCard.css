@@ -2,24 +2,34 @@
     min-height: 100%;
 }
 
+.stat-card-label {
+    font-size: var(--mineral-font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mineral-text-secondary);
+}
+
 .stat-card-value {
     display: inline-flex;
     align-items: center;
     gap: var(--mineral-spacing-xs);
-    font-size: clamp(1.6rem, 2vw, 2.2rem);
+    font-size: clamp(1.5rem, 1.6vw, 2rem);
     font-weight: 700;
     line-height: 1.1;
-    color: var(--mineral-text);
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--mineral-text-heading, var(--mineral-text));
 }
 
 .stat-card-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: var(--mineral-radius-full);
-    background-color: rgba(var(--color-rgb), 0.12);
+    background-color: rgba(var(--color-rgb), 0.14);
     color: rgba(var(--color-rgb), 1);
 }
 
@@ -29,6 +39,7 @@
     gap: var(--mineral-spacing-xs);
     font-size: var(--mineral-font-size-sm);
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-card-trend.up {

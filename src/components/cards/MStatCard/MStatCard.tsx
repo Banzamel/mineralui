@@ -43,15 +43,13 @@ export function MCardStat({
 
     return (
         <MCard className={cn('stat-card', `color-${color}`, className)} {...rest}>
-            <MStack padding={'sm'}>
+            <MStack spacing={'md'}>
                 <MInline justify={'between'} align={'start'}>
-                    <MStack>
-                        <MText size={'sm'} tone={'muted'}>
-                            {label}
-                        </MText>
+                    <MStack spacing={'xs'}>
+                        <span className="stat-card-label">{label}</span>
                         <span className="stat-card-value">{value}</span>
                     </MStack>
-                    <MInline align={'center'} padding={'xs'}>
+                    <MInline align={'center'}>
                         {badge}
                         {icon && <span className="stat-card-icon">{icon}</span>}
                     </MInline>
