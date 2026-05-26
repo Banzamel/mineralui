@@ -25,7 +25,7 @@ export {MDateRangePickerIllustration} from './scenes/MDateRangePickerIllustratio
 export {MShowcaseIllustration} from './scenes/MShowcaseIllustration'
 export {MCalendarBoardIllustration} from './scenes/MCalendarBoardIllustration'
 export {MFileManagerIllustration} from './scenes/MFileManagerIllustration'
-export {MCookieConsentIllustration} from './scenes/MCookieConsentIllustration'
+// MCookieConsentIllustration moved to @banzamel/honey alongside the cookie surface in mineralui-pro 2.0.0.
 export {MQrCodeIllustration} from './scenes/MQrCodeIllustration'
 export {MCountUpIllustration} from './scenes/MCountUpIllustration'
 export {MTimeAgoIllustration} from './scenes/MTimeAgoIllustration'

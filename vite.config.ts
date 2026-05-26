@@ -191,7 +191,9 @@ const entryMap = {
     utils: resolve(__dirname, 'src/utils.entry.ts'),
 }
 
-const styleInjectedEntries = Object.keys(entryMap).filter((entryName) => entryName !== 'cookie-consent-bootstrap')
+// All entries in 2.0.0 are React-facing — the cookie-consent-bootstrap subpath
+// moved to @banzamel/honey/cookie-consent-bootstrap and no longer ships here.
+const styleInjectedEntries = Object.keys(entryMap)
 
 export default defineConfig({
     plugins: [

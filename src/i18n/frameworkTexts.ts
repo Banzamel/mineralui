@@ -70,35 +70,6 @@ export interface MFileManagerTexts {
     newFolder: string
 }
 
-export interface MCookieConsentTexts {
-    bannerTitle: string
-    bannerDescription: string
-    manage: string
-    preferencesTitle: string
-    preferencesDescription: string
-    acceptAll: string
-    rejectAll: string
-    preferences: string
-    savePreferences: string
-    close: string
-    requiredLabel: string
-    necessaryLabel: string
-    necessaryDescription: string
-    preferencesLabel: string
-    preferencesDescriptionLabel: string
-    analyticsLabel: string
-    analyticsDescription: string
-    marketingLabel: string
-    marketingDescription: string
-    declarationTitle: string
-    declarationDescription: string
-    noDeclarationItems: string
-    searchDeclaration: string
-    triggerLabel: string
-    detectedCookiesLabel: string
-    noDetectedCookies: string
-}
-
 export function useMDatePickerTexts(): MDatePickerTexts {
     const t = useTranslate()
 
@@ -200,62 +171,6 @@ export function useMFileManagerTexts(): MFileManagerTexts {
     )
 }
 
-export function useMCookieConsentTexts(): MCookieConsentTexts {
-    const t = useTranslate()
-
-    return useMemo(
-        () => ({
-            bannerTitle: t('mineralui.cookieConsent.bannerTitle', 'We use cookies'),
-            bannerDescription: t(
-                'mineralui.cookieConsent.bannerDescription',
-                'We use necessary cookies to keep the site working and optional cookies to improve experience, analytics and marketing.'
-            ),
-            manage: t('mineralui.cookieConsent.manage', 'Manage'),
-            preferencesTitle: t('mineralui.cookieConsent.preferencesTitle', 'Cookie preferences'),
-            preferencesDescription: t(
-                'mineralui.cookieConsent.preferencesDescription',
-                'Choose which optional cookie categories you allow. Necessary cookies are always active.'
-            ),
-            acceptAll: t('mineralui.cookieConsent.acceptAll', 'Accept all'),
-            rejectAll: t('mineralui.cookieConsent.rejectAll', 'Reject optional'),
-            preferences: t('mineralui.cookieConsent.preferences', 'Preferences'),
-            savePreferences: t('mineralui.cookieConsent.savePreferences', 'Save preferences'),
-            close: t('mineralui.cookieConsent.close', 'Close'),
-            requiredLabel: t('mineralui.cookieConsent.requiredLabel', 'Required'),
-            necessaryLabel: t('mineralui.cookieConsent.necessaryLabel', 'Necessary'),
-            necessaryDescription: t(
-                'mineralui.cookieConsent.necessaryDescription',
-                'These cookies are required for core site functionality and cannot be disabled.'
-            ),
-            preferencesLabel: t('mineralui.cookieConsent.preferencesLabel', 'Preferences'),
-            preferencesDescriptionLabel: t(
-                'mineralui.cookieConsent.preferencesDescriptionLabel',
-                'These cookies remember settings such as language, theme or saved interface choices.'
-            ),
-            analyticsLabel: t('mineralui.cookieConsent.analyticsLabel', 'Analytics'),
-            analyticsDescription: t(
-                'mineralui.cookieConsent.analyticsDescription',
-                'These cookies help measure usage and improve content, performance and navigation.'
-            ),
-            marketingLabel: t('mineralui.cookieConsent.marketingLabel', 'Marketing'),
-            marketingDescription: t(
-                'mineralui.cookieConsent.marketingDescription',
-                'These cookies support campaigns, advertising attribution and embedded marketing tools.'
-            ),
-            declarationTitle: t('mineralui.cookieConsent.declarationTitle', 'Cookie declaration'),
-            declarationDescription: t(
-                'mineralui.cookieConsent.declarationDescription',
-                'Review the cookies and storage technologies used by this page, grouped by purpose.'
-            ),
-            noDeclarationItems: t('mineralui.cookieConsent.noDeclarationItems', 'No declaration items available.'),
-            searchDeclaration: t('mineralui.cookieConsent.searchDeclaration', 'Search cookies...'),
-            triggerLabel: t('mineralui.cookieConsent.triggerLabel', 'Cookie settings'),
-            detectedCookiesLabel: t('mineralui.cookieConsent.detectedCookiesLabel', 'Detected storage and trackers'),
-            noDetectedCookies: t(
-                'mineralui.cookieConsent.noDetectedCookies',
-                'No storage or trackers detected in this category yet.'
-            ),
-        }),
-        [t]
-    )
-}
+// Cookie-consent texts moved to @banzamel/honey in mineralui-pro 2.0.0.
+// Consumers that need to retheme cookie copy now pass `texts` directly to
+// `<CookieConsentProvider>` from `@banzamel/honey`.

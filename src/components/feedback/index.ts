@@ -22,5 +22,7 @@ export type {MProgressRingProps} from './MProgressRing'
 export {MToastProvider, useMToast} from './MToast'
 export type {MToastProviderProps, MToastOptions, MToastEntry, MToastPosition, MToastContext} from './MToast'
 
+// Cookie consent moved to @banzamel/honey in mineralui-pro 2.0.0 — see Honey
+// docs at honey.dev (or pricing.mineralui.io/honey) for the migration guide.
 export {MSkeleton} from './MSkeleton'
 export type {MSkeletonProps, MSkeletonVariant} from './MSkeleton'
