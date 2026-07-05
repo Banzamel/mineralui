@@ -5,6 +5,7 @@ import {MButton, MCheckbox} from '../../controls'
 import {MInputSearch} from '../../inputs'
 import {MPagination} from '../../layout'
 import {MPopover} from '../../primitives'
+import {MLoader} from '../../feedback'
 import {MArrowDownIcon, MArrowUpDownIcon, MArrowUpIcon, MFilterIcon, MSortIcon} from '../../../icons'
 import {cn} from '../../../utils/cn'
 import './MDataTable.css'
@@ -39,6 +40,9 @@ export function MDataTable<T = any>({
     striped = false,
     compact = false,
     stickyHeader = false,
+    loading = false,
+    loadingLabel = 'Loading',
+    scrollOffset,
     sort: controlledSort,
     onSortChange,
     search: controlledSearch,
@@ -60,6 +64,7 @@ export function MDataTable<T = any>({
     emptyText = 'No data',
     filterPlaceholder = 'Search...',
     className,
+    style,
     ...rest
 }: MDataTableProps<T>) {
     const [internalSort, setInternalSort] = useState<MDataTableSort | null>(null)
@@ -262,7 +267,12 @@ export function MDataTable<T = any>({
     const showToolbar = filterable || filterKeys.length > 0 || sortKeys.length > 0
 
     return (
-        <div ref={rootRef} className={cn('data-table', className)} {...rest}>
+        <div
+            ref={rootRef}
+            className={cn('data-table', className)}
+            style={scrollOffset !== undefined ? {scrollMarginTop: scrollOffset, ...style} : style}
+            {...rest}
+        >
             {showToolbar && (
                 <div className="toolbar">
                     {filterable && (
@@ -385,99 +395,110 @@ export function MDataTable<T = any>({
                     )}
                 </div>
             )}
-            <div className="scroll">
-                <table className={cn('root', striped && 'striped', compact && 'compact')}>
-                    <thead className={cn('head', stickyHeader && 'sticky')}>
-                        <tr>
-                            {selectable && (
-                                <th className="th check-col">
-                                    <MCheckbox
-                                        checked={allSelected}
-                                        onChange={toggleAll}
-                                        size="sm"
-                                        clickEffect="none"
-                                    />
-                                </th>
+            <div className={cn('data-table-body', loading && 'loading')} aria-busy={loading || undefined}>
+                <div className="scroll">
+                    <table className={cn('root', striped && 'striped', compact && 'compact')}>
+                        <thead className={cn('head', stickyHeader && 'sticky')}>
+                            <tr>
+                                {selectable && (
+                                    <th className="th check-col">
+                                        <MCheckbox
+                                            checked={allSelected}
+                                            onChange={toggleAll}
+                                            size="sm"
+                                            clickEffect="none"
+                                        />
+                                    </th>
+                                )}
+                                {columns.map((col) => {
+                                    const isSortable = col.sortable ?? sortable
+                                    const isSorted = activeSort?.key === col.key
+
+                                    return (
+                                        <th
+                                            key={col.key}
+                                            className={cn(
+                                                'th',
+                                                isSortable && 'sortable',
+                                                isSorted && `sorted-${activeSort!.dir}`
+                                            )}
+                                            style={{
+                                                width: col.width,
+                                                textAlign: col.align,
+                                            }}
+                                            onClick={isSortable ? () => handleSort(col.key) : undefined}
+                                        >
+                                            <span className="th-content">
+                                                {col.label}
+                                                {isSortable && (
+                                                    <span className="sort-icon">
+                                                        {isSorted ? (
+                                                            activeSort!.dir === 'asc' ? (
+                                                                <MArrowUpIcon aria-hidden="true" />
+                                                            ) : (
+                                                                <MArrowDownIcon aria-hidden="true" />
+                                                            )
+                                                        ) : (
+                                                            <MArrowUpDownIcon aria-hidden="true" />
+                                                        )}
+                                                    </span>
+                                                )}
+                                            </span>
+                                        </th>
+                                    )
+                                })}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {pageData.length === 0 && (
+                                <tr>
+                                    <td className="empty" colSpan={columns.length + (selectable ? 1 : 0)}>
+                                        {emptyText}
+                                    </td>
+                                </tr>
                             )}
-                            {columns.map((col) => {
-                                const isSortable = col.sortable ?? sortable
-                                const isSorted = activeSort?.key === col.key
+                            {pageData.map((row, index) => {
+                                const key = getRowKey(row, (page - 1) * pageSize + index, rowKey)
+                                const isSelected = selected.includes(key)
 
                                 return (
-                                    <th
-                                        key={col.key}
-                                        className={cn(
-                                            'th',
-                                            isSortable && 'sortable',
-                                            isSorted && `sorted-${activeSort!.dir}`
-                                        )}
-                                        style={{
-                                            width: col.width,
-                                            textAlign: col.align,
-                                        }}
-                                        onClick={isSortable ? () => handleSort(col.key) : undefined}
+                                    <tr
+                                        key={key}
+                                        className={cn('row', isSelected && 'selected', selectable && 'selectable')}
+                                        onClick={selectable ? (event) => handleRowClick(key, event) : undefined}
                                     >
-                                        <span className="th-content">
-                                            {col.label}
-                                            {isSortable && (
-                                                <span className="sort-icon">
-                                                    {isSorted ? (
-                                                        activeSort!.dir === 'asc' ? (
-                                                            <MArrowUpIcon aria-hidden="true" />
-                                                        ) : (
-                                                            <MArrowDownIcon aria-hidden="true" />
-                                                        )
-                                                    ) : (
-                                                        <MArrowUpDownIcon aria-hidden="true" />
-                                                    )}
-                                                </span>
-                                            )}
-                                        </span>
-                                    </th>
+                                        {selectable && (
+                                            <td className="td check-col">
+                                                <MCheckbox
+                                                    checked={isSelected}
+                                                    onChange={() => {}}
+                                                    size="sm"
+                                                    clickEffect="none"
+                                                />
+                                            </td>
+                                        )}
+                                        {columns.map((col) => (
+                                            <td key={col.key} className="td" style={{textAlign: col.align}}>
+                                                {col.render
+                                                    ? col.render(
+                                                          (row as any)[col.key],
+                                                          row,
+                                                          (page - 1) * pageSize + index
+                                                      )
+                                                    : (row as any)[col.key]}
+                                            </td>
+                                        ))}
+                                    </tr>
                                 )
                             })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pageData.length === 0 && (
-                            <tr>
-                                <td className="empty" colSpan={columns.length + (selectable ? 1 : 0)}>
-                                    {emptyText}
-                                </td>
-                            </tr>
-                        )}
-                        {pageData.map((row, index) => {
-                            const key = getRowKey(row, (page - 1) * pageSize + index, rowKey)
-                            const isSelected = selected.includes(key)
-
-                            return (
-                                <tr
-                                    key={key}
-                                    className={cn('row', isSelected && 'selected', selectable && 'selectable')}
-                                    onClick={selectable ? (event) => handleRowClick(key, event) : undefined}
-                                >
-                                    {selectable && (
-                                        <td className="td check-col">
-                                            <MCheckbox
-                                                checked={isSelected}
-                                                onChange={() => {}}
-                                                size="sm"
-                                                clickEffect="none"
-                                            />
-                                        </td>
-                                    )}
-                                    {columns.map((col) => (
-                                        <td key={col.key} className="td" style={{textAlign: col.align}}>
-                                            {col.render
-                                                ? col.render((row as any)[col.key], row, (page - 1) * pageSize + index)
-                                                : (row as any)[col.key]}
-                                        </td>
-                                    ))}
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                {loading && (
+                    <div className="data-table-loading" role="status" aria-live="polite">
+                        <MLoader center={false} minHeight="auto" label={loadingLabel} />
+                    </div>
+                )}
             </div>
             {pagination && totalPages > 1 && (
                 <MPagination total={totalItems} page={page} pageSize={pageSize} onChange={setPage} />

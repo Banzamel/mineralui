@@ -58,6 +58,8 @@ export interface MTableProps<T> {
     manualSort: true
     manualPagination: true
     pageSize: number
+    /** Mirrors `isLoading`; drives `MDataTable`'s loading scrim when `tableProps` is spread. */
+    loading: boolean
 }
 
 export interface MTableHandle<T> {
@@ -76,7 +78,14 @@ export interface MTableHandle<T> {
  * requests when the query changes. Spread `tableProps` onto your table.
  */
 export function useMTable<T>(fetcher: MTableFetcher<T>, options: MTableOptions = {}): MTableHandle<T> {
-    const {perPage = 20, initialPage = 1, initialSearch = '', initialFilters, initialSort = null, invalidationKey} = options
+    const {
+        perPage = 20,
+        initialPage = 1,
+        initialSearch = '',
+        initialFilters,
+        initialSort = null,
+        invalidationKey,
+    } = options
 
     const [data, setData] = useState<T[]>([])
     const [total, setTotal] = useState(0)
@@ -93,7 +102,7 @@ export function useMTable<T>(fetcher: MTableFetcher<T>, options: MTableOptions =
 
     const query = useMemo<MTableQuery>(
         () => ({page, perPage, search, filters, sort}),
-        [page, perPage, search, filters, sort],
+        [page, perPage, search, filters, sort]
     )
 
     useEffect(() => {
@@ -154,6 +163,7 @@ export function useMTable<T>(fetcher: MTableFetcher<T>, options: MTableOptions =
         manualSort: true,
         manualPagination: true,
         pageSize: perPage,
+        loading: isLoading,
     }
 
     return {tableProps, isLoading, error, refetch}

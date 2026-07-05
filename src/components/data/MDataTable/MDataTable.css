@@ -97,12 +97,40 @@
     flex: 0 0 auto;
 }
 
+.data-table-body {
+    position: relative;
+}
+
 .data-table .scroll {
     width: 100%;
     overflow-x: auto;
     border: 1px solid var(--mineral-border);
     border-radius: var(--mineral-radius-lg);
     background: color-mix(in srgb, var(--mineral-surface) 88%, var(--mineral-dark-light) 12%);
+}
+
+/* Loading scrim: sits over the table body so the previous rows stay visible
+   underneath while a fetch resolves. Toolbar + pagination remain interactive. */
+.data-table-body.loading .scroll {
+    pointer-events: none;
+    user-select: none;
+}
+
+.data-table-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--mineral-radius-lg);
+    background: color-mix(in srgb, var(--mineral-surface) 55%, transparent);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+.theme-light .data-table-loading {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .data-table .root {

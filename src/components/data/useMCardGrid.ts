@@ -24,6 +24,8 @@ export interface MCardGridProps<T> {
     manualSort: true
     manualPagination: true
     pageSize: number
+    /** Mirrors `isLoading`; drives `MCardGrid`'s loading scrim when `gridProps` is spread. */
+    loading: boolean
 }
 
 export interface MCardGridHandle<T> {
@@ -44,7 +46,14 @@ function toTableSort<T>(sort: MCardGridSort<T> | null): MTableQuery['sort'] {
  * page state, calls a generic `MTableFetcher`, returns `gridProps` to spread.
  */
 export function useMCardGrid<T>(fetcher: MTableFetcher<T>, options: MTableOptions = {}): MCardGridHandle<T> {
-    const {perPage = 12, initialPage = 1, initialSearch = '', initialFilters, initialSort = null, invalidationKey} = options
+    const {
+        perPage = 12,
+        initialPage = 1,
+        initialSearch = '',
+        initialFilters,
+        initialSort = null,
+        invalidationKey,
+    } = options
 
     const [items, setItems] = useState<T[]>([])
     const [total, setTotal] = useState(0)
@@ -52,7 +61,7 @@ export function useMCardGrid<T>(fetcher: MTableFetcher<T>, options: MTableOption
     const [search, setSearch] = useState(initialSearch)
     const [filters, setFilters] = useState<Record<string, string[]>>(initialFilters ?? {})
     const [sort, setSort] = useState<MCardGridSort<T> | null>(
-        (initialSort as MCardGridSort<T> | null | undefined) ?? null,
+        (initialSort as MCardGridSort<T> | null | undefined) ?? null
     )
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
@@ -63,7 +72,7 @@ export function useMCardGrid<T>(fetcher: MTableFetcher<T>, options: MTableOption
 
     const query = useMemo<MTableQuery>(
         () => ({page, perPage, search, filters, sort: toTableSort(sort)}),
-        [page, perPage, search, filters, sort],
+        [page, perPage, search, filters, sort]
     )
 
     useEffect(() => {
@@ -123,6 +132,7 @@ export function useMCardGrid<T>(fetcher: MTableFetcher<T>, options: MTableOption
         manualSort: true,
         manualPagination: true,
         pageSize: perPage,
+        loading: isLoading,
     }
 
     return {gridProps, isLoading, error, refetch}

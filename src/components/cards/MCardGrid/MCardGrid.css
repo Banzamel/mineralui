@@ -186,6 +186,34 @@
     }
 }
 
+.card-grid-body {
+    position: relative;
+}
+
+/* Loading scrim: sits over the grid body so the previous cards stay visible
+   underneath while a fetch resolves. Toolbar + pagination remain interactive. */
+.card-grid-body.loading .card-grid-items {
+    pointer-events: none;
+    user-select: none;
+}
+
+.card-grid-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--mineral-radius-lg);
+    background: color-mix(in srgb, var(--mineral-surface) 55%, transparent);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+.theme-light .card-grid-loading {
+    background: rgba(255, 255, 255, 0.6);
+}
+
 .card-grid-empty {
     text-align: center;
     padding: var(--mineral-spacing-xl);

@@ -80,6 +80,24 @@ export interface MCardGridProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, 
     manualPagination?: boolean
 
     /**
+     * When `true`, renders a translucent scrim + centered `MLoader` over the grid
+     * body while leaving the toolbar and pagination interactive. Ideal for async
+     * (manual) fetches on page/sort/filter changes so the previous cards stay visible
+     * underneath instead of the grid collapsing to an empty state.
+     */
+    loading?: boolean
+    /** Accessible label announced by the loading overlay's spinner. Default `'Loading'`. */
+    loadingLabel?: string
+
+    /**
+     * Vertical offset (px, or any CSS length) subtracted from the top when the grid
+     * auto-scrolls into view after a page change. Set this to the height of a fixed /
+     * sticky app topbar so the top of the grid is not hidden underneath it.
+     * Implemented via `scroll-margin-top`, so it is honored by the smooth scroll.
+     */
+    scrollOffset?: number | string
+
+    /**
      * Number of grid columns. Accepts:
      *  - `number` — fixed column count for every screen (back-compat).
      *  - `MCardGridResponsiveColumns` — per-breakpoint counts following the

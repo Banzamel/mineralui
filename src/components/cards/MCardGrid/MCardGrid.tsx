@@ -5,6 +5,7 @@ import {MButton, MCheckbox} from '../../controls'
 import {MInputSearch} from '../../inputs'
 import {MPagination} from '../../layout'
 import {MPopover} from '../../primitives'
+import {MLoader} from '../../feedback'
 import {MArrowDownIcon, MArrowUpIcon, MFilterIcon, MSortIcon} from '../../../icons'
 import './MCardGrid.css'
 
@@ -67,6 +68,9 @@ export function MCardGrid<T extends Record<string, unknown>>({
     manualFilters = false,
     manualSort = false,
     manualPagination = false,
+    loading = false,
+    loadingLabel = 'Loading',
+    scrollOffset,
     columns = 3,
     emptyMessage = 'No results found.',
     className,
@@ -216,7 +220,12 @@ export function MCardGrid<T extends Record<string, unknown>>({
     const activeSort = sortKeys.find((item) => item.key === sort?.key)
 
     return (
-        <div ref={rootRef} className={cn('card-grid', `color-${color}`, className)} style={style} {...rest}>
+        <div
+            ref={rootRef}
+            className={cn('card-grid', `color-${color}`, className)}
+            style={scrollOffset !== undefined ? {scrollMarginTop: scrollOffset, ...style} : style}
+            {...rest}
+        >
             {(searchable || filterable || sortable) && (
                 <div className="card-grid-toolbar">
                     {searchable && (
@@ -340,18 +349,25 @@ export function MCardGrid<T extends Record<string, unknown>>({
                 </div>
             )}
 
-            {paginatedItems.length > 0 ? (
-                <div className="card-grid-items" style={buildColumnsStyle(columns)}>
-                    {paginatedItems.map((item, index) => {
-                        // Wrap each card so consumers don't have to remember `key={item.id}` in renderCard.
-                        // Prefer the item's id when present (stable across reorders), fall back to index.
-                        const id = (item as {id?: string | number} | null | undefined)?.id
-                        return <Fragment key={id ?? index}>{renderCard(item, index)}</Fragment>
-                    })}
-                </div>
-            ) : (
-                <div className="card-grid-empty">{emptyMessage}</div>
-            )}
+            <div className={cn('card-grid-body', loading && 'loading')} aria-busy={loading || undefined}>
+                {paginatedItems.length > 0 ? (
+                    <div className="card-grid-items" style={buildColumnsStyle(columns)}>
+                        {paginatedItems.map((item, index) => {
+                            // Wrap each card so consumers don't have to remember `key={item.id}` in renderCard.
+                            // Prefer the item's id when present (stable across reorders), fall back to index.
+                            const id = (item as {id?: string | number} | null | undefined)?.id
+                            return <Fragment key={id ?? index}>{renderCard(item, index)}</Fragment>
+                        })}
+                    </div>
+                ) : (
+                    <div className="card-grid-empty">{emptyMessage}</div>
+                )}
+                {loading && (
+                    <div className="card-grid-loading" role="status" aria-live="polite">
+                        <MLoader center={false} minHeight="auto" color={color} label={loadingLabel} />
+                    </div>
+                )}
+            </div>
 
             {pagination && totalItems > pageSize && (
                 <div className="card-grid-pagination">
