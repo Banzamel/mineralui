@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef, useCallback} from 'react'
 import {MPortal} from '../MPortal'
 import {cn} from '../../../utils/cn'
+import {isInsideDescendantPopover, nextPopoverId, registerPopover} from './popoverStack'
 import type {MPopoverProps} from './MPopover.types'
 import './MPopover.css'
 
@@ -18,6 +19,9 @@ export function MPopover({
     style,
 }: MPopoverProps) {
     const popoverRef = useRef<HTMLDivElement>(null)
+    const popoverIdRef = useRef<number>(null)
+    if (popoverIdRef.current === null) popoverIdRef.current = nextPopoverId()
+    const popoverId = popoverIdRef.current
     const [position, setPosition] = useState<{top: number; left: number; width?: number} | null>(null)
     const [flipped, setFlipped] = useState(false)
     const [layerZ, setLayerZ] = useState<number | string | null>(null)
@@ -163,22 +167,40 @@ export function MPopover({
         return () => document.removeEventListener('keydown', handleKey)
     }, [open, onClose])
 
+    // Publish this instance while it is open so nested popovers can be related
+    // back to it — see popoverStack.ts for why the DOM alone cannot answer this.
+    useEffect(() => {
+        if (!open) return
+        return registerPopover({
+            id: popoverId,
+            getPopoverEl: () => popoverRef.current,
+            getAnchorEl: () => anchorRef.current,
+        })
+    }, [open, popoverId, anchorRef])
+
     // Close when the user interacts outside both the popover and its anchor.
     useEffect(() => {
         if (!open) return
         const handleClick = (e: MouseEvent) => {
-            if (
-                popoverRef.current &&
-                !popoverRef.current.contains(e.target as Node) &&
-                anchorRef.current &&
-                !anchorRef.current.contains(e.target as Node)
-            ) {
-                onClose()
+            const target = e.target as Node
+
+            if (popoverRef.current?.contains(target) || anchorRef.current?.contains(target)) {
+                return
             }
+
+            // A popover nested inside this one is portaled to `document.body`,
+            // so it fails the `contains` checks above even though the click
+            // belongs to this popover's own subtree. Closing here would unmount
+            // that child between mousedown and mouseup and swallow its click.
+            if (isInsideDescendantPopover(popoverId, target)) {
+                return
+            }
+
+            onClose()
         }
         document.addEventListener('mousedown', handleClick)
         return () => document.removeEventListener('mousedown', handleClick)
-    }, [open, onClose, anchorRef])
+    }, [open, onClose, anchorRef, popoverId])
 
     if (!open) return null
 

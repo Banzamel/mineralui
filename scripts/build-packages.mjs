@@ -21,7 +21,15 @@ const ignoredNames = new Set([
 
 const ignoredFiles = new Set([
     'package-lock.json',
+    'vitest.config.ts',
 ])
+
+// Test sources live next to the components they cover. They must not reach the
+// generated packages: the npm tarballs exclude `src` via their `files` field,
+// but the whole basic tree is mirrored into the public `mineralui-basic` repo,
+// and the copied files would also import devDependencies the packages do not
+// declare.
+const ignoredFileSuffixes = ['.test.ts', '.test.tsx', '.spec.ts', '.spec.tsx']
 
 const proSourcePaths = [
     'src/components/cards/MCardBusiness',
@@ -208,6 +216,10 @@ function shouldCopyPath(sourcePath) {
     }
 
     if (name.endsWith('.tgz') || name.endsWith('.log')) {
+        return false
+    }
+
+    if (ignoredFileSuffixes.some((suffix) => name.endsWith(suffix))) {
         return false
     }
 
