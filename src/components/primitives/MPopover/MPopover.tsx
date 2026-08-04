@@ -138,10 +138,17 @@ export function MPopover({
         // Wait one frame so the rendered popover can be measured accurately.
         requestAnimationFrame(updatePosition)
 
-        window.addEventListener('scroll', updatePosition, {passive: true})
+        // `scroll` does not bubble, so a window listener only ever sees the
+        // document scrolling. Anchors living inside a scrollable ancestor — an
+        // app shell with a scrolling main region, MStickyPanel, an overflowing
+        // card — would leave the popover stranded at its opening coordinates
+        // while the anchor moved away underneath it. Scroll events do capture,
+        // so a capture-phase listener on the document catches scrolling from
+        // ANY container, including the document itself.
+        document.addEventListener('scroll', updatePosition, {capture: true, passive: true})
         window.addEventListener('resize', updatePosition, {passive: true})
         return () => {
-            window.removeEventListener('scroll', updatePosition)
+            document.removeEventListener('scroll', updatePosition, {capture: true})
             window.removeEventListener('resize', updatePosition)
         }
     }, [open, updateLayer, updatePosition])
