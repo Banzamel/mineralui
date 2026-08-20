@@ -5,12 +5,7 @@ export type {MTreeViewProps, MTreeNode, MTreeViewContextMenuItem, MTreeViewMoveE
 export {MTaskList} from './MTaskList'
 export type {MTaskListProps, MTaskItem} from './MTaskList'
 export {MWeekGrid} from './MWeekGrid'
-export type {
-    MWeekGridBand,
-    MWeekGridCell,
-    MWeekGridCellContext,
-    MWeekGridProps,
-} from './MWeekGrid'
+export type {MWeekGridBand, MWeekGridCell, MWeekGridCellContext, MWeekGridProps} from './MWeekGrid'
 
 export {useMTable} from './useMTable'
 export type {MTableQuery, MTableResponse, MTableFetcher, MTableOptions, MTableHandle, MTableProps} from './useMTable'

@@ -34,7 +34,9 @@ export function MToastItem({entry, onDismiss}: {entry: MToastEntry; onDismiss: (
                 {icon && <span className="toast icon">{icon}</span>}
                 <div className="toast content">
                     {entry.title && <div className="toast title">{entry.title}</div>}
-                    <div className="toast message">{entry.message}</div>
+                    {entry.message !== undefined && entry.message !== null && entry.message !== '' && (
+                        <div className="toast message">{entry.message}</div>
+                    )}
                 </div>
             </div>
             <MButton

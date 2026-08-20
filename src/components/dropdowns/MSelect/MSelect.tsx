@@ -17,7 +17,7 @@ export function MSelect({
     onChange,
     multiple = false,
     searchable = false,
-    placeholder = 'MSelect...',
+    placeholder = 'Select...',
     disabled = false,
     name,
     id,
