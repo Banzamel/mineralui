@@ -37,6 +37,7 @@ const proSourcePaths = [
     'src/components/data/MCalendarBoard',
     'src/components/data/MChart',
     'src/components/data/MChat',
+    'src/components/data/MDashboardGrid',
     'src/components/data/MFileManager',
     'src/components/data/MSparkline',
     'src/components/data/MTimelineBoard',
@@ -57,7 +58,7 @@ const proSourcePaths = [
 
 const basicBlockMatchers = {
     'src/components/cards/index.ts': ['MCardBusiness', 'MCardFinance'],
-    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MTimelineBoard', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
+    'src/components/data/index.ts': ['MChat', 'MFileManager', 'MCalendarBoard', 'MTimelineBoard', 'MDashboardGrid', 'MLineChart', 'MBarChart', 'MAreaChart', 'MPieChart', 'MSparkline'],
     'src/components/display/index.ts': ['MQrCode'],
     'src/components/feedback/index.ts': ['./MCookie'],
     'src/components/layout/index.ts': ['MTopbar'],
